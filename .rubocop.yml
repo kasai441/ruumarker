@@ -1,0 +1,22 @@
+AllCops:
+  TargetRubyVersion: 3.1
+  SuggestExtensions: false
+  NewCops: disable
+
+Style/Documentation:
+  Enabled: false
+
+Layout/LineLength:
+  Exclude:
+    - bin/bundle
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 20
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - bin/bundle
