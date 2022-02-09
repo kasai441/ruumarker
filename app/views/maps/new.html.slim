@@ -1,2 +1,16 @@
 h1 Maps#new
-p Find me in app/views/maps/new.html.slim
+
+= form_with model: @map, local: true do |f|
+  .form-group
+    = f.label :trimming
+    = f.text_field :trimming, class: 'form-control', id: 'map_trimming'
+  .form-group
+    = f.label :expansion
+    = f.text_field :expansion, class: 'form-control', id: 'map_expansion'
+  .form-group
+    = f.label :rotation
+    = f.text_field :rotation, class: 'form-control', id: 'map_rotation'
+  .form-group
+    = f.label :image
+    = f.file_field :image, class: 'form-control'
+  = f.submit nil, class: 'btn btn-primary'

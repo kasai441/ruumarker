@@ -1,2 +1,21 @@
 h1 Rooms#show
-p Find me in app/views/rooms/show.html.slim
+table
+  tbody
+    tr
+      th= Map.human_attribute_name(:id)
+      td= @room.map.id
+    tr
+      th= Map.human_attribute_name(:trimming)
+      td= @room.map.trimming
+    tr
+      th= Map.human_attribute_name(:expansion)
+      td= @room.map.expansion
+    tr
+      th= Map.human_attribute_name(:rotation)
+      td= @room.map.rotation
+    tr
+      th= Map.human_attribute_name(:created_at)
+      td= @room.map.created_at
+    tr
+      th= Map.human_attribute_name(:updated_at)
+      td= @room.map.updated_at

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class RoomsController < ApplicationController
-  def show; end
+  def show
+    @room = Room.find(params[:id])
+  end
 
   def new; end
 
