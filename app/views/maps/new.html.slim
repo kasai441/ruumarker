@@ -1,6 +1,6 @@
 h1 Maps#new
 
-= form_with model: @map, local: true do |f|
+= form_with model: @map, url: room_maps_path, local: true do |f|
   .form-group
     = f.label :trimming
     = f.text_field :trimming, class: 'form-control', id: 'map_trimming'

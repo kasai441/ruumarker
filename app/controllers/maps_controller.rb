@@ -6,12 +6,10 @@ class MapsController < ApplicationController
   end
 
   def create
-    @room = Room.create!
-    @room.map = Map.new(map_params)
-    @map = @room.map
+    @map = Map.new_by(room_id, map_params)
 
     if @map.save
-      redirect_to @room, notice: 'マップを登録しました。'
+      redirect_to room_path(room_id), notice: 'マップを登録しました。'
     else
       render :new
     end
@@ -25,5 +23,9 @@ class MapsController < ApplicationController
 
   def map_params
     params.require(:map).permit(:trimming, :expansion, :rotation, :image)
+  end
+
+  def room_id
+    params.permit(:room_id)[:room_id]
   end
 end
