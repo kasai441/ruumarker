@@ -12,12 +12,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_207_072_309) do
+ActiveRecord::Schema.define(version: 20_220_208_020_620) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
+
+  create_table 'maps', force: :cascade do |t|
+    t.string 'trimming'
+    t.string 'expansion'
+    t.string 'rotation'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.bigint 'room_id'
+    t.index ['room_id'], name: 'index_maps_on_room_id'
+  end
 
   create_table 'rooms', force: :cascade do |t|
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
   end
+
+  add_foreign_key 'maps', 'rooms'
 end
