@@ -9,7 +9,7 @@ class MapsController < ApplicationController
     @map = Map.new_by(room_id, map_params)
 
     if @map.save!
-      redirect_to room_path(room_id), notice: 'マップを登録しました。'
+      redirect_to @map.room, notice: 'マップを登録しました。'
     else
       render :new
     end
