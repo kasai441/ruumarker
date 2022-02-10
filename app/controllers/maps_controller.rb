@@ -25,8 +25,6 @@ class MapsController < ApplicationController
     redirect_to map.room, notice: 'マップを変更しました。'
   end
 
-  def show; end
-
   private
 
   def map_params
