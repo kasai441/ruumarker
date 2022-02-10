@@ -20,4 +20,4 @@ table
       th= Map.human_attribute_name(:updated_at)
       td= @room.map.updated_at
 
-= link_to 'マップ編集', edit_room_map_path(@room.map), class: 'btn'
+= link_to 'マップ編集', edit_room_map_path(@room, @room.map), class: 'btn'

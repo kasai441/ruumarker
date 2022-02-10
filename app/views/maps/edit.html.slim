@@ -1,2 +1,2 @@
 h1 Maps#edit
-p Find me in app/views/maps/edit.html.slim
+= render partial: 'form', locals: { map: @map, url: room_map_path }
