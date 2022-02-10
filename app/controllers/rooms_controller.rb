@@ -19,7 +19,9 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
   end
 
-  def edit; end
-
-  def destroy; end
+  def destroy
+    room = Room.find(params[:id])
+    room.destroy
+    redirect_to root_path, status: :see_other, notice: 'ルームを削除しました。'
+  end
 end
