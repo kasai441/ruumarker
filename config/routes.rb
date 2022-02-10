@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # あとでやる：ルートをランダムURLにする方法
+  root to: 'rooms#new'
+  resources :rooms, except: %i[index] do
+    resources :maps, except: %i[index destroy]
+  end
 end
