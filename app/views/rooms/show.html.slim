@@ -21,3 +21,4 @@ table
       td= @room.map.updated_at
 
 = link_to 'マップ編集', edit_room_map_path(@room, @room.map), class: 'btn'
+= link_to 'ルーム削除', @room, data: { turbo_method: :delete, turbo_confirm: 'ルームを削除します。よろしいですか？' }, class: 'btn'
