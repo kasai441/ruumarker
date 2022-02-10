@@ -1,16 +1,16 @@
 h1 Rooms#show
 table
   tbody
-    tr
+    tr.id
       th= Map.human_attribute_name(:id)
       td= @room.map.id
-    tr
+    tr.trimming
       th= Map.human_attribute_name(:trimming)
       td= @room.map.trimming
-    tr
+    tr.expansion
       th= Map.human_attribute_name(:expansion)
       td= @room.map.expansion
-    tr
+    tr.rotation
       th= Map.human_attribute_name(:rotation)
       td= @room.map.rotation
     tr
