@@ -22,13 +22,7 @@ describe 'マップ管理機能', type: :system do
 
   describe '更新機能' do
     let(:room1) { FactoryBot.create(:room) }
-    let!(:map1) do
-      FactoryBot.create(:map,
-                        trimming: '100, 200',
-                        expansion: '300',
-                        rotation: '400',
-                        room: room1)
-    end
+    let!(:map1) { FactoryBot.create(:map, room: room1) }
 
     before do
       visit room_path(room1)
