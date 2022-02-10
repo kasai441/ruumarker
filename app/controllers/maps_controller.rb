@@ -6,10 +6,11 @@ class MapsController < ApplicationController
   end
 
   def create
-    @map = Map.new_by(params[:room_id], map_params)
+    @room = Room.find(params[:room_id])
+    @map = @room.build_map(map_params)
 
     if @map.save!
-      redirect_to @map.room, notice: 'マップを登録しました。'
+      redirect_to @room, notice: 'マップを登録しました。'
     else
       render :new
     end
