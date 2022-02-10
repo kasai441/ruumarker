@@ -12,10 +12,8 @@ describe 'マップ管理機能', type: :system do
       click_button '登録する'
     end
 
-    it 'マップのパラメーターが参照できる' do
-      expect(page).to have_content '10, 20'
-      expect(page).to have_content '50'
-      expect(page).to have_content '45'
+    it '正常に登録される' do
+      expect(page).to have_selector '.alert-success', text: '登録しました'
     end
   end
 end
