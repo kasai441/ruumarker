@@ -22,6 +22,8 @@ gem 'html2slim'
 gem 'slim-rails'
 
 group :development, :test do
+  gem 'brakeman'
+  gem 'bundler-audit'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'rubocop', require: false
