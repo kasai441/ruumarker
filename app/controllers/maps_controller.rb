@@ -2,7 +2,8 @@
 
 class MapsController < ApplicationController
   def new
-    @map = Map.new
+    room = Room.find(params[:room_id])
+    @map = room.build_map
   end
 
   def create
