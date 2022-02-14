@@ -13,6 +13,9 @@ table
     tr.rotation
       th= Map.human_attribute_name(:rotation)
       td= @room.map.rotation
+    tr.image
+      th= Map.human_attribute_name(:image)
+      td= image_tag @room.map.image if @room.map.image.attached?
     tr
       th= Map.human_attribute_name(:created_at)
       td= @room.map.created_at
