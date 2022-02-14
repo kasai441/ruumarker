@@ -1,26 +1,19 @@
+inherit_mode:
+  merge:
+    - Exclude
+
 AllCops:
   TargetRubyVersion: 3.1
   SuggestExtensions: false
   NewCops: disable
+  Exclude:
+    - db/migrate/*
+    - db/schema.rb
+    - bin/**/*
 
 Style/Documentation:
   Enabled: false
 
-Layout/LineLength:
-  Exclude:
-    - bin/bundle
-
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
-
-Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/MethodLength:
-  CountComments: false
-  Max: 20
-
-Metrics/PerceivedComplexity:
-  Exclude:
-    - bin/bundle
