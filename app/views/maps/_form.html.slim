@@ -1,3 +1,8 @@
+- if map.errors.present?
+  ul#error_explanation
+    - map.errors.full_messages.each do |message|
+      li= "#{map.model_name.human}の#{message}"
+
 = form_with model: [map.room, map], local: true do |f|
   .form-group
     = f.label :trimming
