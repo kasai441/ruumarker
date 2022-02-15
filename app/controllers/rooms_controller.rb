@@ -8,7 +8,7 @@ class RoomsController < ApplicationController
   def create
     @room = Room.new
 
-    if @room.save!
+    if @room.save
       redirect_to new_room_map_path(@room)
     else
       redirect_to new_room_path

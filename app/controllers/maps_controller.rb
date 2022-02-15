@@ -10,10 +10,10 @@ class MapsController < ApplicationController
     @room = Room.find(params[:room_id])
     @map = @room.build_map(map_params)
 
-    if @map.save!
+    if @map.save
       redirect_to @room, notice: 'マップを登録しました。'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

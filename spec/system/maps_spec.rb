@@ -9,14 +9,35 @@ describe 'マップ管理機能', type: :system do
       fill_in 'Trimming', with: '10, 20'
       fill_in 'Expansion', with: '30'
       fill_in 'Rotation', with: '40'
-      click_button '登録する'
     end
 
-    it '正常に登録される' do
-      expect(page).to have_selector '.alert-success', text: '登録しました'
-      expect(page).to have_selector '.trimming', text: '10, 20'
-      expect(page).to have_selector '.expansion', text: '30'
-      expect(page).to have_selector '.rotation', text: '40'
+    context '画像をアップロードしたとき' do
+      before do
+        file_path = Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+        attach_file 'map_image', file_path
+        click_button '登録する'
+      end
+
+      it '正常に登録される' do
+        expect(page).to have_selector '.alert-success', text: '登録しました'
+        expect(page).to have_selector '.trimming', text: '10, 20'
+        expect(page).to have_selector '.expansion', text: '30'
+        expect(page).to have_selector '.rotation', text: '40'
+        expect(page).to have_selector '.image img'
+      end
+    end
+
+    context '画像をアップロードしないとき' do
+      before do
+        click_button '登録する'
+      end
+
+      it '登録に失敗して作成画面にもどる' do
+        within '#error_explanation' do
+          expect(page).to have_content 'マップの画像が必要です'
+        end
+        expect(page).to have_content 'マップの画像を登録してください'
+      end
     end
   end
 
@@ -30,6 +51,7 @@ describe 'マップ管理機能', type: :system do
       fill_in 'Trimming', with: '1, 2'
       fill_in 'Expansion', with: '3'
       fill_in 'Rotation', with: '4'
+      attach_file 'map_image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
       click_button '更新する'
     end
 
@@ -38,6 +60,7 @@ describe 'マップ管理機能', type: :system do
       expect(page).to have_selector '.trimming', text: '1, 2'
       expect(page).to have_selector '.expansion', text: '3'
       expect(page).to have_selector '.rotation', text: '4'
+      expect(page).to have_selector '.image img'
     end
   end
 end

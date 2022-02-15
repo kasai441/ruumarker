@@ -9,11 +9,15 @@ ja:
           has_many: "%{record}が存在しているので削除できません"
     models:
       room: ルーム
+      map: マップ
     attributes:
       room:
         id: ID
         created_at: 登録日時
         updated_at: 更新日時
+      map:
+        id: ID
+        image: 画像
   date:
     abbr_day_names:
     - 日
@@ -117,7 +121,7 @@ ja:
     format: "%{attribute}%{message}"
     messages:
       accepted: を受諾してください
-      blank: を入力してください
+      blank: が必要です
       confirmation: と%{attribute}の入力が一致しません
       empty: を入力してください
       equal_to: は%{count}にしてください
