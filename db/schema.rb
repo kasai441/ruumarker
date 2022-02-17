@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_16_020556) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_17_014910) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_16_020556) do
     t.index ["room_id"], name: "index_maps_on_room_id"
   end
 
+  create_table "marks", force: :cascade do |t|
+    t.text "description"
+    t.string "location", null: false
+    t.string "trimming"
+    t.string "expansion"
+    t.string "rotation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "map_id"
+    t.index ["map_id"], name: "index_marks_on_map_id"
+  end
+
   create_table "rooms", id: { type: :string, limit: 20 }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -60,4 +72,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_16_020556) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "maps", "rooms"
+  add_foreign_key "marks", "maps"
 end
