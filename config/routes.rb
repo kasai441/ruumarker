@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   root to: 'rooms#new'
   resources :rooms, except: %i[index edit create] do
     resources :maps, except: %i[index show destroy]
+    resources :marks, except: :index
   end
 end
