@@ -39,6 +39,9 @@ describe 'マップ管理機能', type: :system do
         expect(page).to have_content 'マップの画像を登録してください'
       end
     end
+
+    context '画像の代わりにzipファイルをアップロードしたとき' do
+    end
   end
 
   describe '更新機能' do
@@ -55,12 +58,20 @@ describe 'マップ管理機能', type: :system do
       click_button '更新する'
     end
 
-    it '正常に登録される' do
-      expect(page).to have_selector '.alert-success', text: '変更しました'
-      expect(page).to have_selector '.trimming', text: '1, 2'
-      expect(page).to have_selector '.expansion', text: '3'
-      expect(page).to have_selector '.rotation', text: '4'
-      expect(page).to have_selector '.image img'
+    context 'すべてのパラメーターが検証どおりのとき' do
+      it '正常に登録される' do
+        expect(page).to have_selector '.alert-success', text: '変更しました'
+        expect(page).to have_selector '.trimming', text: '1, 2'
+        expect(page).to have_selector '.expansion', text: '3'
+        expect(page).to have_selector '.rotation', text: '4'
+        expect(page).to have_selector '.image img'
+      end
+    end
+
+    context '検証が失敗した時' do
+      it '編集画面にもどされる' do
+        expect(page).to have_content 'マップ画像を変更します'
+      end
     end
   end
 end
