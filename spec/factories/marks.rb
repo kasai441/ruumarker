@@ -2,10 +2,16 @@
 
 FactoryBot.define do
   factory :mark do
-    description { 'MyText' }
-    location { 'MyString' }
-    trimming { 'MyString' }
-    expansion { 'MyString' }
-    rotation { 'MyString' }
+    description { 'リビング、フローリングに削れ' }
+    location { '1' }
+    trimming { '2' }
+    expansion { '3' }
+    rotation { '4' }
+    after(:build) do |item|
+      file_name = 'test_image.jpg'
+      file_path = Rails.root.join('spec', 'fixtures', 'files', file_name)
+      item.image.attach(io: File.open(file_path), filename: file_name, content_type: 'image/jpeg')
+    end
+    map
   end
 end

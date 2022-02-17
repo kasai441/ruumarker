@@ -1,4 +1,4 @@
-h1 Rooms#show
+h1 ルーム詳細
 table
   tbody
     tr.id
@@ -28,12 +28,12 @@ table
 table
   thead
     tr
-      th= Mark.human_attribute_name(:id)
+      th= Mark.human_attribute_name(:description)
       th= Mark.human_attribute_name(:updated_at)
   tbody
     - @room.map.marks.each do |mark|
-      tr id="キズ（#{mark.id}）"
-        td= link_to mark.id, room_mark_path(mark.map.room, mark)
+      tr id="mark-#{mark.id}"
+        td= link_to mark.brief_description, room_mark_path(mark.map.room, mark)
         td= mark.updated_at
 
 = link_to 'キズ追加', new_room_mark_path(@room), class: 'btn'

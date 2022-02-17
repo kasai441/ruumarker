@@ -11,7 +11,7 @@ class MarksController < ApplicationController
     @mark = @room.map.marks.new(mark_params)
 
     if @mark.save
-      redirect_to @room, notice: 'マークを登録しました。'
+      redirect_to room_mark_path(@room, @mark), notice: "キズ（#{@mark.brief_description}）を登録しました。"
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class MarksController < ApplicationController
   def update
     @mark = Mark.find(params[:id])
     if @mark.update(mark_params)
-      redirect_to @mark.map.room, notice: "キズ（#{@mark.id}）を変更しました。"
+      redirect_to room_mark_path(@mark.map.room, @mark), notice: "キズ（#{@mark.brief_description}）を変更しました。"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class MarksController < ApplicationController
   def destroy
     mark = Mark.find(params[:id])
     mark.destroy
-    redirect_to mark.map.room, status: :see_other, notice: "キズ（#{mark.id}）を削除しました。"
+    redirect_to room_path(mark.map.room), status: :see_other, notice: "キズ（#{mark.brief_description}）を削除しました。"
   end
 
   private
