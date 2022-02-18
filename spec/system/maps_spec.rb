@@ -5,7 +5,7 @@ require 'rails_helper'
 describe 'マップ管理機能', type: :system do
   describe '新規作成機能' do
     before do
-      visit new_room_path
+      visit root_path
       fill_in 'Trimming', with: '10, 20'
       fill_in 'Expansion', with: '30'
       fill_in 'Rotation', with: '40'
