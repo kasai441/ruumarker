@@ -2,7 +2,7 @@
 
 class Room < ApplicationRecord
   has_one :map, dependent: :destroy
-  before_create :set_id
+  before_save :set_id
 
   private
 
