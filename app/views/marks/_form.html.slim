@@ -1,0 +1,27 @@
+- if mark.errors.present?
+  ul#error_explanation
+    - mark.errors.full_messages.each do |message|
+      li= "#{mark.model_name.human}の#{message}"
+
+= form_with model: [mark.map.room, mark], local: true do |f|
+  .form-group
+    = f.label :description
+    = f.text_area :description, rows: 1, class: 'form-control', id: 'mark_description'
+  .form-group
+    = f.label :location
+    = f.text_field :location, class: 'form-control', id: 'mark_location'
+  .form-group
+    = f.label :trimming
+    = f.text_field :trimming, class: 'form-control', id: 'mark_trimming'
+  .form-group
+    = f.label :expansion
+    = f.text_field :expansion, class: 'form-control', id: 'mark_expansion'
+  .form-group
+    = f.label :rotation
+    = f.text_field :rotation, class: 'form-control', id: 'mark_rotation'
+  .form-group
+    = f.label :image
+    = f.file_field :image, class: 'form-control'
+  = f.submit nil, class: 'btn'
+
+= link_to 'ルームに戻る', room_path(mark.map.room), class: 'btn'

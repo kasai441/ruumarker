@@ -10,6 +10,7 @@ ja:
     models:
       room: ルーム
       map: マップ
+      mark: キズ
     attributes:
       room:
         id: ID
@@ -17,6 +18,10 @@ ja:
         updated_at: 更新日時
       map:
         id: ID
+        image: 画像
+      mark:
+        id: ID
+        description: 説明
         image: 画像
   date:
     abbr_day_names:
@@ -144,6 +149,8 @@ ja:
       too_long: は%{count}文字以内で入力してください
       too_short: は%{count}文字以上で入力してください
       wrong_length: は%{count}文字で入力してください
+      file_type_not_image: ファイルは[%{types}]の形式のみ受け付けています
+      file_too_large: ファイルの容量は%{count}MBまでです
     template:
       body: 次の項目を確認してください
       header:
