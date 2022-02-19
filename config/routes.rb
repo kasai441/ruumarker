@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   # あとでやる：ルートをランダムURLにする方法
-  root to: 'rooms#create'
+  root to: 'home#index'
   resources :rooms, except: %i[index edit create] do
     resources :maps, except: %i[index show destroy]
     resources :marks, except: :index
