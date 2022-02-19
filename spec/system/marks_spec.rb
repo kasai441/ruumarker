@@ -106,6 +106,7 @@ describe 'キズ管理機能', type: :system do
     end
 
     context '検証が失敗した時' do
+      # あとで（検証失敗していない）
       it '編集画面にもどされる' do
         expect(page).to have_content 'マップ画像を変更します'
       end

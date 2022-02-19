@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RoomsController < ApplicationController
-  def create
+  def new
     @room = Room.new
 
     if @room.save

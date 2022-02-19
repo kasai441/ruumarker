@@ -5,7 +5,7 @@ require 'rails_helper'
 describe 'マップ管理機能', type: :system do
   describe '新規作成機能' do
     before do
-      visit root_path
+      visit new_room_path
       fill_in 'Trimming', with: '10, 20'
       fill_in 'Expansion', with: '30'
       fill_in 'Rotation', with: '40'
@@ -81,6 +81,7 @@ describe 'マップ管理機能', type: :system do
     end
 
     context '検証が失敗した時' do
+      # あとで（検証失敗していない）
       it '編集画面にもどされる' do
         expect(page).to have_content 'マップ画像を変更します'
       end
