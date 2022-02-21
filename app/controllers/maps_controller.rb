@@ -22,9 +22,12 @@ class MapsController < ApplicationController
   end
 
   def update
-    map = Map.find(params[:id])
-    map.update!(map_params)
-    redirect_to map.room, notice: 'マップを変更しました。'
+    @map = Map.find(params[:id])
+    if @map.update(map_params)
+      redirect_to @map.room, notice: 'マップを変更しました。'
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
