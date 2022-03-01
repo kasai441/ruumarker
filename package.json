@@ -1,0 +1,13 @@
+{
+  "scripts": { "build": "webpack --config webpack.config.js" },
+  "name": "ruumarker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kasai441/ruumarker.git",
+  "author": "kasai441 <kasai441441@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2"
+  }
+}
