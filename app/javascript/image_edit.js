@@ -7,7 +7,15 @@ import ImageEdit from './image_edit.vue';
 document.addEventListener('turbo:load', () => {
   const selector = '#image-edit'
   const image_edits = document.querySelector(selector)
+
+  const description = image_edits.getAttribute('description')
+  const location = image_edits.getAttribute('location')
+
   if (image_edits) {
-    createApp(ImageEdit).mount(selector)
+    const app = createApp(ImageEdit);
+
+    const vm = app.mount(selector);
+    vm.description = description;
+    vm.location = location;
   }
 });

@@ -1,7 +1,9 @@
 <template>
   <div>
-    <h1>{{message}}</h1>
-    <p><input v-model="message"></p>
+    <h1>{{description}}</h1>
+    <p><input v-model="description"></p>
+    <h1>{{location}}</h1>
+    <p><input v-model="location"></p>
   </div>
 </template>
 
@@ -9,11 +11,9 @@
 export default {
   data() {
     return {
-      message: ''
+      description: '',
+      location: ''
     };
-  },
-  created() {
-    this.message = 'hehho';
   }
 }
 </script>
