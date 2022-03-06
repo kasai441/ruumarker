@@ -21,9 +21,34 @@
     = f.text_field :rotation, class: 'form-control', id: 'mark_rotation'
   .form-group
     = f.label :image
-    = f.file_field :image, class: 'form-control'
+    = f.file_field :image, class: 'form-control', onchange: "loadImage(this)";
   = f.submit nil, class: 'btn'
 
 = link_to 'ルームに戻る', room_path(mark.map.room), class: 'btn'
 
 #image-edit(description="#{mark.description}" location="#{mark.location}")
+
+#mark-image
+ p id="preview"
+
+javascript:
+  function loadImage(obj) {
+    console.log('hohoho');
+    console.log(obj.files[0]);
+    let allPreview = document.createElement("div");
+    allPreview.setAttribute("id", "mark-image");
+    let newPreview = document.createElement("p");
+    newPreview.setAttribute("id", "preview");
+    allPreview.insertBefore(newPreview, allPreview.firstChild);
+    let fileReader = new FileReader();
+    fileReader.onload = (function (e) {
+      let img = new Image();
+      img.src = e.target.result;
+      img.onload = function () {
+        result = {width: image.naturalWidth, height: image.naturalHeight};
+        console.log(result);
+      }
+      document.getElementById('preview').appendChild(img);
+    });
+    fileReader.readAsDataURL(obj.files[0]);
+  }
