@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class MarksController < ApplicationController
+  after_action :set_csrf_token_header
+
   def new
     room = Room.find(params[:room_id])
     @mark = room.map.marks.new
