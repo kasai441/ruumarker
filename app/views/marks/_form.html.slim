@@ -3,6 +3,6 @@
     - mark.errors.full_messages.each do |message|
       li= "#{mark.model_name.human}の#{message}"
 
-#image-edit(description="#{mark.description}" location="#{mark.location}")
+#image-edit(room_id="#{mark.map.room.id}" description="#{mark.description}" location="#{mark.location}")
 
 = link_to 'ルームに戻る', room_path(mark.map.room), class: 'btn'

@@ -2,14 +2,18 @@
 
 module Api
   class MarksController < ApplicationController
+    def index
+      render json: Mark.all
+    end
+
     def create
       @room = Room.find(params[:room_id])
-      @mark = room.map.marks.new(mark_params)
+      @mark = @room.map.marks.new(mark_params)
 
-      if mark.save
-        redirect_to room_mark_path(@room, @mark), notice: "キズ（#{@mark.brief_description}）を登録しました。"
+      if @mark.save
+        render json: @mark
       else
-        render json: mark.errors, status: 422
+        render json: @mark.errors, status: 422
       end
     end
 
