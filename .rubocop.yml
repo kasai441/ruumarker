@@ -7,9 +7,10 @@ AllCops:
   SuggestExtensions: false
   NewCops: disable
   Exclude:
+    - bin/**/*
+    - config/**/*
     - db/migrate/*
     - db/schema.rb
-    - bin/**/*
 
 Style/Documentation:
   Enabled: false

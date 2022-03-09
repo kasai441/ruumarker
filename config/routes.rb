@@ -6,4 +6,8 @@ Rails.application.routes.draw do
     resources :maps, except: %i[index show destroy]
     resources :marks, except: :index
   end
+  namespace :api do
+    resources :maps, only: %i[index create update]
+    resources :marks, only: %i[index create update]
+  end
 end
