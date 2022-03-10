@@ -4,11 +4,11 @@
     <div>{{ roomId }}</div>
     <section>
       <label for="description">description: </label>
-      <input type="text" name="description" v-model="description" placeholder="description" />
+      <input type="text" id="description" name="description" v-model="description" placeholder="description" />
     </section>
     <section>
       <label for="location">location: </label>
-      <input type="text" name="location" v-model="location" placeholder="location" />
+      <input type="text" id="location" name="location" v-model="location" placeholder="location" />
     </section>
     <section>
       <label for="image">image: </label>

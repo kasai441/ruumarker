@@ -1,9 +1,9 @@
 <template>
-  <div id="mark">
+  <div id="mark-item">
     <PostForm />
     <PostList />
+    <div>{{ roomId }}</div>
   </div>
-  <div>{{ roomId }}</div>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ import PostForm from './components/mark_form.vue'
 import PostList from './components/mark_list.vue'
 
 export default {
-  name: 'Mark',
+  name: 'MarkItem',
   inject: ['roomId'],
   data() {
     return {

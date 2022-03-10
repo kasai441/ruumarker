@@ -31,6 +31,10 @@ module.exports = {
     semi: [
       'error',
       'never'
-    ]
+    ],
+    'no-unused-vars': ['error', {
+      'args': 'all',
+      'argsIgnorePattern': '^_'
+    }]
   }
 }
