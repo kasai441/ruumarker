@@ -1,17 +1,17 @@
-const path    = require("path")
-const webpack = require("webpack")
-const { VueLoaderPlugin } = require('vue-loader');
-const env = process.env.NODE_ENV || 'development';
+const path    = require('path')
+const webpack = require('webpack')
+const { VueLoaderPlugin } = require('vue-loader')
+const env = process.env.NODE_ENV || 'development'
 
 module.exports = {
   mode: env,
   entry: {
-    application: "./app/javascript/application.js"
+    application: './app/javascript/application.js'
   },
   output: {
-    filename: "[name].js",
-    sourceMapFilename: "[name].js.map",
-    path: path.resolve(__dirname, "app/assets/builds"),
+    filename: '[name].js',
+    sourceMapFilename: '[name].js.map',
+    path: path.resolve(__dirname, 'app/assets/builds'),
   },
   module: {
     rules: [

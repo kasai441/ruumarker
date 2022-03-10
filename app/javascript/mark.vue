@@ -7,18 +7,18 @@
 </template>
 
 <script>
-import PostForm from "./components/mark_form.vue";
-import PostList from "./components/mark_list.vue";
+import PostForm from './components/mark_form.vue'
+import PostList from './components/mark_list.vue'
 
 export default {
-  name: "Mark",
+  name: 'Mark',
   inject: ['roomId'],
   data() {
     return {
       roomId: this.roomId,
-      description: "",
-      location: "",
-      image: "",
+      description: '',
+      location: '',
+      image: '',
       imageFile: null
     }
   },
@@ -31,5 +31,5 @@ export default {
     PostForm,
     PostList
   },
-};
+}
 </script>
