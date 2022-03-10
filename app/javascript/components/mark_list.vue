@@ -11,21 +11,21 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: "MarkList",
+  name: 'MarkList',
   created() {
-    this.fetchPosts();
+    this.fetchPosts()
   },
   computed: {
-    ...mapGetters("posts", ["posts"])
+    ...mapGetters('posts', ['posts'])
   },
   methods: {
-    ...mapActions("posts", ["fetchPosts", "deletePost"]),
+    ...mapActions('posts', ['fetchPosts', 'deletePost']),
     del(id) {
-      this.deletePost(id);
+      this.deletePost(id)
     }
   }
-};
+}
 </script>
