@@ -73,4 +73,8 @@ Rails.application.configure do
   # https://qiita.com/youichiro/items/2987cd9b4ab29691eb77
   Rails.application.routes.default_url_options[:host] = 'localhost'
   Rails.application.routes.default_url_options[:port] = 3000
+
+  # https://interfirm.hatenablog.com/entry/2014/10/24/131503
+  # ローカルで本番環境のプリコンパイルを一度すると開発環境でもプリコンパイルが必要になってしまうのを、直す
+  config.assets.debug = false
 end

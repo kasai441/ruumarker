@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const apiUrlBase = 'http://localhost:3000/api/marks'
+const apiUrlBase = '/api/marks'
 const headers = { 'Content-Type': 'multipart/form-data'
 }
 axios.defaults.headers.common = {
@@ -12,12 +12,25 @@ const state = {
 }
 
 const getters = {
-  posts: state => state.posts.sort((a, b) => b.id - a.id)
+  posts: state => {
+    console.log('getters:')
+    console.log(state)
+    return state.posts.sort((a, b) => b.id - a.id)
+  }
 }
 
 const mutations = {
-  setPosts: (state, posts) => (state.posts = posts),
-  appendPost: (state, post) => (state.posts = [...state.posts, post]),
+  setPosts: (state, posts) => {
+    console.log('setPosts:')
+    console.log(state)
+    console.log(posts)
+    return (state.posts = posts)
+  },
+  appendPost: (state, post) => {
+    console.log('appendPosts:')
+    console.log(state)
+    return (state.posts = [...state.posts, post])
+  },
   removePost: (state, id) =>
     (state.posts = state.posts.filter(post => post.id !== id))
 }
