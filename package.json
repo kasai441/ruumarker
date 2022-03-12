@@ -12,6 +12,7 @@
     "axios": "^0.26.0",
     "babel-loader": "^8.2.3",
     "core-js": "^3.21.1",
+    "regenerator-runtime": "^0.13.9",
     "vue": "^3.2.31",
     "vue-loader": "^17.0.0",
     "vuex": "^4.0.2",
