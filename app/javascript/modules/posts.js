@@ -1,8 +1,7 @@
 import axios from 'axios'
 
-const apiUrlBase = 'http://localhost:3000/api/marks'
-const headers = { 'Content-Type': 'multipart/form-data'
-}
+const apiUrlBase = '/api/marks'
+const headers = { 'Content-Type': 'multipart/form-data' }
 axios.defaults.headers.common = {
   'X-Requested-With': 'XMLHttpRequest',
   'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -18,8 +17,7 @@ const getters = {
 const mutations = {
   setPosts: (state, posts) => (state.posts = posts),
   appendPost: (state, post) => (state.posts = [...state.posts, post]),
-  removePost: (state, id) =>
-    (state.posts = state.posts.filter(post => post.id !== id))
+  removePost: (state, id) => (state.posts = state.posts.filter(post => post.id !== id))
 }
 
 const actions = {
