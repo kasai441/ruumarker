@@ -1,10 +1,13 @@
+/**
+ * @jest-environment jsdom
+ */
 /* eslint-env jest */
 
 import { mount } from '@vue/test-utils'
-import Mark from '../app/javascript/mark.vue'
+import Demo from '../app/javascript/demo.vue'
 
 test('renders a todo', () => {
-  const wrapper = mount(Mark)
+  const wrapper = mount(Demo)
 
   const todo = wrapper.get('[data-test="todo"]')
 
