@@ -3,7 +3,7 @@
     "build": "webpack --config webpack.config.js",
     "lint": "eslint 'app/javascript/**/*.{js,vue}' --max-warnings=0",
     "lintjs": "eslint 'specjs/**/*.{js,vue}' --max-warnings=0",
-    "test": "jest specjs/*.{js,vue}"
+    "test": "jest"
   },
   "dependencies": {
     "@babel/core": "^7.17.5",

@@ -4,5 +4,6 @@ module.exports = {
     '\\.js$': 'babel-jest',
     '\\.vue$': '@vue/vue3-jest'
   },
-  moduleFileExtensions: ['vue', 'js', 'json']
+  moduleFileExtensions: ['vue', 'js', 'json'],
+  testPathIgnorePatterns: ['<rootDir>/vendor/'],
 }
