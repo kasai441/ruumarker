@@ -2,7 +2,8 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "lint": "eslint 'app/javascript/**/*.{js,vue}' --max-warnings=0",
-    "lintf": "eslint 'app/javascript/**/*.{js,vue}' --fix"
+    "lintf": "eslint 'app/javascript/**/*.{js,vue}' --fix",
+    "test": "mocha-webpack --webpack-config webpack.config.js --require specjs/setup.js specjs/**/*.spec.js"
   },
   "dependencies": {
     "@babel/core": "^7.17.5",
