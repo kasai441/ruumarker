@@ -38,8 +38,10 @@ jobs:
         run: npx webpack
       - name: Set up database schema
         run: bin/rails db:schema:load
-      - name: Run tests
+      - name: Run rspec
         run: bundle exec rspec
+      - name: Run jest
+        run: yarn test
 
   lint:
     runs-on: ubuntu-latest

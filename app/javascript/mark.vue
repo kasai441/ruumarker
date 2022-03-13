@@ -1,7 +1,9 @@
 <template>
   <div id="mark-item">
+    <Demo />
     <PostForm />
     <PostList />
+
     <div>{{ roomId }}</div>
   </div>
 </template>
@@ -9,6 +11,7 @@
 <script>
 import PostForm from './components/mark_form.vue'
 import PostList from './components/mark_list.vue'
+import Demo from './demo.vue'
 
 export default {
   name: 'MarkItem',
@@ -29,7 +32,8 @@ export default {
   },
   components: {
     PostForm,
-    PostList
+    PostList,
+    Demo
   },
 }
 </script>
