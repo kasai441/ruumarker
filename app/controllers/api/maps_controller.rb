@@ -7,7 +7,7 @@ module Api
       map = room.build_map(map_params)
 
       if map.save
-        render json: map
+        render json: map, methods: [:image_url]
       else
         render json: map.errors, status: 422
       end

@@ -7,7 +7,7 @@ axios.defaults.headers.common = {
 }
 
 const actions = {
-  async fetch(url) {
+  async all(url) {
     try {
       const response = await axios.get(url)
       return response.data
@@ -19,6 +19,13 @@ const actions = {
     try {
       const response = await axios.post(url, formData, headers)
       return response.data
+    } catch (e) {
+      console.error(e)
+    }
+  },
+  async show(url, id) {
+    try {
+      axios.get(`${url}/${id}`)
     } catch (e) {
       console.error(e)
     }

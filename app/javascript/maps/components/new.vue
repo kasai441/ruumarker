@@ -1,30 +1,42 @@
 <template>
   <div id="map-item">
     <div>{{ roomId }}</div>
-    <Form />
+    <p>{{ messageVModel }}</p>
+    <p>{{ response }}</p>
+    <map-form @upload="fromForm"></map-form>
+    <map-show v-bind:response="response" parent-message="response"></map-show>
   </div>
 </template>
 
 <script>
-import Form from './form.vue'
+import mapForm from './form.vue'
+import mapShow from './show.vue'
 
 export default {
   name: 'MapItem',
   inject: ['roomId'],
   data() {
     return {
-      roomId: this.roomId,
       image: '',
-      imageFile: null
+      imageFile: null,
+      response: null,
+      hoge: 'hoge'
     }
   },
-  provide() {
-    return {
-      roomId: this.roomId
-    }
-  },
+  // provide() {
+  //   return {
+  //     roomId: this.roomId
+  //   }
+  // },
   components: {
-    Form
+    mapForm,
+    mapShow
   },
+  methods: {
+    fromForm(response){
+      console.log('hoge')
+      this.response = response
+    }
+  }
 }
 </script>

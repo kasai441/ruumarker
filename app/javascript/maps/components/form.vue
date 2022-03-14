@@ -11,19 +11,19 @@
       <input type="file" id="image" name="image" accept="image/png,image/jpeg" @change="setImage" />
     </section>
     <section>
-      <button type="submit" @click="upload" :disabled="description === ''">upload</button>
+      <button type="submit" @click="upload">upload</button>
     </section>
   </div>
 </template>
 
 <script>
 import api from '../../modules/api'
+
 export default {
   name: 'MapForm',
   inject: ['roomId'],
   data() {
     return {
-      roomId: this.roomId,
       trimming: '',
       image: '',
       imageFile: null
@@ -46,6 +46,7 @@ export default {
       const response = await api.actions.create('/api/maps', formData)
       console.log(response)
       this.resetForm()
+      this.$emit('upload', response)
     },
     resetForm() {
       this.trimming = ''
