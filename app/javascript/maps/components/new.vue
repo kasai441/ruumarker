@@ -1,13 +1,12 @@
 <template>
   <div id="map-item">
-<!--    <Demo />-->
     <div>{{ roomId }}</div>
+    <Form />
   </div>
 </template>
 
 <script>
-// import Demo from './demo.vue'
-// import Api from '../../api/api'
+import Form from './form.vue'
 
 export default {
   name: 'MapItem',
@@ -25,7 +24,7 @@ export default {
     }
   },
   components: {
-    // Demo
+    Form
   },
 }
 </script>
