@@ -23,9 +23,10 @@ const actions = {
       console.error(e)
     }
   },
-  async show(url, id) {
+  async show(url) {
     try {
-      axios.get(`${url}/${id}`)
+      // axios.get(`${url}/${id}`)
+      axios.get(url)
     } catch (e) {
       console.error(e)
     }

@@ -4,6 +4,7 @@
     <div>
       <h3 v-if="map">{{ map.trimming }}</h3>
       <img v-if="response" :src="response.image_url" />
+      <img v-else />
     </div>
     <p>{{ parentMessage }}</p>
     <p>{{ response }}</p>
@@ -15,7 +16,7 @@ import api from '../../modules/api'
 
 export default {
   name: 'MapShow',
-  // inject: ['roomId'],
+  inject: ['roomId'],
   props: [
     'parentMessage',
     'response'
@@ -29,8 +30,9 @@ export default {
     }
   },
   methods: {
-    show(id) {
-      this.map = api.actions.show('maps', id)
+    window:onload = async function() {
+      this.map = await api.actions.show('')
+      console.log('HOHOH')
     }
   }
 }

@@ -1,7 +1,6 @@
 <template>
   <div id="map-item">
     <div>{{ roomId }}</div>
-    <p>{{ messageVModel }}</p>
     <p>{{ response }}</p>
     <map-form @upload="fromForm"></map-form>
     <map-show v-bind:response="response" parent-message="response"></map-show>
