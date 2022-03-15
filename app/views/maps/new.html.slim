@@ -5,3 +5,5 @@ h1 マップの画像を登録してください
       li= "#{@map.model_name.human}の#{message}"
 
 #maps-new(room_id="#{@map.room.id}" trimming="#{@map.trimming}")
+
+= link_to '戻る', :back, class: 'btn'
