@@ -6,7 +6,6 @@
       <img v-if="response" :src="response.image_url" />
       <img v-else />
     </div>
-    <p>{{ parentMessage }}</p>
     <p>{{ response }}</p>
   </div>
 </template>
@@ -18,7 +17,6 @@ export default {
   name: 'MapShow',
   inject: ['roomId'],
   props: [
-    'parentMessage',
     'response'
   ],
   data() {

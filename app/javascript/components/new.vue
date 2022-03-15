@@ -1,9 +1,7 @@
 <template>
   <div id="map-item">
-    <div>{{ roomId }}</div>
-    <p>{{ response }}</p>
-    <map-form @upload="fromForm"></map-form>
-    <map-show v-bind:response="response" parent-message="response"></map-show>
+    <map-show v-if="response" v-bind:response="response"></map-show>
+    <map-form v-else @upload="fromForm"></map-form>
   </div>
 </template>
 
