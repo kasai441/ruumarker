@@ -1,16 +1,16 @@
 <template>
-  <div id="map-new">
-    <map-show v-if="response" v-bind:response="response"></map-show>
+  <div id="maps-new">
+    <image-show v-if="response" v-bind:response="response"></image-show>
     <image-upload v-else @upload="receive" targetModel="map"></image-upload>
   </div>
 </template>
 
 <script>
-import mapShow from '../components/show.vue'
+import ImageShow from '../components/image_show.vue'
 import ImageUpload from '../components/image_upload.vue'
 
 export default {
-  name: 'MapNew',
+  name: 'MapsNew',
   inject: ['roomId'],
   data() {
     return {
@@ -20,7 +20,7 @@ export default {
   },
   components: {
     ImageUpload,
-    mapShow
+    ImageShow
   },
   methods: {
     receive(response){
