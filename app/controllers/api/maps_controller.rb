@@ -4,12 +4,12 @@ module Api
   class MapsController < ApplicationController
     def create
       room = Room.find(params[:room_id])
-      map = room.build_map(map_params)
+      @map = room.build_map(map_params)
 
-      if map.save
-        render json: map, methods: [image_url(map)]
+      if @map.save
+        render :create
       else
-        render json: map.errors, status: 422
+        render json: @map.errors, status: 422
       end
     end
 
