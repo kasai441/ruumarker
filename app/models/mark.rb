@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Mark < ApplicationRecord
-  include Rails.application.routes.url_helpers
-
   belongs_to :map
   has_one_attached :image
   validates :location, presence: true
@@ -16,9 +14,5 @@ class Mark < ApplicationRecord
     else
       description
     end
-  end
-
-  def image_url
-    image.attached? ? url_for(image) : nil
   end
 end

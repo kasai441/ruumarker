@@ -7,7 +7,7 @@ module Api
       map = room.build_map(map_params)
 
       if map.save
-        render json: map, methods: [:image_url]
+        render json: map, methods: [image_url(map)]
       else
         render json: map.errors, status: 422
       end
@@ -17,6 +17,10 @@ module Api
 
     def map_params
       params.require(:map).permit(:trimming, :expansion, :rotation, :image)
+    end
+
+    def image_url(map)
+      map.image.attached? ? url_for(map.image) : nil
     end
   end
 end
