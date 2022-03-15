@@ -1,15 +1,6 @@
 <template>
   <div>
-    <h2>ImageUpload</h2>
-    <section>
-      <label for="image">image: </label>
-      <input type="file" id="image" name="image" accept="image/png,image/jpeg" @change="setImage" />
-    </section>
-    <section>
-      <button type="submit" @click="upload">upload</button>
-    </section>
-    <router-link to="/image/edit">編集</router-link>
-
+    <h2>ImageEdit</h2>
   </div>
 </template>
 
@@ -17,14 +8,14 @@
 import api from '../modules/api'
 
 export default {
-  name: 'ImageUpload',
+  name: 'ImageEdit',
   inject: ['roomId'],
   props: [
     'targetModel',
   ],
   data() {
     return {
-      imageFile: null
+      trimming: ''
     }
   },
   methods: {
@@ -35,15 +26,13 @@ export default {
     async upload() {
       let formData = new FormData()
       formData.append('room_id', this.roomId)
-      if (this.imageFile !== null) {
-        formData.append(`${this.targetModel}[image]`, this.imageFile)
-      }
+      formData.append(`${this.targetModel}[trimming]`, this.trimming)
       const response = await api.actions.create(`/api/${this.targetModel}s`, formData)
       this.resetForm()
       this.$emit('upload', response)
     },
     resetForm() {
-      this.imageFile = null
+      this.trimming = ''
     }
   }
 }

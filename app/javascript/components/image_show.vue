@@ -6,8 +6,8 @@
       <img v-if="response" :src="response.image_url" />
       <img v-else />
       <div class="submit_container">
-        <a :href="room_path" class="btn">登録</a>
-        <div>編集</div>
+        <a :href="room_path" class="btn btn-secondary">登録</a>
+        <router-link to="/image/edit">編集</router-link>
       </div>
     </div>
   </div>
@@ -32,7 +32,7 @@ export default {
   methods: {
     window:onload = async function() {
       this.map = await api.actions.show('')
-    }
+    },
   }
 }
 </script>
