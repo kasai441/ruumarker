@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import api from '../../modules/api'
+import api from '../modules/api'
 
 export default {
   name: 'MapShow',
