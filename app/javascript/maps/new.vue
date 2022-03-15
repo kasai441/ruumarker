@@ -1,11 +1,17 @@
 <template>
   <div id="maps-new">
-    <image-show v-if="response" v-bind:response="response"></image-show>
-    <image-upload v-else @upload="receive" targetModel="map"></image-upload>
+    <div v-if="isImageEdit">
+      <image-edit v-bind:response="response" targetModel="map"></image-edit>
+    </div>
+    <div v-else>
+      <image-show v-if="response" v-bind:response="response" @imageEdit="imageEdit" @upload="result"></image-show>
+      <image-upload v-else targetModel="map" @upload="result"></image-upload>
+    </div>
   </div>
 </template>
 
 <script>
+import ImageEdit from '../components/image_edit.vue'
 import ImageShow from '../components/image_show.vue'
 import ImageUpload from '../components/image_upload.vue'
 
@@ -16,15 +22,20 @@ export default {
     return {
       image: '',
       response: null,
+      isImageEdit: false
     }
   },
   components: {
-    ImageUpload,
-    ImageShow
+    ImageEdit,
+    ImageShow,
+    ImageUpload
   },
   methods: {
-    receive(response){
+    result(response) {
       this.response = response
+    },
+    imageEdit(boolean) {
+      this.isImageEdit = boolean
     }
   }
 }

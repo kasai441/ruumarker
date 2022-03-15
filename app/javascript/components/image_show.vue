@@ -7,7 +7,7 @@
       <img v-else />
       <div class="submit_container">
         <a :href="room_path" class="btn btn-secondary">登録</a>
-        <router-link to="/image/edit">編集</router-link>
+        <a @click="onImageEdit">編集</a>
       </div>
     </div>
   </div>
@@ -26,13 +26,17 @@ export default {
     return {
       map: '',
       trimming: '',
-      room_path: `/rooms/${this.roomId}`
+      room_path: `/rooms/${this.roomId}`,
     }
   },
   methods: {
     window:onload = async function() {
       this.map = await api.actions.show('')
     },
+    onImageEdit() {
+      this.$emit('imageEdit', true)
+      this.$emit('upload', this.response)
+    }
   }
 }
 </script>

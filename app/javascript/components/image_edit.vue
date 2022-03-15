@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2>ImageEdit</h2>
+    <div>{{ response }}</div>
   </div>
 </template>
 
@@ -12,6 +13,7 @@ export default {
   inject: ['roomId'],
   props: [
     'targetModel',
+    'response'
   ],
   data() {
     return {
