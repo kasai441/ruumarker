@@ -1,10 +1,6 @@
 <template>
   <div>
-    <h2>MapForm</h2>
-    <section>
-      <label for="trimming">trimming: </label>
-      <input type="text" id="trimming" name="trimming" v-model="trimming" placeholder="trimming" />
-    </section>
+    <h2>ImageUpload</h2>
     <section>
       <label for="image">image: </label>
       <input type="file" id="image" name="image" accept="image/png,image/jpeg" @change="setImage" />
@@ -19,11 +15,13 @@
 import api from '../modules/api'
 
 export default {
-  name: 'MapForm',
+  name: 'ImageUpload',
   inject: ['roomId'],
+  props: [
+    'targetModel',
+  ],
   data() {
     return {
-      trimming: '',
       imageFile: null
     }
   },
@@ -35,16 +33,14 @@ export default {
     async upload() {
       let formData = new FormData()
       formData.append('room_id', this.roomId)
-      formData.append('map[trimming]', this.trimming)
       if (this.imageFile !== null) {
-        formData.append('map[image]', this.imageFile)
+        formData.append(`${this.targetModel}[image]`, this.imageFile)
       }
-      const response = await api.actions.create('/api/maps', formData)
+      const response = await api.actions.create(`/api/${this.targetModel}s`, formData)
       this.resetForm()
       this.$emit('upload', response)
     },
     resetForm() {
-      this.trimming = ''
       this.imageFile = null
     }
   }

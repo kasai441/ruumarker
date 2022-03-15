@@ -2,7 +2,7 @@ import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 
 import { createApp } from 'vue'
-import MapsNew from '../components/new.vue'
+import MapsNew from './new.vue'
 
 document.addEventListener('turbo:load', () => {
   const selector = '#maps-new'
