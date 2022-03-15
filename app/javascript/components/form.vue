@@ -1,7 +1,6 @@
 <template>
   <div>
     <h2>MapForm</h2>
-    <div>{{ roomId }}</div>
     <section>
       <label for="trimming">trimming: </label>
       <input type="text" id="trimming" name="trimming" v-model="trimming" placeholder="trimming" />
@@ -25,7 +24,6 @@ export default {
   data() {
     return {
       trimming: '',
-      image: '',
       imageFile: null
     }
   },
@@ -35,8 +33,6 @@ export default {
       this.imageFile = e.target.files[0]
     },
     async upload() {
-      console.log(this.roomId)
-      console.log(this.trimming)
       let formData = new FormData()
       formData.append('room_id', this.roomId)
       formData.append('map[trimming]', this.trimming)
@@ -44,7 +40,6 @@ export default {
         formData.append('map[image]', this.imageFile)
       }
       const response = await api.actions.create('/api/maps', formData)
-      console.log(response)
       this.resetForm()
       this.$emit('upload', response)
     },

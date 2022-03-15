@@ -2,11 +2,14 @@
   <div>
     <h2>MapShow</h2>
     <div>
-      <h3 v-if="map">{{ map.trimming }}</h3>
+      <h3 v-if="response">{{ response.trimming }}</h3>
       <img v-if="response" :src="response.image_url" />
       <img v-else />
+      <div class="submit_container">
+        <a :href="room_path" class="btn">登録</a>
+        <div>編集</div>
+      </div>
     </div>
-    <p>{{ response }}</p>
   </div>
 </template>
 
@@ -17,20 +20,18 @@ export default {
   name: 'MapShow',
   inject: ['roomId'],
   props: [
-    'response'
+    'response',
   ],
   data() {
     return {
       map: '',
       trimming: '',
-      // image: '',
-      // imageFile: null
+      room_path: `/rooms/${this.roomId}`
     }
   },
   methods: {
     window:onload = async function() {
       this.map = await api.actions.show('')
-      console.log('HOHOH')
     }
   }
 }
