@@ -1,9 +1,10 @@
 import axios from 'axios'
 
 const headers = { 'Content-Type': 'multipart/form-data' }
+const x_csrf_token = document.querySelector('meta[name="csrf-token"]')
 axios.defaults.headers.common = {
   'X-Requested-With': 'XMLHttpRequest',
-  'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+  'X-CSRF-TOKEN' : x_csrf_token ? x_csrf_token.getAttribute('content') : null
 }
 
 const actions = {
