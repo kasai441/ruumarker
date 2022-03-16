@@ -1,2 +1,9 @@
 h1 マップの画像を登録してください
-= render 'form', map: @map
+- if @map.errors.present?
+  ul#error_explanation
+    - @map.errors.full_messages.each do |message|
+      li= "#{@map.model_name.human}の#{message}"
+
+#maps-new(room_id="#{@map.room.id}" trimming="#{@map.trimming}")
+
+= link_to '戻る', :back, class: 'btn'
