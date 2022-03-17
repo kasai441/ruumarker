@@ -1,18 +1,15 @@
 <template>
   <div id="maps-new">
-    <div v-if="isImageEdit">
-      <image-edit v-bind:response="response" targetModel="map"></image-edit>
-    </div>
-    <div v-else>
-      <image-show v-if="response" v-bind:response="response" @imageEdit="imageEdit" @upload="result"></image-show>
-      <image-upload v-else targetModel="map" @upload="result"></image-upload>
-    </div>
+    <image-upload targetModel="map" @form="form"></image-upload>
+    <section v-if="formData" class="submit_container">
+      <a @click="create(room_path)" class="btn btn-primary">登録</a>
+      <a @click="edit" class="btn btn-secondary">編集</a>
+    </section>
   </div>
 </template>
 
 <script>
-import ImageEdit from '../components/image_edit.vue'
-import ImageShow from '../components/image_show.vue'
+import api from '../modules/api'
 import ImageUpload from '../components/image_upload.vue'
 
 export default {
@@ -20,22 +17,31 @@ export default {
   inject: ['roomId'],
   data() {
     return {
-      image: '',
-      response: null,
-      isImageEdit: false
+      formData: null,
+      isCreated: false,
+      isImageEdit: false,
+      room_path: `/rooms/${this.roomId}`,
     }
   },
   components: {
-    ImageEdit,
-    ImageShow,
     ImageUpload
   },
   methods: {
-    result(response) {
-      this.response = response
+    form(data) {
+      this.formData = data
     },
     imageEdit(boolean) {
       this.isImageEdit = boolean
+    },
+    async create(path) {
+      this.formData.append('room_id', this.roomId)
+      const response = await api.actions.create('/api/maps', this.formData)
+
+      path ||= `/rooms/${this.roomId}/maps/${response.id}/edit`
+      location.href = path
+    },
+    edit() {
+      this.create(null)
     }
   }
 }

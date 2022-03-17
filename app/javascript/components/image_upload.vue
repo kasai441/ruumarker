@@ -2,51 +2,42 @@
   <div>
     <h2>ImageUpload</h2>
     <section>
-      <label for="image">image: </label>
-      <input type="file" id="image" name="image" accept="image/png,image/jpeg" @change="setImage" />
+      <img id="uploaded" width="200">
     </section>
     <section>
-      <button type="submit" @click="upload">upload</button>
+      <label for="image">image: </label>
+      <input type="file" id="image" name="image" accept="image/png,image/jpeg" @change="upload" />
     </section>
-
   </div>
 </template>
 
 <script>
-import api from '../modules/api'
 
 export default {
   name: 'ImageUpload',
-  inject: ['roomId'],
   props: [
     'targetModel',
   ],
-  data() {
-    return {
-      imageFile: null,
-      formData:null
-    }
-  },
   methods: {
-    setImage(e) {
+    upload(e) {
       e.preventDefault()
-      this.imageFile = e.target.files[0]
-      this.setForm(this.imageFile)
-    },
-    setForm(image) {
-      this.formData = new FormData()
-      this.formData.append('room_id', this.roomId)
-      if (image !== null) {
-        this.formData.append(`${this.targetModel}[image]`, image)
+      const imageFile = e.target.files[0]
+      const uploadedTag = document.getElementById( 'uploaded' )
+
+      const reader = new FileReader()
+      reader.onload = function () {
+        uploadedTag.src = this.result
       }
+      reader.readAsDataURL(imageFile)
+
+      this.initForm(imageFile)
     },
-    async upload() {
-      const response = await api.actions.create(`/api/${this.targetModel}s`, this.formData)
-      this.$emit('upload', response)
-      this.resetForm()
-    },
-    resetForm() {
-      this.imageFile = null
+    initForm(imageFile) {
+      const formData = new FormData()
+      if (imageFile !== null) {
+        formData.append(`${this.targetModel}[image]`, imageFile)
+      }
+      this.$emit('form', formData)
     }
   }
 }
