@@ -8,7 +8,6 @@
     <section>
       <button type="submit" @click="upload">upload</button>
     </section>
-    <router-link to="/image/edit">編集</router-link>
 
   </div>
 </template>
@@ -24,23 +23,27 @@ export default {
   ],
   data() {
     return {
-      imageFile: null
+      imageFile: null,
+      formData:null
     }
   },
   methods: {
     setImage(e) {
       e.preventDefault()
       this.imageFile = e.target.files[0]
+      this.setForm(this.imageFile)
+    },
+    setForm(image) {
+      this.formData = new FormData()
+      this.formData.append('room_id', this.roomId)
+      if (image !== null) {
+        this.formData.append(`${this.targetModel}[image]`, image)
+      }
     },
     async upload() {
-      let formData = new FormData()
-      formData.append('room_id', this.roomId)
-      if (this.imageFile !== null) {
-        formData.append(`${this.targetModel}[image]`, this.imageFile)
-      }
-      const response = await api.actions.create(`/api/${this.targetModel}s`, formData)
-      this.resetForm()
+      const response = await api.actions.create(`/api/${this.targetModel}s`, this.formData)
       this.$emit('upload', response)
+      this.resetForm()
     },
     resetForm() {
       this.imageFile = null
