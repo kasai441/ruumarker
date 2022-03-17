@@ -1,10 +1,9 @@
 <template>
   <div>
     <h2>MapShow</h2>
-    <div>
+    <div class="image">
       <h3 v-if="response">{{ response.trimming }}</h3>
-      <img v-if="response" :src="response.image_url" />
-      <img v-else />
+      <img v-if="response" :src="response.image_url"/>
       <div class="submit_container">
         <a :href="room_path" class="btn btn-secondary">登録</a>
         <a @click="onImageEdit">編集</a>
