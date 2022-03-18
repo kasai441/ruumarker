@@ -2,8 +2,8 @@
   <div id="maps-new">
     <image-upload targetModel="map" @form="form"></image-upload>
     <section v-if="formData" class="submit_container">
-      <a @click="create(room_path)" class="btn btn-primary">登録</a>
-      <a @click="edit" class="btn btn-secondary">編集</a>
+      <a @click="create(room_path)" id="submit" class="btn btn-primary">登録</a>
+      <a @click="edit" id="edit" class="btn btn-secondary">編集</a>
     </section>
   </div>
 </template>

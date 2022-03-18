@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>ImageUpload</h2>
-    <section>
+    <section class="image">
       <img id="uploaded" width="200">
     </section>
     <section>

@@ -13,35 +13,37 @@ describe 'マップ管理機能', type: :system do
     context '画像をアップロードしたとき' do
       before do
         attach_file 'image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
-        click_button 'upload'
       end
 
-      it '正常に登録される' do
+      it '画像と編集ボタンと登録ボタンが表示される' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
         expect(page).to have_selector '.image img'
+        expect(page).to have_selector '.btn', text: '編集'
+        expect(page).to have_selector '.btn', text: '登録'
       end
     end
 
-    context '画像をアップロードしないとき' do
+    context '画像をアップロードして登録ボタンを押した時', js: true do
       before do
-        click_button 'upload'
+        attach_file 'image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+        find('#submit').click
       end
 
-      it '登録に失敗して作成画面にもどる' do
-        # expect(page).to have_selector '#error_explanation', text: 'マップの画像が必要です'
-        expect(page).to have_content 'マップの画像を登録してください'
+      it '正常にマップが登録されてルーム画面に遷移する' do
+        expect(page).to have_content 'ルーム詳細'
+        expect(Room.find(room1.id).map.image.attached?).to eq true
       end
     end
 
-    context '画像以外のファイルをアップロードしたとき' do
+    context '画像をアップロードして編集ボタンを押した時' do
       before do
-        attach_file 'image', Rails.root.join('spec', 'fixtures', 'files', 'test_zip.zip')
-        click_button 'upload'
+        attach_file 'image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+        find('#edit').click
       end
 
-      it '登録に失敗して作成画面にもどる' do
-        # expect(page).to have_selector '#error_explanation', text: 'マップの画像ファイルは[jpg/jpeg/png/gif]の形式のみ受け付けています'
-        expect(page).to have_content 'マップの画像を登録してください'
+      it '正常にマップが登録されて編集画面に遷移する' do
+        expect(page).to have_content 'マップ画像を編集します'
+        expect(Room.find(room1.id).map.image.attached?).to eq true
       end
     end
   end
@@ -77,7 +79,7 @@ describe 'マップ管理機能', type: :system do
 
       it '更新を失敗して編集画面にもどされる' do
         expect(page).to have_selector '#error_explanation', text: 'マップの画像ファイルは[jpg/jpeg/png/gif]の形式のみ受け付けています'
-        expect(page).to have_content 'マップ画像を変更します'
+        expect(page).to have_content 'マップ画像を編集します'
       end
     end
   end
