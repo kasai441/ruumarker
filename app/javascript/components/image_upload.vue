@@ -37,7 +37,7 @@ export default {
       if (imageFile !== null) {
         formData.append(`${this.targetModel}[image]`, imageFile)
       }
-      this.$emit('form', formData)
+      this.$emit('emitFormData', formData)
     }
   }
 }
