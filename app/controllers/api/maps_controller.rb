@@ -18,9 +18,5 @@ module Api
     def map_params
       params.require(:map).permit(:trimming, :expansion, :rotation, :image)
     end
-
-    def image_url(map)
-      map.image.attached? ? url_for(map.image) : nil
-    end
   end
 end

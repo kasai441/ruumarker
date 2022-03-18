@@ -22,8 +22,11 @@ const event = {
 describe('ImageUpload', () => {
   it('makes a call to persist the image on image upload', () => {
     const wrapper = mount(ImageUpload)
-    const setFormSpy = jest.spyOn(wrapper.vm, 'setForm')
-    wrapper.vm.setImage(event)
-    expect(setFormSpy).toHaveBeenCalledWith(event.target.files[0])
+    const fileReaderSpy = jest.spyOn(FileReader.prototype, 'readAsDataURL').mockImplementation(() => null)
+    const initFormSpy = jest.spyOn(wrapper.vm, 'initForm')
+    wrapper.vm.upload(event)
+
+    expect(fileReaderSpy).toHaveBeenCalledWith(event.target.files[0])
+    expect(initFormSpy).toHaveBeenCalledWith(event.target.files[0])
   })
 })

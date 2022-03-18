@@ -2,8 +2,8 @@
   <div>
     <h2>MapShow</h2>
     <div class="image">
-      <h3 v-if="response">{{ response.trimming }}</h3>
-      <img v-if="response" :src="response.image_url"/>
+      <h3 v-if="image">{{ image.trimming }}</h3>
+      <img v-if="image" :src="image"/>
       <div class="submit_container">
         <a :href="room_path" class="btn btn-secondary">登録</a>
         <a @click="onImageEdit">編集</a>
@@ -19,7 +19,7 @@ export default {
   name: 'MapShow',
   inject: ['roomId'],
   props: [
-    'response',
+    'image',
   ],
   data() {
     return {
@@ -34,7 +34,6 @@ export default {
     },
     onImageEdit() {
       this.$emit('imageEdit', true)
-      this.$emit('upload', this.response)
     }
   }
 }
