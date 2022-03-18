@@ -1,41 +1,37 @@
 <template>
   <div id="maps-edit">
-    <div v-if="isImageEdit">
-      <image-edit v-bind:response="response" targetModel="map"></image-edit>
-    </div>
-    <div v-else>
-      <image-show @imageEdit="imageEdit"></image-show>
-      <image-upload targetModel="map" @form="form"></image-upload>
-    </div>
+    <section v-if="isImageEdit">
+      <image-edit v-bind:response="response" targetModel="map" @emitFormData="getFormData"></image-edit>
+    </section>
+    <section v-else>
+      <image-show :image-url="imageUrl" @switchImageEdit="switchImageEdit"></image-show>
+    </section>
   </div>
 </template>
 
 <script>
-import ImageEdit from '../components/image_edit.vue'
 import ImageShow from '../components/image_show.vue'
-import ImageUpload from '../components/image_upload.vue'
+import ImageEdit from '../components/image_edit.vue'
 
 export default {
   name: 'MapsEdit',
   inject: ['roomId', 'mapId', 'imageUrl'],
   data() {
     return {
-      formData: null,
-      response: null,
-      isImageEdit: false
+      isImageEdit: false,
+      formData: null
     }
   },
   components: {
     ImageEdit,
-    ImageShow,
-    ImageUpload
+    ImageShow
   },
   methods: {
-    form(data) {
-      this.formData = data
+    switchImageEdit(bool) {
+      this.isImageEdit = bool
     },
-    imageEdit(boolean) {
-      this.isImageEdit = boolean
+    getFormData(formData) {
+      this.formData = formData
     }
   }
 }
