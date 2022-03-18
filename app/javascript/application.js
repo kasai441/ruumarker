@@ -4,4 +4,4 @@ import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 
 import './maps/new.js'
-// import './maps/edit.js'
+import './maps/edit.js'

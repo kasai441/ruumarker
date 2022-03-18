@@ -1,10 +1,10 @@
 <template>
-  <div id="maps-new">
+  <div id="maps-edit">
     <div v-if="isImageEdit">
       <image-edit v-bind:response="response" targetModel="map"></image-edit>
     </div>
     <div v-else>
-      <image-show v-if="imageFile" v-bind:image="image" @imageEdit="imageEdit"></image-show>
+      <image-show @imageEdit="imageEdit"></image-show>
       <image-upload targetModel="map" @form="form"></image-upload>
     </div>
   </div>
@@ -16,8 +16,8 @@ import ImageShow from '../components/image_show.vue'
 import ImageUpload from '../components/image_upload.vue'
 
 export default {
-  name: 'MapsNew',
-  inject: ['roomId'],
+  name: 'MapsEdit',
+  inject: ['roomId', 'mapId', 'imageUrl'],
   data() {
     return {
       formData: null,
