@@ -1,17 +1,31 @@
 <template>
   <div id="maps-edit">
     <section v-if="isImageEdit">
-      <image-edit v-bind:response="response" targetModel="map" @emitFormData="getFormData"></image-edit>
+      <image-edit
+        :image-url="imageUrl"
+        @emitFormData="getFormData"
+      ></image-edit>
+      <image-update
+        :room-id="roomId"
+        :map-id="mapId"
+        target-model="map"
+        @switchImageEdit="switchImageEdit"
+        @emitFormData="getFormData"
+      ></image-update>
     </section>
     <section v-else>
-      <image-show :image-url="imageUrl" @switchImageEdit="switchImageEdit"></image-show>
+      <image-show
+        :image-url="imageUrl"
+        @switchImageEdit="switchImageEdit"
+      ></image-show>
     </section>
   </div>
 </template>
 
 <script>
-import ImageShow from '../components/image_show.vue'
 import ImageEdit from '../components/image_edit.vue'
+import ImageUpdate from '../components/image_update.vue'
+import ImageShow from '../components/image_show.vue'
 
 export default {
   name: 'MapsEdit',
@@ -23,8 +37,9 @@ export default {
     }
   },
   components: {
+    ImageShow,
     ImageEdit,
-    ImageShow
+    ImageUpdate
   },
   methods: {
     switchImageEdit(bool) {
