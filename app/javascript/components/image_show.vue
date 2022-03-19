@@ -31,15 +31,12 @@ export default {
       this.$emit('switchImageEdit', true)
     }
   },
-  mounted: {
-    window:onload = async function() {
-      // this.response = await api.actions.show(`/api/${this.targetModel}s/${this.mapId}`)
-      this.response = await api.actions.show('/api/maps/73.json')
-      console.log(this.response)
-      const formData = new FormData
-      // formData.append('room_id', this.roomId)
-      // formData.append(`${this.targetModel}[image]`, imageFile)
-    }
+  async created() {
+    this.response = await api.actions.show(`/api/${this.targetModel}s/${this.mapId}.json`)
+    // this.response = await api.actions.show('/api/maps/73.json')
+    const formData = new FormData
+    // formData.append('room_id', this.roomId)
+    // formData.append(`${this.targetModel}[image]`, imageFile)
   }
 }
 </script>
