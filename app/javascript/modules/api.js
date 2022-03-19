@@ -10,14 +10,6 @@ const headers = {
 }
 
 const actions = {
-  async all(url) {
-    try {
-      const response = await axios.get(url)
-      return response.data
-    } catch (e) {
-      console.error(e)
-    }
-  },
   async create(url, formData) {
     try {
       const response = await axios.post(url, formData, headers)
@@ -28,8 +20,8 @@ const actions = {
   },
   async show(url) {
     try {
-      // axios.get(`${url}/${id}`)
-      axios.get(url)
+      const response = await axios.get(url)
+      return response.data
     } catch (e) {
       console.error(e)
     }

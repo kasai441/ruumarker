@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>ImageEdit</h2>
-    <div>{{ imageUrl }}</div>
+    <div>{{ formData }}</div>
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 export default {
   name: 'ImageEdit',
   props: [
-    'imageUrl',
+    'formData',
   ],
   data() {
     return {
