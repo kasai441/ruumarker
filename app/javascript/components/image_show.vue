@@ -4,7 +4,6 @@
     <div class="image">
       <img v-if="imageUrl" :src="imageUrl"/>
       <div class="submit_container">
-        <div>{{ response }}</div>
         <a @click="switchImageEdit">編集</a>
       </div>
     </div>
@@ -18,25 +17,28 @@ export default {
   name: 'ImageShow',
   props: [
     'mapId',
-    'targetModel'
+    'targetModel',
   ],
   data() {
     return {
       imageUrl: null,
-      response: null
     }
   },
   methods: {
     switchImageEdit() {
       this.$emit('switchImageEdit', true)
-    }
+    },
   },
   async created() {
-    this.response = await api.actions.show(`/api/${this.targetModel}s/${this.mapId}.json`)
-    // this.response = await api.actions.show('/api/maps/73.json')
-    const formData = new FormData
-    // formData.append('room_id', this.roomId)
-    // formData.append(`${this.targetModel}[image]`, imageFile)
+    this.formData = new FormData()
+    const response = await api.actions.show(`/api/${this.targetModel}s/${this.mapId}.json`)
+    this.imageUrl = response.image_url
+    this.formData.append('imageUrl', response.image_url)
+    // console.log(response)
+    this.formData.append('trimming', response.trimming)
+  },
+  updated() {
+    this.$emit('emitFormData', this.formData)
   }
 }
 </script>

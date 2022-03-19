@@ -8,15 +8,16 @@
       <image-update
         :room-id="roomId"
         :map-id="mapId"
+        :form-data="formData"
         target-model="map"
         @switchImageEdit="switchImageEdit"
-        @emitFormData="getFormData"
       ></image-update>
     </section>
     <section v-else>
       <image-show
         :map-id="mapId"
         target-model="map"
+        @emitFormData="getFormData"
         @switchImageEdit="switchImageEdit"
       ></image-show>
     </section>

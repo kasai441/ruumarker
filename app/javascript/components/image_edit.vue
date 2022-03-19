@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>ImageEdit</h2>
-    <div>{{ formData }}</div>
+    <div>{{ trimming }}</div>
   </div>
 </template>
 
@@ -10,14 +10,20 @@
 export default {
   name: 'ImageEdit',
   props: [
-    'formData',
+    'formData'
   ],
   data() {
     return {
-      trimming: ''
+      trimming: this.formData.get('trimming'),
     }
   },
   methods: {
+  },
+  created() {
+    console.log(this.formData.get('trimming'))
+  },
+  updated() {
+    this.$emit('emitFormData', this.formData)
   }
 }
 </script>

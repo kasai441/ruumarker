@@ -12,13 +12,14 @@ export default {
   name: 'ImageUpdate',
   props: [
     'roomId',
+    'mapId',
     'formData',
     'targetModel'
   ],
   methods: {
     async update() {
-      this.formData.append('room_id', this.roomId)
-      const response = await api.actions.update(`/api/${this.targetModel}s`, this.formData)
+      this.formData.append('map[trimming]', 'wawawa')
+      const response = await api.actions.update(`/api/${this.targetModel}s/${this.mapId}`, this.formData)
       location.href = `/rooms/${this.roomId}/maps/${response.id}/edit`
     },
     switchImageEdit() {

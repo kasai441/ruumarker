@@ -26,6 +26,14 @@ const actions = {
       console.error(e)
     }
   },
+  async update(url, formData) {
+    try {
+      const response = await axios.put(url, formData, headers)
+      return response.data
+    } catch (e) {
+      console.error(e)
+    }
+  },
   async delete(url, id) {
     try {
       axios.delete(`${url}/${id}`)

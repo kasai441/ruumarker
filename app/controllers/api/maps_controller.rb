@@ -18,6 +18,16 @@ module Api
       end
     end
 
+    def update
+      @map = Map.find(params[:id])
+
+      if @map.update(map_params)
+        render :update
+      else
+        render json: @map.errors, status: 422
+      end
+    end
+
     private
 
     def map_params
