@@ -1,8 +1,8 @@
 <template>
-  <div id="image-update">
+  <section id="image-update">
     <a @click="switchImageEdit" id="show" class="btn btn-secondary">キャンセル</a>
     <a @click="update" id="submit" class="btn btn-primary">登録</a>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -18,7 +18,7 @@ export default {
   ],
   methods: {
     async update() {
-      this.formData.append('map[trimming]', 'wawawa')
+      this.formData.append('map[trimming]', 'wowow')
       const response = await api.actions.update(`/api/${this.targetModel}s/${this.mapId}`, this.formData)
       location.href = `/rooms/${this.roomId}/maps/${response.id}/edit`
     },

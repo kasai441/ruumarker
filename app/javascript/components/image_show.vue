@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
     <h2>ImageShow</h2>
     <div class="image">
       <img v-if="imageUrl" :src="imageUrl"/>
@@ -7,7 +7,7 @@
         <a @click="switchImageEdit">編集</a>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -33,9 +33,8 @@ export default {
     this.formData = new FormData()
     const response = await api.actions.show(`/api/${this.targetModel}s/${this.mapId}.json`)
     this.imageUrl = response.image_url
-    this.formData.append('imageUrl', response.image_url)
-    // console.log(response)
-    this.formData.append('trimming', response.trimming)
+    this.formData.append('[map]image_url', response.image_url)
+    this.formData.append('[map]trimming', response.trimming)
   },
   updated() {
     this.$emit('emitFormData', this.formData)

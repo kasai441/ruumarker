@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <section>
     <h2>ImageEdit</h2>
     <div>{{ trimming }}</div>
-  </div>
+      <img :src="imageUrl"/>
+    <div></div>
+  </section>
 </template>
 
 <script>
@@ -14,13 +16,15 @@ export default {
   ],
   data() {
     return {
-      trimming: this.formData.get('trimming'),
+      trimming: null,
+      imageUrl: null
     }
   },
   methods: {
   },
   created() {
-    console.log(this.formData.get('trimming'))
+    this.trimming = this.formData.get('[map]trimming')
+    this.imageUrl = this.formData.get('[map]image_url')
   },
   updated() {
     this.$emit('emitFormData', this.formData)
