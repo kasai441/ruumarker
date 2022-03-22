@@ -7,25 +7,14 @@
          @mouseleave="touchend($event)"
          style="width: 600px; height:300px; background-color: black;"
     >
-      <img :src="imageUrl" width="200" height="200"/>
-<!--      <line v-for="line in list_line"-->
-<!--            @mousedown="touchstart($event)"-->
-<!--            :x1="line.x1" :y1="line.y1"-->
-<!--            :x2="line.x2" :y2="line.y2"-->
-<!--            :stroke-width="line.width" :stroke="line.stroke"/>-->
-<!--      <rect stroke="darkblue" stroke-width="5" fill="none"-->
-<!--            :width="300" :height="300">-->
-<!--      </rect>-->
+      <img :src="imageUrl" id="image" width="200" height="200"
+           @mousedown="touchstart($event)"
+           style="position: absolute"
+      />
     </div>
     <div></div>
   </section>
 </template>
-<!--<style>-->
-<!--#base-edit-field {-->
-<!--  width: 500px;-->
-<!--  height: 250px;-->
-<!--}-->
-<!--</style>-->
 <script>
 
 export default {
@@ -37,20 +26,50 @@ export default {
     return {
       trimming: null,
       imageUrl: null,
-      // list_line: [
-      //   {x1: 0, y1: 0, x2: 100, y2: 100, width: '10', stroke: 'green'}
-      // ]
+      expansion: 1,
+      isMovable: false,
+      exX: 0,
+      exY: 0,
     }
   },
   methods: {
     touchstart(e) {
       console.log('touch start:%d,%d', e.offsetX, e.offsetY)
+      this.isMovable = true
     },
     touchmove(e) {
-      console.log('move')
+      if (!this.isMovable) return
+      console.log('move:%d,%d', e.pageX, e.pageY)
+      console.log('moveOffset:%d,%d', e.offsetX, e.offsetY)
+      const image = document.getElementById('image')
+      console.log(image.style)
+      const x = e.offsetX * this.expansion //+ this.dx
+      const y = e.offsetY * this.expansion //+ this.dy
+      // console.log(x)
+      let dx = 0
+      let dy = 0
+      if (this.exX && this.exY) {
+        dx = x - this.exX
+        dy = y - this.exY
+      }
+      this.exX = x
+      this.exY = y
+      // console.log(this.exX)
+      // console.log(dx)
+      // console.log(image.style.left)
+      // console.log(image.style.left.replace(/[^\d]/g, ''))
+      var tempX = dx + Number(image.style.left.replace(/[^\d]/g, ''))
+      var tempY = dy + Number(image.style.top.replace(/[^\d]/g, ''))
+      console.log(tempX)
+      if (tempX > 0) image.style.left = tempX + 'px'
+      console.log(image.style.left)
+      if (tempY > 0) image.style.top = tempY + 'px'
+      e.preventDefault()
     },
     touchend(e) {
       console.log('end')
+      this.isMovable = false
+      e.preventDefault()
     }
   },
   created() {
