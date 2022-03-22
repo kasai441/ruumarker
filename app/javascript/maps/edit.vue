@@ -1,6 +1,6 @@
 <template>
   <div id="maps-edit">
-    <section v-if="isImageEdit">
+    <section v-if="isImageEdit" @touchmove.prevent>
       <image-edit
         :form-data="formData"
         @emitFormData="getFormData"

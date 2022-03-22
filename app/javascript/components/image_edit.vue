@@ -2,13 +2,14 @@
   <section>
     <h2>ImageEdit</h2>
     <div>{{ trimming }}</div>
-    <div id="base-edit-field" @mousemove="touchmove($event)"
-         @mouseup="touchend($event)"
-         @mouseleave="touchend($event)"
+    <div>{{ exX }}</div>
+    <div id="base-edit-field" @pointermove="touchmove($event)"
+         @pointrup="touchend($event)"
+         @pointerleave="touchend($event)"
          style="width: 600px; height:300px; background-color: black;"
     >
       <img :src="imageUrl" id="image" width="200" height="200"
-           @mousedown="touchstart($event)"
+           @pointerdown="touchstart($event)"
            style="position: absolute"
       />
     </div>
