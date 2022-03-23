@@ -1,5 +1,6 @@
 <template>
   <section id="maps-edit">
+    <div>{{ trimming }}</div>
     <div v-if="isImageEdit" @touchmove.prevent>
       <image-edit
         :form-data="formData"
@@ -36,6 +37,7 @@ export default {
     return {
       isImageEdit: false,
       formData: null,
+      trimming: null
     }
   },
   components: {
@@ -49,6 +51,7 @@ export default {
     },
     getFormData(formData) {
       this.formData = formData
+      console.log(this.formData.get('map[trimming]'))
     }
   }
 }

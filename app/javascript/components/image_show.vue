@@ -33,8 +33,9 @@ export default {
     this.formData = new FormData()
     const response = await api.actions.show(`/api/${this.targetModel}s/${this.mapId}.json`)
     this.imageUrl = response.image_url
-    this.formData.append('[map]image_url', response.image_url)
-    this.formData.append('[map]trimming', response.trimming)
+    console.log(response)
+    this.formData.append('map[image_url]', response.image_url)
+    this.formData.append('map[trimming]', response.trimming)
   },
   updated() {
     this.$emit('emitFormData', this.formData)

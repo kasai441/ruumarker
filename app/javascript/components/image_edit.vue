@@ -1,9 +1,8 @@
 <template>
   <section>
     <h2>ImageEdit</h2>
-    <div>{{ trimming }}</div>
-    <div>{{ trimming }}</div>
-    <div>{{ exX }}</div>
+    <div>{{ trimmingX }}</div>
+    <div>{{ trimmingY }}</div>
     <div id="base-edit-field" @pointermove="touchmove($event)"
          @pointerup="touchend($event)"
          @pointerleave="touchend($event)"
@@ -32,7 +31,9 @@ export default {
       fieldX: null,
       fieldY: null,
       shiftX: null,
-      shiftY: null
+      shiftY: null,
+      trimmingX: 0,
+      trimmingY: 0
     }
   },
   methods: {
@@ -49,26 +50,42 @@ export default {
       const editImage = document.getElementById('edit-image')
       const x = Math.floor(e.pageX * this.expansion)
       const y = Math.floor(e.pageY * this.expansion)
-      editImage.style.left = x - this.shiftX + 'px'
-      editImage.style.top = y - this.shiftY + 'px'
+      this.trimmingX = x - this.shiftX
+      this.trimmingY = y - this.shiftY
+      editImage.style.left = this.trimmingX + 'px'
+      editImage.style.top = this.trimmingY + 'px'
     },
     touchend(e) {
       console.log('end')
       this.isMovable = false
+      const trimming = JSON.stringify({ x: this.trimmingX, y: this.trimmingY })
+      this.formData.append('map[trimming]', trimming)
+      // this.$emit('emitFormData', this.formData)
       e.preventDefault()
     }
   },
   created() {
-    this.trimming = this.formData.get('[map]trimming')
-    this.imageUrl = this.formData.get('[map]image_url')
+    const trimming = this.formData.get('map[trimming]')
+    try {
+      this.trimming = JSON.parse(trimming)
+    } catch {
+      this.trimming = {}
+    }
+    this.imageUrl = this.formData.get('map[image_url]')
   },
   mounted() {
     const baseEditField = document.getElementById('base-edit-field')
     const editImage = document.getElementById('edit-image')
     this.fieldX = Math.floor(baseEditField.getBoundingClientRect().left)
     this.fieldY = Math.floor(baseEditField.getBoundingClientRect().top)
-    editImage.style.left = this.fieldX + 200 + 'px'
-    editImage.style.top = this.fieldY + 50 + 'px'
+    let trimmingX = this.fieldX + 200
+    let trimmingY =  this.fieldY + 50
+    if (this.trimming !== null && typeof(this.trimming) === 'object') {
+      trimmingX = this.trimming.x
+      trimmingY = this.trimming.y
+    }
+    editImage.style.left = trimmingX + 'px'
+    editImage.style.top = trimmingY + 'px'
   },
   updated() {
     this.$emit('emitFormData', this.formData)
