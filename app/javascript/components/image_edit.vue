@@ -10,10 +10,9 @@
     >
       <img :src="imageUrl" id="image" width="200" height="200"
            @pointerdown="touchstart($event)"
-           style="position: absolute"
+           style="position: relative; top: 50px; left:200px;"
       />
     </div>
-    <div></div>
   </section>
 </template>
 <script>
@@ -44,28 +43,24 @@ export default {
       console.log('moveOffset:%d,%d', e.offsetX, e.offsetY)
       const image = document.getElementById('image')
       console.log(image.style)
-      const x = e.offsetX * this.expansion //+ this.dx
-      const y = e.offsetY * this.expansion //+ this.dy
-      // console.log(x)
-      let dx = 0
-      let dy = 0
-      if (this.exX && this.exY) {
-        dx = x - this.exX
-        dy = y - this.exY
-      }
+      console.log('style.left:')
+      console.log(image.style.left)
+      const x = Math.floor(e.offsetX * this.expansion) //+ this.dx
+      const y = Math.floor(e.offsetY * this.expansion) //+ this.dy
+      console.log('x:')
+      console.log(x)
+      console.log(('exX:'))
+      console.log(this.exX)
+      let dx = x - this.exX
+      let dy = y - this.exY
       this.exX = x
       this.exY = y
-      // console.log(this.exX)
-      // console.log(dx)
-      // console.log(image.style.left)
-      // console.log(image.style.left.replace(/[^\d]/g, ''))
-      var tempX = dx + Number(image.style.left.replace(/[^\d]/g, ''))
-      var tempY = dy + Number(image.style.top.replace(/[^\d]/g, ''))
+      let tempX = dx + Number(image.style.left.match(/^\d+/g))
+      let tempY = dy + Number(image.style.top.match(/^\d+/g))
+      console.log('tempX:')
       console.log(tempX)
-      if (tempX > 0) image.style.left = tempX + 'px'
-      console.log(image.style.left)
-      if (tempY > 0) image.style.top = tempY + 'px'
-      e.preventDefault()
+      image.style.left = tempX + 'px'
+      image.style.top = tempY + 'px'
     },
     touchend(e) {
       console.log('end')

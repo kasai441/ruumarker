@@ -1,6 +1,6 @@
 <template>
-  <div id="maps-edit">
-    <section v-if="isImageEdit" @touchmove.prevent>
+  <section id="maps-edit">
+    <div v-if="isImageEdit" @touchmove.prevent>
       <image-edit
         :form-data="formData"
         @emitFormData="getFormData"
@@ -12,16 +12,16 @@
         target-model="map"
         @switchImageEdit="switchImageEdit"
       ></image-update>
-    </section>
-    <section v-else>
+    </div>
+    <div v-else>
       <image-show
         :map-id="mapId"
         target-model="map"
         @emitFormData="getFormData"
         @switchImageEdit="switchImageEdit"
       ></image-show>
-    </section>
-  </div>
+    </div>
+  </section>
 </template>
 
 <script>
