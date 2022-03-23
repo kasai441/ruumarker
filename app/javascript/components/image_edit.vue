@@ -8,7 +8,7 @@
          @pointerleave="touchend($event)"
          style="width: 600px; height:300px; background-color: black;"
     >
-      <img :src="imageUrl" id="image" width="200" height="200"
+      <img :src="imageUrl" id="image" width="200" height="200" draggable="false"
            @pointerdown="touchstart($event)"
            style="position: relative; top: 50px; left:200px;"
       />
