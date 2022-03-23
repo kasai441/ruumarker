@@ -10,7 +10,7 @@
     >
       <img :src="imageUrl" id="image" width="200" height="200" draggable="false"
            @pointerdown="touchstart($event)"
-           style="position: relative; top: 50px; left:200px;"
+           style="position: absolute; top: 250px; left:200px;"
       />
     </div>
   </section>
@@ -28,14 +28,14 @@ export default {
       imageUrl: null,
       expansion: 1,
       isMovable: false,
-      exX: 200,
-      exY: 50,
     }
   },
   methods: {
     touchstart(e) {
       console.log('touch start:%d,%d', e.offsetX, e.offsetY)
       this.isMovable = true
+      const image = document.getElementById('image')
+      if (image) console.log('page:%d,%d', image.offsetWidth, image.offsetHeight)
     },
     touchmove(e) {
       if (!this.isMovable) return
@@ -45,22 +45,10 @@ export default {
       console.log(image.style)
       console.log('style.left:')
       console.log(image.style.left)
-      const x = Math.floor(e.offsetX * this.expansion) //+ this.dx
-      const y = Math.floor(e.offsetY * this.expansion) //+ this.dy
-      console.log('x:')
-      console.log(x)
-      console.log(('exX:'))
-      console.log(this.exX)
-      let dx = x - this.exX
-      let dy = y - this.exY
-      this.exX = x
-      this.exY = y
-      let tempX = dx + Number(image.style.left.match(/^\d+/g))
-      let tempY = dy + Number(image.style.top.match(/^\d+/g))
-      console.log('tempX:')
-      console.log(tempX)
-      image.style.left = tempX + 'px'
-      image.style.top = tempY + 'px'
+      const x = Math.floor(e.pageX * this.expansion)
+      const y = Math.floor(e.pageY * this.expansion)
+      image.style.left = x + 'px'
+      image.style.top = y + 'px'
     },
     touchend(e) {
       console.log('end')
