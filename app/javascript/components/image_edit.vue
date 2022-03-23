@@ -8,9 +8,9 @@
          @pointerleave="touchend($event)"
          style="width: 600px; height:300px; background-color: black;"
     >
-      <img :src="imageUrl" id="image" width="200" height="200" draggable="false"
+      <img :src="imageUrl" id="edit-image" width="200" height="200" draggable="false"
            @pointerdown="touchstart($event)"
-           style="position: absolute; top: 250px; left:200px;"
+           style="position: absolute;"
       />
     </div>
   </section>
@@ -28,20 +28,22 @@ export default {
       imageUrl: null,
       expansion: 1,
       isMovable: false,
+      fieldX: null,
+      fieldY: null
     }
   },
   methods: {
     touchstart(e) {
       console.log('touch start:%d,%d', e.offsetX, e.offsetY)
       this.isMovable = true
-      const image = document.getElementById('image')
+      const image = document.getElementById('edit-image')
       if (image) console.log('page:%d,%d', image.offsetWidth, image.offsetHeight)
     },
     touchmove(e) {
       if (!this.isMovable) return
+      const image = document.getElementById('edit-image')
       console.log('movePage:%d,%d', e.pageX, e.pageY)
       console.log('moveOffset:%d,%d', e.offsetX, e.offsetY)
-      const image = document.getElementById('image')
       console.log(image.style)
       console.log('style.left:')
       console.log(image.style.left)
@@ -59,6 +61,14 @@ export default {
   created() {
     this.trimming = this.formData.get('[map]trimming')
     this.imageUrl = this.formData.get('[map]image_url')
+  },
+  mounted() {
+    const baseEditField = document.getElementById('base-edit-field')
+    const editImage = document.getElementById('edit-image')
+    this.fieldX = Math.floor(baseEditField.getBoundingClientRect().left)
+    this.fieldY = Math.floor(baseEditField.getBoundingClientRect().top)
+    editImage.style.left = this.fieldX + 200 + 'px'
+    editImage.style.top = this.fieldY + 50 + 'px'
   },
   updated() {
     this.$emit('emitFormData', this.formData)
