@@ -28,8 +28,8 @@ export default {
       imageUrl: null,
       expansion: 1,
       isMovable: false,
-      exX: 0,
-      exY: 0,
+      exX: 200,
+      exY: 50,
     }
   },
   methods: {
@@ -39,7 +39,7 @@ export default {
     },
     touchmove(e) {
       if (!this.isMovable) return
-      console.log('move:%d,%d', e.pageX, e.pageY)
+      console.log('movePage:%d,%d', e.pageX, e.pageY)
       console.log('moveOffset:%d,%d', e.offsetX, e.offsetY)
       const image = document.getElementById('image')
       console.log(image.style)
