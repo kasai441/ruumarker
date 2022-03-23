@@ -29,7 +29,9 @@ export default {
       expansion: 1,
       isMovable: false,
       fieldX: null,
-      fieldY: null
+      fieldY: null,
+      shiftX: null,
+      shiftY: null
     }
   },
   methods: {
@@ -38,6 +40,8 @@ export default {
       this.isMovable = true
       const image = document.getElementById('edit-image')
       if (image) console.log('page:%d,%d', image.offsetWidth, image.offsetHeight)
+      this.shiftX = e.clientX - image.getBoundingClientRect().left
+      this.shiftY = e.clientY - image.getBoundingClientRect().top
     },
     touchmove(e) {
       if (!this.isMovable) return
@@ -49,8 +53,8 @@ export default {
       console.log(image.style.left)
       const x = Math.floor(e.pageX * this.expansion)
       const y = Math.floor(e.pageY * this.expansion)
-      image.style.left = x + 'px'
-      image.style.top = y + 'px'
+      image.style.left = x - this.shiftX + 'px'
+      image.style.top = y - this.shiftY + 'px'
     },
     touchend(e) {
       console.log('end')
