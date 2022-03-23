@@ -2,6 +2,7 @@
   <section>
     <h2>ImageEdit</h2>
     <div>{{ trimming }}</div>
+    <div>{{ trimming }}</div>
     <div>{{ exX }}</div>
     <div id="base-edit-field" @pointermove="touchmove($event)"
          @pointerup="touchend($event)"
@@ -38,23 +39,18 @@ export default {
     touchstart(e) {
       console.log('touch start:%d,%d', e.offsetX, e.offsetY)
       this.isMovable = true
-      const image = document.getElementById('edit-image')
-      if (image) console.log('page:%d,%d', image.offsetWidth, image.offsetHeight)
-      this.shiftX = e.clientX - image.getBoundingClientRect().left
-      this.shiftY = e.clientY - image.getBoundingClientRect().top
+      const editImage = document.getElementById('edit-image')
+      if (editImage) console.log('page:%d,%d', editImage.offsetWidth, editImage.offsetHeight)
+      this.shiftX = e.clientX - editImage.getBoundingClientRect().left
+      this.shiftY = e.clientY - editImage.getBoundingClientRect().top
     },
     touchmove(e) {
       if (!this.isMovable) return
-      const image = document.getElementById('edit-image')
-      console.log('movePage:%d,%d', e.pageX, e.pageY)
-      console.log('moveOffset:%d,%d', e.offsetX, e.offsetY)
-      console.log(image.style)
-      console.log('style.left:')
-      console.log(image.style.left)
+      const editImage = document.getElementById('edit-image')
       const x = Math.floor(e.pageX * this.expansion)
       const y = Math.floor(e.pageY * this.expansion)
-      image.style.left = x - this.shiftX + 'px'
-      image.style.top = y - this.shiftY + 'px'
+      editImage.style.left = x - this.shiftX + 'px'
+      editImage.style.top = y - this.shiftY + 'px'
     },
     touchend(e) {
       console.log('end')
