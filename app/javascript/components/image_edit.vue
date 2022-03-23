@@ -4,7 +4,7 @@
     <div>{{ trimming }}</div>
     <div>{{ exX }}</div>
     <div id="base-edit-field" @pointermove="touchmove($event)"
-         @pointrup="touchend($event)"
+         @pointerup="touchend($event)"
          @pointerleave="touchend($event)"
          style="width: 600px; height:300px; background-color: black;"
     >
