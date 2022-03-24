@@ -2,7 +2,7 @@
   <section>
     <h2>ImageShow</h2>
     <div class="image">
-      <img v-if="imageUrl" :src="imageUrl" width="200"/>
+      <img v-if="imageUrl" id="show-image" :src="imageUrl" width="200"/>
       <div class="submit_container">
         <a @click="switchImageEdit">編集</a>
       </div>

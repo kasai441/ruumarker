@@ -3,17 +3,17 @@
     <h2>ImageEdit</h2>
     <div>{{ trimmingX }}</div>
     <div>{{ trimmingY }}</div>
-    <div id="base-edit-field" @pointermove="touchmove($event)"
+    <div id="edit-field" @pointermove="touchmove($event)"
          @pointerup="touchend($event)"
          @pointerleave="touchend($event)"
-         style="width: 600px; height:300px; background-color: black;"
+         style="width: 400px; height:300px; background-color: black;"
     >
-      <img :src="imageUrl" id="edit-image" width="200" height="200" draggable="false"
+      <img :src="imageUrl" id="edit-image" width="200" draggable="false"
            @pointerdown="touchstart($event)"
            style="position: absolute;"
       />
-      <div id="filter-edit-field"
-          style="width: 600px; height:300px;
+      <div id="edit-filter"
+          style="width: 400px; height:300px;
           background-color: transparent;
           outline: white solid 50px;
           outline-offset: -50px;
@@ -32,42 +32,37 @@ export default {
   data() {
     return {
       trimming: null,
+      trimmingX: 0,
+      trimmingY: 0,
       imageUrl: null,
       expansion: 1,
       isMovable: false,
-      fieldX: null,
-      fieldY: null,
+      editImage: null,
+      editFieldX: null,
+      editFieldY: null,
       shiftX: null,
-      shiftY: null,
-      trimmingX: 0,
-      trimmingY: 0
+      shiftY: null
     }
   },
   methods: {
     touchstart(e) {
-      console.log('touch start:%d,%d', e.offsetX, e.offsetY)
       this.isMovable = true
-      const editImage = document.getElementById('edit-image')
-      if (editImage) console.log('page:%d,%d', editImage.offsetWidth, editImage.offsetHeight)
-      this.shiftX = e.clientX - editImage.getBoundingClientRect().left
-      this.shiftY = e.clientY - editImage.getBoundingClientRect().top
+      this.shiftX = e.clientX - this.editImage.getBoundingClientRect().left
+      this.shiftY = e.clientY - this.editImage.getBoundingClientRect().top
     },
     touchmove(e) {
       if (!this.isMovable) return
-      const editImage = document.getElementById('edit-image')
       const x = Math.floor(e.pageX * this.expansion)
       const y = Math.floor(e.pageY * this.expansion)
       this.trimmingX = x - this.shiftX
       this.trimmingY = y - this.shiftY
-      editImage.style.left = this.trimmingX + 'px'
-      editImage.style.top = this.trimmingY + 'px'
+      this.editImage.style.left = this.trimmingX + 'px'
+      this.editImage.style.top = this.trimmingY + 'px'
     },
     touchend(e) {
-      console.log('end')
       this.isMovable = false
       const trimming = JSON.stringify({ x: this.trimmingX, y: this.trimmingY })
       this.formData.append('map[trimming]', trimming)
-      // this.$emit('emitFormData', this.formData)
       e.preventDefault()
     }
   },
@@ -81,18 +76,18 @@ export default {
     this.imageUrl = this.formData.get('map[image_url]')
   },
   mounted() {
-    const baseEditField = document.getElementById('base-edit-field')
-    const editImage = document.getElementById('edit-image')
-    this.fieldX = Math.floor(baseEditField.getBoundingClientRect().left)
-    this.fieldY = Math.floor(baseEditField.getBoundingClientRect().top)
-    let trimmingX = this.fieldX + 200
-    let trimmingY =  this.fieldY + 50
+    const editField = document.getElementById('edit-field')
+    this.editImage = document.getElementById('edit-image')
+    this.editFieldX = Math.floor(editField.getBoundingClientRect().left)
+    this.editFieldY = Math.floor(editField.getBoundingClientRect().top)
+    let editImageX = this.editFieldX + 100
+    let editImageY =  this.editFieldY + 50
     if (this.trimming !== null && typeof(this.trimming) === 'object') {
-      trimmingX = this.trimming.x
-      trimmingY = this.trimming.y
+      editImageX = this.trimming.x
+      editImageY = this.trimming.y
     }
-    editImage.style.left = trimmingX + 'px'
-    editImage.style.top = trimmingY + 'px'
+    this.editImage.style.left = editImageX + 'px'
+    this.editImage.style.top = editImageY + 'px'
   },
   updated() {
     this.$emit('emitFormData', this.formData)
