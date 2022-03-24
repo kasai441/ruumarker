@@ -42,8 +42,8 @@ export default {
       editImageTop: 0,
       shiftX: null,
       shiftY: null,
-      editFilterWidth: 100,
-      editFilterHeight: 100
+      editFilterWidth: 50,
+      editFilterHeight: 50
     }
   },
   methods: {
@@ -75,7 +75,7 @@ export default {
     try {
       this.trimming = JSON.parse(trimming)
     } catch {
-      this.trimming = {}
+      this.trimming = {x: 0, y: 0}
     }
     this.imageUrl = this.formData.get('map[image_url]')
   },
