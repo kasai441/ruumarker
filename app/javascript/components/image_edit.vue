@@ -1,8 +1,8 @@
 <template>
   <section>
     <h2>ImageEdit</h2>
-    <div>{{ trimmingX }}</div>
-    <div>{{ trimmingY }}</div>
+    <div>{{ editImageLeft }}</div>
+    <div>{{ editImageTop }}</div>
     <div id="edit-field" @pointermove="touchmove($event)"
          @pointerup="touchend($event)"
          @pointerleave="touchend($event)"
@@ -32,14 +32,14 @@ export default {
   data() {
     return {
       trimming: null,
-      trimmingX: 0,
-      trimmingY: 0,
       imageUrl: null,
       expansion: 1,
       isMovable: false,
+      editFieldLeft: null,
+      editFieldTop: null,
       editImage: null,
-      editFieldX: null,
-      editFieldY: null,
+      editImageLeft: 0,
+      editImageTop: 0,
       shiftX: null,
       shiftY: null
     }
@@ -54,14 +54,16 @@ export default {
       if (!this.isMovable) return
       const x = Math.floor(e.pageX * this.expansion)
       const y = Math.floor(e.pageY * this.expansion)
-      this.trimmingX = x - this.shiftX
-      this.trimmingY = y - this.shiftY
-      this.editImage.style.left = this.trimmingX + 'px'
-      this.editImage.style.top = this.trimmingY + 'px'
+      this.editImageLeft = x - this.shiftX
+      this.editImageTop = y - this.shiftY
+      this.editImage.style.left = this.editImageLeft + 'px'
+      this.editImage.style.top = this.editImageTop + 'px'
     },
     touchend(e) {
       this.isMovable = false
-      const trimming = JSON.stringify({ x: this.trimmingX, y: this.trimmingY })
+      const trimmingX = this.editImageLeft - this.editFieldLeft
+      const trimmingY = this.editImageTop - this.editFieldTop
+      const trimming = JSON.stringify({ x: trimmingX, y: trimmingY })
       this.formData.append('map[trimming]', trimming)
       e.preventDefault()
     }
@@ -77,17 +79,19 @@ export default {
   },
   mounted() {
     const editField = document.getElementById('edit-field')
-    this.editImage = document.getElementById('edit-image')
-    this.editFieldX = Math.floor(editField.getBoundingClientRect().left)
-    this.editFieldY = Math.floor(editField.getBoundingClientRect().top)
-    let editImageX = this.editFieldX + 100
-    let editImageY =  this.editFieldY + 50
+    this.editFieldLeft = Math.floor(editField.getBoundingClientRect().left)
+    this.editFieldTop = Math.floor(editField.getBoundingClientRect().top)
+
+    let editImageLeft = this.editFieldLeft + 100
+    let editImageTop =  this.editFieldTop + 50
     if (this.trimming !== null && typeof(this.trimming) === 'object') {
-      editImageX = this.trimming.x
-      editImageY = this.trimming.y
+      editImageLeft = this.editFieldLeft + this.trimming.x
+      editImageTop = this.editFieldTop + this.trimming.y
     }
-    this.editImage.style.left = editImageX + 'px'
-    this.editImage.style.top = editImageY + 'px'
+
+    this.editImage = document.getElementById('edit-image')
+    this.editImage.style.left = editImageLeft + 'px'
+    this.editImage.style.top = editImageTop + 'px'
   },
   updated() {
     this.$emit('emitFormData', this.formData)
