@@ -41,7 +41,9 @@ export default {
       editImageLeft: 0,
       editImageTop: 0,
       shiftX: null,
-      shiftY: null
+      shiftY: null,
+      editFilterWidth: 100,
+      editFilterHeight: 100
     }
   },
   methods: {
@@ -61,8 +63,8 @@ export default {
     },
     touchend(e) {
       this.isMovable = false
-      const trimmingX = this.editImageLeft - this.editFieldLeft
-      const trimmingY = this.editImageTop - this.editFieldTop
+      const trimmingX = this.editImageLeft - this.editFieldLeft - this.editFilterWidth
+      const trimmingY = this.editImageTop - this.editFieldTop - this.editFilterHeight
       const trimming = JSON.stringify({ x: trimmingX, y: trimmingY })
       this.formData.append('map[trimming]', trimming)
       e.preventDefault()
@@ -85,8 +87,8 @@ export default {
     let editImageLeft = this.editFieldLeft + 100
     let editImageTop =  this.editFieldTop + 50
     if (this.trimming !== null && typeof(this.trimming) === 'object') {
-      editImageLeft = this.editFieldLeft + this.trimming.x
-      editImageTop = this.editFieldTop + this.trimming.y
+      editImageLeft = this.editFieldLeft + this.editFilterWidth + this.trimming.x
+      editImageTop = this.editFieldTop + this.editFilterHeight + this.trimming.y
     }
 
     this.editImage = document.getElementById('edit-image')
