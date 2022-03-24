@@ -1,2 +1,5 @@
 h1 マップ画像を編集します
-= render 'form', map: @map
+
+#maps-edit(room_id="#{@map.room.id}" map_id="#{@map.id}" image_url="#{url_for @map.image}")
+
+= link_to '戻る', :back, class: 'btn'

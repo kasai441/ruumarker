@@ -1,41 +1,57 @@
 <template>
-  <div id="maps-new">
-    <div v-if="isImageEdit">
-      <image-edit v-bind:response="response" targetModel="map"></image-edit>
+  <section id="maps-edit">
+    <div>{{ trimming }}</div>
+    <div v-if="isImageEdit" @touchmove.prevent>
+      <image-edit
+        :form-data="formData"
+        @emitFormData="getFormData"
+      ></image-edit>
+      <image-update
+        :room-id="roomId"
+        :map-id="mapId"
+        :form-data="formData"
+        target-model="map"
+        @switchImageEdit="switchImageEdit"
+      ></image-update>
     </div>
     <div v-else>
-      <image-show v-if="imageFile" v-bind:image="image" @imageEdit="imageEdit"></image-show>
-      <image-upload targetModel="map" @form="form"></image-upload>
+      <image-show
+        :map-id="mapId"
+        target-model="map"
+        @emitFormData="getFormData"
+        @switchImageEdit="switchImageEdit"
+      ></image-show>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
 import ImageEdit from '../components/image_edit.vue'
+import ImageUpdate from '../components/image_update.vue'
 import ImageShow from '../components/image_show.vue'
-import ImageUpload from '../components/image_upload.vue'
 
 export default {
-  name: 'MapsNew',
-  inject: ['roomId'],
+  name: 'MapsEdit',
+  inject: ['roomId', 'mapId'],
   data() {
     return {
+      isImageEdit: false,
       formData: null,
-      response: null,
-      isImageEdit: false
+      trimming: null
     }
   },
   components: {
-    ImageEdit,
     ImageShow,
-    ImageUpload
+    ImageEdit,
+    ImageUpdate
   },
   methods: {
-    form(data) {
-      this.formData = data
+    switchImageEdit(bool) {
+      this.isImageEdit = bool
     },
-    imageEdit(boolean) {
-      this.isImageEdit = boolean
+    getFormData(formData) {
+      this.formData = formData
+      console.log(this.formData.get('map[trimming]'))
     }
   }
 }
