@@ -47,8 +47,8 @@ export default {
 
     try {
       this.trimming = JSON.parse(response.trimming)
-    } catch {
-      this.trimming = {x: 0, y: 0}
+    } finally {
+      this.trimming ||= {x: 0, y: 0}
     }
   },
   updated() {
