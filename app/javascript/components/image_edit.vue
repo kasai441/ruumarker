@@ -49,8 +49,8 @@ export default {
   methods: {
     touchstart(e) {
       this.isMovable = true
-      this.shiftX = e.clientX - this.editImage.getBoundingClientRect().left
-      this.shiftY = e.clientY - this.editImage.getBoundingClientRect().top
+      this.shiftX = e.clientX - this.editImageLeft
+      this.shiftY = e.clientY - this.editImageTop
     },
     touchmove(e) {
       if (!this.isMovable) return
@@ -94,6 +94,8 @@ export default {
     this.editImage = document.getElementById('edit-image')
     this.editImage.style.left = editImageLeft + 'px'
     this.editImage.style.top = editImageTop + 'px'
+    this.editImageLeft = this.editImage.getBoundingClientRect().left
+    this.editImageTop = this.editImage.getBoundingClientRect().top
   },
   updated() {
     this.$emit('emitFormData', this.formData)

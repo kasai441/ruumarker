@@ -56,7 +56,7 @@ export default {
 
     const showImage = document.getElementById('show-image')
     showImage.style.left = this.trimming.x + 'px'
-    showImage.style.top = this.trimming.x + 'px'
+    showImage.style.top = this.trimming.y + 'px'
   }
 }
 </script>
