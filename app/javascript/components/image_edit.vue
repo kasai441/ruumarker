@@ -12,6 +12,13 @@
            @pointerdown="touchstart($event)"
            style="position: absolute;"
       />
+      <div id="filter-edit-field"
+          style="width: 600px; height:300px;
+          background-color: transparent;
+          outline: white solid 50px;
+          outline-offset: -50px;
+          opacity: 70%; pointer-events: none;"
+      ></div>
     </div>
   </section>
 </template>
