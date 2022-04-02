@@ -18,8 +18,8 @@ export default {
     'formData'
   ],
   methods: {
-    submit() {
-      this.create()
+    async submit() {
+      await this.create()
       location.href = `/rooms/${this.roomId}`
     },
     async edit() {
