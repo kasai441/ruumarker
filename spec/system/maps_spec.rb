@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'support/dom_helper'
 
 describe 'マップ管理機能', type: :system do
+  include DomHelper
+
   describe '新規作成機能' do
     let(:room1) { FactoryBot.create(:room) }
 
@@ -55,32 +58,42 @@ describe 'マップ管理機能', type: :system do
     before do
       visit room_path(room1)
       click_link 'マップ編集'
+      find('#edit').click
     end
 
-    context '値を変更したとき' do
+    let(:edit_image) { page.find_by_id('edit-image') }
+    let!(:ex_left) { style_value_of(edit_image[:style], 'left') }
+    let!(:ex_top) { style_value_of(edit_image[:style], 'top') }
+
+    context '図を移動したとき' do
+      let(:move_x) { 10 }
+      let(:move_y) { -30 }
+
       before do
-        fill_in 'Trimming', with: '1, 2'
-        click_button '更新する'
+        page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
+        find('#update').click
       end
 
-      it '値が反映される' do
-        expect(page).to have_selector '.alert-success', text: '変更しました'
-        expect(page).to have_selector '.trimming', text: '1, 2'
-        expect(page).to have_selector '.image img'
-        expect(page).to have_content 'ルーム詳細'
+      it '移動分が保存され、詳細画面に遷移する' do
+        # expect(page).to have_selector '.alert-success', text: '変更しました
+        left = style_value_of(edit_image[:style], 'left')
+        top = style_value_of(edit_image[:style], 'top')
+        expect(left).to eq ex_left + move_x
+        expect(top).to eq ex_top + move_y
+        expect(page).to have_content 'マップ画像を編集します'
       end
     end
 
     context '画像以外のファイルをアップロードしたとき' do
-      before do
-        attach_file 'map_image', Rails.root.join('spec', 'fixtures', 'files', 'test_zip.zip')
-        click_button '更新する'
-      end
-
-      it '更新を失敗して編集画面にもどされる' do
-        expect(page).to have_selector '#error_explanation', text: 'マップの画像ファイルは[jpg/jpeg/png/gif]の形式のみ受け付けています'
-        expect(page).to have_content 'マップ画像を編集します'
-      end
+      # before do
+      #   attach_file 'image', Rails.root.join('spec', 'fixtures', 'files', 'test_zip.zip')
+      #   find('#submit').click
+      # end
+      #
+      # it '更新を失敗して編集画面にもどされる' do
+      #   expect(page).to have_selector '#error_explanation', text: 'マップの画像ファイルは[jpg/jpeg/png/gif]の形式のみ受け付けています'
+      #   expect(page).to have_content 'マップ画像を編集します'
+      # end
     end
   end
 end

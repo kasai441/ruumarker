@@ -12,7 +12,7 @@
       />
     </div>
     <div class="submit_container">
-      <a @click="switchImageEdit">編集</a>
+      <a @click="switchImageEdit" id="edit">編集</a>
     </div>
   </section>
 </template>

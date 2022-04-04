@@ -14,7 +14,7 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
     unless @room.map.present?
-      cookies.delete :room_id
+      @room.destroy
       redirect_to root_path
     end
     cookies.signed[:room_id] = { value: @room.id, expires: 1.month.from_now }
