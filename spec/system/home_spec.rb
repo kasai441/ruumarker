@@ -10,7 +10,7 @@ describe 'ホーム管理機能', type: :system do
 
     context '1度目にホームページにアクセスしたとき' do
       it 'ホームページが表示される' do
-        expect(page).to have_selector '.btn', text: 'ルームを作る'
+        expect(page).to have_selector '.rounded-lg', text: 'ルームを作る'
       end
     end
 
