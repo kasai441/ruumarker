@@ -3,16 +3,20 @@
     "build": "webpack --config webpack.config.js",
     "lint": "eslint 'app/javascript/**/*.{js,vue}' --max-warnings=0",
     "lintjs": "eslint 'specjs/**/*.{js,vue}' --max-warnings=0",
-    "test": "jest"
+    "test": "jest",
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
   },
   "dependencies": {
     "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11",
     "@hotwired/turbo-rails": "^7.1.1",
     "@vue/compiler-sfc": "^3.2.31",
+    "autoprefixer": "^10.4.4",
     "axios": "^0.26.0",
     "babel-loader": "^8.2.3",
     "core-js": "^3.21.1",
+    "postcss": "^8.4.12",
+    "tailwindcss": "^3.0.23",
     "vue": "^3.2.31",
     "vue-loader": "^17.0.0",
     "webpack": "^5.69.1",
