@@ -69,8 +69,4 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
-
-  # https://interfirm.hatenablog.com/entry/2014/10/24/131503
-  # ローカルで本番環境のプリコンパイルを一度すると開発環境でもプリコンパイルが必要になってしまうのを、直す
-  config.assets.debug = false
 end
