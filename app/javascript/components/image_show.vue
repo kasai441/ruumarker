@@ -24,6 +24,7 @@ import api from '../modules/api'
 export default {
   name: 'ImageShow',
   props: [
+    'roomId',
     'mapId',
     'targetModel',
   ],
@@ -39,7 +40,7 @@ export default {
     },
   },
   async created() {
-    const response = await api.actions.show(`/api/${this.targetModel}s/${this.mapId}.json`)
+    const response = await api.actions.show(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.mapId}.json`)
     this.imageUrl = response.image_url
 
     this.formData = new FormData()

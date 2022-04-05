@@ -16,6 +16,7 @@
     </div>
     <div v-else>
       <image-show
+        :room-id="roomId"
         :map-id="mapId"
         target-model="map"
         @emitFormData="getFormData"
