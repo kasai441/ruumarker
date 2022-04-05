@@ -36,6 +36,8 @@ jobs:
         run: yarn install
       - name: Webpack build
         run: npx webpack
+      - name: Build TailwindCSS
+        run: yarn build:css
       - name: Set up database schema
         run: bin/rails db:schema:load
       - name: Run rspec

@@ -1,5 +1,6 @@
-h1 マップ画像を編集します
+div.items-center.flex.flex-col
+  h1.font-bold.text-4xl マップ画像を編集します
 
-#maps-edit(room_id="#{@map.room.id}" map_id="#{@map.id}" image_url="#{url_for @map.image}")
+  #maps-edit(room_id="#{@map.room.id}" map_id="#{@map.id}" image_url="#{url_for @map.image}")
 
-= link_to '戻る', :back, class: 'btn'
+  = link_to 'ルームに戻る', room_path(@map.room), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium"

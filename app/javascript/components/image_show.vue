@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <h2>ImageShow</h2>
+  <section class="items-center flex flex-col">
+    <h2 class="font-bold text-3xl">ImageShow</h2>
     <div id="show-field"
       style="width: 300px; height:200px; background-color: black;"
     >
@@ -12,11 +12,12 @@
       />
     </div>
     <div class="submit_container">
-      <a @click="switchImageEdit" id="edit">編集</a>
+      <a @click="switchImageEdit" id="edit"
+         class="rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium"
+      >編集</a>
     </div>
   </section>
 </template>
-
 <script>
 import api from '../modules/api'
 
