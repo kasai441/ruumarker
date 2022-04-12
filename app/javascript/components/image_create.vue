@@ -28,7 +28,7 @@ export default {
     },
     async create() {
       this.formData.append('room_id', this.roomId)
-      return await api.actions.create(`/api/${this.targetModel}s`, this.formData)
+      return await api.actions.create(`/api/rooms/${this.roomId}/${this.targetModel}s`, this.formData)
     }
   }
 }

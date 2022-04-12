@@ -25,7 +25,7 @@ export default {
   methods: {
     async update() {
       // this.formData.append('map[trimming]', 'wowow')
-      const response = await api.actions.update(`/api/${this.targetModel}s/${this.mapId}`, this.formData)
+      const response = await api.actions.update(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.mapId}`, this.formData)
       location.href = `/rooms/${this.roomId}/maps/${response.id}/edit`
     },
     switchImageEdit() {

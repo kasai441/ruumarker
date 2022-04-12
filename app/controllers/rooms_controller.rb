@@ -17,7 +17,7 @@ class RoomsController < ApplicationController
       @room.destroy
       redirect_to root_path
     end
-    cookies.signed[:room_id] = { value: @room.id, expires: 1.month.from_now }
+    cookies.signed[:room_id] = { value: @room.id, expires: 1.month.from_now, httponly: true }
   end
 
   def destroy
