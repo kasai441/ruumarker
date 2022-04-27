@@ -1,18 +1,17 @@
 div.flex.flex-col.items-center
+  = image_tag('logo.png', size:'150x150', alt: 'logo.png')
   h1.p-8.font-bold.text-4xl Ruumarker
-  div.w-144.h-144.md:w-192.md:h-192.lg:w-384.lg:h-384
-    div.flex.justify-center
-      = image_tag('dummy.png', size:'150x150', alt: 'dummy.png')
+  div.container.mx-auto
     div.p-4.flex.flex-col.items-center
       div.p-1 引っ越した直後、新居の壁紙にキズがあったら、すぐに大家さんに報告しましょう
       div.p-1.text-sm.text-zinc-600 このサイトでは、キズの報告のための点検表をつくることができます。
     div.p-4.flex.flex-col.items-center.text-center
       div.p-2.w-1/2
         = link_to 'キズ点検表を作る', new_room_path,
-                class: "rounded-lg py-3 px-5 bg-blue-500 text-white block font-medium hover:bg-blue-700"
+                class: "rounded-lg py-3 px-5 bg-lime-500 text-white block font-medium hover:bg-lime-700"
       div.p-2.w-1/2
         = link_to 'キズ点検表の作成手順', new_room_path,
-                class: "rounded-lg py-3 px-5 bg-blue-500 text-white block font-medium hover:bg-blue-700"
+                class: "rounded-lg py-3 px-5 bg-lime-500 text-white block font-medium hover:bg-lime-700"
     div.p-8
       p.p-1.text-sm.text-zinc-600 ※ 作った点検表のURLは、知っていれば誰でもアクセスできるので、不特定な他人に閲覧されるような場所に公開しないでください。
       p.p-1.text-sm.text-zinc-600 ※ この点検表は2週間で消えてしまいます。手元で保存するようにしてください。
