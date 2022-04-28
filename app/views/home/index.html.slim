@@ -1,19 +1,50 @@
 div.flex.flex-col.items-center
-  div.border-b.border-slate-900/10.flex.items-center
-    = image_tag('logo.png', size: '40x20', alt: 'logo.png')
-    div.text-2xl
+  div.w-full.py-1.px-4.border-b.border-slate-900/10.flex.items-center
+    = image_tag 'logo.png', size: '40x20', alt: 'logo.png'
+    div.px-1.text-2xl
       |ruumarker
   div.container.mx-auto
-    div.p-4.flex.flex-col.items-center
-      div.p-1 引っ越した直後、新居の壁紙にキズがあったら、すぐに大家さんに報告しましょう
-      div.p-1.text-sm.text-zinc-600 このサイトでは、キズの報告のための点検表をつくることができます。
-    div.p-4.flex.flex-col.items-center.text-center
-      div.p-2.w-1/2
+    div.p-4.text-2xl.text-bold
+      |キズ点検表をつくりましょう
+    p.p-4
+      |引っ越した直後、新居の壁紙にキズがあったら、すぐに大家さんに報告しましょう。
+      |このサイトでは、キズの報告のための点検表をつくることができます。
+    div.p-4
+      div.flex.flex-auto
         = link_to 'キズ点検表を作る', new_room_path,
-                class: "rounded-lg py-3 px-5 bg-lime-500 text-white block font-medium hover:bg-lime-700"
-      div.p-2.w-1/2
-        = link_to 'キズ点検表の作成手順', new_room_path,
-                class: "rounded-lg py-3 px-5 bg-lime-500 text-white block font-medium hover:bg-lime-700"
-    div.p-8
-      p.p-1.text-sm.text-zinc-600 ※ 作った点検表のURLは、知っていれば誰でもアクセスできるので、不特定な他人に閲覧されるような場所に公開しないでください。
-      p.p-1.text-sm.text-zinc-600 ※ この点検表は2週間で消えてしまいます。手元で保存するようにしてください。
+                class: "rounded-lg py-3 px-5 bg-lime-600 block text-white font-medium hover:bg-lime-500"
+    div.p-4.text-sm.text-zinc-600
+      p.p-1
+        |※ 作った点検表のURLは、知っていれば誰でもアクセスできるので、不特定な他人に閲覧されるような場所に公開しないでください。
+      p.p-1
+        |※ このウェブサイトの点検表作成データは2週間で消えてしまいます。作成後にPDFとしてダウンロードできるので、手元で保存するようにしてください。
+    div.p-4.text-2xl.text-bold
+      |作成手順
+    div.p-4
+      div.text-lg
+        |１．間取り画像をアップロード
+      p.py-4.px-9
+        |お部屋の間取り画像をアップロードします。画像は端末に保存されてるものを選択するか、スマホの場合はカメラで画像として取り込んで、アップロードできます。
+      div.rounded-lg.bg-slate-900.flex.justify-center
+        = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+    div.p-4
+      div.text-lg
+        |２．間取り図に、キズの箇所をマークする
+      p.py-4.px-9
+        |お部屋の間取り図に、キズの箇所のマークをつけることができます。
+      div.rounded-lg.bg-slate-900.flex.justify-center
+        = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+    div.p-4
+      div.text-lg
+        |３．キズの写真をアップロード
+      p.py-4.px-9
+        |キズの画像をアップロードできます。
+      div.rounded-lg.bg-slate-900.flex.justify-center
+        = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+    div.p-4
+      div.text-lg
+        |４．PDFでダウンロードする
+      p.py-4.px-9
+        |検査表が完成したらPDFをダウンロードすることができます。
+      div.rounded-lg.bg-slate-800.flex.justify-center
+        = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
