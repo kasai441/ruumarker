@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .btn {
+        @apply py-3 px-5 bg-lime-600 text-white font-semibold rounded-lg shadow-md hover:bg-lime-500 border-none;
+    }
+}

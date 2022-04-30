@@ -1,18 +1,20 @@
 <template>
-  <div>
-    <h2>ImageUpload</h2>
-    <section class="image">
-      <img id="uploaded" width="200">
-    </section>
-    <section>
-      <label for="image">image: </label>
+  <section>
+
+    <div class="bg-slate-900">
+      <div class="image" style="width:400px; height:300px;">
+        <div class="flex items-center justify-center" style="height:100%; width:100%">
+          <img id="uploaded" style="height:100%; width:100%; object-fit:cover;">
+        </div>
+      </div>
+    </div>
+    <div class="p-4">
       <input type="file" id="image" name="image" accept="image/png,image/jpeg" @change="upload" />
-    </section>
-  </div>
+    </div>
+  </section>
 </template>
 
 <script>
-
 export default {
   name: 'ImageUpload',
   props: [
@@ -39,6 +41,10 @@ export default {
       }
       this.$emit('emitFormData', formData)
     }
+  },
+  mounted() {
+    const uploadedTag = document.getElementById( 'uploaded' )
+    uploadedTag.src = '/assets/logo.png?w=160&h=160'
   }
 }
 </script>
