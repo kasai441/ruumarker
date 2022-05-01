@@ -7,5 +7,10 @@ div.flex.flex-col.items-center
   div.px-4.sm:px-6.md:px-8
     div.mx-auto.pt-4.sm:pt-6.lg:pt-8.flex.flex-col.items-center.text-center
       div.p-4
-       |お部屋の間取り画像をアップロードしてください
+       |お部屋の間取り画像
       #maps-new(room_id="#{@map.room.id}")
+
+/ htmlで一度書いたpropertyじゃないとvueで書いたpropertyは反映されないっぽい
+div.flex
+  div.w-96.object-none
+    |w-96

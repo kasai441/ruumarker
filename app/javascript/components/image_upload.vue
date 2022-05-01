@@ -1,10 +1,9 @@
 <template>
   <section>
-
-    <div class="bg-slate-900">
-      <div class="image" style="width:400px; height:300px;">
-        <div class="flex items-center justify-center" style="height:100%; width:100%">
-          <img id="uploaded" style="height:100%; width:100%; object-fit:cover;">
+    <div class="bg-slate-900 border-slate-900 flex">
+      <div class="image flex w-96 h-64">
+        <div class="flex items-center justify-center">
+          <img id="uploaded" src="/assets/logo.png" class="object-none w-96 h-64">
         </div>
       </div>
     </div>
@@ -41,10 +40,6 @@ export default {
       }
       this.$emit('emitFormData', formData)
     }
-  },
-  mounted() {
-    const uploadedTag = document.getElementById( 'uploaded' )
-    if (uploadedTag) uploadedTag.src = '/assets/logo.png'
   }
 }
 </script>
