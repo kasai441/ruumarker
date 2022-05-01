@@ -1,6 +1,6 @@
 <template>
   <div id="image-create">
-    <div v-if="formData" class="submit_container flex flex-row">
+    <div v-if="formData" class="submit_container">
       <div @click="submit" id="submit" class="btn btn-primary">登録</div>
       <div @click="edit" id="edit" class="btn btn-secondary">編集</div>
     </div>
