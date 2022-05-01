@@ -44,7 +44,7 @@ export default {
   },
   mounted() {
     const uploadedTag = document.getElementById( 'uploaded' )
-    uploadedTag.src = '/assets/logo.png?w=160&h=160'
+    if (uploadedTag) uploadedTag.src = '/assets/logo.png?w=160&h=160'
   }
 }
 </script>
