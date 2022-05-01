@@ -1,13 +1,11 @@
 <template>
   <section>
-    <div class="bg-slate-900 border-slate-900 flex">
-      <div class="image flex w-96 h-64">
-        <div class="flex items-center justify-center">
-          <img id="uploaded" src="/assets/logo.png" class="object-none w-96 h-64">
-        </div>
+    <div class="flex justify-center">
+      <div class="image edit-size rounded-lg bg-slate-100 outline outline-4 outline-lime-300">
+        <img id="uploaded" src="/assets/logo.png" class="object-none edit-size rounded-lg">
       </div>
     </div>
-    <div class="p-4">
+    <div class="p-4 text-sm">
       <input type="file" id="image" name="image" accept="image/png,image/jpeg" @change="upload" />
     </div>
   </section>

@@ -8,5 +8,15 @@ module.exports = {
   ],
   plugins: [
     require('daisyui')
-  ]
+  ],
+  theme: {
+    extend: {
+      spacing: {
+        '56': '14rem',
+        '72': '18rem',
+        '84': '21rem',
+        '108': '27rem',
+      }
+    }
+  }
 }
