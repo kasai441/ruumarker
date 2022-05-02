@@ -1,6 +1,9 @@
-div.items-center.flex.flex-col
-  h1.font-bold.text-4xl マップ画像を編集します
+div.flex.justify-between
+  div.over-frame.w-side.h-auto
+  div.items-center.flex.flex-col
+    h1.font-bold.text-4xl マップ画像を編集します
 
-  #maps-edit(room_id="#{@map.room.id}" map_id="#{@map.id}" image_url="#{url_for @map.image}")
+    #maps-edit(room_id="#{@map.room.id}" map_id="#{@map.id}" image_url="#{url_for @map.image}")
 
-  = link_to 'ルームに戻る', room_path(@map.room), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium"
+    = link_to 'ルームに戻る', room_path(@map.room), class: "btn"
+  div.over-frame.w-side.h-auto

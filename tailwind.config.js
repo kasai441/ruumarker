@@ -16,7 +16,10 @@ module.exports = {
         '72': '18rem',
         '84': '21rem',
         '108': '27rem',
-      }
+      },
+      outlineWidth: {
+        240: '240px',
+      },
     }
   }
 }

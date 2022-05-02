@@ -1,5 +1,5 @@
 <template>
-  <section id="maps-edit">
+  <section id="maps-edit" class="w-full">
     <div>{{ trimming }}</div>
     <div v-if="isImageEdit" @touchmove.prevent>
       <image-edit

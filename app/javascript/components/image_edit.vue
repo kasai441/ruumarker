@@ -3,21 +3,22 @@
     <h2>ImageEdit</h2>
     <div>{{ editImageLeft }}</div>
     <div>{{ editImageTop }}</div>
-    <div id="edit-field" @pointermove="touchmove($event)"
+    <div id="edit-field"
+         @pointermove="touchmove($event)"
          @pointerup="touchend($event)"
          @pointerleave="touchend($event)"
-         style="width: 400px; height:300px; background-color: black;"
+         class="edit-size bg-slate-900"
     >
-      <img :src="imageUrl" id="edit-image" width="200" draggable="false"
+      <img :src="imageUrl" id="edit-image" draggable="false"
            @pointerdown="touchstart($event)"
-           style="position: absolute;"
+           class="absolute edit-size object-contain"
       />
       <div id="edit-filter"
-          style="width: 400px; height:300px;
-          background-color: transparent;
+           class="edit-size"
+          style="background-color: transparent;
           outline: white solid 50px;
           outline-offset: -50px;
-          opacity: 70%; pointer-events: none;"
+          opacity: 50%; pointer-events: none;"
       ></div>
     </div>
   </section>
