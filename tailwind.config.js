@@ -18,8 +18,12 @@ module.exports = {
         '108': '27rem',
       },
       outlineWidth: {
+        60: '60px',
         240: '240px',
       },
+      zIndex: {
+        '60': '60',
+      }
     }
   }
 }

@@ -10,10 +10,9 @@
              id="show-image"
              class="absolute -z-30 edit-size w-full object-contain">
       </div>
-      <div class="submit_container">
+      <div class="submit_container relative z-60">
         <a @click="switchImageEdit" id="edit"
-           class="btn btn-primary"
-        >編集</a>
+           class="btn btn-primary">編集</a>
       </div>
     </div>
   </section>
