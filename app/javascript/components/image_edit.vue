@@ -13,13 +13,6 @@
            @pointerdown="touchstart($event)"
            class="absolute edit-size object-contain"
       />
-      <div id="edit-filter"
-           class="edit-size"
-          style="background-color: transparent;
-          outline: white solid 50px;
-          outline-offset: -50px;
-          opacity: 50%; pointer-events: none;"
-      ></div>
     </div>
   </section>
 </template>
@@ -43,8 +36,8 @@ export default {
       editImageTop: 0,
       shiftX: 0,
       shiftY: 0,
-      editFilterWidth: 50,
-      editFilterHeight: 50
+      editFilterWidth: 0,
+      editFilterHeight: 0
     }
   },
   methods: {

@@ -9,7 +9,6 @@
              :src="imageUrl"
              id="show-image"
              class="absolute -z-30 edit-size w-full object-contain">
-        <div class="edit-size"></div>
       </div>
       <div class="submit_container">
         <a @click="switchImageEdit" id="edit"
