@@ -21,7 +21,6 @@ describe 'マップ管理機能', type: :system do
       it '画像と編集ボタンと登録ボタンが表示される' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
         expect(page).to have_selector '.image img'
-        expect(page).to have_selector '.btn', text: '編集'
         expect(page).to have_selector '.btn', text: '登録'
       end
     end
@@ -34,18 +33,6 @@ describe 'マップ管理機能', type: :system do
 
       it '正常にマップが登録されてルーム画面に遷移する' do
         expect(page).to have_content 'ルーム詳細'
-        expect(Room.find(room1.id).map.image.attached?).to eq true
-      end
-    end
-
-    context '画像をアップロードして編集ボタンを押した時' do
-      before do
-        attach_file 'image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
-        find('#edit').click
-      end
-
-      it '正常にマップが登録されて編集画面に遷移する' do
-        expect(page).to have_content '間取り図を編集します'
         expect(Room.find(room1.id).map.image.attached?).to eq true
       end
     end
