@@ -18,7 +18,7 @@ describe 'マップ管理機能', type: :system do
 
       before do
         expect(uploaded[:src].split('/')).to include 'sample.png'
-        attach_file 'image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
       end
 
 
@@ -31,7 +31,7 @@ describe 'マップ管理機能', type: :system do
 
     context '画像をアップロードして登録ボタンを押した時', js: true do
       before do
-        attach_file 'image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
         find('#submit').click
       end
 
@@ -75,6 +75,19 @@ describe 'マップ管理機能', type: :system do
 
         expect(left).to eq ex_left + move_x
         expect(top).to eq ex_top + move_y
+      end
+    end
+
+    context '画像をアップロードしたとき' do
+      let(:ex_upload) { page.find_by_id('show-image') }
+
+      before do
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+      end
+
+      it '画像が変更される' do
+        # expect(page).to have_selector '.alert-success', text: '登録しました'
+        expect(page.find_by_id('show-image')[:src]).not_to eq ex_upload[:src]
       end
     end
 
