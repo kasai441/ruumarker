@@ -77,8 +77,8 @@ export default {
     this.editFieldLeft = Math.floor(editField.getBoundingClientRect().left)
     this.editFieldTop = Math.floor(editField.getBoundingClientRect().top)
 
-    let editImageLeft = this.editFieldLeft + 100
-    let editImageTop =  this.editFieldTop + 50
+    let editImageLeft = this.editFieldLeft
+    let editImageTop =  this.editFieldTop
     if (this.trimming !== null && typeof(this.trimming) === 'object') {
       editImageLeft = this.editFieldLeft + this.editFilterWidth + this.trimming.x
       editImageTop = this.editFieldTop + this.editFilterHeight + this.trimming.y

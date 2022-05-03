@@ -9,10 +9,14 @@ module DomHelper
   private
 
   def css_to_h(style)
-    style.split(';').map { |e| e.split(':').map(&:strip) }.to_h
+    if style
+      style.split(';').map { |e| e.split(':').map(&:strip) }.to_h
+    else
+      {}
+    end
   end
 
   def position_to_i(position)
-    position.gsub(/px/, '').to_i
+    position ? position.gsub(/px/, '').to_i : 0
   end
 end
