@@ -58,29 +58,32 @@ describe 'マップ管理機能', type: :system do
     before do
       visit room_path(room1)
       click_link 'マップ編集'
-      find('#edit').click
     end
 
-    let(:edit_image) { page.find_by_id('edit-image') }
-    let!(:ex_left) { style_value_of(edit_image[:style], 'left') }
-    let!(:ex_top) { style_value_of(edit_image[:style], 'top') }
+    let(:show_image) { page.find_by_id('show-image') }
+    let!(:ex_left) { style_value_of(show_image[:style], 'left') }
+    let!(:ex_top) { style_value_of(show_image[:style], 'top') }
 
     context '図を移動したとき' do
+      let(:edit_image) { page.find_by_id('edit-image') }
       let(:move_x) { 10 }
       let(:move_y) { -30 }
 
       before do
+        find('#edit').click
         page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
         find('#update').click
       end
 
       it '移動分が保存され、詳細画面に遷移する' do
         # expect(page).to have_selector '.alert-success', text: '変更しました
-        left = style_value_of(edit_image[:style], 'left')
-        top = style_value_of(edit_image[:style], 'top')
+        expect(page).to have_selector '#show-image'
+        show_image = page.find_by_id('show-image')
+        left = style_value_of(show_image[:style], 'left')
+        top = style_value_of(show_image[:style], 'top')
+
         expect(left).to eq ex_left + move_x
         expect(top).to eq ex_top + move_y
-        expect(page).to have_content '間取り図を編集します'
       end
     end
 
