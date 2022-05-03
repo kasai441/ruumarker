@@ -1,9 +1,9 @@
 <template>
   <div id="image-create">
-    <section v-if="formData" class="submit_container">
-      <a @click="submit" id="submit" class="btn btn-primary">登録</a>
-      <a @click="edit" id="edit" class="btn btn-secondary">編集</a>
-    </section>
+    <div v-if="formData" class="submit_container">
+      <div @click="submit" id="submit" class="btn btn-primary">登録</div>
+      <div @click="edit" id="edit" class="btn btn-secondary">編集</div>
+    </div>
   </div>
 </template>
 

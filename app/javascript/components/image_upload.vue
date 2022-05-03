@@ -1,18 +1,17 @@
 <template>
-  <div>
-    <h2>ImageUpload</h2>
-    <section class="image">
-      <img id="uploaded" width="200">
-    </section>
-    <section>
-      <label for="image">image: </label>
+  <section>
+    <div class="flex justify-center">
+      <div class="image edit-size rounded-lg bg-slate-100 outline outline-4 outline-lime-500">
+        <img id="uploaded" src="/assets/logo.png" class="object-contain edit-size rounded-lg">
+      </div>
+    </div>
+    <div class="p-4 text-sm">
       <input type="file" id="image" name="image" accept="image/png,image/jpeg" @change="upload" />
-    </section>
-  </div>
+    </div>
+  </section>
 </template>
 
 <script>
-
 export default {
   name: 'ImageUpload',
   props: [

@@ -1,24 +1,17 @@
 <template>
   <section>
-    <h2>ImageEdit</h2>
-    <div>{{ editImageLeft }}</div>
-    <div>{{ editImageTop }}</div>
-    <div id="edit-field" @pointermove="touchmove($event)"
+    <div id="edit-field"
+         @pointermove="touchmove($event)"
          @pointerup="touchend($event)"
          @pointerleave="touchend($event)"
-         style="width: 400px; height:300px; background-color: black;"
-    >
-      <img :src="imageUrl" id="edit-image" width="200" draggable="false"
+         class="my-16 edit-size">
+      <img :src="imageUrl" id="edit-image" draggable="false"
            @pointerdown="touchstart($event)"
-           style="position: absolute;"
-      />
-      <div id="edit-filter"
-          style="width: 400px; height:300px;
-          background-color: transparent;
-          outline: white solid 50px;
-          outline-offset: -50px;
-          opacity: 70%; pointer-events: none;"
-      ></div>
+           class="absolute z-10 edit-size object-contain">
+      <div class="relative">
+        <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
+        <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
+      </div>
     </div>
   </section>
 </template>
@@ -42,8 +35,8 @@ export default {
       editImageTop: 0,
       shiftX: 0,
       shiftY: 0,
-      editFilterWidth: 50,
-      editFilterHeight: 50
+      editFilterWidth: 0,
+      editFilterHeight: 0
     }
   },
   methods: {
@@ -84,8 +77,8 @@ export default {
     this.editFieldLeft = Math.floor(editField.getBoundingClientRect().left)
     this.editFieldTop = Math.floor(editField.getBoundingClientRect().top)
 
-    let editImageLeft = this.editFieldLeft + 100
-    let editImageTop =  this.editFieldTop + 50
+    let editImageLeft = this.editFieldLeft
+    let editImageTop =  this.editFieldTop
     if (this.trimming !== null && typeof(this.trimming) === 'object') {
       editImageLeft = this.editFieldLeft + this.editFilterWidth + this.trimming.x
       editImageTop = this.editFieldTop + this.editFilterHeight + this.trimming.y

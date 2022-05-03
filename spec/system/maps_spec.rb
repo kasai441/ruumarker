@@ -45,7 +45,7 @@ describe 'マップ管理機能', type: :system do
       end
 
       it '正常にマップが登録されて編集画面に遷移する' do
-        expect(page).to have_content 'マップ画像を編集します'
+        expect(page).to have_content '間取り図を編集します'
         expect(Room.find(room1.id).map.image.attached?).to eq true
       end
     end
@@ -80,7 +80,7 @@ describe 'マップ管理機能', type: :system do
         top = style_value_of(edit_image[:style], 'top')
         expect(left).to eq ex_left + move_x
         expect(top).to eq ex_top + move_y
-        expect(page).to have_content 'マップ画像を編集します'
+        expect(page).to have_content '間取り図を編集します'
       end
     end
 
@@ -92,7 +92,7 @@ describe 'マップ管理機能', type: :system do
       #
       # it '更新を失敗して編集画面にもどされる' do
       #   expect(page).to have_selector '#error_explanation', text: 'マップの画像ファイルは[jpg/jpeg/png/gif]の形式のみ受け付けています'
-      #   expect(page).to have_content 'マップ画像を編集します'
+      #   expect(page).to have_content '間取り図を編集します'
       # end
     end
   end

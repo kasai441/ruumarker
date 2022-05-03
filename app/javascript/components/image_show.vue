@@ -1,20 +1,19 @@
 <template>
-  <section class="items-center flex flex-col">
-    <h2 class="font-bold text-3xl">ImageShow</h2>
-    <div id="show-field"
-      style="width: 300px; height:200px; background-color: black;"
-    >
-      <img v-if="imageUrl"
-           :src="imageUrl"
-           id="show-image"
-           width="200"
-        style="position: relative"
-      />
-    </div>
-    <div class="submit_container">
-      <a @click="switchImageEdit" id="edit"
-         class="rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium"
-      >編集</a>
+  <section>
+    <div class="flex flex-col items-center">
+      <h2 class="font-bold text-3xl">ImageShow</h2>
+      <div id="show-field" class="my-16 edit-size relative">
+        <div class="absolute -z-10 edit-size bg-transparent bg-transparent outline outline-4 outline-lime-500"></div>
+        <div class="absolute -z-20 edit-size bg-transparent bg-transparent outline outline-240 outline-slate-200"></div>
+        <img v-if="imageUrl"
+             :src="imageUrl"
+             id="show-image"
+             class="absolute -z-30 edit-size w-full object-contain">
+      </div>
+      <div class="submit_container relative z-60">
+        <a @click="switchImageEdit" id="edit"
+           class="btn btn-primary">編集</a>
+      </div>
     </div>
   </section>
 </template>

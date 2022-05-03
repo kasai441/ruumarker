@@ -1,9 +1,8 @@
 <template>
-  <section id="image-update">
-    <div>{{ trimming }}</div>
+  <div id="image-update" class="flex justify-center relative z-60">
     <a @click="switchImageEdit" id="show" class="btn btn-secondary">キャンセル</a>
     <a @click="update" id="update" class="btn btn-primary">登録</a>
-  </section>
+  </div>
 </template>
 
 <script>
