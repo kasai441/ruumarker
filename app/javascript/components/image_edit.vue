@@ -20,12 +20,13 @@
 export default {
   name: 'ImageEdit',
   props: [
-    'formData'
+    'formData',
+    'imageFile',
+    'imageUrl'
   ],
   data() {
     return {
       trimming: null,
-      imageUrl: null,
       expansion: 1,
       isMovable: false,
       editFieldLeft: 0,
@@ -70,9 +71,22 @@ export default {
     } catch {
       this.trimming = {x: 0, y: 0}
     }
-    this.imageUrl = this.formData.get('map[image_url]')
   },
   mounted() {
+    if (this.imageFile) {
+      const uploadedTag = document.getElementById( 'edit-image' )
+      console.log('image_edit:')
+      console.log(document.getElementById( 'edit-image' ))
+      const reader = new FileReader()
+      reader.onload = function () {
+        uploadedTag.src = this.result
+      }
+      console.log(this.imageFile)
+      reader.readAsDataURL(this.imageFile)
+    } else {
+      // this.imageUrl = this.formData.get('map[image_url]')
+    }
+
     const editField = document.getElementById('edit-field')
     this.editFieldLeft = Math.floor(editField.getBoundingClientRect().left)
     this.editFieldTop = Math.floor(editField.getBoundingClientRect().top)

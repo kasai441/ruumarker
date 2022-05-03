@@ -21,7 +21,6 @@ describe 'マップ管理機能', type: :system do
         attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
       end
 
-
       it '画像と登録ボタンが表示される' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
         expect(uploaded[:src].split('/')).not_to include 'sample.png'

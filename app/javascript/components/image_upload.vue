@@ -27,6 +27,8 @@ export default {
       reader.onload = function () {
         uploadedTag.src = this.result
       }
+      console.log('upload:')
+      console.log(imageFile)
       reader.readAsDataURL(imageFile)
 
       this.initForm(imageFile)
