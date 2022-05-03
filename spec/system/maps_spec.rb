@@ -51,7 +51,7 @@ describe 'マップ管理機能', type: :system do
     let!(:ex_left) { style_value_of(show_image[:style], 'left') }
     let!(:ex_top) { style_value_of(show_image[:style], 'top') }
 
-    context '図を移動したとき' do
+    context '編集画面にてトリミング操作を行ったとき' do
       let(:edit_image) { page.find_by_id('edit-image') }
       let(:move_x) { 10 }
       let(:move_y) { -30 }
@@ -62,7 +62,7 @@ describe 'マップ管理機能', type: :system do
         find('#update').click
       end
 
-      it '移動分が保存され、詳細画面に遷移する' do
+      it 'トリミングが保存され、詳細画面で反映されている' do
         # expect(page).to have_selector '.alert-success', text: '変更しました
         expect(page).to have_selector '#show-image'
         show_image = page.find_by_id('show-image')
