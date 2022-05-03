@@ -14,13 +14,17 @@ describe 'マップ管理機能', type: :system do
     end
 
     context '画像をアップロードしたとき' do
+      let(:uploaded) { page.find_by_id('uploaded') }
+
       before do
+        expect(uploaded[:src].split('/')).to include 'sample.png'
         attach_file 'image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
       end
 
-      it '画像と編集ボタンと登録ボタンが表示される' do
+
+      it '画像と登録ボタンが表示される' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
-        expect(page).to have_selector '.image img'
+        expect(uploaded[:src].split('/')).not_to include 'sample.png'
         expect(page).to have_selector '.btn', text: '登録'
       end
     end
