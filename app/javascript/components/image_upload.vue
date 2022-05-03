@@ -2,7 +2,7 @@
   <section>
     <div class="flex justify-center">
       <div class="image edit-size rounded-lg bg-slate-100 outline outline-4 outline-lime-500">
-        <img id="uploaded" src="/assets/logo.png" class="object-contain edit-size rounded-lg">
+        <img id="uploaded" src="/sample.png" class="object-contain edit-size rounded-lg">
       </div>
     </div>
     <div class="p-4 text-sm">
