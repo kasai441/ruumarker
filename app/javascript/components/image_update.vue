@@ -15,6 +15,7 @@ export default {
     'mapId',
     'formData',
     'imageFile',
+    'imageUrl',
     'targetModel'
   ],
   data() {
@@ -24,7 +25,8 @@ export default {
   },
   methods: {
     async update() {
-      this.formData.append('map[image]', this.imageFile)
+      if (this.imageFile) this.formData.append('map[image]', this.imageFile)
+      this.formData.append('map[image_url]', this.imageUrl)
       const response = await api.actions.update(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.mapId}`, this.formData)
       location.href = `/rooms/${this.roomId}/maps/${response.id}/edit`
     },
