@@ -78,15 +78,15 @@ describe 'マップ管理機能', type: :system do
     end
 
     context '画像をアップロードしたとき' do
-      let(:ex_upload) { page.find_by_id('show-image') }
+      let!(:ex_upload) { page.find_by_id('show-image')[:src] }
 
       before do
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
       end
 
       it '画像が変更される' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
-        expect(page.find_by_id('show-image')[:src]).not_to eq ex_upload[:src]
+        expect(page.find_by_id('show-image')[:src]).not_to eq ex_upload
       end
     end
 
