@@ -19,7 +19,10 @@ module Api
     end
 
     def update
+      p params
+      p params[:id]
       @map = Map.find(params[:id])
+      p @map
 
       if @map.update(map_params)
         render :update

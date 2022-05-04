@@ -5,6 +5,7 @@
       <image-edit
         :form-data="formData"
         :image-file="imageFile"
+        :image-url="imageUrl"
         @emitFormData="getFormData"
       ></image-edit>
       <image-update
@@ -70,6 +71,8 @@ export default {
     getImageUrl(imageUrl) {
       if (imageUrl !== null) {
         this.imageUrl = imageUrl
+        console.log('url:')
+        console.log(this.imageUrl)
       }
     }
   }
