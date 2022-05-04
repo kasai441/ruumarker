@@ -54,6 +54,18 @@ describe 'マップ管理機能', type: :system do
     let!(:ex_left) { style_value_of(show_image[:style], 'left') }
     let!(:ex_top) { style_value_of(show_image[:style], 'top') }
 
+    context '詳細画面から更新ボタンを押したとき' do
+      before do
+        expect(page).to have_selector '#edit-image'
+        find('#edit').click
+      end
+
+      it '編集画面に遷移する' do
+        expect(page).to have_selector '#edit-image'
+      end
+    end
+
+
     context '編集画面にてトリミング操作を行ったとき' do
       let(:edit_image) { page.find_by_id('edit-image') }
       let(:move_x) { 10 }
