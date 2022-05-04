@@ -14,20 +14,23 @@ describe 'マップ管理機能', type: :system do
     end
 
     context '画像をアップロードしたとき' do
+      let(:uploaded) { page.find_by_id('uploaded') }
+
       before do
-        attach_file 'image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+        expect(uploaded[:src]).to include 'sample.png'
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
       end
 
-      it '画像と編集ボタンと登録ボタンが表示される' do
+      it '画像と登録ボタンが表示される' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
-        expect(page).to have_selector '.image img'
+        expect(uploaded[:src]).not_to include 'sample.png'
         expect(page).to have_selector '.btn', text: '登録'
       end
     end
 
     context '画像をアップロードして登録ボタンを押した時', js: true do
       before do
-        attach_file 'image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
         find('#submit').click
       end
 
@@ -41,28 +44,41 @@ describe 'マップ管理機能', type: :system do
   describe '更新機能' do
     let(:room1) { FactoryBot.create(:room) }
     let!(:map1) { FactoryBot.create(:map, room: room1) }
+    let(:show_image) { page.find_by_id('show-image') }
+    let(:edit_image) { page.find_by_id('edit-image') }
+    let(:move_x) { 10 }
+    let(:move_y) { -30 }
 
     before do
       visit room_path(room1)
       click_link 'マップ編集'
     end
 
-    let(:show_image) { page.find_by_id('show-image') }
     let!(:ex_left) { style_value_of(show_image[:style], 'left') }
     let!(:ex_top) { style_value_of(show_image[:style], 'top') }
+    let!(:ex_upload) { page.find_by_id('show-image')[:src] }
 
-    context '図を移動したとき' do
-      let(:edit_image) { page.find_by_id('edit-image') }
-      let(:move_x) { 10 }
-      let(:move_y) { -30 }
+    context '詳細画面から更新ボタンを押したとき' do
+      before do
+        expect(page).to have_selector '#show-image'
+        find('#edit').click
+        # エラー時のJSからのメッセージの表示
+        # puts page.driver.browser.manage.logs.get(:browser).collect(&:message)
+      end
 
+      it '編集画面に遷移する' do
+        expect(page).to have_selector '#edit-image'
+      end
+    end
+
+    context '編集画面にてトリミング操作を行ったとき' do
       before do
         find('#edit').click
         page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
         find('#update').click
       end
 
-      it '移動分が保存され、詳細画面に遷移する' do
+      it 'トリミングが保存され、詳細画面で反映されている' do
         # expect(page).to have_selector '.alert-success', text: '変更しました
         expect(page).to have_selector '#show-image'
         show_image = page.find_by_id('show-image')
@@ -71,6 +87,17 @@ describe 'マップ管理機能', type: :system do
 
         expect(left).to eq ex_left + move_x
         expect(top).to eq ex_top + move_y
+      end
+    end
+
+    context '画像をアップロードしたとき' do
+      before do
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+      end
+
+      it '画像が変更される' do
+        # expect(page).to have_selector '.alert-success', text: '登録しました'
+        expect(page.find_by_id('show-image')[:src]).not_to eq ex_upload
       end
     end
 
@@ -84,6 +111,40 @@ describe 'マップ管理機能', type: :system do
       #   expect(page).to have_selector '#error_explanation', text: 'マップの画像ファイルは[jpg/jpeg/png/gif]の形式のみ受け付けています'
       #   expect(page).to have_content '間取り図を編集します'
       # end
+    end
+
+    context '画像をアップロードして編集を押したとき' do
+      before do
+        expect(show_image[:src]).to include 'jpg'
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+        find('#edit').click
+      end
+
+      it '画像が更新されている' do
+        expect(page).to have_selector '#edit-image'
+        edit_image = page.find_by_id('edit-image')
+        expect(edit_image[:src]).to include 'png'
+      end
+    end
+
+    context '画像をアップロードしてトリミングしたとき' do
+      before do
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+        find('#edit').click
+        page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
+        find('#update').click
+      end
+
+      it '更新内容が反映される' do
+        # expect(page).to have_selector '.alert-success', text: '変更しました
+        expect(page).to have_selector '#show-image'
+        show_image = page.find_by_id('show-image')
+        left = style_value_of(show_image[:style], 'left')
+        top = style_value_of(show_image[:style], 'top')
+
+        expect(left).to eq ex_left + move_x
+        expect(top).to eq ex_top + move_y
+      end
     end
   end
 end

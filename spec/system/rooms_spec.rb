@@ -13,7 +13,7 @@ describe 'ルーム管理機能', type: :system do
     end
 
     it '関連づけたマップ詳細の値が参照でき、キズの説明が表示される' do
-      expect(page).to have_selector '.trimming', text: '1, 2, 3, 4'
+      expect(page).to have_selector '.trimming', text: '{"x":-25,"y":35}'
       expect(page).to have_selector '.expansion', text: '5'
       expect(page).to have_selector '.rotation', text: '6'
       expect(page).to have_content 'リビング、フローリン…'

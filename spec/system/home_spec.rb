@@ -24,7 +24,7 @@ describe 'ホーム管理機能', type: :system do
       end
 
       it '1度目につくったルームにリダイレクトされる' do
-        expect(page).to have_selector '.trimming', text: '1, 2, 3, 4'
+        expect(page).to have_selector '.trimming', text: '{"x":-25,"y":35}'
         expect(page).to have_selector '.expansion', text: '5'
         expect(page).to have_selector '.rotation', text: '6'
       end

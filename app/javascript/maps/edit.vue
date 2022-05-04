@@ -4,12 +4,16 @@
     <div v-if="isImageEdit" @touchmove.prevent>
       <image-edit
         :form-data="formData"
+        :image-file="imageFile"
+        :image-url="imageUrl"
         @emitFormData="getFormData"
       ></image-edit>
       <image-update
         :room-id="roomId"
         :map-id="mapId"
         :form-data="formData"
+        :image-file="imageFile"
+        :image-url="imageUrl"
         target-model="map"
         @switchImageEdit="switchImageEdit"
       ></image-update>
@@ -21,6 +25,8 @@
         target-model="map"
         @emitFormData="getFormData"
         @switchImageEdit="switchImageEdit"
+        @emitImageFile="getImageFile"
+        @emitImageUrl="getImageUrl"
       ></image-show>
     </div>
   </section>
@@ -38,7 +44,9 @@ export default {
     return {
       isImageEdit: false,
       formData: null,
-      trimming: null
+      trimming: null,
+      imageFile: null,
+      imageUrl: null
     }
   },
   components: {
@@ -52,7 +60,16 @@ export default {
     },
     getFormData(formData) {
       this.formData = formData
-      console.log(this.formData.get('map[trimming]'))
+    },
+    getImageFile(imageFile) {
+      if (imageFile !== null) {
+        this.imageFile = imageFile
+      }
+    },
+    getImageUrl(imageUrl) {
+      if (imageUrl !== null) {
+        this.imageUrl = imageUrl
+      }
     }
   }
 }
