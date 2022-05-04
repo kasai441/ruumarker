@@ -13,6 +13,6 @@ module DomHelper
   end
 
   def position_to_i(position)
-    position.gsub(/px/, '').to_i
+    position ? position.gsub(/px/, '').to_i : 0
   end
 end

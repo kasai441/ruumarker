@@ -55,12 +55,13 @@ export default {
   async created() {
     const response = await api.actions.show(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.mapId}.json`)
     this.imageUrl = response.image_url
-
     this.formData = new FormData()
     this.formData.append('map[trimming]', response.trimming)
 
     try {
-      this.trimming = JSON.parse(response.trimming)
+      // CapybaraにてSyntaxError: Unexpected token o in JSON at position 1をさけるため一旦stringifyしている
+      // https://mebee.info/2020/10/30/post-20771/
+      this.trimming = JSON.parse(JSON.stringify(response.trimming))
     } finally {
       this.trimming ||= {x: 0, y: 0}
     }

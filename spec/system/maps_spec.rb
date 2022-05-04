@@ -56,15 +56,16 @@ describe 'マップ管理機能', type: :system do
 
     context '詳細画面から更新ボタンを押したとき' do
       before do
-        expect(page).to have_selector '#edit-image'
+        expect(page).to have_selector '#show-image'
         find('#edit').click
+        # エラー時のJSからのメッセージの表示
+        # puts page.driver.browser.manage.logs.get(:browser).collect(&:message)
       end
 
       it '編集画面に遷移する' do
         expect(page).to have_selector '#edit-image'
       end
     end
-
 
     context '編集画面にてトリミング操作を行ったとき' do
       let(:edit_image) { page.find_by_id('edit-image') }
@@ -115,14 +116,42 @@ describe 'マップ管理機能', type: :system do
     end
 
     context '画像をアップロードして編集を押したとき' do
-      it '画像が更新されている' do
+      # let(:edit_image) { page.find_by_id('edit-image') }
+      #
+      # before do
+      #   attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+      #   find('#edit').click
+      # end
 
+      it '画像が更新されている' do
+        # expect(page).to have_selector '#show-image'
+        # show_image = page.find_by_id('show-image')
+        # # pngが含まれる
+        # show_image[:src]
       end
     end
 
     context '画像をアップロードしてトリミングしたとき' do
-      it '更新内容が反映される' do
+      # let(:edit_image) { page.find_by_id('edit-image') }
+      # let(:move_x) { 10 }
+      # let(:move_y) { -30 }
+      #
+      # before do
+      #   attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+      #   find('#edit').click
+      #   page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
+      #   find('#update').click
+      # end
 
+      it '更新内容が反映される' do
+        # # expect(page).to have_selector '.alert-success', text: '変更しました
+        # expect(page).to have_selector '#show-image'
+        # show_image = page.find_by_id('show-image')
+        # left = style_value_of(show_image[:style], 'left')
+        # top = style_value_of(show_image[:style], 'top')
+        #
+        # expect(left).to eq ex_left + move_x
+        # expect(top).to eq ex_top + move_y
       end
     end
   end
