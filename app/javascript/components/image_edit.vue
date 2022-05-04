@@ -75,13 +75,10 @@ export default {
   mounted() {
     if (this.imageFile) {
       const uploadedTag = document.getElementById( 'edit-image' )
-      console.log('image_edit:')
-      console.log(document.getElementById( 'edit-image' ))
       const reader = new FileReader()
       reader.onload = function () {
         uploadedTag.src = this.result
       }
-      console.log(this.imageFile)
       reader.readAsDataURL(this.imageFile)
     } else {
       // this.imageUrl = this.formData.get('map[image_url]')

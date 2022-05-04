@@ -64,15 +64,11 @@ export default {
     getImageFile(imageFile) {
       if (imageFile !== null) {
         this.imageFile = imageFile
-        console.log('edit:')
-        console.log(this.imageFile)
       }
     },
     getImageUrl(imageUrl) {
       if (imageUrl !== null) {
         this.imageUrl = imageUrl
-        console.log('url:')
-        console.log(this.imageUrl)
       }
     }
   }

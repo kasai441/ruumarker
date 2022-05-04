@@ -17,13 +17,13 @@ describe 'マップ管理機能', type: :system do
       let(:uploaded) { page.find_by_id('uploaded') }
 
       before do
-        expect(uploaded[:src].split('/')).to include 'sample.png'
+        expect(uploaded[:src]).to include 'sample.png'
         attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
       end
 
       it '画像と登録ボタンが表示される' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
-        expect(uploaded[:src].split('/')).not_to include 'sample.png'
+        expect(uploaded[:src]).not_to include 'sample.png'
         expect(page).to have_selector '.btn', text: '登録'
       end
     end
@@ -116,18 +116,19 @@ describe 'マップ管理機能', type: :system do
     end
 
     context '画像をアップロードして編集を押したとき' do
-      # let(:edit_image) { page.find_by_id('edit-image') }
-      #
-      # before do
-      #   attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
-      #   find('#edit').click
-      # end
+      let(:edit_image) { page.find_by_id('edit-image') }
+
+      before do
+        expect(show_image[:src]).to include 'jpg'
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+        find('#edit').click
+      end
 
       it '画像が更新されている' do
-        # expect(page).to have_selector '#show-image'
-        # show_image = page.find_by_id('show-image')
-        # # pngが含まれる
-        # show_image[:src]
+        expect(page).to have_selector '#edit-image'
+        edit_image = page.find_by_id('edit-image')
+        # pngが含まれる
+        expect(edit_image[:src]).to include 'png'
       end
     end
 

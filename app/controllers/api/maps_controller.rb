@@ -20,7 +20,6 @@ module Api
 
     def update
       @map = Map.find(params[:id])
-      p @map
 
       if @map.update(map_params)
         render :update
