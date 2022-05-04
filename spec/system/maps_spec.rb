@@ -44,15 +44,19 @@ describe 'マップ管理機能', type: :system do
   describe '更新機能' do
     let(:room1) { FactoryBot.create(:room) }
     let!(:map1) { FactoryBot.create(:map, room: room1) }
+    let(:show_image) { page.find_by_id('show-image') }
+    let(:edit_image) { page.find_by_id('edit-image') }
+    let(:move_x) { 10 }
+    let(:move_y) { -30 }
 
     before do
       visit room_path(room1)
       click_link 'マップ編集'
     end
 
-    let(:show_image) { page.find_by_id('show-image') }
     let!(:ex_left) { style_value_of(show_image[:style], 'left') }
     let!(:ex_top) { style_value_of(show_image[:style], 'top') }
+    let!(:ex_upload) { page.find_by_id('show-image')[:src] }
 
     context '詳細画面から更新ボタンを押したとき' do
       before do
@@ -68,10 +72,6 @@ describe 'マップ管理機能', type: :system do
     end
 
     context '編集画面にてトリミング操作を行ったとき' do
-      let(:edit_image) { page.find_by_id('edit-image') }
-      let(:move_x) { 10 }
-      let(:move_y) { -30 }
-
       before do
         find('#edit').click
         page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
@@ -91,8 +91,6 @@ describe 'マップ管理機能', type: :system do
     end
 
     context '画像をアップロードしたとき' do
-      let!(:ex_upload) { page.find_by_id('show-image')[:src] }
-
       before do
         attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
       end
@@ -116,8 +114,6 @@ describe 'マップ管理機能', type: :system do
     end
 
     context '画像をアップロードして編集を押したとき' do
-      let(:edit_image) { page.find_by_id('edit-image') }
-
       before do
         expect(show_image[:src]).to include 'jpg'
         attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
@@ -127,32 +123,27 @@ describe 'マップ管理機能', type: :system do
       it '画像が更新されている' do
         expect(page).to have_selector '#edit-image'
         edit_image = page.find_by_id('edit-image')
-        # pngが含まれる
         expect(edit_image[:src]).to include 'png'
       end
     end
 
     context '画像をアップロードしてトリミングしたとき' do
-      # let(:edit_image) { page.find_by_id('edit-image') }
-      # let(:move_x) { 10 }
-      # let(:move_y) { -30 }
-      #
-      # before do
-      #   attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
-      #   find('#edit').click
-      #   page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
-      #   find('#update').click
-      # end
+      before do
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+        find('#edit').click
+        page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
+        find('#update').click
+      end
 
       it '更新内容が反映される' do
-        # # expect(page).to have_selector '.alert-success', text: '変更しました
-        # expect(page).to have_selector '#show-image'
-        # show_image = page.find_by_id('show-image')
-        # left = style_value_of(show_image[:style], 'left')
-        # top = style_value_of(show_image[:style], 'top')
-        #
-        # expect(left).to eq ex_left + move_x
-        # expect(top).to eq ex_top + move_y
+        # expect(page).to have_selector '.alert-success', text: '変更しました
+        expect(page).to have_selector '#show-image'
+        show_image = page.find_by_id('show-image')
+        left = style_value_of(show_image[:style], 'left')
+        top = style_value_of(show_image[:style], 'top')
+
+        expect(left).to eq ex_left + move_x
+        expect(top).to eq ex_top + move_y
       end
     end
   end
