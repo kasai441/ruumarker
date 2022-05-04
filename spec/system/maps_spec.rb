@@ -101,5 +101,17 @@ describe 'マップ管理機能', type: :system do
       #   expect(page).to have_content '間取り図を編集します'
       # end
     end
+
+    context '画像をアップロードして編集を押したとき' do
+      it '画像が更新されている' do
+
+      end
+    end
+
+    context '画像をアップロードしてトリミングしたとき' do
+      it '更新内容が反映される' do
+
+      end
+    end
   end
 end
