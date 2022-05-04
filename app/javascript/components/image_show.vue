@@ -59,9 +59,7 @@ export default {
     this.formData.append('map[trimming]', response.trimming)
 
     try {
-      // CapybaraにてSyntaxError: Unexpected token o in JSON at position 1をさけるため一旦stringifyしている
-      // https://mebee.info/2020/10/30/post-20771/
-      this.trimming = JSON.parse(JSON.stringify(response.trimming))
+      this.trimming = JSON.parse(response.trimming)
     } finally {
       this.trimming ||= {x: 0, y: 0}
     }
@@ -70,8 +68,6 @@ export default {
     this.$emit('emitImageUrl', this.imageUrl)
   },
   updated() {
-    // this.$emit('emitFormData', this.formData)
-
     const showImage = document.getElementById('show-image')
     showImage.style.left = this.trimming.x + 'px'
     showImage.style.top = this.trimming.y + 'px'

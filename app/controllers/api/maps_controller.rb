@@ -19,8 +19,6 @@ module Api
     end
 
     def update
-      p params
-      p params[:id]
       @map = Map.find(params[:id])
       p @map
 
