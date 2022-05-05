@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :map do
-    trimming { '{"x":-25,"y":35}' }
+    trimming { '{"x":0,"y":0}' }
     expansion { '5' }
     rotation { '6' }
     after(:build) do |item|

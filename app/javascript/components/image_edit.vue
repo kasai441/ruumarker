@@ -16,17 +16,18 @@
   </section>
 </template>
 <script>
+import params from '../modules/params'
 
 export default {
   name: 'ImageEdit',
   props: [
-    'formData',
-    'imageFile',
-    'imageUrl'
+    'formData'
   ],
   data() {
     return {
       trimming: null,
+      imageFile: null,
+      imageUrl: null,
       expansion: 1,
       isMovable: false,
       editFieldLeft: 0,
@@ -59,18 +60,15 @@ export default {
       this.isMovable = false
       const trimmingX = this.editImageLeft - this.editFieldLeft - this.editFilterWidth
       const trimmingY = this.editImageTop - this.editFieldTop - this.editFilterHeight
-      const trimming = JSON.stringify({ x: trimmingX, y: trimmingY })
-      this.formData.append('map[trimming]', trimming)
+      this.formData.set('map[trimming]', JSON.stringify({x: trimmingX, y: trimmingY}))
+      this.$emit('emitFormData', this.formData)
       e.preventDefault()
     }
   },
   created() {
-    const trimming = this.formData.get('map[trimming]')
-    try {
-      this.trimming = JSON.parse(trimming)
-    } catch {
-      this.trimming = {x: 0, y: 0}
-    }
+    this.trimming = params.trimming(this.formData)
+    this.imageFile = this.formData.get('map[image]')
+    this.imageUrl = this.formData.get('map[image_url]')
   },
   mounted() {
     if (this.imageFile) {
@@ -80,8 +78,6 @@ export default {
         uploadedTag.src = this.result
       }
       reader.readAsDataURL(this.imageFile)
-    } else {
-      // this.imageUrl = this.formData.get('map[image_url]')
     }
 
     const editField = document.getElementById('edit-field')
@@ -101,8 +97,5 @@ export default {
     this.editImageLeft = Math.floor(this.editImage.getBoundingClientRect().left)
     this.editImageTop = Math.floor(this.editImage.getBoundingClientRect().top)
   },
-  updated() {
-    this.$emit('emitFormData', this.formData)
-  }
 }
 </script>

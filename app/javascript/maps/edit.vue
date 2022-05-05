@@ -1,32 +1,21 @@
 <template>
   <section id="maps-edit" class="w-full">
-    <div>{{ trimming }}</div>
     <div v-if="isImageEdit" @touchmove.prevent>
       <image-edit
-        :form-data="formData"
-        :image-file="imageFile"
-        :image-url="imageUrl"
+        :formData="formData"
         @emitFormData="getFormData"
       ></image-edit>
       <image-update
-        :room-id="roomId"
-        :map-id="mapId"
-        :form-data="formData"
-        :image-file="imageFile"
-        :image-url="imageUrl"
+        :formData="formData"
         target-model="map"
         @switchImageEdit="switchImageEdit"
       ></image-update>
     </div>
     <div v-else>
       <image-show
-        :room-id="roomId"
-        :map-id="mapId"
         target-model="map"
-        @emitFormData="getFormData"
         @switchImageEdit="switchImageEdit"
-        @emitImageFile="getImageFile"
-        @emitImageUrl="getImageUrl"
+        @emitFormData="getFormData"
       ></image-show>
     </div>
   </section>
@@ -44,15 +33,12 @@ export default {
     return {
       isImageEdit: false,
       formData: null,
-      trimming: null,
-      imageFile: null,
-      imageUrl: null
     }
   },
   components: {
     ImageShow,
     ImageEdit,
-    ImageUpdate
+    ImageUpdate,
   },
   methods: {
     switchImageEdit(bool) {
@@ -61,16 +47,6 @@ export default {
     getFormData(formData) {
       this.formData = formData
     },
-    getImageFile(imageFile) {
-      if (imageFile !== null) {
-        this.imageFile = imageFile
-      }
-    },
-    getImageUrl(imageUrl) {
-      if (imageUrl !== null) {
-        this.imageUrl = imageUrl
-      }
-    }
   }
 }
 </script>

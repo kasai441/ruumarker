@@ -10,23 +10,16 @@ import api from '../modules/api'
 
 export default {
   name: 'ImageUpdate',
-  props: [
+  inject: [
     'roomId',
-    'mapId',
+    'mapId'
+  ],
+  props: [
     'formData',
-    'imageFile',
-    'imageUrl',
     'targetModel'
   ],
-  data() {
-    return {
-      trimming: this.formData.get('map[trimming]')
-    }
-  },
   methods: {
     async update() {
-      if (this.imageFile) this.formData.append('map[image]', this.imageFile)
-      this.formData.append('map[image_url]', this.imageUrl)
       const response = await api.actions.update(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.mapId}`, this.formData)
       location.href = `/rooms/${this.roomId}/maps/${response.id}/edit`
     },
