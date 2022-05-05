@@ -16,16 +16,18 @@
   </section>
 </template>
 <script>
+import params from '../modules/params'
 
 export default {
   name: 'ImageEdit',
   props: [
-    'trimming',
-    'imageFile',
-    'imageUrl'
+    'formData'
   ],
   data() {
     return {
+      trimming: null,
+      imageFile: null,
+      imageUrl: null,
       expansion: 1,
       isMovable: false,
       editFieldLeft: 0,
@@ -58,9 +60,15 @@ export default {
       this.isMovable = false
       const trimmingX = this.editImageLeft - this.editFieldLeft - this.editFilterWidth
       const trimmingY = this.editImageTop - this.editFieldTop - this.editFilterHeight
-      this.$emit('emitTrimming', {x: trimmingX, y: trimmingY})
+      this.formData.set('map[trimming]', JSON.stringify({x: trimmingX, y: trimmingY}))
+      this.$emit('emitFormData', this.formData)
       e.preventDefault()
     }
+  },
+  created() {
+    this.trimming = params.trimming(this.formData)
+    this.imageFile = this.formData.get('map[image]')
+    this.imageUrl = this.formData.get('map[image_url]')
   },
   mounted() {
     if (this.imageFile) {

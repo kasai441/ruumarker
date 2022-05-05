@@ -18,7 +18,6 @@ module Api
     end
 
     def update
-      p 'aaaaaaaaaaaaaaaaaaaa'
       p params
       mark = Mark.find(params[:id])
       if mark.update(mark_params)

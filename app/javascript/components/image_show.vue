@@ -21,18 +21,21 @@
 </template>
 <script>
 import api from '../modules/api'
+import params from '../modules/params'
 
 export default {
   name: 'ImageShow',
-  props: [
+  inject: [
     'roomId',
-    'mapId',
-    'targetModel',
+    'mapId'
+  ],
+  props: [
+    'targetModel'
   ],
   data() {
     return {
-      imageUrl: null,
-      trimming: null
+      formData: new FormData(),
+      imageUrl: null
     }
   },
   methods: {
@@ -49,26 +52,29 @@ export default {
         uploadedTag.src = this.result
       }
       reader.readAsDataURL(imageFile)
-      this.$emit('emitImageFile', imageFile)
+      if (this.formData.get('map[image]')) {
+        this.formData.set('map[image]', imageFile)
+      } else {
+        this.formData.append('map[image]', imageFile)
+      }
+      this.$emit('emitFormData', this.formData)
     }
   },
   async created() {
     const response = await api.actions.show(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.mapId}.json`)
+
+    this.formData.append('map[trimming]', response.trimming)
+    this.formData.append('map[image_url]', response.image_url)
+    this.$emit('emitFormData', this.formData)
+
     this.imageUrl = response.image_url
-
-    try {
-      this.trimming = JSON.parse(response.trimming)
-    } finally {
-      this.trimming ||= {x: 0, y: 0}
-    }
-
-    this.$emit('emitImageUrl', this.imageUrl)
-    this.$emit('emitTrimming', this.trimming)
   },
   updated() {
+    // mounted?
     const showImage = document.getElementById('show-image')
-    showImage.style.left = this.trimming.x + 'px'
-    showImage.style.top = this.trimming.y + 'px'
+    const trimming = params.trimming(this.formData)
+    showImage.style.left = trimming.x + 'px'
+    showImage.style.top = trimming.y + 'px'
   }
 }
 </script>
