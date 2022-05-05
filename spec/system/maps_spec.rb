@@ -21,24 +21,26 @@ describe 'マップ管理機能', type: :system do
         attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
       end
 
-      it '画像と登録ボタンが表示される' do
+      it '画像が登録されてルームに遷移する' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
         expect(uploaded[:src]).not_to include 'sample.png'
-        expect(page).to have_selector '.btn', text: '登録'
-      end
-    end
-
-    context '画像をアップロードして登録ボタンを押した時', js: true do
-      before do
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
-        find('#submit').click
-      end
-
-      it '正常にマップが登録されてルーム画面に遷移する' do
-        expect(page).to have_content 'ルーム詳細'
+        expect(uploaded[:src]).to include 'jpg'
+        expect(page).to have_selector 'h1', text: 'キズ点検表'
         expect(Room.find(room1.id).map.image.attached?).to eq true
       end
     end
+
+    # context '画像をアップロードして登録ボタンを押した時', js: true do
+    #   before do
+    #     attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+    #     find('#submit').click
+    #   end
+    #
+    #   it '正常にマップが登録されてルーム画面に遷移する' do
+    #     expect(page).to have_content 'ルーム詳細'
+    #     expect(Room.find(room1.id).map.image.attached?).to eq true
+    #   end
+    # end
 
     context '新規作成後に初期のトリミングが0x0になる' do
     end
