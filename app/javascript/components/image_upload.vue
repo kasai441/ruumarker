@@ -24,7 +24,7 @@ export default {
       e.preventDefault()
       const uploadedTag = document.getElementById( 'uploaded' )
       const imageFile = e.target.files[0]
-      params.onloadImage(uploadedTag, imageFile)
+      params.readImageUrl(uploadedTag, imageFile)
 
       this.initForm(imageFile)
     },

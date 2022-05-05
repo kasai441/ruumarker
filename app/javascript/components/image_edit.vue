@@ -73,7 +73,7 @@ export default {
   mounted() {
     if (this.imageFile) {
       const uploadedTag = document.getElementById( 'edit-image' )
-      params.onloadImage(uploadedTag, this.imageFile)
+      params.readImageUrl(uploadedTag, this.imageFile)
     }
 
     const editField = document.getElementById('edit-field')

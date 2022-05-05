@@ -47,7 +47,7 @@ export default {
       const uploadedTag = document.getElementById( 'show-image' )
       const imageFile = e.target.files[0]
 
-      params.onloadImage(uploadedTag, imageFile)
+      params.readImageUrl(uploadedTag, imageFile)
 
       if (this.formData.get('map[image]')) {
         this.formData.set('map[image]', imageFile)

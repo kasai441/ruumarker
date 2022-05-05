@@ -6,7 +6,7 @@ const trimming = (formData) => {
   }
 }
 
-const onloadImage = (uploadedTag, imageFile) => {
+const readImageUrl = (uploadedTag, imageFile) => {
   const reader = new FileReader()
   reader.onload = function () {
     uploadedTag.src = this.result
@@ -17,5 +17,5 @@ const onloadImage = (uploadedTag, imageFile) => {
 export default {
   namespaced: true,
   trimming,
-  onloadImage
+  readImageUrl
 }
