@@ -44,14 +44,11 @@ export default {
     },
     upload(e) {
       e.preventDefault()
-      const imageFile = e.target.files[0]
       const uploadedTag = document.getElementById( 'show-image' )
+      const imageFile = e.target.files[0]
 
-      const reader = new FileReader()
-      reader.onload = function () {
-        uploadedTag.src = this.result
-      }
-      reader.readAsDataURL(imageFile)
+      params.onloadImage(uploadedTag, imageFile)
+
       if (this.formData.get('map[image]')) {
         this.formData.set('map[image]', imageFile)
       } else {

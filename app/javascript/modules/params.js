@@ -6,8 +6,12 @@ const trimming = (formData) => {
   }
 }
 
-const onloadImage = (formData) => {
-  return formData
+const onloadImage = (uploadedTag, imageFile) => {
+  const reader = new FileReader()
+  reader.onload = function () {
+    uploadedTag.src = this.result
+  }
+  reader.readAsDataURL(imageFile)
 }
 
 export default {
