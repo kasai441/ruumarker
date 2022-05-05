@@ -26,11 +26,8 @@ export default {
       const imageFile = e.target.files[0]
       params.readImageUrl(uploadedTag, imageFile)
 
-      this.initForm(imageFile)
-    },
-    initForm(imageFile) {
       const formData = new FormData()
-      if (imageFile !== null) {
+      if (imageFile) {
         formData.append(`${this.targetModel}[image]`, imageFile)
       }
       this.$emit('emitFormData', formData)
