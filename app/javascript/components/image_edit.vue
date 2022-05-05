@@ -12,6 +12,9 @@
         <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
         <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
       </div>
+      <div>{{ this.editFieldLeft }}</div>
+      <div>{{ this.editFieldWidth }}</div>
+      <div>{{ this.editImageLeft }}</div>
     </div>
   </section>
 </template>
@@ -33,6 +36,8 @@ export default {
       isMovable: false,
       editFieldLeft: 0,
       editFieldTop: 0,
+      editFieldWidth: 0,
+      editFieldHeight: 0,
       editImage: null,
       editImageLeft: 0,
       editImageTop: 0,
@@ -52,6 +57,16 @@ export default {
       const y = Math.floor(e.pageY * this.expansion)
       this.editImageLeft = x - this.shiftX
       this.editImageTop = y - this.shiftY
+
+      // 外側に出ないように画像の移動を抑制する
+      const maxLeft = Math.floor(this.editFieldLeft + this.editFieldWidth / 2 )
+      const maxTop = Math.floor(this.editFieldTop + this.editFieldHeight / 2 )
+
+      if (this.editImageLeft > maxLeft) this.editImageLeft = maxLeft
+      // if (this.editImageLeft < this.minLeft) this.editImageLeft = this.minLeft
+      if (this.editImageTop > maxTop) this.editImageTop = maxTop
+      // if (this.editImageTop < this.minTop) this.editImageTop = this.minTop
+
       this.editImage.style.left = this.editImageLeft + 'px'
       this.editImage.style.top = this.editImageTop + 'px'
     },
@@ -79,11 +94,15 @@ export default {
     this.editFieldLeft = Math.floor(editField.getBoundingClientRect().left)
     this.editFieldTop = Math.floor(editField.getBoundingClientRect().top)
 
+    this.editFieldWidth = Math.floor(editField.getBoundingClientRect().right) - this.editFieldLeft
+    this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
+
     this.editImage = document.getElementById('edit-image')
-    this.editImage.style.left = this.editFieldLeft + this.trimming.x + 'px'
-    this.editImage.style.top = this.editFieldTop + this.trimming.y + 'px'
     this.editImageLeft = Math.floor(this.editImage.getBoundingClientRect().left)
     this.editImageTop = Math.floor(this.editImage.getBoundingClientRect().top)
+
+    this.editImage.style.left = this.editFieldLeft + this.trimming.x + 'px'
+    this.editImage.style.top = this.editFieldTop + this.trimming.y + 'px'
   },
 }
 </script>
