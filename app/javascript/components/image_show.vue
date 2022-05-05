@@ -55,8 +55,6 @@ export default {
   async created() {
     const response = await api.actions.show(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.mapId}.json`)
     this.imageUrl = response.image_url
-    this.formData = new FormData()
-    this.formData.append('map[trimming]', response.trimming)
 
     try {
       this.trimming = JSON.parse(response.trimming)
@@ -64,8 +62,8 @@ export default {
       this.trimming ||= {x: 0, y: 0}
     }
 
-    this.$emit('emitFormData', this.formData)
     this.$emit('emitImageUrl', this.imageUrl)
+    this.$emit('emitTrimming', this.trimming)
   },
   updated() {
     const showImage = document.getElementById('show-image')

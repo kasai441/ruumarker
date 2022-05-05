@@ -13,21 +13,19 @@ export default {
   props: [
     'roomId',
     'mapId',
-    'formData',
+    'trimming',
     'imageFile',
     'imageUrl',
     'targetModel'
   ],
-  data() {
-    return {
-      trimming: this.formData.get('map[trimming]')
-    }
-  },
   methods: {
     async update() {
-      if (this.imageFile) this.formData.append('map[image]', this.imageFile)
-      this.formData.append('map[image_url]', this.imageUrl)
-      const response = await api.actions.update(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.mapId}`, this.formData)
+      const formData = new FormData()
+      formData.append('map[trimming]', JSON.stringify(this.trimming))
+      if (this.imageFile) formData.append('map[image]', this.imageFile)
+      formData.append('map[image_url]', this.imageUrl)
+
+      const response = await api.actions.update(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.mapId}`, formData)
       location.href = `/rooms/${this.roomId}/maps/${response.id}/edit`
     },
     switchImageEdit() {

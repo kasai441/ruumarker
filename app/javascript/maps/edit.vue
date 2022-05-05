@@ -1,17 +1,16 @@
 <template>
   <section id="maps-edit" class="w-full">
-    <div>{{ trimming }}</div>
     <div v-if="isImageEdit" @touchmove.prevent>
       <image-edit
-        :form-data="formData"
+        :trimming="trimming"
         :image-file="imageFile"
         :image-url="imageUrl"
-        @emitFormData="getFormData"
+        @emitTrimming="getTrimming"
       ></image-edit>
       <image-update
         :room-id="roomId"
         :map-id="mapId"
-        :form-data="formData"
+        :trimming="trimming"
         :image-file="imageFile"
         :image-url="imageUrl"
         target-model="map"
@@ -23,8 +22,8 @@
         :room-id="roomId"
         :map-id="mapId"
         target-model="map"
-        @emitFormData="getFormData"
         @switchImageEdit="switchImageEdit"
+        @emitTrimming="getTrimming"
         @emitImageFile="getImageFile"
         @emitImageUrl="getImageUrl"
       ></image-show>
@@ -43,10 +42,9 @@ export default {
   data() {
     return {
       isImageEdit: false,
-      formData: null,
       trimming: null,
       imageFile: null,
-      imageUrl: null
+      imageUrl: null,
     }
   },
   components: {
@@ -58,8 +56,8 @@ export default {
     switchImageEdit(bool) {
       this.isImageEdit = bool
     },
-    getFormData(formData) {
-      this.formData = formData
+    getTrimming(trimming) {
+      this.trimming = trimming
     },
     getImageFile(imageFile) {
       if (imageFile !== null) {
