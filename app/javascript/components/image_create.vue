@@ -11,14 +11,15 @@ import api from '../modules/api'
 
 export default {
   name: 'ImageCreate',
+  inject: [
+    'roomId'
+  ],
   props: [
     'targetModel',
-    'roomId',
     'formData'
   ],
   methods: {
     async create() {
-      this.formData.append('room_id', this.roomId)
       await api.actions.create(`/api/rooms/${this.roomId}/${this.targetModel}s`, this.formData)
       location.href = `/rooms/${this.roomId}`
     }

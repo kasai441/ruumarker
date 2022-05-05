@@ -11,17 +11,17 @@ import api from '../modules/api'
 export default {
   name: 'ImageUpdate',
   inject: [
-    'roomId',
-    'mapId'
+    'roomId'
   ],
   props: [
+    'id',
     'formData',
     'targetModel'
   ],
   methods: {
     async update() {
-      const response = await api.actions.update(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.mapId}`, this.formData)
-      location.href = `/rooms/${this.roomId}/maps/${response.id}/edit`
+      const response = await api.actions.update(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.id}`, this.formData)
+      location.href = `/rooms/${this.roomId}/${this.targetModel}s/${response.id}/edit`
     },
     switchImageEdit() {
       this.$emit('switchImageEdit', false)

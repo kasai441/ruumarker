@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import params from '../modules/params'
+
 export default {
   name: 'ImageUpload',
   props: [
@@ -20,22 +22,12 @@ export default {
   methods: {
     upload(e) {
       e.preventDefault()
-      const imageFile = e.target.files[0]
       const uploadedTag = document.getElementById( 'uploaded' )
+      const imageFile = e.target.files[0]
+      params.readImageUrl(uploadedTag, imageFile)
 
-      const reader = new FileReader()
-      reader.onload = function () {
-        uploadedTag.src = this.result
-      }
-      reader.readAsDataURL(imageFile)
-
-      this.initForm(imageFile)
-    },
-    initForm(imageFile) {
       const formData = new FormData()
-      if (imageFile !== null) {
-        formData.append(`${this.targetModel}[image]`, imageFile)
-      }
+      if (imageFile) formData.append(`${this.targetModel}[image]`, imageFile)
       this.$emit('emitFormData', formData)
     }
   }

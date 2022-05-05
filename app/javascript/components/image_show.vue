@@ -26,10 +26,10 @@ import params from '../modules/params'
 export default {
   name: 'ImageShow',
   inject: [
-    'roomId',
-    'mapId'
+    'roomId'
   ],
   props: [
+    'id',
     'targetModel'
   ],
   data() {
@@ -44,33 +44,25 @@ export default {
     },
     upload(e) {
       e.preventDefault()
-      const imageFile = e.target.files[0]
       const uploadedTag = document.getElementById( 'show-image' )
+      const imageFile = e.target.files[0]
 
-      const reader = new FileReader()
-      reader.onload = function () {
-        uploadedTag.src = this.result
-      }
-      reader.readAsDataURL(imageFile)
-      if (this.formData.get('map[image]')) {
-        this.formData.set('map[image]', imageFile)
-      } else {
-        this.formData.append('map[image]', imageFile)
-      }
+      params.readImageUrl(uploadedTag, imageFile)
+
+      if (imageFile) this.formData.set(`${this.targetModel}[image]`, imageFile)
       this.$emit('emitFormData', this.formData)
     }
   },
   async created() {
-    const response = await api.actions.show(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.mapId}.json`)
+    const response = await api.actions.show(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.id}.json`)
 
-    this.formData.append('map[trimming]', response.trimming)
-    this.formData.append('map[image_url]', response.image_url)
+    this.formData.append(`${this.targetModel}[trimming]`, response.trimming)
+    this.formData.append(`${this.targetModel}[image_url]`, response.image_url)
     this.$emit('emitFormData', this.formData)
 
     this.imageUrl = response.image_url
   },
   updated() {
-    // mounted?
     const showImage = document.getElementById('show-image')
     const trimming = params.trimming(this.formData)
     showImage.style.left = trimming.x + 'px'
