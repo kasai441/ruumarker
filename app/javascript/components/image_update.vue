@@ -21,7 +21,7 @@ export default {
   methods: {
     async update() {
       const response = await api.actions.update(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.mapId}`, this.formData)
-      location.href = `/rooms/${this.roomId}/maps/${response.id}/edit`
+      location.href = `/rooms/${this.roomId}/${this.targetModel}s/${response.id}/edit`
     },
     switchImageEdit() {
       this.$emit('switchImageEdit', false)

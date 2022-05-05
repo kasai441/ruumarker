@@ -21,7 +21,8 @@ import params from '../modules/params'
 export default {
   name: 'ImageEdit',
   props: [
-    'formData'
+    'formData',
+    'targetModel'
   ],
   data() {
     return {
@@ -60,15 +61,15 @@ export default {
       this.isMovable = false
       const trimmingX = this.editImageLeft - this.editFieldLeft - this.editFilterWidth
       const trimmingY = this.editImageTop - this.editFieldTop - this.editFilterHeight
-      this.formData.set('map[trimming]', JSON.stringify({x: trimmingX, y: trimmingY}))
+      this.formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: trimmingX, y: trimmingY}))
       this.$emit('emitFormData', this.formData)
       e.preventDefault()
     }
   },
   created() {
     this.trimming = params.trimming(this.formData)
-    this.imageFile = this.formData.get('map[image]')
-    this.imageUrl = this.formData.get('map[image_url]')
+    this.imageFile = this.formData.get(`${this.targetModel}[image]`)
+    this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
   },
   mounted() {
     if (this.imageFile) {

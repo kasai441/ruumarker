@@ -49,25 +49,20 @@ export default {
 
       params.readImageUrl(uploadedTag, imageFile)
 
-      if (this.formData.get('map[image]')) {
-        this.formData.set('map[image]', imageFile)
-      } else {
-        this.formData.append('map[image]', imageFile)
-      }
+      if (imageFile) this.formData.set(`${this.targetModel}[image]`, imageFile)
       this.$emit('emitFormData', this.formData)
     }
   },
   async created() {
     const response = await api.actions.show(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.mapId}.json`)
 
-    this.formData.append('map[trimming]', response.trimming)
-    this.formData.append('map[image_url]', response.image_url)
+    this.formData.append(`${this.targetModel}[trimming]`, response.trimming)
+    this.formData.append(`${this.targetModel}[image_url]`, response.image_url)
     this.$emit('emitFormData', this.formData)
 
     this.imageUrl = response.image_url
   },
   updated() {
-    // mounted?
     const showImage = document.getElementById('show-image')
     const trimming = params.trimming(this.formData)
     showImage.style.left = trimming.x + 'px'

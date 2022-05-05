@@ -3,6 +3,7 @@
     <div v-if="isImageEdit" @touchmove.prevent>
       <image-edit
         :formData="formData"
+        target-model="map"
         @emitFormData="getFormData"
       ></image-edit>
       <image-update
