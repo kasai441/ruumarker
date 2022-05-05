@@ -27,9 +27,7 @@ export default {
       params.readImageUrl(uploadedTag, imageFile)
 
       const formData = new FormData()
-      if (imageFile) {
-        formData.append(`${this.targetModel}[image]`, imageFile)
-      }
+      if (imageFile) formData.append(`${this.targetModel}[image]`, imageFile)
       this.$emit('emitFormData', formData)
     }
   }

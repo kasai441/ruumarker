@@ -1,7 +1,7 @@
 <template>
   <div id="maps-new">
     <image-upload target-model="map" @emitFormData="getFormData"></image-upload>
-    <image-create target-model="map" :form-data="formData" :room-id="roomId"></image-create>
+    <image-create target-model="map" :form-data="formData"></image-create>
   </div>
 </template>
 
@@ -11,7 +11,9 @@ import ImageCreate from '../components/image_create.vue'
 
 export default {
   name: 'MapsNew',
-  inject: ['roomId'],
+  inject: [
+    'roomId'
+  ],
   data() {
     return {
       formData: null,
