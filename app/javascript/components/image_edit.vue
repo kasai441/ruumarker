@@ -37,9 +37,7 @@ export default {
       editImageLeft: 0,
       editImageTop: 0,
       shiftX: 0,
-      shiftY: 0,
-      editFilterWidth: 0,
-      editFilterHeight: 0
+      shiftY: 0
     }
   },
   methods: {
@@ -59,8 +57,8 @@ export default {
     },
     touchend(e) {
       this.isMovable = false
-      const trimmingX = this.editImageLeft - this.editFieldLeft - this.editFilterWidth
-      const trimmingY = this.editImageTop - this.editFieldTop - this.editFilterHeight
+      const trimmingX = this.editImageLeft - this.editFieldLeft
+      const trimmingY = this.editImageTop - this.editFieldTop
       this.formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: trimmingX, y: trimmingY}))
       this.$emit('emitFormData', this.formData)
       e.preventDefault()
@@ -81,16 +79,9 @@ export default {
     this.editFieldLeft = Math.floor(editField.getBoundingClientRect().left)
     this.editFieldTop = Math.floor(editField.getBoundingClientRect().top)
 
-    let editImageLeft = this.editFieldLeft
-    let editImageTop =  this.editFieldTop
-    if (this.trimming !== null && typeof(this.trimming) === 'object') {
-      editImageLeft = this.editFieldLeft + this.editFilterWidth + this.trimming.x
-      editImageTop = this.editFieldTop + this.editFilterHeight + this.trimming.y
-    }
-
     this.editImage = document.getElementById('edit-image')
-    this.editImage.style.left = editImageLeft + 'px'
-    this.editImage.style.top = editImageTop + 'px'
+    this.editImage.style.left = this.editFieldLeft + this.trimming.x + 'px'
+    this.editImage.style.top = this.editFieldTop + this.trimming.y + 'px'
     this.editImageLeft = Math.floor(this.editImage.getBoundingClientRect().left)
     this.editImageTop = Math.floor(this.editImage.getBoundingClientRect().top)
   },
