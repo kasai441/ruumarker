@@ -39,6 +39,10 @@ describe 'マップ管理機能', type: :system do
         expect(Room.find(room1.id).map.image.attached?).to eq true
       end
     end
+
+    context '新規作成後に初期のトリミングが0x0になる' do
+      
+    end
   end
 
   describe '更新機能' do
