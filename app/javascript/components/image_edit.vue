@@ -67,7 +67,7 @@ export default {
     }
   },
   created() {
-    this.trimming = params.trimming(this.formData)
+    this.trimming = params.trimming(this.formData, this.targetModel)
     this.imageFile = this.formData.get(`${this.targetModel}[image]`)
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
   },

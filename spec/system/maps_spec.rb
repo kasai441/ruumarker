@@ -41,7 +41,6 @@ describe 'マップ管理機能', type: :system do
     end
 
     context '新規作成後に初期のトリミングが0x0になる' do
-      
     end
   end
 

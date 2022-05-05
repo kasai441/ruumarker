@@ -64,7 +64,8 @@ export default {
   },
   updated() {
     const showImage = document.getElementById('show-image')
-    const trimming = params.trimming(this.formData)
+    const trimming = params.trimming(this.formData, this.targetModel)
+    console.log(trimming)
     showImage.style.left = trimming.x + 'px'
     showImage.style.top = trimming.y + 'px'
   }
