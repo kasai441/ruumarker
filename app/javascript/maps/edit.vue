@@ -7,6 +7,7 @@
         @emitFormData="getFormData"
       ></image-edit>
       <image-update
+        :id="mapId"
         :formData="formData"
         target-model="map"
         @switchImageEdit="switchImageEdit"
@@ -14,6 +15,7 @@
     </div>
     <div v-else>
       <image-show
+        :id="mapId"
         target-model="map"
         @switchImageEdit="switchImageEdit"
         @emitFormData="getFormData"
@@ -29,7 +31,10 @@ import ImageShow from '../components/image_show.vue'
 
 export default {
   name: 'MapsEdit',
-  inject: ['roomId', 'mapId'],
+  inject: [
+    'roomId',
+    'mapId'
+  ],
   data() {
     return {
       isImageEdit: false,

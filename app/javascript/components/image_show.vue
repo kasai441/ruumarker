@@ -26,10 +26,10 @@ import params from '../modules/params'
 export default {
   name: 'ImageShow',
   inject: [
-    'roomId',
-    'mapId'
+    'roomId'
   ],
   props: [
+    'id',
     'targetModel'
   ],
   data() {
@@ -54,7 +54,7 @@ export default {
     }
   },
   async created() {
-    const response = await api.actions.show(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.mapId}.json`)
+    const response = await api.actions.show(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.id}.json`)
 
     this.formData.append(`${this.targetModel}[trimming]`, response.trimming)
     this.formData.append(`${this.targetModel}[image_url]`, response.image_url)
