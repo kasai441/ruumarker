@@ -13,22 +13,31 @@
 
 <script>
 import params from '../modules/params'
+import api from '../modules/api'
 
 export default {
   name: 'ImageUpload',
+  inject: [
+    'roomId'
+  ],
   props: [
-    'targetModel',
+    'targetModel'
   ],
   methods: {
-    upload(e) {
+    async upload(e) {
       e.preventDefault()
-      const uploadedTag = document.getElementById( 'uploaded' )
       const imageFile = e.target.files[0]
-      params.readImageUrl(uploadedTag, imageFile)
-
       const formData = new FormData()
       if (imageFile) formData.append(`${this.targetModel}[image]`, imageFile)
-      this.$emit('emitFormData', formData)
+
+      if (this.targetModel === 'map') {
+        await api.actions.create(`/api/rooms/${this.roomId}/${this.targetModel}s`, formData)
+        location.href = `/rooms/${this.roomId}`
+      } else {
+        const uploadedTag = document.getElementById( 'uploaded' )
+        params.readImageUrl(uploadedTag, imageFile)
+        this.$emit('emitFormData', formData)
+      }
     }
   }
 }

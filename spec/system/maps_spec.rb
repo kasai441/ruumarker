@@ -15,6 +15,7 @@ describe 'マップ管理機能', type: :system do
 
     context '画像をアップロードしたとき' do
       let(:uploaded) { page.find_by_id('uploaded') }
+      let(:show_map) { page.find_by_id('show-map') }
 
       before do
         expect(uploaded[:src]).to include 'sample.png'
@@ -23,8 +24,8 @@ describe 'マップ管理機能', type: :system do
 
       it '画像が登録されてルームに遷移する' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
-        expect(uploaded[:src]).not_to include 'sample.png'
-        expect(uploaded[:src]).to include 'jpg'
+        expect(show_map[:src]).not_to include 'sample.png'
+        expect(show_map[:src]).to include 'test_image.jpg'
         expect(page).to have_selector 'h1', text: 'キズ点検表'
         expect(Room.find(room1.id).map.image.attached?).to eq true
       end

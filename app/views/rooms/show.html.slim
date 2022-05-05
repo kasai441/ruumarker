@@ -1,4 +1,4 @@
-h1 ルーム詳細
+h1 キズ点検表
 table
   tbody
     tr.id
@@ -15,7 +15,7 @@ table
       td= @room.map.rotation
     tr.image
       th= Map.human_attribute_name(:image)
-      td= image_tag @room.map.image if @room.map.image.attached?
+      td= image_tag @room.map.image, id: 'show-map' if @room.map.image.attached?
     tr
       th= Map.human_attribute_name(:created_at)
       td= @room.map.created_at
