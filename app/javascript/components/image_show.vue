@@ -56,15 +56,18 @@ export default {
     },
     getFieldSize() {
       const showField = document.getElementById('show-field')
-      const showFieldLeft = Math.floor(showField.getBoundingClientRect().left)
-      const showFieldTop = Math.floor(showField.getBoundingClientRect().top)
-      this.showFieldWidth = Math.floor(showField.getBoundingClientRect().right) - showFieldLeft
-      this.showFieldHeight = Math.floor(showField.getBoundingClientRect().bottom) - showFieldTop
+      console.log(showField)
+      if (showField) {
+        const showFieldLeft = Math.floor(showField.getBoundingClientRect().left)
+        const showFieldTop = Math.floor(showField.getBoundingClientRect().top)
+        this.showFieldWidth = Math.floor(showField.getBoundingClientRect().right) - showFieldLeft
+        this.showFieldHeight = Math.floor(showField.getBoundingClientRect().bottom) - showFieldTop
 
-      const showImage = document.getElementById('show-image')
-      const trimming = params.trimming(this.formData, this.targetModel)
-      showImage.style.left = Math.floor(this.showFieldWidth * trimming.x) + 'px'
-      showImage.style.top = Math.floor(this.showFieldHeight * trimming.y) + 'px'
+        const showImage = document.getElementById('show-image')
+        const trimming = params.trimming(this.formData, this.targetModel)
+        showImage.style.left = Math.floor(this.showFieldWidth * trimming.x) + 'px'
+        showImage.style.top = Math.floor(this.showFieldHeight * trimming.y) + 'px'
+      }
     },
     handleResize() {
       this.getFieldSize()

@@ -80,16 +80,18 @@ export default {
     },
     getFieldSize() {
       const editField = document.getElementById('edit-field')
-      this.editFieldLeft = Math.floor(editField.getBoundingClientRect().left)
-      this.editFieldTop = Math.floor(editField.getBoundingClientRect().top)
-      this.editFieldWidth = Math.floor(editField.getBoundingClientRect().right) - this.editFieldLeft
-      this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
+      if(editField) {
+        this.editFieldLeft = Math.floor(editField.getBoundingClientRect().left)
+        this.editFieldTop = Math.floor(editField.getBoundingClientRect().top)
+        this.editFieldWidth = Math.floor(editField.getBoundingClientRect().right) - this.editFieldLeft
+        this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
 
-      this.editImage = document.getElementById('edit-image')
-      this.editImageLeft = Math.floor(this.editFieldWidth * this.trimming.x) + this.editFieldLeft
-      this.editImageTop = Math.floor(this.editFieldHeight * this.trimming.y) + this.editFieldTop
-      this.editImage.style.left = this.editImageLeft + 'px'
-      this.editImage.style.top = this.editImageTop + 'px'
+        this.editImage = document.getElementById('edit-image')
+        this.editImageLeft = Math.floor(this.editFieldWidth * this.trimming.x) + this.editFieldLeft
+        this.editImageTop = Math.floor(this.editFieldHeight * this.trimming.y) + this.editFieldTop
+        this.editImage.style.left = this.editImageLeft + 'px'
+        this.editImage.style.top = this.editImageTop + 'px'
+      }
     },
     handleResize() {
       this.getFieldSize()
