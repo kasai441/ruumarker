@@ -61,10 +61,10 @@ describe 'マップ管理機能', type: :system do
       click_link 'マップ編集'
     end
 
-    let!(:ex_left) { style_value_of(show_image[:style], 'left') }
-    let!(:ex_top) { style_value_of(show_image[:style], 'top') }
-    let!(:constrainRangeX) { show_field.native.css_value('width').gsub(/px/, '').to_i / 3 }
-    let!(:constrainRangeY) { show_field.native.css_value('height').gsub(/px/, '').to_i / 3 }
+    let!(:ex_left) { style_px_to_i(show_image, 'left') }
+    let!(:ex_top) { style_px_to_i(show_image, 'top') }
+    let!(:constrainRangeX) { style_px_to_i(show_field, 'width') / 3 }
+    let!(:constrainRangeY) { style_px_to_i(show_field, 'height') / 3 }
     let!(:ex_upload) { page.find_by_id('show-image')[:src] }
 
     context '詳細画面から更新ボタンを押したとき' do
@@ -91,8 +91,8 @@ describe 'マップ管理機能', type: :system do
         # expect(page).to have_selector '.alert-success', text: '変更しました
         expect(page).to have_selector '#show-image'
         show_image = page.find_by_id('show-image')
-        left = style_value_of(show_image[:style], 'left')
-        top = style_value_of(show_image[:style], 'top')
+        left = style_px_to_i(show_image, 'left')
+        top = style_px_to_i(show_image, 'top')
 
         expect(left).to eq ex_left + move_x
         expect(top).to eq ex_top + move_y
@@ -148,8 +148,8 @@ describe 'マップ管理機能', type: :system do
         # expect(page).to have_selector '.alert-success', text: '変更しました
         expect(page).to have_selector '#show-image'
         show_image = page.find_by_id('show-image')
-        left = style_value_of(show_image[:style], 'left')
-        top = style_value_of(show_image[:style], 'top')
+        left = style_px_to_i(show_image, 'left')
+        top = style_px_to_i(show_image, 'top')
 
         expect(left).to eq ex_left + move_x
         expect(top).to eq ex_top + move_y
@@ -167,8 +167,8 @@ describe 'マップ管理機能', type: :system do
       it '上限のトリミング幅となる' do
         expect(page).to have_selector '#show-image'
         show_image = page.find_by_id('show-image')
-        left = style_value_of(show_image[:style], 'left')
-        top = style_value_of(show_image[:style], 'top')
+        left = style_px_to_i(show_image, 'left')
+        top = style_px_to_i(show_image, 'top')
         expect(left).to eq constrainRangeX
         expect(top).to eq constrainRangeY
       end
