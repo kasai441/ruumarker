@@ -76,6 +76,22 @@ export default {
       this.formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: trimmingX, y: trimmingY}))
       this.$emit('emitFormData', this.formData)
       e.preventDefault()
+    },
+    getFieldSize() {
+      const editField = document.getElementById('edit-field')
+      this.editFieldLeft = Math.floor(editField.getBoundingClientRect().left)
+      this.editFieldTop = Math.floor(editField.getBoundingClientRect().top)
+      this.editFieldWidth = Math.floor(editField.getBoundingClientRect().right) - this.editFieldLeft
+      this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
+
+      this.editImage = document.getElementById('edit-image')
+      this.editImageLeft = this.editFieldLeft + this.trimming.x
+      this.editImageTop = this.editFieldTop + this.trimming.y
+      this.editImage.style.left = this.editImageLeft + 'px'
+      this.editImage.style.top = this.editImageTop + 'px'
+    },
+    handleResize() {
+      this.getFieldSize()
     }
   },
   created() {
@@ -84,22 +100,15 @@ export default {
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
   },
   mounted() {
+    window.addEventListener('resize', this.handleResize)
     if (this.imageFile) {
       const uploadedTag = document.getElementById( 'edit-image' )
       params.readImageUrl(uploadedTag, this.imageFile)
     }
-
-    const editField = document.getElementById('edit-field')
-    this.editFieldLeft = Math.floor(editField.getBoundingClientRect().left)
-    this.editFieldTop = Math.floor(editField.getBoundingClientRect().top)
-    this.editFieldWidth = Math.floor(editField.getBoundingClientRect().right) - this.editFieldLeft
-    this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
-
-    this.editImage = document.getElementById('edit-image')
-    this.editImageLeft = this.editFieldLeft + this.trimming.x
-    this.editImageTop = this.editFieldTop + this.trimming.y
-    this.editImage.style.left = this.editImageLeft + 'px'
-    this.editImage.style.top = this.editImageTop + 'px'
+    this.getFieldSize()
   },
+  beforeDestroy: function () {
+    window.removeEventListener('resize', this.handleResize)
+  }
 }
 </script>
