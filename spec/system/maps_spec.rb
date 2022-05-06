@@ -51,6 +51,7 @@ describe 'マップ管理機能', type: :system do
     let(:room1) { FactoryBot.create(:room) }
     let!(:map1) { FactoryBot.create(:map, room: room1) }
     let(:show_image) { page.find_by_id('show-image') }
+    let(:show_field) { page.find_by_id('show-field') }
     let(:edit_image) { page.find_by_id('edit-image') }
     let(:move_x) { 10 }
     let(:move_y) { -30 }
@@ -62,6 +63,8 @@ describe 'マップ管理機能', type: :system do
 
     let!(:ex_left) { style_value_of(show_image[:style], 'left') }
     let!(:ex_top) { style_value_of(show_image[:style], 'top') }
+    let!(:constrainRangeX) { show_field.native.css_value('width').gsub(/px/, '').to_i / 3 }
+    let!(:constrainRangeY) { show_field.native.css_value('height').gsub(/px/, '').to_i / 3 }
     let!(:ex_upload) { page.find_by_id('show-image')[:src] }
 
     context '詳細画面から更新ボタンを押したとき' do
@@ -151,6 +154,28 @@ describe 'マップ管理機能', type: :system do
         expect(left).to eq ex_left + move_x
         expect(top).to eq ex_top + move_y
       end
+    end
+
+    context '画面編集時に上限以上のトリミングを行ったとき' do
+      before do
+        find('#edit').click
+        page.driver.browser.action.drag_and_drop_by(edit_image.native, constrainRangeX + 10,
+                                                    constrainRangeY + 10).perform
+        find('#update').click
+      end
+
+      it '上限のトリミング幅となる' do
+        expect(page).to have_selector '#show-image'
+        show_image = page.find_by_id('show-image')
+        left = style_value_of(show_image[:style], 'left')
+        top = style_value_of(show_image[:style], 'top')
+        expect(left).to eq constrainRangeX
+        expect(top).to eq constrainRangeY
+      end
+    end
+
+    context '画面編集時に下限以下のトリミングを行ったとき' do
+      it '下限のトリミング幅となる'
     end
   end
 end
