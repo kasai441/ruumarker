@@ -32,7 +32,6 @@ export default {
       trimming: null,
       imageFile: null,
       imageUrl: null,
-      expansion: 1,
       isMovable: false,
       editFieldLeft: 0,
       editFieldTop: 0,
@@ -50,19 +49,11 @@ export default {
       this.isMovable = true
       this.shiftX = Math.floor(e.clientX) - this.editImageLeft
       this.shiftY = Math.floor(e.clientY) - this.editImageTop
-      // console.log('clientX')
-      // console.log(e.clientX)
-      // console.log('editImageLeft')
-      // console.log(this.editImageLeft)
-      // console.log('shiftX')
-      // console.log(this.shiftX)
     },
     touchmove(e) {
       if (!this.isMovable) return
-      const x = Math.floor(e.pageX * this.expansion)
-      const y = Math.floor(e.pageY * this.expansion)
-      this.editImageLeft = x - this.shiftX
-      this.editImageTop = y - this.shiftY
+      this.editImageLeft = Math.floor(e.pageX) - this.shiftX
+      this.editImageTop = Math.floor(e.pageY) - this.shiftY
 
       // 外側に出ないように画像の移動を抑制する
       const maxLeft = Math.floor(this.editFieldLeft + this.editFieldWidth / 3 )
