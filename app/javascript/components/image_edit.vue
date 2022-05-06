@@ -104,13 +104,13 @@ export default {
     this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
 
     this.editImage = document.getElementById('edit-image')
+    this.editImage.style.left = this.editFieldLeft + this.trimming.x + 'px'
+    this.editImage.style.top = this.editFieldTop + this.trimming.y + 'px'
     this.editImageLeft = Math.floor(this.editImage.getBoundingClientRect().left)
     this.editImageTop = Math.floor(this.editImage.getBoundingClientRect().top)
     console.log(('mount editImageLeft'))
     console.log(this.editImageLeft)
 
-    this.editImage.style.left = this.editFieldLeft + this.trimming.x + 'px'
-    this.editImage.style.top = this.editFieldTop + this.trimming.y + 'px'
   },
 }
 </script>
