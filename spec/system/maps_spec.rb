@@ -93,7 +93,6 @@ describe 'マップ管理機能', type: :system do
         show_image = page.find_by_id('show-image')
         left = style_px_to_i(show_image, 'left')
         top = style_px_to_i(show_image, 'top')
-
         expect(left).to eq ex_left + move_x
         expect(top).to eq ex_top + move_y
       end
@@ -150,7 +149,6 @@ describe 'マップ管理機能', type: :system do
         show_image = page.find_by_id('show-image')
         left = style_px_to_i(show_image, 'left')
         top = style_px_to_i(show_image, 'top')
-
         expect(left).to eq ex_left + move_x
         expect(top).to eq ex_top + move_y
       end
@@ -175,7 +173,21 @@ describe 'マップ管理機能', type: :system do
     end
 
     context '画面編集時に下限以下のトリミングを行ったとき' do
-      it '下限のトリミング幅となる'
+      before do
+        find('#edit').click
+        page.driver.browser.action.drag_and_drop_by(edit_image.native, -constrainRangeX - 10,
+                                                    -constrainRangeY - 10).perform
+        find('#update').click
+      end
+
+      it '下限のトリミング幅となる' do
+        expect(page).to have_selector '#show-image'
+        show_image = page.find_by_id('show-image')
+        left = style_px_to_i(show_image, 'left')
+        top = style_px_to_i(show_image, 'top')
+        expect(left).to eq(-constrainRangeX)
+        expect(top).to eq(-constrainRangeY)
+      end
     end
   end
 end
