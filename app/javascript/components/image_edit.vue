@@ -56,13 +56,16 @@ export default {
       this.editImageTop = Math.floor(e.pageY) - this.shiftY
 
       // 外側に出ないように画像の移動を抑制する
-      const maxLeft = Math.floor(this.editFieldLeft + this.editFieldWidth / 3 )
-      const maxTop = Math.floor(this.editFieldTop + this.editFieldHeight / 3 )
-
+      const constrainRangeX = Math.floor(this.editFieldWidth / 3)
+      const constrainRangeY = Math.floor(this.editFieldHeight / 3)
+      const maxLeft = this.editFieldLeft + constrainRangeX
+      const maxTop = this.editFieldTop + constrainRangeY
+      const minLeft = maxLeft - constrainRangeX * 2
+      const minTop = maxTop - constrainRangeY * 2
       if (this.editImageLeft > maxLeft) this.editImageLeft = maxLeft
-      // if (this.editImageLeft < this.minLeft) this.editImageLeft = this.minLeft
+      if (this.editImageLeft < minLeft) this.editImageLeft = minLeft
       if (this.editImageTop > maxTop) this.editImageTop = maxTop
-      // if (this.editImageTop < this.minTop) this.editImageTop = this.minTop
+      if (this.editImageTop < minTop) this.editImageTop = minTop
 
       this.editImage.style.left = this.editImageLeft + 'px'
       this.editImage.style.top = this.editImageTop + 'px'
@@ -90,7 +93,6 @@ export default {
     const editField = document.getElementById('edit-field')
     this.editFieldLeft = Math.floor(editField.getBoundingClientRect().left)
     this.editFieldTop = Math.floor(editField.getBoundingClientRect().top)
-
     this.editFieldWidth = Math.floor(editField.getBoundingClientRect().right) - this.editFieldLeft
     this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
 
