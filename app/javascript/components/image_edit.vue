@@ -71,8 +71,9 @@ export default {
     },
     touchend(e) {
       this.isMovable = false
-      const trimmingX = this.editImageLeft - this.editFieldLeft
-      const trimmingY = this.editImageTop - this.editFieldTop
+      const trimmingX = ((this.editImageLeft - this.editFieldLeft) / this.editFieldWidth).toFixed(3)
+      const trimmingY = ((this.editImageTop - this.editFieldTop) / this.editFieldHeight).toFixed(3)
+      console.log(trimmingX)
       this.formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: trimmingX, y: trimmingY}))
       this.$emit('emitFormData', this.formData)
       e.preventDefault()
@@ -85,8 +86,8 @@ export default {
       this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
 
       this.editImage = document.getElementById('edit-image')
-      this.editImageLeft = this.editFieldLeft + this.trimming.x
-      this.editImageTop = this.editFieldTop + this.trimming.y
+      this.editImageLeft = Math.floor(this.editFieldWidth * this.trimming.x) + this.editFieldLeft
+      this.editImageTop = Math.floor(this.editFieldHeight * this.trimming.y) + this.editFieldTop
       this.editImage.style.left = this.editImageLeft + 'px'
       this.editImage.style.top = this.editImageTop + 'px'
     },
