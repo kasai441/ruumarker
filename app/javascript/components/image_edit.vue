@@ -3,7 +3,6 @@
     <div id="edit-field"
          @pointermove="touchmove($event)"
          @pointerup="touchend($event)"
-         @pointerleave="touchend($event)"
          class="my-16 edit-size">
       <img :src="imageUrl" id="edit-image" draggable="false"
            @pointerdown="touchstart($event)"
