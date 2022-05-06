@@ -12,9 +12,9 @@
         <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
         <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
       </div>
-      <div>{{ this.editFieldLeft }}</div>
-      <div>{{ this.editFieldWidth }}</div>
-      <div>{{ this.editImageLeft }}</div>
+      <div>editFieldLeft {{ this.editFieldLeft }}</div>
+      <div>editFieldWidth {{ this.editFieldWidth }}</div>
+      <div>editImageLeft {{ this.editImageLeft }}</div>
     </div>
   </section>
 </template>
@@ -50,6 +50,12 @@ export default {
       this.isMovable = true
       this.shiftX = Math.floor(e.clientX) - this.editImageLeft
       this.shiftY = Math.floor(e.clientY) - this.editImageTop
+      // console.log('clientX')
+      // console.log(e.clientX)
+      // console.log('editImageLeft')
+      // console.log(this.editImageLeft)
+      // console.log('shiftX')
+      // console.log(this.shiftX)
     },
     touchmove(e) {
       if (!this.isMovable) return
@@ -59,8 +65,8 @@ export default {
       this.editImageTop = y - this.shiftY
 
       // 外側に出ないように画像の移動を抑制する
-      const maxLeft = Math.floor(this.editFieldLeft + this.editFieldWidth / 2 )
-      const maxTop = Math.floor(this.editFieldTop + this.editFieldHeight / 2 )
+      const maxLeft = Math.floor(this.editFieldLeft + this.editFieldWidth / 3 )
+      const maxTop = Math.floor(this.editFieldTop + this.editFieldHeight / 3 )
 
       if (this.editImageLeft > maxLeft) this.editImageLeft = maxLeft
       // if (this.editImageLeft < this.minLeft) this.editImageLeft = this.minLeft
@@ -100,6 +106,8 @@ export default {
     this.editImage = document.getElementById('edit-image')
     this.editImageLeft = Math.floor(this.editImage.getBoundingClientRect().left)
     this.editImageTop = Math.floor(this.editImage.getBoundingClientRect().top)
+    console.log(('mount editImageLeft'))
+    console.log(this.editImageLeft)
 
     this.editImage.style.left = this.editFieldLeft + this.trimming.x + 'px'
     this.editImage.style.top = this.editFieldTop + this.trimming.y + 'px'
