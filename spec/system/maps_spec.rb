@@ -14,11 +14,11 @@ describe 'マップ管理機能', type: :system do
     end
 
     context '画像をアップロードしたとき' do
-      let(:uploaded) { page.find_by_id('uploaded') }
+      let(:preview) { page.find_by_id('preview-image') }
       let(:show_map) { page.find_by_id('show-map') }
 
       before do
-        expect(uploaded[:src]).to include 'sample.png'
+        expect(preview[:src]).to include 'sample.png'
         attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
       end
 
@@ -43,7 +43,8 @@ describe 'マップ管理機能', type: :system do
     #   end
     # end
 
-    context '新規作成後に初期のトリミングが0x0になる' do
+    context '画像をアップロードしたとき' do
+      it '初期のトリミングが0x0になる'
     end
   end
 
