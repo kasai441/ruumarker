@@ -20,15 +20,20 @@ export default {
     return {
       previewImage: this.sampleImage,
     }
-  } ,
+  },
+  methods: {
+    preview(imageFile) {
+      const previewImage = document.getElementById( 'preview-image' )
+      params.readImageUrl(previewImage, imageFile)
+    }
+  },
   updated() {
     if (!this.formData) return
 
     const imageFile = this.formData.get(`${this.targetModel}[image]`)
     const imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
     if (imageFile) {
-      const previewImage = document.getElementById( 'preview-image' )
-      params.readImageUrl(previewImage, this.formData.get(`${this.targetModel}[image]`))
+      this.preview(imageFile)
     } else if (imageUrl) {
       this.previewImage = imageUrl
     }
