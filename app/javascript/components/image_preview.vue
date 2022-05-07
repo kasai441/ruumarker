@@ -13,15 +13,17 @@ export default {
   name: 'ImagePreview',
   props: [
     'sampleImage',
-    'formData',
-    'targetModel'
+    'targetModel',
+    'formData'
   ],
   data() {
     return {
-      previewImage: null,
+      previewImage: this.sampleImage,
     }
   } ,
-  created() {
+  updated() {
+    if (!this.formData) return
+
     const imageFile = this.formData.get(`${this.targetModel}[image]`)
     const imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
     if (imageFile) {
@@ -29,8 +31,6 @@ export default {
       params.readImageUrl(previewImage, this.formData.get(`${this.targetModel}[image]`))
     } else if (imageUrl) {
       this.previewImage = imageUrl
-    } else {
-      this.previewImage = this.sampleImage
     }
   }
 }
