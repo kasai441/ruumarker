@@ -71,11 +71,33 @@ export default {
     },
     touchend(e) {
       this.isMovable = false
-      const trimmingX = this.editImageLeft - this.editFieldLeft
-      const trimmingY = this.editImageTop - this.editFieldTop
+      this.updateTrimming()
+      e.preventDefault()
+    },
+    handleResize() {
+      this.getFieldSize()
+      this.updateTrimming()
+    },
+    getFieldSize() {
+      const editField = document.getElementById('edit-field')
+      if(editField) {
+        this.editFieldLeft = Math.floor(editField.getBoundingClientRect().left)
+        this.editFieldTop = Math.floor(editField.getBoundingClientRect().top)
+        this.editFieldWidth = Math.floor(editField.getBoundingClientRect().right) - this.editFieldLeft
+        this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
+
+        this.editImage = document.getElementById('edit-image')
+        this.editImageLeft = Math.floor(this.editFieldWidth * this.trimming.x) + this.editFieldLeft
+        this.editImageTop = Math.floor(this.editFieldHeight * this.trimming.y) + this.editFieldTop
+        this.editImage.style.left = this.editImageLeft + 'px'
+        this.editImage.style.top = this.editImageTop + 'px'
+      }
+    },
+    updateTrimming() {
+      const trimmingX = ((this.editImageLeft - this.editFieldLeft) / this.editFieldWidth).toFixed(3)
+      const trimmingY = ((this.editImageTop - this.editFieldTop) / this.editFieldHeight).toFixed(3)
       this.formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: trimmingX, y: trimmingY}))
       this.$emit('emitFormData', this.formData)
-      e.preventDefault()
     }
   },
   created() {
@@ -84,22 +106,15 @@ export default {
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
   },
   mounted() {
+    window.addEventListener('resize', this.handleResize)
     if (this.imageFile) {
       const uploadedTag = document.getElementById( 'edit-image' )
       params.readImageUrl(uploadedTag, this.imageFile)
     }
-
-    const editField = document.getElementById('edit-field')
-    this.editFieldLeft = Math.floor(editField.getBoundingClientRect().left)
-    this.editFieldTop = Math.floor(editField.getBoundingClientRect().top)
-    this.editFieldWidth = Math.floor(editField.getBoundingClientRect().right) - this.editFieldLeft
-    this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
-
-    this.editImage = document.getElementById('edit-image')
-    this.editImageLeft = this.editFieldLeft + this.trimming.x
-    this.editImageTop = this.editFieldTop + this.trimming.y
-    this.editImage.style.left = this.editImageLeft + 'px'
-    this.editImage.style.top = this.editImageTop + 'px'
+    this.getFieldSize()
   },
+  beforeDestroy: function () {
+    window.removeEventListener('resize', this.handleResize)
+  }
 }
 </script>

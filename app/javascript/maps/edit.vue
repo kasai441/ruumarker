@@ -10,7 +10,6 @@
         :id="mapId"
         :formData="formData"
         target-model="map"
-        @switchImageEdit="switchImageEdit"
       ></image-update>
     </div>
     <div v-else>

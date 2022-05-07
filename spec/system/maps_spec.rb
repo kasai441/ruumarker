@@ -53,8 +53,6 @@ describe 'マップ管理機能', type: :system do
     let(:show_image) { page.find_by_id('show-image') }
     let(:show_field) { page.find_by_id('show-field') }
     let(:edit_image) { page.find_by_id('edit-image') }
-    let(:move_x) { 10 }
-    let(:move_y) { -30 }
 
     before do
       visit room_path(room1)
@@ -63,9 +61,13 @@ describe 'マップ管理機能', type: :system do
 
     let!(:ex_left) { style_px_to_i(show_image, 'left') }
     let!(:ex_top) { style_px_to_i(show_image, 'top') }
-    let!(:constrainRangeX) { style_px_to_i(show_field, 'width') / 3 }
-    let!(:constrainRangeY) { style_px_to_i(show_field, 'height') / 3 }
+    let!(:show_field_width) { style_px_to_i(show_field, 'width') }
+    let!(:show_field_height) { style_px_to_i(show_field, 'height') }
+    let!(:constrainRangeX) { show_field_width / 3 }
+    let!(:constrainRangeY) { show_field_height / 3 }
     let!(:ex_upload) { page.find_by_id('show-image')[:src] }
+    let(:move_x) { show_field_width / 5 }
+    let(:move_y) { show_field_height / 5 }
 
     context '詳細画面から更新ボタンを押したとき' do
       before do
@@ -93,8 +95,8 @@ describe 'マップ管理機能', type: :system do
         show_image = page.find_by_id('show-image')
         left = style_px_to_i(show_image, 'left')
         top = style_px_to_i(show_image, 'top')
-        expect(left).to eq ex_left + move_x
-        expect(top).to eq ex_top + move_y
+        expect(left).to be_within(1).of(ex_left + move_x)
+        expect(top).to be_within(1).of(ex_left + move_y)
       end
     end
 
@@ -149,8 +151,8 @@ describe 'マップ管理機能', type: :system do
         show_image = page.find_by_id('show-image')
         left = style_px_to_i(show_image, 'left')
         top = style_px_to_i(show_image, 'top')
-        expect(left).to eq ex_left + move_x
-        expect(top).to eq ex_top + move_y
+        expect(left).to be_within(1).of(ex_left + move_x)
+        expect(top).to be_within(1).of(ex_left + move_y)
       end
     end
 
@@ -167,8 +169,8 @@ describe 'マップ管理機能', type: :system do
         show_image = page.find_by_id('show-image')
         left = style_px_to_i(show_image, 'left')
         top = style_px_to_i(show_image, 'top')
-        expect(left).to eq constrainRangeX
-        expect(top).to eq constrainRangeY
+        expect(left).to be_within(1).of(constrainRangeX)
+        expect(top).to be_within(1).of(constrainRangeY)
       end
     end
 
@@ -185,8 +187,8 @@ describe 'マップ管理機能', type: :system do
         show_image = page.find_by_id('show-image')
         left = style_px_to_i(show_image, 'left')
         top = style_px_to_i(show_image, 'top')
-        expect(left).to eq(-constrainRangeX)
-        expect(top).to eq(-constrainRangeY)
+        expect(left).to be_within(1).of(-constrainRangeX)
+        expect(top).to be_within(1).of(-constrainRangeY)
       end
     end
   end
