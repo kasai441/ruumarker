@@ -56,7 +56,6 @@ export default {
     },
     getFieldSize() {
       const showField = document.getElementById('show-field')
-      console.log(showField)
       if (showField) {
         const showFieldLeft = Math.floor(showField.getBoundingClientRect().left)
         const showFieldTop = Math.floor(showField.getBoundingClientRect().top)

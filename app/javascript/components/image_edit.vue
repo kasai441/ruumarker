@@ -71,12 +71,12 @@ export default {
     },
     touchend(e) {
       this.isMovable = false
-      const trimmingX = ((this.editImageLeft - this.editFieldLeft) / this.editFieldWidth).toFixed(3)
-      const trimmingY = ((this.editImageTop - this.editFieldTop) / this.editFieldHeight).toFixed(3)
-      console.log(trimmingX)
-      this.formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: trimmingX, y: trimmingY}))
-      this.$emit('emitFormData', this.formData)
+      this.updateTrimming()
       e.preventDefault()
+    },
+    handleResize() {
+      this.getFieldSize()
+      this.updateTrimming()
     },
     getFieldSize() {
       const editField = document.getElementById('edit-field')
@@ -93,8 +93,11 @@ export default {
         this.editImage.style.top = this.editImageTop + 'px'
       }
     },
-    handleResize() {
-      this.getFieldSize()
+    updateTrimming() {
+      const trimmingX = ((this.editImageLeft - this.editFieldLeft) / this.editFieldWidth).toFixed(3)
+      const trimmingY = ((this.editImageTop - this.editFieldTop) / this.editFieldHeight).toFixed(3)
+      this.formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: trimmingX, y: trimmingY}))
+      this.$emit('emitFormData', this.formData)
     }
   },
   created() {
