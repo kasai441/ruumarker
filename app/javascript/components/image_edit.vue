@@ -1,11 +1,7 @@
 <template>
   <section>
-    <div id="edit-field"
-         @pointermove="touchmove($event)"
-         @pointerup="touchend($event)"
-         class="my-16 edit-size">
-      <img :src="imageUrl" id="edit-image" draggable="false"
-           @pointerdown="touchstart($event)"
+    <div id="edit-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" class="my-16 edit-size">
+      <img :src="imageUrl" id="edit-image" draggable="false" @pointerdown="touchstart($event)"
            class="absolute z-10 edit-size object-contain">
       <div class="relative">
         <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
@@ -14,6 +10,7 @@
       <div>editFieldLeft {{ this.editFieldLeft }}</div>
       <div>editFieldWidth {{ this.editFieldWidth }}</div>
       <div>editImageLeft {{ this.editImageLeft }}</div>
+      <div>imageUrl {{ this.imageUrl }}</div>
     </div>
   </section>
 </template>
@@ -104,6 +101,7 @@ export default {
     this.trimming = params.trimming(this.formData, this.targetModel)
     this.imageFile = this.formData.get(`${this.targetModel}[image]`)
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
+    console.log(this.imageUrl)
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)

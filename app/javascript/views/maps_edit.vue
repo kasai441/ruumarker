@@ -1,32 +1,14 @@
 <template>
-  <section id="maps-edit" class="w-full">
-    <div v-if="isImageEdit" @touchmove.prevent>
-      <image-edit
-        :formData="formData"
-        target-model="map"
-        @emitFormData="getFormData"
-      ></image-edit>
-      <image-update
-        :id="mapId"
-        :formData="formData"
-        target-model="map"
-      ></image-update>
-    </div>
-    <div v-else>
-      <image-show
-        :id="mapId"
-        target-model="map"
-        @switchImageEdit="switchImageEdit"
-        @emitFormData="getFormData"
-      ></image-show>
-    </div>
+  <section v-if="formData">
+    <image-edit :formData="formData" target-model="map" @emitFormData="getFormData"></image-edit>
+    <image-update :id="mapId" :formData="formData" target-model="map"></image-update>
   </section>
 </template>
 
 <script>
 import ImageEdit from '../components/image_edit.vue'
 import ImageUpdate from '../components/image_update.vue'
-import ImageShow from '../components/image_show.vue'
+import api from '../modules/api'
 
 export default {
   name: 'MapsEdit',
@@ -37,21 +19,25 @@ export default {
   data() {
     return {
       isImageEdit: false,
-      formData: null,
+      formData: null
     }
   },
   components: {
-    ImageShow,
     ImageEdit,
-    ImageUpdate,
+    ImageUpdate
   },
   methods: {
-    switchImageEdit(bool) {
-      this.isImageEdit = bool
-    },
     getFormData(formData) {
       this.formData = formData
-    },
+    }
+  },
+  async created() {
+    const response = await api.actions.show(`/api/rooms/${this.roomId}/maps/${this.mapId}.json`)
+    this.formData = new FormData()
+    this.formData.append('map[trimming]', response.trimming)
+    this.formData.append('map[image_url]', response.image_url)
+    console.log(response)
+    console.log(this.formData.get('map[image_url]'))
   }
 }
 </script>
