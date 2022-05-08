@@ -85,7 +85,20 @@
 #       visit room_mark_path(room1, mark1)
 #       click_link 'キズ編集'
 #     end
+
+# context '詳細画面から更新ボタンを押したとき' do
+#   before do
+#     expect(page).to have_selector '#show-image'
+#     find('#edit').click
+#     # エラー時のJSからのメッセージの表示
+#     # puts page.driver.browser.manage.logs.get(:browser).collect(&:message)
+#   end
 #
+#   it '編集画面に遷移する' do
+#     expect(page).to have_selector '#edit-image'
+#   end
+# end
+
 #     context '値を変更したとき' do
 #       before do
 #         fill_in 'Trimming', with: '1, 2'

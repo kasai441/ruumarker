@@ -6,7 +6,7 @@
       <img v-if="imageUrl" :src="imageUrl" id="show-image" class="absolute -z-30 edit-size w-full object-contain">
     </div>
     <div class="submit_container relative z-60">
-      <a @click="mapEdit" class="btn btn-primary">マップ編集</a>
+      <a @click="mapEdit" id="map-edit" class="btn btn-primary">マップ編集</a>
     </div>
   </div>
 </template>
