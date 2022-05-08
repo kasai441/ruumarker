@@ -8,6 +8,7 @@ describe 'マップ管理機能', type: :system do
 
   describe '新規作成機能' do
     let(:room1) { FactoryBot.create(:room) }
+    let(:show_image) { page.find_by_id('show-image') }
 
     before do
       visit new_room_map_path(room1)
@@ -15,7 +16,6 @@ describe 'マップ管理機能', type: :system do
 
     context '画像をアップロードしたとき' do
       let(:preview) { page.find_by_id('preview-image') }
-      let(:show_map) { page.find_by_id('show-map') }
 
       before do
         expect(preview[:src]).to include 'sample.png'
@@ -24,8 +24,8 @@ describe 'マップ管理機能', type: :system do
 
       it '画像が登録されてルームに遷移する' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
-        expect(show_map[:src]).not_to include 'sample.png'
-        expect(show_map[:src]).to include 'test_image.jpg'
+        expect(show_image[:src]).not_to include 'sample.png'
+        expect(show_image[:src]).to include 'test_image.jpg'
         expect(page).to have_selector 'h1', text: 'キズ点検表'
         expect(Room.find(room1.id).map.image.attached?).to eq true
       end
@@ -44,7 +44,16 @@ describe 'マップ管理機能', type: :system do
     # end
 
     context '画像をアップロードしたとき' do
-      it '初期のトリミングが0x0になる'
+      before do
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+      end
+
+      it '初期のトリミングが0x0になる' do
+        left = style_px_to_i(show_image, 'left')
+        top = style_px_to_i(show_image, 'top')
+        expect(left).to eq 0
+        expect(top).to eq 0
+      end
     end
   end
 
