@@ -1,6 +1,7 @@
 <template>
   <section>
-    <div id="edit-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" class="my-16 edit-size">
+    <div id="edit-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
+         class="my-16 edit-size">
       <img :src="imageSrc" id="edit-image" draggable="false" @pointerdown="touchstart($event)"
            class="absolute z-10 edit-size object-contain">
       <div class="relative">
@@ -43,6 +44,7 @@ export default {
   methods: {
     touchstart(e) {
       this.isMovable = true
+      this.editImage.classList.add('shadow-2xl')
       this.shiftX = Math.floor(e.clientX) - this.editImageLeft
       this.shiftY = Math.floor(e.clientY) - this.editImageTop
     },
@@ -68,6 +70,7 @@ export default {
     },
     touchend(e) {
       this.isMovable = false
+      this.editImage.classList.remove('shadow-2xl')
       this.updateTrimming()
       e.preventDefault()
     },
