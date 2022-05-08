@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   root to: 'home#index'
-  resources :rooms, except: %i[index edit create] do
+  resources :rooms, only: %i[new show destroy] do
     resources :maps, except: %i[index show destroy]
     resources :marks, except: :index
   end

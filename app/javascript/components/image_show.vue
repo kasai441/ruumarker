@@ -13,8 +13,7 @@
         <input type="file" id="upload-image" name="upload-image" accept="image/png,image/jpeg" @change="upload" />
       </div>
       <div class="submit_container relative z-60">
-        <a @click="switchImageEdit" id="edit"
-           class="btn btn-primary">編集</a>
+        <a @click="mapEdit" class="btn btn-primary">マップ編集</a>
       </div>
     </div>
   </section>
@@ -41,8 +40,8 @@ export default {
     }
   },
   methods: {
-    switchImageEdit() {
-      this.$emit('switchImageEdit', true)
+    mapEdit() {
+      location.href = `/rooms/${this.roomId}/${this.targetModel}s/${this.id}/edit`
     },
     upload(e) {
       e.preventDefault()
