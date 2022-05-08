@@ -8,11 +8,6 @@
         <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
         <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
       </div>
-      <div>editFieldLeft {{ this.editFieldLeft }}</div>
-      <div>editFieldWidth {{ this.editFieldWidth }}</div>
-      <div>editImageLeft {{ this.editImageLeft }}</div>
-      <div>imageSrc {{ this.imageSrc }}</div>
-      <div>trimming {{ this.trimming }}</div>
     </div>
   </section>
 </template>
@@ -67,6 +62,7 @@ export default {
 
       this.editImage.style.left = this.editImageLeft + 'px'
       this.editImage.style.top = this.editImageTop + 'px'
+      e.preventDefault()
     },
     touchend(e) {
       this.isMovable = false
