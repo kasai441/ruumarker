@@ -1,11 +1,8 @@
 <template>
   <section>
-    <div id="edit-field"
-         @pointermove="touchmove($event)"
-         @pointerup="touchend($event)"
+    <div id="edit-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
          class="my-16 edit-size">
-      <img :src="imageUrl" id="edit-image" draggable="false"
-           @pointerdown="touchstart($event)"
+      <img :src="imageSrc" id="edit-image" draggable="false" @pointerdown="touchstart($event)"
            class="absolute z-10 edit-size object-contain">
       <div class="relative">
         <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
@@ -14,6 +11,8 @@
       <div>editFieldLeft {{ this.editFieldLeft }}</div>
       <div>editFieldWidth {{ this.editFieldWidth }}</div>
       <div>editImageLeft {{ this.editImageLeft }}</div>
+      <div>imageSrc {{ this.imageSrc }}</div>
+      <div>trimming {{ this.trimming }}</div>
     </div>
   </section>
 </template>
@@ -29,8 +28,7 @@ export default {
   data() {
     return {
       trimming: null,
-      imageFile: null,
-      imageUrl: null,
+      imageSrc: null,
       isMovable: false,
       editFieldLeft: 0,
       editFieldTop: 0,
@@ -46,6 +44,7 @@ export default {
   methods: {
     touchstart(e) {
       this.isMovable = true
+      this.editImage.classList.add('shadow-2xl')
       this.shiftX = Math.floor(e.clientX) - this.editImageLeft
       this.shiftY = Math.floor(e.clientY) - this.editImageTop
     },
@@ -71,6 +70,7 @@ export default {
     },
     touchend(e) {
       this.isMovable = false
+      this.editImage.classList.remove('shadow-2xl')
       this.updateTrimming()
       e.preventDefault()
     },
@@ -100,18 +100,18 @@ export default {
       this.$emit('emitFormData', this.formData)
     }
   },
-  created() {
-    this.trimming = params.trimming(this.formData, this.targetModel)
-    this.imageFile = this.formData.get(`${this.targetModel}[image]`)
-    this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
-  },
   mounted() {
     window.addEventListener('resize', this.handleResize)
-    if (this.imageFile) {
-      const uploadedTag = document.getElementById( 'edit-image' )
-      params.readImageUrl(uploadedTag, this.imageFile)
-    }
+    const imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
+    this.imageSrc = imageUrl
+    this.trimming = params.trimming(this.formData, this.targetModel)
     this.getFieldSize()
+  },
+  updated() {
+    const imageFile = this.formData.get(`${this.targetModel}[image]`)
+    if (!imageFile) return
+    const editImage = document.getElementById( 'edit-image' )
+    params.readImageUrl(editImage, imageFile)
   },
   beforeDestroy: function () {
     window.removeEventListener('resize', this.handleResize)

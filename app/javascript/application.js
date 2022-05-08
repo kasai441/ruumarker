@@ -3,5 +3,6 @@ import '@hotwired/turbo-rails'
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 
-import './maps/new.js'
-import './maps/edit.js'
+import './views/maps_new.js'
+import './views/maps_edit.js'
+import './views/rooms_show.js'

@@ -1,23 +1,14 @@
 <template>
-  <section>
-    <div class="flex flex-col items-center">
-      <div id="show-field" class="my-16 edit-size relative">
-        <div class="absolute -z-10 edit-size bg-transparent bg-transparent outline outline-4 outline-lime-500"></div>
-        <div class="absolute -z-20 edit-size bg-transparent bg-transparent outline outline-240 outline-slate-200"></div>
-        <img v-if="imageUrl"
-             :src="imageUrl"
-             id="show-image"
-             class="absolute -z-30 edit-size w-full object-contain">
-      </div>
-      <div class="p-4 text-sm">
-        <input type="file" id="upload-image" name="upload-image" accept="image/png,image/jpeg" @change="upload" />
-      </div>
-      <div class="submit_container relative z-60">
-        <a @click="switchImageEdit" id="edit"
-           class="btn btn-primary">編集</a>
-      </div>
+  <div class="flex flex-col items-center">
+    <div id="show-field" class="my-8 edit-size rounded-lg relative">
+      <div class="absolute -z-10 edit-size rounded-lg bg-transparent bg-transparent outline outline-3 outline-slate-200"></div>
+      <div class="absolute -z-20 edit-size rounded-lg bg-transparent bg-transparent outline outline-240 outline-white"></div>
+      <img v-if="imageUrl" :src="imageUrl" id="show-image" class="rounded-lg absolute -z-30 edit-size w-full object-contain">
     </div>
-  </section>
+    <div class="submit_container relative z-60">
+      <a @click="mapEdit" id="map-edit" class="btn btn-primary">マップ編集</a>
+    </div>
+  </div>
 </template>
 <script>
 import api from '../modules/api'
@@ -41,18 +32,8 @@ export default {
     }
   },
   methods: {
-    switchImageEdit() {
-      this.$emit('switchImageEdit', true)
-    },
-    upload(e) {
-      e.preventDefault()
-      const uploadedTag = document.getElementById( 'show-image' )
-      const imageFile = e.target.files[0]
-
-      params.readImageUrl(uploadedTag, imageFile)
-
-      if (imageFile) this.formData.set(`${this.targetModel}[image]`, imageFile)
-      this.$emit('emitFormData', this.formData)
+    mapEdit() {
+      location.href = `/rooms/${this.roomId}/${this.targetModel}s/${this.id}/edit`
     },
     getFieldSize() {
       const showField = document.getElementById('show-field')

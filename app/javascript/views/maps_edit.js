@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import MapsEdit from './edit.vue'
+import MapsEdit from './maps_edit.vue'
 
 document.addEventListener('turbo:load', () => {
   const selector = '#maps-edit'

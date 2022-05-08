@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center">
     <div id="preview-field" class="edit-size rounded-lg bg-white outline outline-3 outline-slate-200">
-      <img id="preview-image" :src="previewImage" class="object-contain edit-size rounded-lg">
+      <img id="preview-image" :src="imageSrc" class="object-contain edit-size rounded-lg">
     </div>
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
   ],
   data() {
     return {
-      previewImage: this.sampleImage,
+      imageSrc: this.sampleImage,
     }
   },
   methods: {
@@ -35,7 +35,7 @@ export default {
     if (imageFile) {
       this.preview(imageFile)
     } else if (imageUrl) {
-      this.previewImage = imageUrl
+      this.imageSrc = imageUrl
     }
   }
 }

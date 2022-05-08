@@ -8,6 +8,7 @@ describe 'マップ管理機能', type: :system do
 
   describe '新規作成機能' do
     let(:room1) { FactoryBot.create(:room) }
+    let(:show_image) { page.find_by_id('show-image') }
 
     before do
       visit new_room_map_path(room1)
@@ -15,7 +16,6 @@ describe 'マップ管理機能', type: :system do
 
     context '画像をアップロードしたとき' do
       let(:preview) { page.find_by_id('preview-image') }
-      let(:show_map) { page.find_by_id('show-map') }
 
       before do
         expect(preview[:src]).to include 'sample.png'
@@ -24,27 +24,24 @@ describe 'マップ管理機能', type: :system do
 
       it '画像が登録されてルームに遷移する' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
-        expect(show_map[:src]).not_to include 'sample.png'
-        expect(show_map[:src]).to include 'test_image.jpg'
+        expect(show_image[:src]).not_to include 'sample.png'
+        expect(show_image[:src]).to include 'test_image.jpg'
         expect(page).to have_selector 'h1', text: 'キズ点検表'
         expect(Room.find(room1.id).map.image.attached?).to eq true
       end
     end
 
-    # context '画像をアップロードして登録ボタンを押した時', js: true do
-    #   before do
-    #     attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
-    #     find('#submit').click
-    #   end
-    #
-    #   it '正常にマップが登録されてルーム画面に遷移する' do
-    #     expect(page).to have_content 'ルーム詳細'
-    #     expect(Room.find(room1.id).map.image.attached?).to eq true
-    #   end
-    # end
-
     context '画像をアップロードしたとき' do
-      it '初期のトリミングが0x0になる'
+      before do
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+      end
+
+      it '初期のトリミングが0x0になる' do
+        left = style_px_to_i(show_image, 'left')
+        top = style_px_to_i(show_image, 'top')
+        expect(left).to eq 0
+        expect(top).to eq 0
+      end
     end
   end
 
@@ -57,7 +54,6 @@ describe 'マップ管理機能', type: :system do
 
     before do
       visit room_path(room1)
-      click_link 'マップ編集'
     end
 
     let!(:ex_left) { style_px_to_i(show_image, 'left') }
@@ -70,22 +66,12 @@ describe 'マップ管理機能', type: :system do
     let(:move_x) { show_field_width / 5 }
     let(:move_y) { show_field_height / 5 }
 
-    context '詳細画面から更新ボタンを押したとき' do
-      before do
-        expect(page).to have_selector '#show-image'
-        find('#edit').click
-        # エラー時のJSからのメッセージの表示
-        # puts page.driver.browser.manage.logs.get(:browser).collect(&:message)
-      end
-
-      it '編集画面に遷移する' do
-        expect(page).to have_selector '#edit-image'
-      end
+    before do
+      find('#map-edit').click
     end
 
     context '編集画面にてトリミング操作を行ったとき' do
       before do
-        find('#edit').click
         page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
         find('#update').click
       end
@@ -108,7 +94,7 @@ describe 'マップ管理機能', type: :system do
 
       it '画像が変更される' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
-        expect(page.find_by_id('show-image')[:src]).not_to eq ex_upload
+        expect(page.find_by_id('edit-image')[:src]).not_to eq ex_upload
       end
     end
 
@@ -126,22 +112,21 @@ describe 'マップ管理機能', type: :system do
 
     context '画像をアップロードして編集を押したとき' do
       before do
-        expect(show_image[:src]).to include 'jpg'
+        expect(edit_image[:src]).to include 'test_image.jpg'
         attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
-        find('#edit').click
+        find('#update').click
       end
 
       it '画像が更新されている' do
-        expect(page).to have_selector '#edit-image'
-        edit_image = page.find_by_id('edit-image')
-        expect(edit_image[:src]).to include 'png'
+        expect(page).to have_selector '#show-image'
+        show_image = page.find_by_id('show-image')
+        expect(show_image[:src]).to include 'test_image.png'
       end
     end
 
     context '画像をアップロードしてトリミングしたとき' do
       before do
         attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
-        find('#edit').click
         page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
         find('#update').click
       end
@@ -159,7 +144,6 @@ describe 'マップ管理機能', type: :system do
 
     context '画面編集時に上限以上のトリミングを行ったとき' do
       before do
-        find('#edit').click
         page.driver.browser.action.drag_and_drop_by(edit_image.native, constrainRangeX + 10,
                                                     constrainRangeY + 10).perform
         find('#update').click
@@ -177,7 +161,6 @@ describe 'マップ管理機能', type: :system do
 
     context '画面編集時に下限以下のトリミングを行ったとき' do
       before do
-        find('#edit').click
         page.driver.browser.action.drag_and_drop_by(edit_image.native, -constrainRangeX - 10,
                                                     -constrainRangeY - 10).perform
         find('#update').click

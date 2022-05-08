@@ -1,6 +1,6 @@
 <template>
   <div id="image-update" class="flex justify-center relative z-60">
-    <a @click="reload" id="show" class="btn btn-secondary">キャンセル</a>
+    <a @click="back" id="show" class="btn btn-secondary">＜</a>
     <a @click="update" id="update" class="btn btn-primary">登録</a>
   </div>
 </template>
@@ -20,11 +20,11 @@ export default {
   ],
   methods: {
     async update() {
-      const response = await api.actions.update(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.id}`, this.formData)
-      location.href = `/rooms/${this.roomId}/${this.targetModel}s/${response.id}/edit`
+      await api.actions.update(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.id}`, this.formData)
+      location.href = `/rooms/${this.roomId}`
     },
-    reload() {
-      location.reload()
+    back() {
+      location.href = `/rooms/${this.roomId}`
     }
   }
 }

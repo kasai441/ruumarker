@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import MapsNew from './new.vue'
+import MapsNew from './maps_new.vue'
 
 document.addEventListener('turbo:load', () => {
   const selector = '#maps-new'

@@ -1,40 +1,30 @@
-h1 キズ点検表
-table
-  tbody
-    tr.id
-      th= Map.human_attribute_name(:id)
-      td= @room.map.id
-    tr.trimming
-      th= Map.human_attribute_name(:trimming)
-      td= @room.map.trimming
-    tr.expansion
-      th= Map.human_attribute_name(:expansion)
-      td= @room.map.expansion
-    tr.rotation
-      th= Map.human_attribute_name(:rotation)
-      td= @room.map.rotation
-    tr.image
-      th= Map.human_attribute_name(:image)
-      td= image_tag @room.map.image, id: 'show-map' if @room.map.image.attached?
-    tr
-      th= Map.human_attribute_name(:created_at)
-      td= @room.map.created_at
-    tr
-      th= Map.human_attribute_name(:updated_at)
-      td= @room.map.updated_at
+div.w-full.py-1.px-4.border-b.border-slate-900/10.flex.items-center.bg-white.relative.z-50
+  = link_to root_path, class: "flex items-center"
+    = image_tag 'logo.png', size: '40x20', alt: 'logo.png'
+    div.px-1.text-2xl
+      |ruumarker
+h1.w-full.p-6.text-lg.font-bold.bg-white.flex.justify-center.relative.z-50
+  |キズ点検表
+div.flex.justify-between
+  div.over-frame.w-side.h-auto
+  div.items-center.flex.flex-col
+    #rooms-show(room_id="#{@room.id}" map_id="#{@room.map.id}" image_url="#{url_for @room.map.image}")
+  div.over-frame.w-side.h-auto
+div.w-full.bg-white.h-32.outline.outline-60.outline-white.relative.z-50
 
-= link_to 'マップ編集', edit_room_map_path(@room, @room.map), class: 'btn'
+/ = link_to 'マップ編集', edit_room_map_path(@room, @room.map), class: 'btn'
 
-table
-  thead
-    tr
-      th= Mark.human_attribute_name(:description)
-      th= Mark.human_attribute_name(:updated_at)
-  tbody
-    - @room.map.marks.each do |mark|
-      tr id="mark-#{mark.id}"
-        td= link_to mark.brief_description, room_mark_path(mark.map.room, mark)
-        td= mark.updated_at
+div.relative.z-60
+  table
+    thead
+      tr
+        th= Mark.human_attribute_name(:description)
+        th= Mark.human_attribute_name(:updated_at)
+    tbody
+      - @room.map.marks.each do |mark|
+        tr id="mark-#{mark.id}"
+          td= link_to mark.brief_description, room_mark_path(mark.map.room, mark)
+          td= mark.updated_at
 
-= link_to 'キズ追加', new_room_mark_path(@room), class: 'btn'
-= link_to 'ルーム削除', @room, data: { turbo_method: :delete, turbo_confirm: 'ルームを削除します。よろしいですか？' }, class: 'btn'
+  = link_to 'キズ追加', new_room_mark_path(@room), class: 'btn'
+  = link_to 'ルーム削除', @room, data: { turbo_method: :delete, turbo_confirm: 'ルームを削除します。よろしいですか？' }, class: 'btn'
