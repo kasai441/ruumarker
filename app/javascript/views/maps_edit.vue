@@ -1,12 +1,14 @@
 <template>
   <section v-if="formData">
     <image-edit :formData="formData" target-model="map" @emitFormData="getFormData"></image-edit>
+    <image-upload target-model="map" @emitFormData="getFormData"></image-upload>
     <image-update :id="mapId" :formData="formData" target-model="map"></image-update>
   </section>
 </template>
 
 <script>
 import ImageEdit from '../components/image_edit.vue'
+import ImageUpload from '../components/image_upload.vue'
 import ImageUpdate from '../components/image_update.vue'
 import api from '../modules/api'
 
@@ -24,6 +26,7 @@ export default {
   },
   components: {
     ImageEdit,
+    ImageUpload,
     ImageUpdate
   },
   methods: {

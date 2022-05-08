@@ -1,22 +1,14 @@
 <template>
-  <section>
-    <div class="flex flex-col items-center">
-      <div id="show-field" class="my-16 edit-size relative">
-        <div class="absolute -z-10 edit-size bg-transparent bg-transparent outline outline-4 outline-lime-500"></div>
-        <div class="absolute -z-20 edit-size bg-transparent bg-transparent outline outline-240 outline-slate-200"></div>
-        <img v-if="imageUrl"
-             :src="imageUrl"
-             id="show-image"
-             class="absolute -z-30 edit-size w-full object-contain">
-      </div>
-      <div class="p-4 text-sm">
-        <input type="file" id="upload-image" name="upload-image" accept="image/png,image/jpeg" @change="upload" />
-      </div>
-      <div class="submit_container relative z-60">
-        <a @click="mapEdit" class="btn btn-primary">マップ編集</a>
-      </div>
+  <div class="flex flex-col items-center">
+    <div id="show-field" class="my-16 edit-size relative">
+      <div class="absolute -z-10 edit-size bg-transparent bg-transparent outline outline-4 outline-lime-500"></div>
+      <div class="absolute -z-20 edit-size bg-transparent bg-transparent outline outline-240 outline-slate-200"></div>
+      <img v-if="imageUrl" :src="imageUrl" id="show-image" class="absolute -z-30 edit-size w-full object-contain">
     </div>
-  </section>
+    <div class="submit_container relative z-60">
+      <a @click="mapEdit" class="btn btn-primary">マップ編集</a>
+    </div>
+  </div>
 </template>
 <script>
 import api from '../modules/api'
@@ -42,16 +34,6 @@ export default {
   methods: {
     mapEdit() {
       location.href = `/rooms/${this.roomId}/${this.targetModel}s/${this.id}/edit`
-    },
-    upload(e) {
-      e.preventDefault()
-      const uploadedTag = document.getElementById( 'show-image' )
-      const imageFile = e.target.files[0]
-
-      params.readImageUrl(uploadedTag, imageFile)
-
-      if (imageFile) this.formData.set(`${this.targetModel}[image]`, imageFile)
-      this.$emit('emitFormData', this.formData)
     },
     getFieldSize() {
       const showField = document.getElementById('show-field')
