@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section id="maps-new">
     <image-preview sample-image="/sample.png"></image-preview>
     <image-upload target-model="map" @emitFormData="getFormData"></image-upload>
   </section>

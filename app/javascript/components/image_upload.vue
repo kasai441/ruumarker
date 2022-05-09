@@ -1,7 +1,9 @@
 <template>
-  <div class="p-4 text-sm">
-    <input type="file" id="upload-image" name="upload-image" accept="image/png,image/jpeg" @change="upload" />
-  </div>
+  <section id="image-upload">
+    <div class="p-4 text-sm z-50">
+      <input type="file" id="upload-image" name="upload-image" accept="image/png,image/jpeg" @change="upload" />
+    </div>
+  </section>
 </template>
 
 <script>

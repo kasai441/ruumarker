@@ -9,10 +9,4 @@
     .edit-size {
         @apply w-72 h-48 sm:w-84 sm:h-56 md:w-96 md:h-64 lg:w-108 lg:h-72;
     }
-    .w-side {
-        @apply w-8 sm:w-1/6 lg:w-1/5;
-    }
-    .over-frame {
-        @apply bg-white z-50;
-    }
 }

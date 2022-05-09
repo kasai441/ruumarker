@@ -60,8 +60,8 @@ describe 'マップ管理機能', type: :system do
     let!(:ex_top) { style_px_to_i(show_image, 'top') }
     let!(:show_field_width) { style_px_to_i(show_field, 'width') }
     let!(:show_field_height) { style_px_to_i(show_field, 'height') }
-    let!(:constrainRangeX) { show_field_width / 3 }
-    let!(:constrainRangeY) { show_field_height / 3 }
+    let!(:constrainRangeX) { show_field_width / 4 }
+    let!(:constrainRangeY) { show_field_height / 4 }
     let!(:ex_upload) { page.find_by_id('show-image')[:src] }
     let(:move_x) { show_field_width / 5 }
     let(:move_y) { show_field_height / 5 }

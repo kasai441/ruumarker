@@ -1,9 +1,11 @@
 <template>
-  <div class="flex justify-center">
-    <div id="preview-field" class="edit-size rounded-lg bg-white outline outline-3 outline-slate-200">
-      <img id="preview-image" :src="imageSrc" class="object-contain edit-size rounded-lg">
+  <section id="image-preview">
+    <div class="flex justify-center">
+      <div id="preview-field" class="edit-size rounded-lg bg-white outline outline-3 outline-slate-200">
+        <img id="preview-image" :src="imageSrc" class="object-contain edit-size rounded-lg">
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

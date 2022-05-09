@@ -1,9 +1,9 @@
 <template>
-  <div id="image-create">
+  <section id="image-create">
     <div v-if="formData" class="submit_container">
       <div @click="create" id="submit" class="btn btn-primary">登録</div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
