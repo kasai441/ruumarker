@@ -101,11 +101,11 @@ export default {
     this.trimming = params.trimming(this.formData, this.targetModel)
     this.getFieldSize()
   },
-  updated() {
+  async updated() {
     const imageFile = this.formData.get(`${this.targetModel}[image]`)
     if (!imageFile) return
     const editImage = document.getElementById( 'edit-image' )
-    params.readImageUrl(editImage, imageFile)
+    editImage.src = await params.getImageUrl(imageFile)
   },
   beforeDestroy: () => {
     window.removeEventListener('resize', this.handleResize)

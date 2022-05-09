@@ -24,9 +24,9 @@ export default {
     }
   },
   methods: {
-    preview(imageFile) {
+    async preview(imageFile) {
       const previewImage = document.getElementById( 'preview-image' )
-      params.readImageUrl(previewImage, imageFile)
+      previewImage.src = await params.getImageUrl(imageFile)
     }
   },
   updated() {
