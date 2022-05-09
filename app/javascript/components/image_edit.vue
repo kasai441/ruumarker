@@ -1,13 +1,15 @@
 <template>
-  <div id="edit-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
-       class="my-16 edit-size">
-    <img :src="imageSrc" id="edit-image" draggable="false" @pointerdown="touchstart($event)"
-         class="absolute z-10 edit-size object-contain">
-    <div class="relative">
-      <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
-      <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
+  <section id="image-edit">
+    <div id="edit-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
+         class="my-16 edit-size">
+      <img :src="imageSrc" id="edit-image" draggable="false" @pointerdown="touchstart($event)"
+           class="absolute z-10 edit-size object-contain">
+      <div class="relative">
+        <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
+        <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 import params from '../modules/params'

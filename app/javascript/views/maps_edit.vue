@@ -1,8 +1,10 @@
 <template>
-  <section v-if="formData" class="flex flex-col items-center">
-    <image-edit :formData="formData" target-model="map" @emitFormData="getFormData"></image-edit>
-    <image-upload target-model="map" @emitFormData="getFormData"></image-upload>
-    <image-update :id="mapId" :formData="formData" target-model="map"></image-update>
+  <section id="maps-edit">
+    <div v-if="formData" class="flex flex-col items-center">
+      <image-edit :formData="formData" target-model="map" @emitFormData="getFormData"></image-edit>
+      <image-upload target-model="map" @emitFormData="getFormData"></image-upload>
+      <image-update :id="mapId" :formData="formData" target-model="map"></image-update>
+    </div>
   </section>
 </template>
 
