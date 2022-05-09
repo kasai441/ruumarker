@@ -47,8 +47,8 @@ export default {
       this.editImageTop = Math.floor(e.pageY) - this.shiftY
 
       // 外側に出ないように画像の移動を抑制する
-      const constrainRangeX = Math.floor(this.editFieldWidth / 3)
-      const constrainRangeY = Math.floor(this.editFieldHeight / 3)
+      const constrainRangeX = Math.floor(this.editFieldWidth / 4)
+      const constrainRangeY = Math.floor(this.editFieldHeight / 4)
       const maxLeft = this.editFieldLeft + constrainRangeX
       const maxTop = this.editFieldTop + constrainRangeY
       const minLeft = maxLeft - constrainRangeX * 2
