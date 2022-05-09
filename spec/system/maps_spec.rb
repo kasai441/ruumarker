@@ -9,14 +9,13 @@ describe 'マップ管理機能', type: :system do
   describe '新規作成機能' do
     let(:room1) { FactoryBot.create(:room) }
     let(:show_image) { page.find_by_id('show-image') }
+    let(:preview) { page.find_by_id('preview-image') }
 
     before do
       visit new_room_map_path(room1)
     end
 
     context '画像をアップロードしたとき' do
-      let(:preview) { page.find_by_id('preview-image') }
-
       before do
         expect(preview[:src]).to include 'sample.png'
         attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
@@ -41,6 +40,18 @@ describe 'マップ管理機能', type: :system do
         top = style_px_to_i(show_image, 'top')
         expect(left).to eq 0
         expect(top).to eq 0
+      end
+    end
+
+    context '画像以外のファイルをアップロードしたとき' do
+      before do
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'not_image.jpg')
+      end
+
+      it '画像が変化しない' do
+        # expect(page).to have_selector '#error_explanation', text: 'マップの画像ファイルは[jpg/jpeg/png/gif]の形式のみ受け付けています'
+        expect(preview[:src]).to include 'sample.png'
+        expect(page).to have_selector '#preview-image'
       end
     end
   end
@@ -99,15 +110,14 @@ describe 'マップ管理機能', type: :system do
     end
 
     context '画像以外のファイルをアップロードしたとき' do
-      # before do
-      #   attach_file 'image', Rails.root.join('spec', 'fixtures', 'files', 'test_zip.zip')
-      #   find('#submit').click
-      # end
-      #
-      # it '更新を失敗して編集画面にもどされる' do
-      #   expect(page).to have_selector '#error_explanation', text: 'マップの画像ファイルは[jpg/jpeg/png/gif]の形式のみ受け付けています'
-      #   expect(page).to have_content '間取り図を編集します'
-      # end
+      before do
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'not_image.jpg')
+      end
+
+      it '更新を失敗して画面がそのまま遷移しない' do
+        # expect(page).to have_selector '#error_explanation', text: 'マップの画像ファイルは[jpg/jpeg/png/gif]の形式のみ受け付けています'
+        expect(page).to have_selector '#edit-image'
+      end
     end
 
     context '画像をアップロードして編集を押したとき' do
