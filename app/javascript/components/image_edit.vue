@@ -107,7 +107,7 @@ export default {
     const editImage = document.getElementById( 'edit-image' )
     params.readImageUrl(editImage, imageFile)
   },
-  beforeDestroy: function () {
+  beforeDestroy: () => {
     window.removeEventListener('resize', this.handleResize)
   }
 }

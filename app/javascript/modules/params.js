@@ -5,7 +5,7 @@ const trimming = (formData, targetModel) => {
 
 const readImageUrl = (uploadedTag, imageFile) => {
   const reader = new FileReader()
-  reader.onload = function () {
+  reader.onload = () => {
     uploadedTag.src = this.result
   }
   reader.readAsDataURL(imageFile)

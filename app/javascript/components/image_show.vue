@@ -68,7 +68,7 @@ export default {
   updated() {
     this.getFieldSize()
   },
-  beforeDestroy: function () {
+  beforeDestroy: () => {
     window.removeEventListener('resize', this.handleResize)
   }
 }
