@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 text-sm">
+  <div class="p-4 text-sm z-50">
     <input type="file" id="upload-image" name="upload-image" accept="image/png,image/jpeg" @change="upload" />
   </div>
 </template>
