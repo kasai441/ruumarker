@@ -54,6 +54,29 @@ describe 'マップ管理機能', type: :system do
         expect(page).to have_selector '#preview-image'
       end
     end
+
+    context '制約幅以下の画像ファイルをアップロードしたとき' do
+      before do
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+      end
+
+      it '画像幅が元のままとなる' do
+        expect(execute_script('return arguments[0].naturalWidth', show_image)).to eq 88
+      end
+    end
+
+    context '制約幅以上の画像ファイルをアップロードしたとき' do
+      before do
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'large_image.jpg')
+      end
+
+      it '画像が制約幅になる' do
+        max = 500
+        # debugger
+        # 実行方法 RSPEC_DEBUG=true be rspec
+        expect(execute_script('return arguments[0].naturalWidth', show_image)).to eq max
+      end
+    end
   end
 
   describe '更新機能' do
