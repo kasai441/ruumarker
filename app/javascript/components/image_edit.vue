@@ -63,7 +63,7 @@ export default {
       this.editImage.style.left = this.editImageLeft + 'px'
       this.editImage.style.top = this.editImageTop + 'px'
     },
-    touchend(e) {
+    touchend() {
       this.isMovable = false
       this.editImage.classList.remove('shadow-2xl')
       this.updateTrimming()
@@ -101,13 +101,13 @@ export default {
     this.trimming = params.trimming(this.formData, this.targetModel)
     this.getFieldSize()
   },
-  updated() {
+  async updated() {
     const imageFile = this.formData.get(`${this.targetModel}[image]`)
     if (!imageFile) return
     const editImage = document.getElementById( 'edit-image' )
-    params.readImageUrl(editImage, imageFile)
+    editImage.src = await params.getImageUrl(imageFile)
   },
-  beforeDestroy: function () {
+  beforeDestroy: () => {
     window.removeEventListener('resize', this.handleResize)
   }
 }

@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import params from '../modules/params'
+
 export default {
   name: 'ImageUpload',
   props: [
@@ -15,7 +17,11 @@ export default {
   methods: {
     async upload(e) {
       e.preventDefault()
-      const imageFile = e.target.files[0]
+      let imageFile = e.target.files[0]
+      const imageUrl = await params.getImageUrl(imageFile)
+      imageFile = await params.reduceLargeImage(imageUrl, imageFile).catch(e => {
+        console.log('onload error', e)
+      })
       const formData = new FormData()
       if (imageFile) formData.append(`${this.targetModel}[image]`, imageFile)
       this.$emit('emitFormData', formData)
