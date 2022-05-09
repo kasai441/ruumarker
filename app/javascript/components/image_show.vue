@@ -3,7 +3,7 @@
     <div class="flex flex-col items-center">
       <div id="show-field" class="my-8 edit-size rounded-lg relative">
         <div class="absolute -z-10 edit-size rounded-lg bg-transparent bg-transparent outline outline-3 outline-slate-200"></div>
-        <div class="absolute -z-20 edit-size rounded-lg bg-transparent bg-transparent outline outline-240 outline-white"></div>
+        <div class="absolute -z-20 edit-size rounded-lg bg-transparent bg-transparent outline outline-112 outline-white"></div>
         <img v-if="imageUrl" :src="imageUrl" id="show-image" class="rounded-lg absolute -z-30 edit-size w-full object-contain">
       </div>
       <div class="submit_container relative z-60">

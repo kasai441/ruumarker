@@ -1,6 +1,6 @@
 <template>
   <section id="image-update">
-    <div class="flex justify-center relative z-60">
+    <div class="flex justify-center">
       <a @click="back" id="show" class="btn btn-secondary">＜</a>
       <a @click="update" id="update" class="btn btn-primary">変更</a>
     </div>

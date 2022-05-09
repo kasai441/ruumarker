@@ -5,12 +5,8 @@ div.w-full.py-1.px-4.border-b.border-slate-900/10.flex.items-center.bg-white.rel
       |ruumarker
 h1.w-full.p-6.text-lg.font-bold.bg-white.flex.justify-center.relative.z-50
   |キズ点検表
-div.flex.justify-between
-  div.over-frame.w-side.h-auto
-  div.items-center.flex.flex-col
-    #rooms-show(room_id="#{@room.id}" map_id="#{@room.map.id}" image_url="#{url_for @room.map.image}")
-  div.over-frame.w-side.h-auto
-div.w-full.bg-white.h-32.outline.outline-60.outline-white.relative.z-50
+div.items-center.flex.flex-col
+  #rooms-show(room_id="#{@room.id}" map_id="#{@room.map.id}" image_url="#{url_for @room.map.image}")
 
 / = link_to 'マップ編集', edit_room_map_path(@room, @room.map), class: 'btn'
 
