@@ -63,7 +63,7 @@ export default {
       this.editImage.style.left = this.editImageLeft + 'px'
       this.editImage.style.top = this.editImageTop + 'px'
     },
-    touchend(e) {
+    touchend() {
       this.isMovable = false
       this.editImage.classList.remove('shadow-2xl')
       this.updateTrimming()
