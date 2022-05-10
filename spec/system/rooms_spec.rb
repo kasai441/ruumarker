@@ -9,14 +9,41 @@ describe 'ルーム管理機能', type: :system do
     let!(:mark1) { FactoryBot.create(:mark, map: map1) }
     let(:show_image) { page.find_by_id('show-image') }
 
-    before do
-      visit room_path(room1)
+    context 'ルームにアクセスするとき' do
+      before do
+        visit room_path(room1)
+      end
+
+      it 'ルーム詳細画面に遷移し、マップ画像が表示され、キズの説明が表示される' do
+        expect(page).to have_selector 'h1', text: 'キズ点検表'
+        expect(show_image[:src]).to include 'test_image.jpg'
+        expect(page).to have_content 'リビング、フローリン…'
+      end
     end
 
-    it '関連づけたマップ詳細の値が参照でき、キズの説明が表示される' do
-      expect(page).to have_selector 'h1', text: 'キズ点検表'
-      expect(show_image[:src]).to include 'test_image.jpg'
-      expect(page).to have_content 'リビング、フローリン…'
+    context 'タイトルをクリックするとき' do
+      before do
+        visit room_path(room1)
+        find('#title-logo').click
+      end
+
+      it 'ルーム詳細画面に遷移し、マップ画像が表示される' do
+        expect(page).to have_selector 'h1', text: 'キズ点検表'
+        expect(show_image[:src]).to include 'test_image.jpg'
+      end
+    end
+
+    context '2回タイトルをクリックするとき' do
+      before do
+        visit room_path(room1)
+        find('#title-logo').click
+        find('#title-logo').click
+      end
+
+      it 'ルーム詳細画面に遷移し、マップ画像が表示される' do
+        expect(page).to have_selector 'h1', text: 'キズ点検表'
+        expect(show_image[:src]).to include 'test_image.jpg'
+      end
     end
   end
 
