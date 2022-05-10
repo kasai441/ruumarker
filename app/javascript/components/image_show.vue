@@ -4,7 +4,7 @@
       <div id="show-field" class="my-8 edit-size rounded-lg relative">
         <div class="absolute -z-10 edit-size rounded-lg bg-transparent bg-transparent outline outline-3 outline-slate-200"></div>
         <div class="absolute -z-20 edit-size rounded-lg bg-transparent bg-transparent outline outline-112 outline-white"></div>
-        <img v-if="imageUrl" :src="imageUrl" id="show-image" class="rounded-lg absolute -z-30 edit-size w-full object-contain">
+        <img :src="imageUrl" id="show-image" class="rounded-lg absolute -z-30 edit-size w-full object-contain">
       </div>
       <div class="submit_container relative z-60">
         <a @click="mapEdit" id="map-edit" class="btn btn-primary">マップ編集</a>
@@ -56,7 +56,6 @@ export default {
     }
   },
   async created() {
-    console.log('hohohoho')
     const response = await api.actions.show(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.id}.json`)
     this.formData.append(`${this.targetModel}[trimming]`, response.trimming)
     this.formData.append(`${this.targetModel}[image_url]`, response.image_url)
