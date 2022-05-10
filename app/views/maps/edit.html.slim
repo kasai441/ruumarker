@@ -1,7 +1,2 @@
-div.w-full.py-1.px-4.border-b.border-slate-900/10.flex.items-center.bg-white.relative.z-50
-  = link_to root_path, class: "flex items-center"
-    = image_tag 'logo.png', size: '40x20', alt: 'logo.png'
-    div.px-1.text-2xl
-      |ruumarker
 div.items-center.flex.flex-col
   #maps-edit(room_id="#{@map.room.id}" map_id="#{@map.id}" image_url="#{url_for @map.image}")
