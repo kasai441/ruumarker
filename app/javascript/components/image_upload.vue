@@ -21,6 +21,7 @@ export default {
       const imageUrl = await params.getImageUrl(imageFile)
       imageFile = await params.reduceLargeImage(imageUrl, imageFile).catch(e => {
         console.log('onload error', e)
+        throw new Error('onload error')
       })
       const formData = new FormData()
       if (imageFile) formData.append(`${this.targetModel}[image]`, imageFile)
