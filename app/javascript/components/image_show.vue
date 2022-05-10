@@ -56,6 +56,7 @@ export default {
     }
   },
   async created() {
+    console.log('hohohoho')
     const response = await api.actions.show(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.id}.json`)
     this.formData.append(`${this.targetModel}[trimming]`, response.trimming)
     this.formData.append(`${this.targetModel}[image_url]`, response.image_url)

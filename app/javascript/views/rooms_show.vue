@@ -1,5 +1,5 @@
 <template>
-  <section id="rooms-show">
+  <section>
     <image-show :id="mapId" target-model="map" @emitFormData="getFormData"></image-show>
   </section>
 </template>
