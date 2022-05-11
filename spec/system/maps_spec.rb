@@ -7,12 +7,11 @@ describe 'マップ管理機能', type: :system do
   include DomHelper
 
   describe '新規作成機能' do
-    let(:room1) { FactoryBot.create(:room) }
     let(:show_image) { page.find_by_id('show-image') }
     let(:preview) { page.find_by_id('preview-image') }
 
     before do
-      visit new_room_map_path(room1)
+      visit new_room_path
     end
 
     context '画像をアップロードしたとき' do
@@ -26,7 +25,6 @@ describe 'マップ管理機能', type: :system do
         expect(show_image[:src]).not_to include 'sample.png'
         expect(show_image[:src]).to include 'test_image.jpg'
         expect(page).to have_selector 'h1', text: 'キズ点検表'
-        expect(Room.find(room1.id).map.image.attached?).to eq true
       end
     end
 
