@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 class MapsController < ApplicationController
-  def new
-    room = Room.find(params[:room_id])
-    @map = room.build_map
-  end
-
   def create
     @room = Room.find(params[:room_id])
     @map = @room.build_map(map_params)

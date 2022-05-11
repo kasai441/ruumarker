@@ -2,10 +2,9 @@
 
 class RoomsController < ApplicationController
   def new
-    @room = Room.new
-
-    if @room.save
-      redirect_to new_room_map_path(@room)
+    room = Room.new
+    if room.save
+      @map = room.build_map
     else
       redirect_to root_path
     end
@@ -13,7 +12,6 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
-
     unless @room.map.present?
       @room.destroy
       redirect_to root_path
