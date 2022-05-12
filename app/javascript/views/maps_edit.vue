@@ -1,9 +1,9 @@
 <template>
   <section>
     <div class="flex flex-col items-center" @touchmove.prevent>
-      <image-edit :formData="formData" target-model="map" @emitFormData="getFormData"></image-edit>
-      <image-upload target-model="map" @emitFormData="getFormData"></image-upload>
-      <image-update :id="mapId" :formData="formData" target-model="map"></image-update>
+      <image-edit :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-edit>
+      <image-upload target-model="map" @emit-form-data="getFormData"></image-upload>
+      <image-update :room-id="roomId" :id="mapId" :form-data="formData" target-model="map"></image-update>
     </div>
   </section>
 </template>

@@ -12,10 +12,8 @@ import api from '../modules/api'
 
 export default {
   name: 'ImageUpdate',
-  inject: [
-    'roomId'
-  ],
   props: [
+    'roomId',
     'id',
     'formData',
     'targetModel'
