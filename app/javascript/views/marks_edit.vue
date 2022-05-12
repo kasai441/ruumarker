@@ -3,7 +3,7 @@
     <div class="flex flex-col items-center" @touchmove.prevent>
       <div>{{ markTrimming }}</div>
       <div>{{ mapTrimming }}</div>
-<!--      <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>-->
+      <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>
 <!--      <image-upload target-model="mark" @emit-form-data="getFormData"></image-upload>-->
 <!--      <image-update :room-id="roomId" :id="markId" :form-data="formData" target-model="mark"></image-update>-->
     </div>
@@ -45,8 +45,9 @@ export default {
     if (this.formData) return
 
     this.formData = new FormData()
-    this.formData.append('map[image_url]', this.mapImageUrl)
-    this.formData.append('map[trimming]', this.mapTrimming)
+    this.markImageUrl ||= '/sample.png'
+    this.formData.append('mark[image_url]', this.markImageUrl)
+    this.formData.append('mark[trimming]', this.markTrimming)
   }
 }
 </script>
