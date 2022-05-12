@@ -1,1 +1,9 @@
-#marks-new(room_id="#{@mark.map.room.id}" map_id="#{@mark.map.id}" mark_id="#{@mark.id}")
+#marks-edit(
+room_id="#{@mark.map.room.id}"
+mark_id="#{@mark.id}"
+mark_image_url="#{url_for @mark.image if @mark.image.present?}"
+mark_trimming="#{@mark.trimming}"
+map_id="#{@mark.map.id}"
+map_image_url="#{url_for @mark.map.image}"
+map_trimming="#{@mark.map.trimming}"
+)
