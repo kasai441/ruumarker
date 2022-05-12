@@ -3,6 +3,4 @@ import '@hotwired/turbo-rails'
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 
-import './views/maps_new.js'
-import './views/maps_edit.js'
-import './views/rooms_show.js'
+import './vue_load.js'
