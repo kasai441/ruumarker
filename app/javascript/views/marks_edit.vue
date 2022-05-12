@@ -1,11 +1,9 @@
 <template>
   <section>
     <div class="flex flex-col items-center" @touchmove.prevent>
-      <div>{{ markTrimming }}</div>
-      <div>{{ mapTrimming }}</div>
       <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>
-<!--      <image-upload target-model="mark" @emit-form-data="getFormData"></image-upload>-->
-<!--      <image-update :room-id="roomId" :id="markId" :form-data="formData" target-model="mark"></image-update>-->
+      <image-upload target-model="mark" @emit-form-data="getFormData"></image-upload>
+      <image-update :room-id="roomId" :id="markId" :form-data="formData" target-model="mark"></image-update>
     </div>
   </section>
 </template>
@@ -48,6 +46,7 @@ export default {
     this.markImageUrl ||= '/sample.png'
     this.formData.append('mark[image_url]', this.markImageUrl)
     this.formData.append('mark[trimming]', this.markTrimming)
+    console.log(this.markTrimming)
   }
 }
 </script>

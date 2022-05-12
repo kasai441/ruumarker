@@ -83,6 +83,10 @@ export default {
         this.editImage = document.getElementById('edit-image')
         this.editImageLeft = Math.floor(this.editFieldWidth * this.trimming.x) + this.editFieldLeft
         this.editImageTop = Math.floor(this.editFieldHeight * this.trimming.y) + this.editFieldTop
+        console.log('bbb')
+        console.log(this.editFieldTop)
+        console.log(this.trimming.y)
+        console.log(this.editImageTop)
         this.editImage.style.left = this.editImageLeft + 'px'
         this.editImage.style.top = this.editImageTop + 'px'
       }
@@ -101,6 +105,8 @@ export default {
 
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
     this.trimming = params.trimming(this.formData, this.targetModel)
+    console.log('aaa')
+    console.log(this.trimming)
     this.getFieldSize()
   },
   async updated() {
