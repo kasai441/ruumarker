@@ -11,10 +11,8 @@ import api from '../modules/api'
 
 export default {
   name: 'ImageCreate',
-  inject: [
-    'roomId'
-  ],
   props: [
+    'roomId',
     'targetModel',
     'formData'
   ],

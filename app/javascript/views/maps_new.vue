@@ -1,7 +1,7 @@
 <template>
   <section>
     <image-preview sample-image="/sample.png"></image-preview>
-    <image-upload target-model="map" @emitFormData="getFormData"></image-upload>
+    <image-upload target-model="map" @emit-form-data="getFormData"></image-upload>
   </section>
 </template>
 

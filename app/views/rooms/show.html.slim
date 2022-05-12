@@ -1,7 +1,6 @@
 h1.w-full.p-6.text-lg.font-bold.bg-white.flex.justify-center.relative.z-50
   |キズ点検表
-div.items-center.flex.flex-col
-  #rooms-show(room_id="#{@room.id}" map_id="#{@room.map.id}" image_url="#{url_for @room.map.image}")
+#rooms-show(room_id="#{@room.id}" map_id="#{@room.map.id}" image_url="#{url_for @room.map.image}" trimming="#{@room.map.trimming}")
 
 / = link_to 'マップ編集', edit_room_map_path(@room, @room.map), class: 'btn'
 

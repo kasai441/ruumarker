@@ -13,22 +13,18 @@
   </section>
 </template>
 <script>
-import api from '../modules/api'
-import params from '../modules/params'
 
 export default {
   name: 'ImageShow',
-  inject: [
-    'roomId'
-  ],
   props: [
+    'roomId',
     'id',
-    'targetModel'
+    'targetModel',
+    'imageUrl',
+    'trimming'
   ],
   data() {
     return {
-      formData: new FormData(),
-      imageUrl: null,
       showFieldWidth: 0,
       showFieldHeight: 0
     }
@@ -46,7 +42,7 @@ export default {
         this.showFieldHeight = Math.floor(showField.getBoundingClientRect().bottom) - showFieldTop
 
         const showImage = document.getElementById('show-image')
-        const trimming = params.trimming(this.formData, this.targetModel)
+        const trimming = JSON.parse(this.trimming)
         showImage.style.left = Math.floor(this.showFieldWidth * trimming.x) + 'px'
         showImage.style.top = Math.floor(this.showFieldHeight * trimming.y) + 'px'
       }
@@ -55,20 +51,11 @@ export default {
       this.getFieldSize()
     }
   },
-  async created() {
-    const response = await api.actions.show(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.id}.json`)
-    this.formData.append(`${this.targetModel}[trimming]`, response.trimming)
-    this.formData.append(`${this.targetModel}[image_url]`, response.image_url)
-    this.$emit('emitFormData', this.formData)
-    this.imageUrl = response.image_url
-  },
   mounted() {
     window.addEventListener('resize', this.handleResize)
-  },
-  updated() {
     this.getFieldSize()
   },
-  beforeDestroy: () => {
+  beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)
   }
 }
