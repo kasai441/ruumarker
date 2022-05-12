@@ -2,7 +2,7 @@
   <section id="image-edit">
     <div id="edit-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
          class="my-16 edit-size">
-      <img :src="imageSrc" id="edit-image" draggable="false" @pointerdown="touchstart($event)"
+      <img :src="imageUrl" id="edit-image" draggable="false" @pointerdown="touchstart($event)"
            class="absolute z-10 edit-size object-contain">
       <div class="relative">
         <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       trimming: null,
-      imageSrc: null,
+      imageUrl: null,
       isMovable: false,
       editFieldLeft: 0,
       editFieldTop: 0,
@@ -94,16 +94,19 @@ export default {
       this.$emit('emitFormData', this.formData)
     }
   },
+  created() {
+  },
   mounted() {
     window.addEventListener('resize', this.handleResize)
-    const imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
-    this.imageSrc = imageUrl
+
+    this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
     this.trimming = params.trimming(this.formData, this.targetModel)
     this.getFieldSize()
   },
   async updated() {
     const imageFile = this.formData.get(`${this.targetModel}[image]`)
     if (!imageFile) return
+
     const editImage = document.getElementById( 'edit-image' )
     editImage.src = await params.getImageUrl(imageFile)
   },

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div v-if="formData" class="flex flex-col items-center" @touchmove.prevent>
+    <div class="flex flex-col items-center" @touchmove.prevent>
       <image-edit :formData="formData" target-model="map" @emitFormData="getFormData"></image-edit>
       <image-upload target-model="map" @emitFormData="getFormData"></image-upload>
       <image-update :id="mapId" :formData="formData" target-model="map"></image-update>
@@ -12,13 +12,14 @@
 import ImageEdit from '../components/image_edit.vue'
 import ImageUpload from '../components/image_upload.vue'
 import ImageUpdate from '../components/image_update.vue'
-import api from '../modules/api'
 
 export default {
   name: 'MapsEdit',
   inject: [
     'roomId',
-    'mapId'
+    'mapId',
+    'imageUrl',
+    'trimming'
   ],
   data() {
     return {
@@ -37,12 +38,11 @@ export default {
     }
   },
   async created() {
-    const response = await api.actions.show(`/api/rooms/${this.roomId}/maps/${this.mapId}.json`)
+    if (this.formData) return
+
     this.formData = new FormData()
-    this.formData.append('map[trimming]', response.trimming)
-    this.formData.append('map[image_url]', response.image_url)
-    console.log(response)
-    console.log(this.formData.get('map[image_url]'))
+    this.formData.append('map[image_url]', this.imageUrl)
+    this.formData.append('map[trimming]', this.trimming)
   }
 }
 </script>

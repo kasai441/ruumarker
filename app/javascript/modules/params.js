@@ -1,6 +1,10 @@
 const trimming = (formData, targetModel) => {
-  let trimming = JSON.parse(formData.get(`${targetModel}[trimming]`))
-  return trimming ||= {x: 0, y: 0}
+  const trimming = formData.get(`${targetModel}[trimming]`)
+  if (trimming) {
+    return JSON.parse(trimming)
+  } else {
+    return {x: 0, y: 0}
+  }
 }
 
 const getImageUrl = (imageFile) => {
