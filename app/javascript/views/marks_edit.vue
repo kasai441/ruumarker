@@ -1,9 +1,11 @@
 <template>
   <section>
     <div class="flex flex-col items-center" @touchmove.prevent>
-      <image-edit :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-edit>
-      <image-upload target-model="map" @emit-form-data="getFormData"></image-upload>
-      <image-update :room-id="roomId" :id="mapId" :form-data="formData" target-model="map"></image-update>
+      <div>{{ markTrimming }}</div>
+      <div>{{ mapTrimming }}</div>
+<!--      <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>-->
+<!--      <image-upload target-model="mark" @emit-form-data="getFormData"></image-upload>-->
+<!--      <image-update :room-id="roomId" :id="markId" :form-data="formData" target-model="mark"></image-update>-->
     </div>
   </section>
 </template>
@@ -14,9 +16,12 @@ import ImageUpload from '../components/image_upload.vue'
 import ImageUpdate from '../components/image_update.vue'
 
 export default {
-  name: 'MapsEdit',
+  name: 'MarksEdit',
   inject: [
     'roomId',
+    'markId',
+    'markImageUrl',
+    'markTrimming',
     'mapId',
     'mapImageUrl',
     'mapTrimming'
