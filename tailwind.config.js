@@ -18,6 +18,7 @@ module.exports = {
         '108': '27rem'
       },
       outlineWidth: {
+        32: '32px',
         60: '60px',
         112: '112px'
       },
