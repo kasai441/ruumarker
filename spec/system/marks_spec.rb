@@ -87,15 +87,15 @@ describe 'キズ管理機能', type: :system do
       before do
         visit room_path(room1)
         page.accept_confirm do
-          within ("#mark-#{mark1.id}") do
-            find('削除').click
+          within("#mark-#{mark1.id}") do
+            click_link('削除')
           end
         end
       end
 
       it 'キズが正常に削除される' do
         expect(page).to have_selector '.alert-success', text: '削除しました'
-        expect(page).not_to have_selector '"#mark-#{mark1.id}"'
+        expect(page).not_to have_selector "#mark-#{mark1.id}"
         expect(Mark.all.count).to eq ex_marks_count - 1
       end
     end
