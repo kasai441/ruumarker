@@ -1,9 +1,12 @@
 <template>
   <section>
-    <div class="flex flex-col items-center" @touchmove.prevent>
-      <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>
-      <image-upload target-model="mark" @emit-form-data="getFormData"></image-upload>
-      <image-update :room-id="roomId" :id="markId" :form-data="formData" target-model="mark"></image-update>
+    <div class="flex flex-col items-center">
+      <h1>キズ情報</h1>
+      <div @touchmove.prevent>
+        <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>
+        <image-upload target-model="mark" @emit-form-data="getFormData"></image-upload>
+        <image-update :room-id="roomId" :id="markId" :form-data="formData" target-model="mark"></image-update>
+      </div>
     </div>
   </section>
 </template>
