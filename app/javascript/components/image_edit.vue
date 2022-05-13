@@ -80,6 +80,7 @@ export default {
         this.editFieldWidth = Math.floor(editField.getBoundingClientRect().right) - this.editFieldLeft
         this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
 
+        console.log(this.editFieldTop)
         this.editImage = document.getElementById('edit-image')
         this.editImageLeft = Math.floor(this.editFieldWidth * this.trimming.x) + this.editFieldLeft
         this.editImageTop = Math.floor(this.editFieldHeight * this.trimming.y) + this.editFieldTop
