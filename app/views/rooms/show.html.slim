@@ -16,8 +16,9 @@ div.relative.z-60
         th= Mark.human_attribute_name(:description)
         th= Mark.human_attribute_name(:updated_at)
     tbody
-      - @room.map.marks.each do |mark|
-        tr
+      - @room.map.marks.order(:created_at).each_with_index do |mark, index|
+        tr id="mark-#{mark.id}"
+          td= index + 1
           td= mark.brief_description
           td= mark.updated_at
           td= link_to '変更', edit_room_mark_path(mark.map.room, mark), data: { trubo: false }, class: 'btn'
