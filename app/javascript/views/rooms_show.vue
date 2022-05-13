@@ -1,6 +1,6 @@
 <template>
   <section>
-    <image-show :id="mapId" :image-url="imageUrl" :trimming="trimming" target-model="map" @emit-form-data="getFormData"></image-show>
+    <image-show :id="mapId" :image-url="mapImageUrl" :trimming="mapTrimming" target-model="map" @emit-form-data="getFormData"></image-show>
   </section>
 </template>
 
@@ -12,8 +12,8 @@ export default {
   inject: [
     'roomId',
     'mapId',
-    'imageUrl',
-    'trimming'
+    'mapImageUrl',
+    'mapTrimming'
   ],
   data() {
     return {

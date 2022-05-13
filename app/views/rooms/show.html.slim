@@ -1,6 +1,11 @@
 h1.w-full.p-6.text-lg.font-bold.bg-white.flex.justify-center.relative.z-50
   |キズ点検表
-#rooms-show(room_id="#{@room.id}" map_id="#{@room.map.id}" image_url="#{url_for @room.map.image}" trimming="#{@room.map.trimming}")
+#rooms-show(
+room_id="#{@room.id}"
+map_id="#{@room.map.id}"
+map_image_url="#{url_for @room.map.image}"
+map_trimming="#{@room.map.trimming}"
+)
 
 / = link_to 'マップ編集', edit_room_map_path(@room, @room.map), class: 'btn'
 
@@ -15,6 +20,7 @@ div.relative.z-60
         tr id="mark-#{mark.id}"
           td= link_to mark.brief_description, room_mark_path(mark.map.room, mark)
           td= mark.updated_at
+          td= link_to '削除', room_mark_path(mark.map.room, mark), data: { turbo_method: :delete, turbo_confirm: "キズ（#{mark.brief_description}）を削除します。よろしいですか？" }, class: 'btn'
 
-  = link_to 'キズ追加', new_room_mark_path(@room), class: 'btn'
+  = link_to 'キズ追加', new_room_mark_path(@room), id: 'create-mark', class: 'btn', data: { turbo: false }
   = link_to 'ルーム削除', @room, data: { turbo_method: :delete, turbo_confirm: 'ルームを削除します。よろしいですか？' }, class: 'btn'

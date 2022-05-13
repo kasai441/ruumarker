@@ -3,61 +3,88 @@
 require 'rails_helper'
 
 describe 'ルーム管理機能', type: :system do
-  describe '詳細表示機能' do
+  describe '新規作成機能' do
     let(:room1) { FactoryBot.create(:room) }
     let!(:map1) { FactoryBot.create(:map, room: room1) }
     let!(:mark1) { FactoryBot.create(:mark, map: map1) }
-    let(:show_image) { page.find_by_id('show-image') }
+    let(:preview) { page.find_by_id('preview-image') }
 
-    context 'ルームにアクセスするとき' do
+    before do
+      visit root_path
+    end
+
+    context '「キズ点検表を作る」ボタンを押したとき' do
+      let!(:ex_rooms_count) { Room.all.count }
+
       before do
-        visit room_path(room1)
+        find('#create-room').click
       end
 
-      it 'ルーム詳細画面に遷移し、マップ画像が表示され、キズの説明が表示される' do
-        expect(page).to have_selector 'h1', text: 'キズ点検表'
-        expect(show_image[:src]).to include 'test_image.jpg'
-        expect(page).to have_content 'リビング、フローリン…'
+      it 'ルームが作成されてマップアップロード画面に遷移する' do
+        expect(Room.all.count).to eq ex_rooms_count + 1
+        expect(page).to have_selector '#preview-image'
+        expect(preview[:src]).to include 'sample.png'
+        expect(page).to have_selector 'h1', text: '間取り画像のアップロード'
       end
     end
 
-    context 'タイトルをクリックするとき' do
-      before do
-        visit room_path(room1)
-        find('#title-logo').click
+    describe '表示機能' do
+      let(:room1) { FactoryBot.create(:room) }
+      let!(:map1) { FactoryBot.create(:map, room: room1) }
+      let!(:mark1) { FactoryBot.create(:mark, map: map1) }
+      let(:show_image) { page.find_by_id('show-image') }
+
+      context 'ルームにアクセスするとき' do
+        before do
+          visit room_path(room1)
+        end
+
+        it 'ルーム詳細画面に遷移し、マップ画像が表示され、キズの説明が表示される' do
+          expect(page).to have_selector 'h1', text: 'キズ点検表'
+          expect(show_image[:src]).to include 'test_image.jpg'
+          expect(page).to have_content 'リビング、フローリン…'
+        end
       end
 
-      it 'ルーム詳細画面に遷移し、マップ画像が表示される' do
-        expect(page).to have_selector 'h1', text: 'キズ点検表'
-        expect(show_image[:src]).to include 'test_image.jpg'
-      end
-    end
+      context 'タイトルをクリックするとき' do
+        before do
+          visit room_path(room1)
+          find('#title-logo').click
+        end
 
-    context '2回タイトルをクリックするとき' do
-      before do
-        visit room_path(room1)
-        find('#title-logo').click
-        find('#title-logo').click
+        it 'ルーム詳細画面に遷移し、マップ画像が表示される' do
+          expect(page).to have_selector 'h1', text: 'キズ点検表'
+          expect(show_image[:src]).to include 'test_image.jpg'
+        end
       end
 
-      it 'ルーム詳細画面に遷移し、マップ画像が表示される' do
-        expect(page).to have_selector 'h1', text: 'キズ点検表'
-        expect(show_image[:src]).to include 'test_image.jpg'
+      context '2回タイトルをクリックするとき' do
+        before do
+          visit room_path(room1)
+          find('#title-logo').click
+          find('#title-logo').click
+        end
+
+        it 'ルーム詳細画面に遷移し、マップ画像が表示される' do
+          expect(page).to have_selector 'h1', text: 'キズ点検表'
+          expect(show_image[:src]).to include 'test_image.jpg'
+        end
       end
     end
   end
 
   describe '削除機能' do
     let(:room1) { FactoryBot.create(:room) }
-    let!(:map1) { FactoryBot.create(:map, room: room1) }
+    let(:map1) { FactoryBot.create(:map, room: room1) }
     let!(:mark1) { FactoryBot.create(:mark, map: map1) }
-    maps_count = 0
-    marks_count = 0
+    let!(:mark2) { FactoryBot.create(:mark, map: map1) }
+    let!(:mark3) { FactoryBot.create(:mark, map: map1) }
+    let!(:ex_rooms_count) { Map.all.count }
+    let!(:ex_maps_count) { Map.all.count }
+    let!(:ex_marks_count) { Mark.all.count }
 
     before do
       visit room_path(room1)
-      maps_count = Map.all.count
-      marks_count = Mark.all.count
       page.accept_confirm do
         click_link 'ルーム削除'
       end
@@ -65,8 +92,9 @@ describe 'ルーム管理機能', type: :system do
 
     it 'タスクが正常に削除され、関連したマップとキズも削除される' do
       expect(page).to have_selector '.alert-success', text: '削除しました'
-      expect(Map.all.count).to eq maps_count - 1
-      expect(Mark.all.count).to eq marks_count - 1
+      expect(Room.all.count).to eq ex_maps_count - 1
+      expect(Map.all.count).to eq ex_maps_count - 1
+      expect(Mark.all.count).to eq ex_marks_count - 3
     end
   end
 end

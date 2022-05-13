@@ -3,8 +3,8 @@
 Rails.application.routes.draw do
   root to: 'home#index'
   resources :rooms, only: %i[new show destroy] do
-    resources :maps, except: %i[index show destroy]
-    resources :marks, except: :index
+    resources :maps, only: :edit
+    resources :marks, only: %i[new edit destroy]
   end
   namespace :api do
     resources :rooms, only: '' do

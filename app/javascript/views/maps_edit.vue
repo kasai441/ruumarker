@@ -18,12 +18,11 @@ export default {
   inject: [
     'roomId',
     'mapId',
-    'imageUrl',
-    'trimming'
+    'mapImageUrl',
+    'mapTrimming'
   ],
   data() {
     return {
-      isImageEdit: false,
       formData: null
     }
   },
@@ -41,8 +40,8 @@ export default {
     if (this.formData) return
 
     this.formData = new FormData()
-    this.formData.append('map[image_url]', this.imageUrl)
-    this.formData.append('map[trimming]', this.trimming)
+    this.formData.append('map[image_url]', this.mapImageUrl)
+    this.formData.append('map[trimming]', this.mapTrimming)
   }
 }
 </script>
