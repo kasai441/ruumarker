@@ -95,8 +95,6 @@ export default {
       this.$emit('emitFormData', this.formData)
     }
   },
-  created() {
-  },
   mounted() {
     window.addEventListener('resize', this.handleResize)
 
