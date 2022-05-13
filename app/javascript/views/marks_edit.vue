@@ -1,7 +1,8 @@
 <template>
   <section>
     <div class="flex flex-col items-center">
-      <h1 class="w-full bg-white">キズ情報</h1>
+      <h1 class="w-full bg-white text-center p-4 text-2xl font-bold relative z-50">キズ情報</h1>
+      <h2 class="w-full bg-white text-center p-1 text-sm relative z-50">キズ画像</h2>
       <div @touchmove.prevent>
         <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>
         <image-upload target-model="mark" @emit-form-data="getFormData"></image-upload>
