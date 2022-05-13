@@ -28,7 +28,7 @@ describe 'キズ管理機能', type: :system do
     end
   end
 
-  describe '更新機能' do
+  # describe '更新機能' do
   #   let(:room1) { FactoryBot.create(:room) }
   #   let!(:map1) { FactoryBot.create(:map, room: room1) }
   #   let!(:mark1) { FactoryBot.create(:mark, map: map1) }
@@ -76,22 +76,28 @@ describe 'キズ管理機能', type: :system do
   #     end
   #   end
   # end
-  #
-  # describe '削除機能' do
-  #   let(:room1) { FactoryBot.create(:room) }
-  #   let!(:map1) { FactoryBot.create(:map, room: room1) }
-  #   let!(:mark1) { FactoryBot.create(:mark, map: map1) }
-  #
-  #   before do
-  #     visit room_mark_path(room1, mark1)
-  #     page.accept_confirm do
-  #       click_link 'キズ削除'
-  #     end
-  #   end
-  #
-  #   it 'タスクが正常に削除され、ルーム詳細画面に遷移する' do
-  #     expect(page).to have_selector '.alert-success', text: '削除しました'
-  #     expect(page).to have_content 'ルーム詳細'
-  #   end
+
+  describe '削除機能' do
+    let(:room1) { FactoryBot.create(:room) }
+    let!(:map1) { FactoryBot.create(:map, room: room1) }
+    let!(:mark1) { FactoryBot.create(:mark, map: map1) }
+    let!(:ex_marks_count) { Mark.all.count }
+
+    context 'キズ一覧の中からあるキズを削除する' do
+      before do
+        visit room_path(room1)
+        page.accept_confirm do
+          within ("#mark-#{mark1.id}") do
+            find('削除').click
+          end
+        end
+      end
+
+      it 'キズが正常に削除される' do
+        expect(page).to have_selector '.alert-success', text: '削除しました'
+        expect(page).not_to have_selector '"#mark-#{mark1.id}"'
+        expect(Mark.all.count).to eq ex_marks_count - 1
+      end
+    end
   end
 end
