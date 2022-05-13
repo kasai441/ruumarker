@@ -46,7 +46,6 @@ export default {
     this.markImageUrl ||= '/sample.png'
     this.formData.append('mark[image_url]', this.markImageUrl)
     this.formData.append('mark[trimming]', this.markTrimming)
-    console.log(this.markTrimming)
   }
 }
 </script>

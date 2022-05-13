@@ -21,5 +21,5 @@ div.relative.z-60
           td= link_to mark.brief_description, room_mark_path(mark.map.room, mark)
           td= mark.updated_at
 
-  = link_to 'キズ追加', new_room_mark_path(@room), class: 'btn'
+  = link_to 'キズ追加', new_room_mark_path(@room), class: 'btn', data: { turbo: false }
   = link_to 'ルーム削除', @room, data: { turbo_method: :delete, turbo_confirm: 'ルームを削除します。よろしいですか？' }, class: 'btn'
