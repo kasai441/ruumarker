@@ -15,6 +15,7 @@ document.addEventListener('turbo:load', () => {
     let app
     let element = document.querySelector(selector)
     if (element) {
+      console.log(element.id)
       switch (element.id) {
       case 'rooms-show':
         app = createApp(RoomsShow)
