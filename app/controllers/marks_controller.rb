@@ -4,7 +4,6 @@ class MarksController < ApplicationController
   def new
     room = Room.find(params[:room_id])
     @mark = room.map.marks.create
-    # render :edit
     redirect_to edit_room_mark_path(room, @mark)
   end
 
