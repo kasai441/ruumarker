@@ -7,7 +7,6 @@ describe 'ルーム管理機能', type: :system do
     let(:room1) { FactoryBot.create(:room) }
     let!(:map1) { FactoryBot.create(:map, room: room1) }
     let!(:mark1) { FactoryBot.create(:mark, map: map1) }
-    # let(:show_image) { page.find_by_id('show-image') }
     let(:preview) { page.find_by_id('preview-image') }
 
     before do
@@ -15,10 +14,9 @@ describe 'ルーム管理機能', type: :system do
     end
 
     context '「キズ点検表を作る」ボタンを押したとき' do
-      ex_rooms_count = 0
+      let!(:ex_rooms_count) { Room.all.count }
 
       before do
-        ex_rooms_count = Room.all.count
         find('#create-room').click
       end
 
@@ -79,13 +77,11 @@ describe 'ルーム管理機能', type: :system do
     let(:room1) { FactoryBot.create(:room) }
     let!(:map1) { FactoryBot.create(:map, room: room1) }
     let!(:mark1) { FactoryBot.create(:mark, map: map1) }
-    maps_count = 0
-    marks_count = 0
+    let!(:ex_maps_count) { Map.all.count }
+    let!(:ex_marks_count) { Mark.all.count }
 
     before do
       visit room_path(room1)
-      maps_count = Map.all.count
-      marks_count = Mark.all.count
       page.accept_confirm do
         click_link 'ルーム削除'
       end
@@ -93,8 +89,8 @@ describe 'ルーム管理機能', type: :system do
 
     it 'タスクが正常に削除され、関連したマップとキズも削除される' do
       expect(page).to have_selector '.alert-success', text: '削除しました'
-      expect(Map.all.count).to eq maps_count - 1
-      expect(Mark.all.count).to eq marks_count - 1 #roomに帰属するマークの数に直す ex_をつける
+      expect(Map.all.count).to eq ex_maps_count - 1
+      expect(Mark.all.count).to eq ex_marks_count - 1 #roomに帰属するマークの数に直す ex_をつける
     end
   end
 end
