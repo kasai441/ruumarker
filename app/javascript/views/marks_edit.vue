@@ -23,17 +23,19 @@ export default {
   name: 'MarksEdit',
   inject: [
     'roomId',
-    'markId',
+    // 'markId',
     'markImageUrl',
-    'markTrimming',
-    'markDescription',
+    // 'markTrimming',
+    // 'markDescription',
+    'mark',
     'mapId',
     'mapImageUrl',
     'mapTrimming'
   ],
   data() {
     return {
-      formData: null
+      formData: null,
+      markId: null
     }
   },
   components: {
@@ -50,11 +52,12 @@ export default {
   async created() {
     if (this.formData) return
 
+    this.markId = JSON.parse(this.mark)['id']
     this.formData = new FormData()
     this.markImageUrl ||= '/sample.png'
     this.formData.append('mark[image_url]', this.markImageUrl)
-    this.formData.append('mark[trimming]', this.markTrimming)
-    this.formData.append('mark[description]', this.markDescription)
+    this.formData.append('mark[trimming]', JSON.parse(this.mark)['trimming'])
+    this.formData.append('mark[description]', JSON.parse(this.mark)['description'])
   }
 }
 </script>

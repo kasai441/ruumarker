@@ -1,9 +1,7 @@
 #marks-edit(
 room_id="#{@mark.map.room.id}"
-mark_id="#{@mark.id}"
 mark_image_url="#{url_for @mark.image if @mark.image.present?}"
-mark_trimming="#{@mark.trimming}"
-mark_description="#{@mark.description}"
+mark="#{@mark.attributes.filter {|k,_| %w[id trimming description].include?(k)}.to_json}"
 map_id="#{@mark.map.id}"
 map_image_url="#{url_for @mark.map.image}"
 map_trimming="#{@mark.map.trimming}"
