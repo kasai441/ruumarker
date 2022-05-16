@@ -17,12 +17,11 @@ export default {
   name: 'MapsEdit',
   inject: [
     'roomId',
-    'mapId',
-    'mapImageUrl',
-    'mapTrimming'
+    'map'
   ],
   data() {
     return {
+      mapId: null,
       formData: null
     }
   },
@@ -39,9 +38,11 @@ export default {
   async created() {
     if (this.formData) return
 
+    const map = JSON.parse(this.map)
+    this.mapId = map['id']
     this.formData = new FormData()
-    this.formData.append('map[image_url]', this.mapImageUrl)
-    this.formData.append('map[trimming]', this.mapTrimming)
+    this.formData.append('map[image_url]', map['image_url'])
+    this.formData.append('map[trimming]', map['trimming'])
   }
 }
 </script>

@@ -11,12 +11,13 @@ export default {
   name: 'RoomsShow',
   inject: [
     'roomId',
-    'mapId',
-    'mapImageUrl',
-    'mapTrimming'
+    'map'
   ],
   data() {
     return {
+      mapId: null,
+      mapImageUrl: null,
+      mapTrimming: null,
       formData: null
     }
   },
@@ -27,6 +28,13 @@ export default {
     getFormData(formData) {
       this.formData = formData
     }
+  },
+  created() {
+    const map = JSON.parse(this.map)
+    console.log(map)
+    this.mapId = map['id']
+    this.mapImageUrl = map['image_url']
+    this.mapTrimming = map['trimming']
   }
 }
 </script>
