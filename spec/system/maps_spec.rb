@@ -97,7 +97,6 @@ describe 'マップ管理機能', type: :system do
     let!(:show_field_height) { style_px_to_i(show_field, 'height') }
     let!(:constrainRangeX) { show_field_width / 4 }
     let!(:constrainRangeY) { show_field_height / 4 }
-    let!(:ex_upload) { show_image[:src] }
     let(:move_x) { show_field_width / 5 }
     let(:move_y) { show_field_height / 5 }
 
@@ -124,12 +123,14 @@ describe 'マップ管理機能', type: :system do
 
     context '画像をアップロードしたとき' do
       before do
+        expect(page.find_by_id('edit-image')[:src]).to include 'test_image.jpg'
         attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
       end
 
       it '画像が変更される' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
-        expect(page.find_by_id('edit-image')[:src]).not_to eq ex_upload
+        expect(page.find_by_id('edit-image')[:src]).not_to include 'test_image.jpg'
+        expect(page.find_by_id('edit-image')[:src]).to include 'data:image/png'
       end
     end
 

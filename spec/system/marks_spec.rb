@@ -76,17 +76,19 @@ describe 'キズ管理機能', type: :system do
       end
     end
 
-    # context '画像をアップロードしたとき' do
-    #   before do
-    #     attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
-    #   end
-    #
-    #   it '画像が変更される' do
-    #     # expect(page).to have_selector '.alert-success', text: '登録しました'
-    #     expect(page.find_by_id('edit-image')[:src]).not_to eq ex_upload
-    #   end
-    # end
-    #
+    context '画像をアップロードしたとき' do
+      before do
+        expect(page.find_by_id('edit-image')[:src]).to include 'test_image.jpg'
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+      end
+
+      it '画像が変更される' do
+        # expect(page).to have_selector '.alert-success', text: '登録しました'
+        expect(page.find_by_id('edit-image')[:src]).not_to include 'test_image.jpg'
+        expect(page.find_by_id('edit-image')[:src]).to include 'data:image/png'
+      end
+    end
+
     # context '画像以外のファイルをアップロードしたとき' do
     #   before do
     #     attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'not_image.jpg')
