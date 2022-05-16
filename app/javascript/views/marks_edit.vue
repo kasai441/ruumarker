@@ -26,6 +26,7 @@ export default {
     'markId',
     'markImageUrl',
     'markTrimming',
+    'markDescription',
     'mapId',
     'mapImageUrl',
     'mapTrimming'
@@ -53,6 +54,7 @@ export default {
     this.markImageUrl ||= '/sample.png'
     this.formData.append('mark[image_url]', this.markImageUrl)
     this.formData.append('mark[trimming]', this.markTrimming)
+    this.formData.append('mark[description]', this.markDescription)
   }
 }
 </script>

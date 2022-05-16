@@ -4,7 +4,7 @@
       <label class="label">
         <span class="label-text">キズの概要を記入してください</span>
       </label>
-      <input type="text" placeholder="キズ概要" id="edit-description" class="input input-bordered w-full" />
+      <input type="text" placeholder="キズ概要" v-model="description" id="edit-description" class="input input-bordered w-full" />
     </div>
   </section>
 </template>
@@ -24,11 +24,8 @@ export default {
     this.description = this.formData.get(`${this.targetModel}[description]`)
   },
   updated() {
-    // const description = this.formData.get(`${this.targetModel}[description]`)
-    // if (!description) return
-    //
-    // const editDescription = document.getElementById( 'edit-description' )
-    // editImage.src = params.getImageUrl(imageFile)
+    this.formData.set(`${this.targetModel}[description]`, this.description)
+    this.$emit('emitFormData', this.formData)
   }
 }
 </script>
