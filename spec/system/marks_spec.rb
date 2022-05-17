@@ -165,6 +165,17 @@ describe 'キズ管理機能', type: :system do
     #     expect(top).to be_within(1).of(-constrainRangeY)
     #   end
     # end
+
+    context 'キズの概要をテキストエリアに入力して更新したとき' do
+      before do
+        fill_in 'edit-description', with: '壁紙はがれかけ、50cm'
+        find('#update').click
+      end
+
+      it '変更が反映される' do
+        expect(page).to have_content '壁紙はがれかけ、50…'
+      end
+    end
   end
 
   describe '削除機能' do
