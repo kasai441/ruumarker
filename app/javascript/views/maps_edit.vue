@@ -2,7 +2,7 @@
   <section>
     <div class="flex flex-col items-center" @touchmove.prevent>
       <image-edit :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-edit>
-      <image-upload target-model="map" @emit-form-data="getFormData"></image-upload>
+      <image-upload :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-upload>
       <image-update :room-id="roomId" :form-data="formData" target-model="map"></image-update>
     </div>
   </section>

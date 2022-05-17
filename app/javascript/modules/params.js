@@ -16,6 +16,14 @@ const initFormData = (modelJson, targetModel) => {
   return formData
 }
 
+const renewFormData = (exFormData) => {
+  const formData = new FormData()
+  for (let entry of exFormData.entries()) {
+    formData.append(entry[0], entry[1])
+  }
+  return formData
+}
+
 const getImageUrl = (imageFile) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -55,6 +63,7 @@ export default {
   namespaced: true,
   trimming,
   initFormData,
+  renewFormData,
   getImageUrl,
   reduceLargeImage,
 }

@@ -5,7 +5,7 @@
       <div @touchmove.prevent>
         <h2 class="w-full p-1 text-sm relative z-50 relative z-50">キズ画像を編集してください</h2>
         <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>
-        <image-upload target-model="mark" @emit-form-data="getFormData"></image-upload>
+        <image-upload :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-upload>
         <description-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></description-edit>
         <image-update :room-id="roomId" :form-data="formData" target-model="mark"></image-update>
       </div>
