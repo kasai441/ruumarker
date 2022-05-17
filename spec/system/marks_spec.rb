@@ -89,82 +89,95 @@ describe 'キズ管理機能', type: :system do
       end
     end
 
-    # context '画像以外のファイルをアップロードしたとき' do
-    #   before do
-    #     attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'not_image.jpg')
-    #   end
-    #
-    #   it '更新を失敗して画面がそのまま遷移しない' do
-    #     # expect(page).to have_selector '#error_explanation', text: 'マップの画像ファイルは[jpg/jpeg/png/gif]の形式のみ受け付けています'
-    #     expect(page).to have_selector '#edit-image'
-    #   end
-    # end
-    #
-    # context '画像をアップロードして変更を押したとき' do
-    #   before do
-    #     expect(edit_image[:src]).to include 'test_image.jpg'
-    #     attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
-    #     find('#update').click
-    #   end
-    #
-    #   it '画像が更新されている' do
-    #     expect(page).to have_selector '#show-image'
-    #     show_image = page.find_by_id('show-image')
-    #     expect(show_image[:src]).to include 'test_image.png'
-    #   end
-    # end
-    #
-    # context '画像をアップロードしてトリミングしたとき' do
-    #   before do
-    #     attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
-    #     page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
-    #     find('#update').click
-    #   end
-    #
-    #   it '更新内容が反映される' do
-    #     # expect(page).to have_selector '.alert-success', text: '変更しました
-    #     expect(page).to have_selector '#show-image'
-    #     show_image = page.find_by_id('show-image')
-    #     left = style_px_to_i(show_image, 'left')
-    #     top = style_px_to_i(show_image, 'top')
-    #     expect(left).to be_within(1).of(ex_left + move_x)
-    #     expect(top).to be_within(1).of(ex_left + move_y)
-    #   end
-    # end
-    #
-    # context '画面編集時に上限以上のトリミングを行ったとき' do
-    #   before do
-    #     page.driver.browser.action.drag_and_drop_by(edit_image.native, constrainRangeX + 10,
-    #                                                 constrainRangeY + 10).perform
-    #     find('#update').click
-    #   end
-    #
-    #   it '上限のトリミング幅となる' do
-    #     expect(page).to have_selector '#show-image'
-    #     show_image = page.find_by_id('show-image')
-    #     left = style_px_to_i(show_image, 'left')
-    #     top = style_px_to_i(show_image, 'top')
-    #     expect(left).to be_within(1).of(constrainRangeX)
-    #     expect(top).to be_within(1).of(constrainRangeY)
-    #   end
-    # end
-    #
-    # context '画面編集時に下限以下のトリミングを行ったとき' do
-    #   before do
-    #     page.driver.browser.action.drag_and_drop_by(edit_image.native, -constrainRangeX - 10,
-    #                                                 -constrainRangeY - 10).perform
-    #     find('#update').click
-    #   end
-    #
-    #   it '下限のトリミング幅となる' do
-    #     expect(page).to have_selector '#show-image'
-    #     show_image = page.find_by_id('show-image')
-    #     left = style_px_to_i(show_image, 'left')
-    #     top = style_px_to_i(show_image, 'top')
-    #     expect(left).to be_within(1).of(-constrainRangeX)
-    #     expect(top).to be_within(1).of(-constrainRangeY)
-    #   end
-    # end
+    context '画像以外のファイルをアップロードしたとき' do
+      before do
+        expect(page.find_by_id('edit-image')[:src]).to include 'test_image.jpg'
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'not_image.jpg')
+      end
+
+      it '更新を失敗して画像が変化しない' do
+        # expect(page).to have_selector '#error_explanation', text: 'マップの画像ファイルは[jpg/jpeg/png/gif]の形式のみ受け付けています'
+        expect(page.find_by_id('edit-image')[:src]).to include 'test_image.jpg'
+      end
+    end
+
+    context '画像をアップロードして変更を押したとき' do
+      before do
+        expect(edit_image[:src]).to include 'test_image.jpg'
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+        find('#update').click
+      end
+
+      it '画像が更新されている' do
+        within("#mark-#{mark1.id}") do
+          click_link('変更')
+        end
+        expect(page).to have_selector '#edit-image'
+        edit_image = page.find_by_id('edit-image')
+        expect(edit_image[:src]).to include 'test_image.png'
+      end
+    end
+
+    context '画像をアップロードしてトリミングしたとき' do
+      before do
+        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+        page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
+        find('#update').click
+      end
+
+      it '更新内容が反映される' do
+        # expect(page).to have_selector '.alert-success', text: '変更しました
+        within("#mark-#{mark1.id}") do
+          click_link('変更')
+        end
+        expect(page).to have_selector '#edit-image'
+        edit_image = page.find_by_id('edit-image')
+        left = style_px_to_i(edit_image, 'left')
+        top = style_px_to_i(edit_image, 'top')
+        expect(left).to be_within(1).of(ex_left + move_x)
+        expect(top).to be_within(1).of(ex_top + move_y)
+      end
+    end
+
+    context '画面編集時に上限以上のトリミングを行ったとき' do
+      before do
+        page.driver.browser.action.drag_and_drop_by(edit_image.native, constrainRangeX + 10,
+                                                    constrainRangeY + 10).perform
+        find('#update').click
+      end
+
+      it '上限のトリミング幅となる' do
+        within("#mark-#{mark1.id}") do
+          click_link('変更')
+        end
+        expect(page).to have_selector '#edit-image'
+        edit_image = page.find_by_id('edit-image')
+        left = style_px_to_i(edit_image, 'left')
+        top = style_px_to_i(edit_image, 'top')
+        expect(left).to be_within(1).of(ex_left + constrainRangeX)
+        expect(top).to be_within(1).of(ex_top + constrainRangeY)
+      end
+    end
+
+    context '画面編集時に下限以下のトリミングを行ったとき' do
+      before do
+        page.driver.browser.action.drag_and_drop_by(edit_image.native, -constrainRangeX - 10,
+                                                    -constrainRangeY - 10).perform
+        find('#update').click
+      end
+
+      it '下限のトリミング幅となる' do
+        within("#mark-#{mark1.id}") do
+          click_link('変更')
+        end
+        expect(page).to have_selector '#edit-image'
+        edit_image = page.find_by_id('edit-image')
+        left = style_px_to_i(edit_image, 'left')
+        top = style_px_to_i(edit_image, 'top')
+        expect(left).to be_within(1).of(ex_left - constrainRangeX)
+        expect(top).to be_within(1).of(ex_top - constrainRangeY)
+      end
+    end
 
     context 'キズの概要をテキストエリアに入力して更新したとき' do
       before do
