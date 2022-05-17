@@ -24,7 +24,7 @@ export default {
   inject: [
     'roomId',
     'mark',
-    'map'
+    // 'map'
   ],
   data() {
     return {
@@ -44,6 +44,8 @@ export default {
     }
   },
   async created() {
+    console.log('MarksEdit#created')
+
     if (this.formData) return
 
     const mark = JSON.parse(this.mark)

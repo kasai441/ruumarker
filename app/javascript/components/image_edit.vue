@@ -96,6 +96,8 @@ export default {
     }
   },
   mounted() {
+    console.log('ImageEdit#mounted')
+
     window.addEventListener('resize', this.handleResize)
 
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
@@ -103,6 +105,7 @@ export default {
     this.getFieldSize()
   },
   async updated() {
+    console.log('ImageEdit#updated')
     const imageFile = this.formData.get(`${this.targetModel}[image]`)
     if (!imageFile) return
 

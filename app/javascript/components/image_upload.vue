@@ -16,6 +16,7 @@ export default {
   ],
   methods: {
     async upload(e) {
+      console.log('ImageUpload#upload')
       e.preventDefault()
       let imageFile = e.target.files[0]
       const imageUrl = await params.getImageUrl(imageFile)
