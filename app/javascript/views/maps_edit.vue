@@ -12,6 +12,7 @@
 import ImageEdit from '../components/image_edit.vue'
 import ImageUpload from '../components/image_upload.vue'
 import ImageUpdate from '../components/image_update.vue'
+import params from "../modules/params"
 
 export default {
   name: 'MapsEdit',
@@ -38,11 +39,8 @@ export default {
   async created() {
     if (this.formData) return
 
-    const map = JSON.parse(this.map)
-    this.mapId = map['id']
-    this.formData = new FormData()
-    this.formData.append('map[image_url]', map['image_url'])
-    this.formData.append('map[trimming]', map['trimming'])
+    this.formData = params.initFormData(this.map, 'map')
+    this.mapId = this.formData.get('map[id]')
   }
 }
 </script>
