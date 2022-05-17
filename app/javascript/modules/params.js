@@ -7,6 +7,15 @@ const trimming = (formData, targetModel) => {
   }
 }
 
+const initFormData = (modelJson, targetModel) => {
+  const model = JSON.parse(modelJson)
+  const formData = new FormData()
+  Object.keys(model).forEach(key => {
+    if (model[key]) formData.append(`${targetModel}[${key}]`, model[key])
+  })
+  return formData
+}
+
 const getImageUrl = (imageFile) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -45,6 +54,7 @@ const reduceLargeImage = (imageUrl, imageFile) => {
 export default {
   namespaced: true,
   trimming,
+  initFormData,
   getImageUrl,
   reduceLargeImage,
 }

@@ -18,6 +18,7 @@ import ImageEdit from '../components/image_edit.vue'
 import ImageUpload from '../components/image_upload.vue'
 import DescriptionEdit from '../components/description_edit.vue'
 import ImageUpdate from '../components/image_update.vue'
+import params from '../modules/params'
 
 export default {
   name: 'MarksEdit',
@@ -48,12 +49,10 @@ export default {
 
     if (this.formData) return
 
-    const mark = JSON.parse(this.mark)
-    this.markId = mark['id']
-    this.formData = new FormData()
-    this.formData.append('mark[image_url]', mark['image_url'] ? mark['image_url'] : '/sample.png')
-    this.formData.append('mark[trimming]', mark['trimming'] ? mark['trimming'] : '' )
-    this.formData.append('mark[description]', mark['description'] ? mark['description'] : '')
+    this.formData = params.initFormData(this.mark, 'mark')
+    this.markId = this.formData.get('mark[id]')
+    const imageUrl = this.formData.get('mark[image_url]')
+    if (!imageUrl) this.formData.append('mark[image_url]', '/sample.png')
   }
 }
 </script>
