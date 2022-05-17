@@ -7,7 +7,7 @@
         <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>
         <image-upload target-model="mark" @emit-form-data="getFormData"></image-upload>
         <description-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></description-edit>
-        <image-update :room-id="roomId" :id="markId" :form-data="formData" target-model="mark"></image-update>
+        <image-update :room-id="roomId" :form-data="formData" target-model="mark"></image-update>
       </div>
     </div>
   </section>
@@ -29,7 +29,6 @@ export default {
   ],
   data() {
     return {
-      markId: null,
       formData: null
     }
   },
@@ -50,7 +49,6 @@ export default {
     if (this.formData) return
 
     this.formData = params.initFormData(this.mark, 'mark')
-    this.markId = this.formData.get('mark[id]')
     const imageUrl = this.formData.get('mark[image_url]')
     if (!imageUrl) this.formData.append('mark[image_url]', '/sample.png')
   }

@@ -14,13 +14,13 @@ export default {
   name: 'ImageUpdate',
   props: [
     'roomId',
-    'id',
     'formData',
     'targetModel'
   ],
   methods: {
     async update() {
-      await api.actions.update(`/api/rooms/${this.roomId}/${this.targetModel}s/${this.id}`, this.formData)
+      const id = this.formData.get(`${this.targetModel}[id]`)
+      await api.actions.update(`/api/rooms/${this.roomId}/${this.targetModel}s/${id}`, this.formData)
       location.href = `/rooms/${this.roomId}`
     },
     back() {
