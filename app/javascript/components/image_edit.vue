@@ -91,8 +91,9 @@ export default {
     updateTrimming() {
       const trimmingX = ((this.editImageLeft - this.editFieldLeft) / this.editFieldWidth).toFixed(3)
       const trimmingY = ((this.editImageTop - this.editFieldTop) / this.editFieldHeight).toFixed(3)
-      this.formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: trimmingX, y: trimmingY}))
-      this.$emit('emitFormData', this.formData)
+      const formData = params.renewFormData(this.formData)
+      formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: trimmingX, y: trimmingY}))
+      this.$emit('emitFormData', formData)
     }
   },
   mounted() {
