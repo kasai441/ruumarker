@@ -52,8 +52,8 @@ export default {
     this.markId = mark['id']
     this.formData = new FormData()
     this.formData.append('mark[image_url]', mark['image_url'] ? mark['image_url'] : '/sample.png')
-    this.formData.append('mark[trimming]', mark['trimming'])
-    this.formData.append('mark[description]', mark['description'])
+    this.formData.append('mark[trimming]', mark['trimming'] ? mark['trimming'] : '' )
+    this.formData.append('mark[description]', mark['description'] ? mark['description'] : '')
   }
 }
 </script>

@@ -31,7 +31,6 @@ export default {
   },
   created() {
     const map = JSON.parse(this.map)
-    console.log(map)
     this.mapId = map['id']
     this.mapImageUrl = map['image_url']
     this.mapTrimming = map['trimming']
