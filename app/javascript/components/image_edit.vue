@@ -80,6 +80,7 @@ export default {
         this.editFieldWidth = Math.floor(editField.getBoundingClientRect().right) - this.editFieldLeft
         this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
 
+        console.log(`ImageEdit.editFieldTop: ${this.editFieldTop}`)
         this.editImage = document.getElementById('edit-image')
         this.editImageLeft = Math.floor(this.editFieldWidth * this.trimming.x) + this.editFieldLeft
         this.editImageTop = Math.floor(this.editFieldHeight * this.trimming.y) + this.editFieldTop
@@ -90,13 +91,14 @@ export default {
     updateTrimming() {
       const trimmingX = ((this.editImageLeft - this.editFieldLeft) / this.editFieldWidth).toFixed(3)
       const trimmingY = ((this.editImageTop - this.editFieldTop) / this.editFieldHeight).toFixed(3)
-      this.formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: trimmingX, y: trimmingY}))
-      this.$emit('emitFormData', this.formData)
+      const formData = params.renewFormData(this.formData)
+      formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: trimmingX, y: trimmingY}))
+      this.$emit('emitFormData', formData)
     }
   },
-  created() {
-  },
   mounted() {
+    console.log('ImageEdit#mounted')
+
     window.addEventListener('resize', this.handleResize)
 
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
@@ -104,6 +106,7 @@ export default {
     this.getFieldSize()
   },
   async updated() {
+    console.log('ImageEdit#updated')
     const imageFile = this.formData.get(`${this.targetModel}[image]`)
     if (!imageFile) return
 

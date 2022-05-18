@@ -2,8 +2,8 @@
   <section>
     <div class="flex flex-col items-center" @touchmove.prevent>
       <image-edit :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-edit>
-      <image-upload target-model="map" @emit-form-data="getFormData"></image-upload>
-      <image-update :room-id="roomId" :id="mapId" :form-data="formData" target-model="map"></image-update>
+      <image-upload :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-upload>
+      <image-update :room-id="roomId" :form-data="formData" target-model="map"></image-update>
     </div>
   </section>
 </template>
@@ -12,14 +12,13 @@
 import ImageEdit from '../components/image_edit.vue'
 import ImageUpload from '../components/image_upload.vue'
 import ImageUpdate from '../components/image_update.vue'
+import params from '../modules/params'
 
 export default {
   name: 'MapsEdit',
   inject: [
     'roomId',
-    'mapId',
-    'mapImageUrl',
-    'mapTrimming'
+    'map'
   ],
   data() {
     return {
@@ -39,9 +38,7 @@ export default {
   async created() {
     if (this.formData) return
 
-    this.formData = new FormData()
-    this.formData.append('map[image_url]', this.mapImageUrl)
-    this.formData.append('map[trimming]', this.mapTrimming)
+    this.formData = params.initFormData(this.map, 'map')
   }
 }
 </script>
