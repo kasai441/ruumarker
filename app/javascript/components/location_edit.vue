@@ -2,9 +2,12 @@
   <section id="location-edit">
     <div id="location-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
          class="my-16 edit-size">
-      <img :src="imageUrl" id="location-image" draggable="false" @pointerdown="touchstart($event)"
-           class="absolute z-10 edit-size object-contain">
-      <div class="relative">
+<!--      <img :src="imageUrl" id="location-image" draggable="false" @pointerdown="touchstart($event)"-->
+<!--           class="absolute z-10 edit-size object-contain">-->
+      <div id="show-field" class="my-8 edit-size rounded-lg relative">
+        <div class="absolute -z-10 edit-size rounded-lg bg-transparent bg-transparent outline outline-3 outline-slate-200"></div>
+        <div class="absolute -z-20 edit-size rounded-lg bg-transparent bg-transparent outline outline-112 outline-white"></div>
+        <img :src="imageUrl" id="show-image" class="rounded-lg absolute -z-30 edit-size w-full object-contain">
         <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
         <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-112 outline-slate-200 opacity-40"></div>
       </div>
@@ -81,13 +84,18 @@ export default {
         this.editFieldWidth = Math.floor(editField.getBoundingClientRect().right) - this.editFieldLeft
         this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
 
-        console.log(`ImageEdit.editFieldTop: ${this.editFieldTop}`)
-        this.editImage = document.getElementById('location-image')
-        this.editImageLeft = Math.floor(this.editFieldWidth * this.trimming.x) + this.editFieldLeft
-        this.editImageTop = Math.floor(this.editFieldHeight * this.trimming.y) + this.editFieldTop
-        this.editImage.style.left = this.editImageLeft + 'px'
-        this.editImage.style.top = this.editImageTop + 'px'
+        // console.log(`ImageEdit.editFieldTop: ${this.editFieldTop}`)
+        // this.editImage = document.getElementById('location-image')
+        // this.editImageLeft = Math.floor(this.editFieldWidth * this.trimming.x) + this.editFieldLeft
+        // this.editImageTop = Math.floor(this.editFieldHeight * this.trimming.y) + this.editFieldTop
+        // this.editImage.style.left = this.editImageLeft + 'px'
+        // this.editImage.style.top = this.editImageTop + 'px'
       }
+    },
+    trimLocationImage() {
+      const showImage = document.getElementById('show-image')
+      showImage.style.left = Math.floor(this.editFieldWidth * this.trimming.x) + 'px'
+      showImage.style.top = Math.floor(this.showFieldHeight * this.trimming.y) + 'px'
     },
     updateTrimming() {
       const trimmingX = ((this.editImageLeft - this.editFieldLeft) / this.editFieldWidth).toFixed(3)
@@ -102,9 +110,12 @@ export default {
 
     window.addEventListener('resize', this.handleResize)
 
-    this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
-    this.trimming = params.trimming(this.formData, this.targetModel)
+    this.imageUrl = this.mapFormData.get('map[image_url]')
+    this.trimming = params.trimming(this.mapFormData, 'map')
+    console.log(this.trimming)
+    // this.location = this.formData.get(`${this.targetModel}[location]`)
     this.getFieldSize()
+    this.trimLocationImage()
   },
   async updated() {
     console.log('LocationEdit#updated')

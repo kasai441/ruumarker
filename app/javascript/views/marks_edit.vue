@@ -57,7 +57,7 @@ export default {
     const imageUrl = this.formData.get('mark[image_url]')
     if (!imageUrl) this.formData.append('mark[image_url]', '/sample.png')
 
-    this.mapFormData = params.initFormData((this.map, 'map'))
+    this.mapFormData = params.initFormData(this.map, 'map')
   }
 }
 </script>
