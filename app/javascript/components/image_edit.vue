@@ -9,6 +9,10 @@
         <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-112 outline-slate-200 opacity-40"></div>
       </div>
     </div>
+    <div>pointerX: {{ pointerX }}</div>
+    <div>pointerY: {{ pointerY }}</div>
+    <div>imageOffsetX: {{ imageOffsetX }}</div>
+    <div>imageOffsetY: {{ imageOffsetY }}</div>
   </section>
 </template>
 <script>
@@ -42,15 +46,18 @@ export default {
       this.image.classList.add('shadow-2xl')
 
       // エレメントの左上からポインターまでの位置
-      this.pointerX = Math.floor(e.clientX) - this.imageOffsetX - this.fieldClientX
-      this.pointerY = Math.floor(e.clientY) - this.imageOffsetY - this.fieldClientY
+      this.pointerX = Math.floor(e.offsetX)
+      this.pointerY = Math.floor(e.offsetY)
     },
     touchmove(e) {
       if (!this.isMovable) return
 
-      // 移動距離
-      this.imageOffsetX = Math.floor(e.offsetX) - this.pointerX + this.imageOffsetX
-      this.imageOffsetY = Math.floor(e.offsetY) - this.pointerY + this.imageOffsetY
+      // 動かす画像の左上からポインターまでの距離
+      // pointerXY = クリック時点
+      // e.offsetXY =  ドラッグ中
+      this.imageOffsetX += Math.floor(e.offsetX) - this.pointerX
+      this.imageOffsetY += Math.floor(e.offsetY) - this.pointerY
+      console.log('e.offsetX: ' + e.offsetX)
 
       // 外側に出ないように画像の移動を抑制する
       const constrainRangeX = Math.floor(this.fieldWidth / 4)
