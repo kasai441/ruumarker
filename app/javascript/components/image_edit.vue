@@ -72,6 +72,9 @@ export default {
       this.getFieldSize()
       this.updateTrimming()
     },
+    handleScroll() {
+      this.getFieldSize()
+    },
     getFieldSize() {
       const field = document.getElementById('edit-field')
       if(field) {
@@ -90,10 +93,10 @@ export default {
       }
     },
     updateTrimming() {
-      const trimmingX = (this.imageOffsetX / this.fieldWidth).toFixed(3)
-      const trimmingY = (this.imageOffsetY / this.fieldHeight).toFixed(3)
+      this.trimming.x = (this.imageOffsetX / this.fieldWidth).toFixed(3)
+      this.trimming.y = (this.imageOffsetY / this.fieldHeight).toFixed(3)
       const formData = params.renewFormData(this.formData)
-      formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: trimmingX, y: trimmingY}))
+      formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: this.trimming.x, y: this.trimming.y}))
       this.$emit('emitFormData', formData)
     }
   },
@@ -101,6 +104,7 @@ export default {
     console.log('ImageEdit#mounted')
 
     window.addEventListener('resize', this.handleResize)
+    window.addEventListener('scroll', this.handleScroll)
 
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
     this.trimming = params.trimming(this.formData, this.targetModel)
@@ -116,6 +120,7 @@ export default {
   },
   beforeDestroy: () => {
     window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
