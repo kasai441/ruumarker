@@ -25,51 +25,51 @@ export default {
       trimming: null,
       imageUrl: null,
       isMovable: false,
-      editFieldLeft: 0,
-      editFieldTop: 0,
-      editFieldWidth: 0,
-      editFieldHeight: 0,
-      editImage: null,
-      editImageLeft: 0,
-      editImageTop: 0,
-      shiftX: 0,
-      shiftY: 0
+      fieldClientX: 0,
+      fieldClientY: 0,
+      fieldWidth: 0,
+      fieldHeight: 0,
+      image: null,
+      imageLeft: 0,
+      imageTop: 0,
+      pointerX: 0,
+      pointerY: 0
     }
   },
   methods: {
     touchstart(e) {
       this.isMovable = true
-      this.editImage.classList.add('shadow-2xl')
+      this.image.classList.add('shadow-2xl')
 
       // エレメントの左上からポインターまでの位置
-      this.shiftX = Math.floor(e.clientX) - this.editImageLeft
-      this.shiftY = Math.floor(e.clientY) - this.editImageTop
+      this.pointerX = Math.floor(e.clientX) - this.imageLeft
+      this.pointerY = Math.floor(e.clientY) - this.imageTop
     },
     touchmove(e) {
       if (!this.isMovable) return
 
       // 移動距離
-      this.editImageLeft = Math.floor(e.pageX) - this.shiftX
-      this.editImageTop = Math.floor(e.pageY) - this.shiftY
+      this.imageLeft = Math.floor(e.pageX) - this.pointerX
+      this.imageTop = Math.floor(e.pageY) - this.pointerY
 
       // 外側に出ないように画像の移動を抑制する
-      const constrainRangeX = Math.floor(this.editFieldWidth / 4)
-      const constrainRangeY = Math.floor(this.editFieldHeight / 4)
-      const maxLeft = this.editFieldLeft + constrainRangeX
-      const maxTop = this.editFieldTop + constrainRangeY
+      const constrainRangeX = Math.floor(this.fieldWidth / 4)
+      const constrainRangeY = Math.floor(this.fieldHeight / 4)
+      const maxLeft = this.fieldClientX + constrainRangeX
+      const maxTop = this.fieldClientY + constrainRangeY
       const minLeft = maxLeft - constrainRangeX * 2
       const minTop = maxTop - constrainRangeY * 2
-      if (this.editImageLeft > maxLeft) this.editImageLeft = maxLeft
-      if (this.editImageLeft < minLeft) this.editImageLeft = minLeft
-      if (this.editImageTop > maxTop) this.editImageTop = maxTop
-      if (this.editImageTop < minTop) this.editImageTop = minTop
+      if (this.imageLeft > maxLeft) this.imageLeft = maxLeft
+      if (this.imageLeft < minLeft) this.imageLeft = minLeft
+      if (this.imageTop > maxTop) this.imageTop = maxTop
+      if (this.imageTop < minTop) this.imageTop = minTop
 
-      this.editImage.style.left = this.editImageLeft + 'px'
-      this.editImage.style.top = this.editImageTop + 'px'
+      this.image.style.left = this.imageLeft + 'px'
+      this.image.style.top = this.imageTop + 'px'
     },
     touchend() {
       this.isMovable = false
-      this.editImage.classList.remove('shadow-2xl')
+      this.image.classList.remove('shadow-2xl')
       this.updateTrimming()
     },
     handleResize() {
@@ -77,24 +77,24 @@ export default {
       this.updateTrimming()
     },
     getFieldSize() {
-      const editField = document.getElementById('edit-field')
-      if(editField) {
-        this.editFieldLeft = Math.floor(editField.getBoundingClientRect().left)
-        this.editFieldTop = Math.floor(editField.getBoundingClientRect().top)
-        this.editFieldWidth = Math.floor(editField.getBoundingClientRect().right) - this.editFieldLeft
-        this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
+      const field = document.getElementById('edit-field')
+      if(field) {
+        this.fieldClientX = Math.floor(field.getBoundingClientRect().left)
+        this.fieldClientY = Math.floor(field.getBoundingClientRect().top)
+        this.fieldWidth = Math.floor(field.getBoundingClientRect().right) - this.fieldClientX
+        this.fieldHeight = Math.floor(field.getBoundingClientRect().bottom) - this.fieldClientY
 
-        console.log(`ImageEdit.editFieldTop: ${this.editFieldTop}`)
-        this.editImage = document.getElementById('edit-image')
-        this.editImageLeft = Math.floor(this.editFieldWidth * this.trimming.x) + this.editFieldLeft
-        this.editImageTop = Math.floor(this.editFieldHeight * this.trimming.y) + this.editFieldTop
-        this.editImage.style.left = this.editImageLeft + 'px'
-        this.editImage.style.top = this.editImageTop + 'px'
+        console.log(`ImageEdit.fieldClientY: ${this.fieldClientY}`)
+        this.image = document.getElementById('edit-image')
+        this.imageLeft = Math.floor(this.fieldWidth * this.trimming.x) + this.fieldClientX
+        this.imageTop = Math.floor(this.fieldHeight * this.trimming.y) + this.fieldClientY
+        this.image.style.left = this.imageLeft + 'px'
+        this.image.style.top = this.imageTop + 'px'
       }
     },
     updateTrimming() {
-      const trimmingX = ((this.editImageLeft - this.editFieldLeft) / this.editFieldWidth).toFixed(3)
-      const trimmingY = ((this.editImageTop - this.editFieldTop) / this.editFieldHeight).toFixed(3)
+      const trimmingX = ((this.imageLeft - this.fieldClientX) / this.fieldWidth).toFixed(3)
+      const trimmingY = ((this.imageTop - this.fieldClientY) / this.fieldHeight).toFixed(3)
       const formData = params.renewFormData(this.formData)
       formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: trimmingX, y: trimmingY}))
       this.$emit('emitFormData', formData)
@@ -114,8 +114,8 @@ export default {
     const imageFile = this.formData.get(`${this.targetModel}[image]`)
     if (!imageFile) return
 
-    const editImage = document.getElementById( 'edit-image' )
-    editImage.src = await params.getImageUrl(imageFile)
+    const image = document.getElementById( 'edit-image' )
+    image.src = await params.getImageUrl(imageFile)
   },
   beforeDestroy: () => {
     window.removeEventListener('resize', this.handleResize)
