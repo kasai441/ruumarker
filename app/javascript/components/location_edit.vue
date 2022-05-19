@@ -91,6 +91,9 @@ export default {
       this.getFieldSize()
       this.updateLocation()
     },
+    handleScroll() {
+      this.getFieldSize()
+    },
     getFieldSize() {
       const editField = document.getElementById('edit-location-field')
       if(editField) {
@@ -105,20 +108,19 @@ export default {
         this.editFrameTop = Math.floor(this.editFieldHeight * this.location.y)
         this.editFrame.style.left = this.editFrameLeft + 'px'
         this.editFrame.style.top = this.editFrameTop + 'px'
+
+        const editImage = document.getElementById('edit-location-image')
+        this.editImageLeft = Math.floor(this.editFieldWidth * this.trimming.x)
+        this.editImageTop = Math.floor(this.editFieldHeight * this.trimming.y)
+        editImage.style.left = this.editImageLeft + 'px'
+        editImage.style.top = this.editImageTop + 'px'
       }
     },
-    trimBaseImage() {
-      const editImage = document.getElementById('edit-location-image')
-      this.editImageLeft = Math.floor(this.editFieldWidth * this.trimming.x)
-      this.editImageTop = Math.floor(this.editFieldHeight * this.trimming.y)
-      editImage.style.left = this.editImageLeft + 'px'
-      editImage.style.top = this.editImageTop + 'px'
-    },
     updateLocation() {
-      const locationX = ((this.editFrameLeft - this.editFieldLeft) / this.editFieldWidth).toFixed(3)
-      const locationY = ((this.editFrameTop - this.editFieldTop) / this.editFieldHeight).toFixed(3)
+      this.location.x = (this.editFrameLeft / this.editFieldWidth).toFixed(3)
+      this.location.y = (this.editFrameTop / this.editFieldHeight).toFixed(3)
       const formData = params.renewFormData(this.formData)
-      formData.set(`${this.targetModel}[location]`, JSON.stringify({x: locationX, y: locationY}))
+      formData.set(`${this.targetModel}[location]`, JSON.stringify({x: this.location.x, y: this.location.y}))
       // this.$emit('emitFormData', formData)
     }
   },
@@ -126,13 +128,13 @@ export default {
     console.log('ImageEdit#mounted')
 
     window.addEventListener('resize', this.handleResize)
+    window.addEventListener('scroll', this.handleScroll)
 
     this.imageUrl = this.mapFormData.get('map[image_url]')
     this.trimming = params.trimming(this.mapFormData, 'map')
     console.log(this.trimming)
     // this.location = this.formData.get(`${this.targetModel}[location]`)
     this.getFieldSize()
-    this.trimBaseImage()
   },
   async updated() {
     console.log('LocationEdit#updated')
@@ -144,6 +146,7 @@ export default {
   },
   beforeDestroy: () => {
     window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
