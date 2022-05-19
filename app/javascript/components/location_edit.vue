@@ -106,6 +106,7 @@ export default {
         this.fieldWidth = Math.floor(field.getBoundingClientRect().right) - this.fieldClientX
         this.fieldHeight = Math.floor(field.getBoundingClientRect().bottom) - this.fieldClientY
 
+        // 移動分の反映
         console.log(`ImageEdit.fieldClientY: ${this.fieldClientY}`)
         this.frame = document.getElementById('edit-location-frame')
         this.frameOffsetX = Math.floor(this.fieldWidth * this.location.x)
@@ -113,6 +114,7 @@ export default {
         this.frame.style.left = this.frameOffsetX + 'px'
         this.frame.style.top = this.frameOffsetY + 'px'
 
+        // トリミング分の反映
         const image = document.getElementById('edit-location-image')
         this.imageOffsetX = Math.floor(this.fieldWidth * this.trimming.x)
         this.imageOffsetY = Math.floor(this.fieldHeight * this.trimming.y)
