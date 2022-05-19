@@ -2,16 +2,24 @@
   <section id="location-edit">
     <div id="location-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
          class="my-16 edit-size">
-<!--      <img :src="imageUrl" id="location-image" draggable="false" @pointerdown="touchstart($event)"-->
-<!--           class="absolute z-10 edit-size object-contain">-->
-      <div id="show-field" class="my-8 edit-size rounded-lg relative">
-        <div class="absolute -z-10 edit-size rounded-lg bg-transparent bg-transparent outline outline-3 outline-slate-200"></div>
-        <div class="absolute -z-20 edit-size rounded-lg bg-transparent bg-transparent outline outline-112 outline-white"></div>
-        <img :src="imageUrl" id="show-image" class="rounded-lg absolute -z-30 edit-size w-full object-contain">
-        <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
-        <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-112 outline-slate-200 opacity-40"></div>
+      <div class="relative">
+        <div id="show-frame"
+             class="pointer-events-none absolute z-20 edit-size
+             rounded-lg bg-transparent bg-transparent outline outline-112 opacity-40 outline-white"></div>
+        <img :src="imageUrl" id="show-image" draggable="false" @pointerdown="touchstart($event)"
+             class="rounded-lg absolute z-10 edit-size w-full object-contain">
       </div>
+      <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
+      <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-112 outline-slate-200 opacity-40"></div>
     </div>
+    <div>editFieldLeft{{ editFieldLeft }}</div>
+    <div>editFieldTop{{ editFieldTop }}</div>
+    <div>editFieldWidth{{ editFieldWidth }}</div>
+    <div>editFieldHeight{{ editFieldHeight }}</div>
+    <div>editImageLeft{{ editImageLeft }}</div>
+    <div>editImageTop{{ editImageTop }}</div>
+    <div>locationx{{ location.x }}</div>
+    <div>locationy{{ location.y }}</div>
   </section>
 </template>
 <script>
@@ -28,6 +36,7 @@ export default {
     return {
       trimming: null,
       imageUrl: null,
+      location: {x:0, y:0},
       isMovable: false,
       editFieldLeft: 0,
       editFieldTop: 0,
@@ -43,38 +52,41 @@ export default {
   methods: {
     touchstart(e) {
       this.isMovable = true
-      this.editImage.classList.add('shadow-2xl')
-      this.shiftX = Math.floor(e.clientX) - this.editImageLeft
-      this.shiftY = Math.floor(e.clientY) - this.editImageTop
+      // this.editImage.classList.add('shadow-2xl')
+      this.shiftX = Math.floor(e.clientX) - this.editImageLeft - this.editFieldLeft
+      this.shiftY = Math.floor(e.clientY) - this.editImageTop -this.editFieldTop
+      console.log(e.clientX)
+      console.log(this.shiftX)
     },
     touchmove(e) {
       if (!this.isMovable) return
-      this.editImageLeft = Math.floor(e.pageX) - this.shiftX
-      this.editImageTop = Math.floor(e.pageY) - this.shiftY
+      this.editImageLeft = Math.floor(e.offsetX) - this.shiftX
+      this.editImageTop = Math.floor(e.offsetY) - this.shiftY
+      console.log(e.offsetX)
 
-      // 外側に出ないように画像の移動を抑制する
-      const constrainRangeX = Math.floor(this.editFieldWidth / 4)
-      const constrainRangeY = Math.floor(this.editFieldHeight / 4)
-      const maxLeft = this.editFieldLeft + constrainRangeX
-      const maxTop = this.editFieldTop + constrainRangeY
-      const minLeft = maxLeft - constrainRangeX * 2
-      const minTop = maxTop - constrainRangeY * 2
-      if (this.editImageLeft > maxLeft) this.editImageLeft = maxLeft
-      if (this.editImageLeft < minLeft) this.editImageLeft = minLeft
-      if (this.editImageTop > maxTop) this.editImageTop = maxTop
-      if (this.editImageTop < minTop) this.editImageTop = minTop
+      // // 外側に出ないように画像の移動を抑制する
+      // const constrainRangeX = Math.floor(this.editFieldWidth / 4)
+      // const constrainRangeY = Math.floor(this.editFieldHeight / 4)
+      // const maxLeft = this.editFieldLeft + constrainRangeX
+      // const maxTop = this.editFieldTop + constrainRangeY
+      // const minLeft = maxLeft - constrainRangeX * 2
+      // const minTop = maxTop - constrainRangeY * 2
+      // if (this.editImageLeft > maxLeft) this.editImageLeft = maxLeft
+      // if (this.editImageLeft < minLeft) this.editImageLeft = minLeft
+      // if (this.editImageTop > maxTop) this.editImageTop = maxTop
+      // if (this.editImageTop < minTop) this.editImageTop = minTop
 
       this.editImage.style.left = this.editImageLeft + 'px'
       this.editImage.style.top = this.editImageTop + 'px'
     },
     touchend() {
       this.isMovable = false
-      this.editImage.classList.remove('shadow-2xl')
-      this.updateTrimming()
+      // this.editImage.classList.remove('shadow-2xl')
+      this.updateLocation()
     },
     handleResize() {
       this.getFieldSize()
-      this.updateTrimming()
+      this.updateLocation()
     },
     getFieldSize() {
       const editField = document.getElementById('location-field')
@@ -84,24 +96,24 @@ export default {
         this.editFieldWidth = Math.floor(editField.getBoundingClientRect().right) - this.editFieldLeft
         this.editFieldHeight = Math.floor(editField.getBoundingClientRect().bottom) - this.editFieldTop
 
-        // console.log(`ImageEdit.editFieldTop: ${this.editFieldTop}`)
-        // this.editImage = document.getElementById('location-image')
-        // this.editImageLeft = Math.floor(this.editFieldWidth * this.trimming.x) + this.editFieldLeft
-        // this.editImageTop = Math.floor(this.editFieldHeight * this.trimming.y) + this.editFieldTop
-        // this.editImage.style.left = this.editImageLeft + 'px'
-        // this.editImage.style.top = this.editImageTop + 'px'
+        console.log(`ImageEdit.editFieldTop: ${this.editFieldTop}`)
+        this.editImage = document.getElementById('show-frame')
+        this.editImageLeft = Math.floor(this.editFieldWidth * this.location.x)
+        this.editImageTop = Math.floor(this.editFieldHeight * this.location.y)
+        this.editImage.style.left = this.editImageLeft + 'px'
+        this.editImage.style.top = this.editImageTop + 'px'
       }
     },
-    trimLocationImage() {
+    trimBaseImage() {
       const showImage = document.getElementById('show-image')
       showImage.style.left = Math.floor(this.editFieldWidth * this.trimming.x) + 'px'
       showImage.style.top = Math.floor(this.showFieldHeight * this.trimming.y) + 'px'
     },
-    updateTrimming() {
-      const trimmingX = ((this.editImageLeft - this.editFieldLeft) / this.editFieldWidth).toFixed(3)
-      const trimmingY = ((this.editImageTop - this.editFieldTop) / this.editFieldHeight).toFixed(3)
+    updateLocation() {
+      const locationX = ((this.editImageLeft - this.editFieldLeft) / this.editFieldWidth).toFixed(3)
+      const locationY = ((this.editImageTop - this.editFieldTop) / this.editFieldHeight).toFixed(3)
       const formData = params.renewFormData(this.formData)
-      formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: trimmingX, y: trimmingY}))
+      formData.set(`${this.targetModel}[location]`, JSON.stringify({x: locationX, y: locationY}))
       // this.$emit('emitFormData', formData)
     }
   },
@@ -115,7 +127,7 @@ export default {
     console.log(this.trimming)
     // this.location = this.formData.get(`${this.targetModel}[location]`)
     this.getFieldSize()
-    this.trimLocationImage()
+    this.trimBaseImage()
   },
   async updated() {
     console.log('LocationEdit#updated')
