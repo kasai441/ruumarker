@@ -40,11 +40,15 @@ export default {
     touchstart(e) {
       this.isMovable = true
       this.editImage.classList.add('shadow-2xl')
+
+      // エレメントの左上からポインターまでの位置
       this.shiftX = Math.floor(e.clientX) - this.editImageLeft
       this.shiftY = Math.floor(e.clientY) - this.editImageTop
     },
     touchmove(e) {
       if (!this.isMovable) return
+
+      // 移動距離
       this.editImageLeft = Math.floor(e.pageX) - this.shiftX
       this.editImageTop = Math.floor(e.pageY) - this.shiftY
 
