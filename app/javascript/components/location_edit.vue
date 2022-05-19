@@ -18,6 +18,7 @@
     <div>editFieldHeight{{ editFieldHeight }}</div>
     <div>editFrameLeft{{ editFrameLeft }}</div>
     <div>editFrameTop{{ editFrameTop }}</div>
+    <div>editImageTop{{ editImageTop }}</div>
     <div>locationx{{ location.x }}</div>
     <div>locationy{{ location.y }}</div>
   </section>
@@ -45,6 +46,8 @@ export default {
       editFrame: null,
       editFrameLeft: 0,
       editFrameTop: 0,
+      editImageLeft: 0,
+      editImageTop: 0,
       shiftX: 0,
       shiftY: 0
     }
@@ -54,14 +57,14 @@ export default {
       this.isMovable = true
       // this.editFrame.classList.add('shadow-2xl')
       this.shiftX = Math.floor(e.clientX) - this.editFrameLeft - this.editFieldLeft
-      this.shiftY = Math.floor(e.clientY) - this.editFrameTop -this.editFieldTop
+      this.shiftY = Math.floor(e.clientY) - this.editFrameTop - this.editFieldTop
       console.log(e.clientX)
       console.log(this.shiftX)
     },
     touchmove(e) {
       if (!this.isMovable) return
-      this.editFrameLeft = Math.floor(e.offsetX) - this.shiftX
-      this.editFrameTop = Math.floor(e.offsetY) - this.shiftY
+      this.editFrameLeft = Math.floor(e.offsetX) - this.shiftX + this.editImageLeft
+      this.editFrameTop = Math.floor(e.offsetY) - this.shiftY + this.editImageTop
       console.log(e.offsetX)
 
       // // 外側に出ないように画像の移動を抑制する
@@ -106,8 +109,10 @@ export default {
     },
     trimBaseImage() {
       const editImage = document.getElementById('edit-location-image')
-      editImage.style.left = Math.floor(this.editFieldWidth * this.trimming.x) + 'px'
-      editImage.style.top = Math.floor(this.showFieldHeight * this.trimming.y) + 'px'
+      this.editImageLeft = Math.floor(this.editFieldWidth * this.trimming.x)
+      this.editImageTop = Math.floor(this.editFieldHeight * this.trimming.y)
+      editImage.style.left = this.editImageLeft + 'px'
+      editImage.style.top = this.editImageTop + 'px'
     },
     updateLocation() {
       const locationX = ((this.editFrameLeft - this.editFieldLeft) / this.editFieldWidth).toFixed(3)
