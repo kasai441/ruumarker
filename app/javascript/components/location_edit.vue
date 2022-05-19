@@ -5,9 +5,9 @@
       <div class="relative">
         <div id="edit-location-frame"
              class="pointer-events-none absolute z-20 edit-size
-             rounded-lg bg-transparent bg-transparent outline outline-112 opacity-40 outline-white"></div>
+             bg-transparent bg-transparent outline outline-112 opacity-40 outline-white"></div>
         <img :src="imageUrl" id="edit-location-image" draggable="false" @pointerdown="touchstart($event)"
-             class="rounded-lg absolute z-10 edit-size w-full object-contain">
+             class="absolute z-10 edit-size w-full object-contain">
       </div>
       <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
       <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-112 outline-slate-200 opacity-40"></div>
@@ -46,6 +46,7 @@ export default {
       frame: null,
       frameOffsetX: 0,
       frameOffsetY: 0,
+      image: null,
       imageOffsetX: 0,
       imageOffsetY: 0,
       pointerX: 0,
@@ -58,17 +59,25 @@ export default {
       // this.frame.classList.add('shadow-2xl')
 
       // エレメントの左上からポインターまでの位置
-      this.pointerX = Math.floor(e.clientX) - this.frameOffsetX - this.fieldClientX
-      this.pointerY = Math.floor(e.clientY) - this.frameOffsetY - this.fieldClientY
+      this.pointerX = Math.floor(e.offsetX)
+      this.pointerY = Math.floor(e.offsetY)
       console.log(e.clientX)
-      console.log(this.pointerX)
+      console.log(this.framePointerX)
     },
     touchmove(e) {
       if (!this.isMovable) return
 
-      // 移動距離
-      this.frameOffsetX = Math.floor(e.offsetX) - this.pointerX + this.imageOffsetX
-      this.frameOffsetY = Math.floor(e.offsetY) - this.pointerY + this.imageOffsetY
+      // 動かす画像の左上からポインターまでの距離
+      // framePointerXY = クリック時点
+      // e.offsetXY = ドラッグ中
+      console.log(this.trimming)
+      const shiftX = Math.floor(e.offsetX) - this.pointerX
+      const shiftY = Math.floor(e.offsetY) - this.pointerY
+      this.imageOffsetX += shiftX
+      this.imageOffsetY += shiftY
+      this.frameOffsetX += shiftX
+      this.frameOffsetY += shiftY
+
       console.log(e.offsetX)
 
       // // 外側に出ないように画像の移動を抑制する
@@ -85,6 +94,8 @@ export default {
 
       this.frame.style.left = this.frameOffsetX + 'px'
       this.frame.style.top = this.frameOffsetY + 'px'
+      this.image.style.left = this.imageOffsetX + 'px'
+      this.image.style.top = this.imageOffsetY + 'px'
     },
     touchend() {
       this.isMovable = false
@@ -115,11 +126,11 @@ export default {
         this.frame.style.top = this.frameOffsetY + 'px'
 
         // トリミング分の反映
-        const image = document.getElementById('edit-location-image')
+        this.image = document.getElementById('edit-location-image')
         this.imageOffsetX = Math.floor(this.fieldWidth * this.trimming.x)
         this.imageOffsetY = Math.floor(this.fieldHeight * this.trimming.y)
-        image.style.left = this.imageOffsetX + 'px'
-        image.style.top = this.imageOffsetY + 'px'
+        this.image.style.left = this.imageOffsetX + 'px'
+        this.image.style.top = this.imageOffsetY + 'px'
       }
     },
     updateLocation() {
