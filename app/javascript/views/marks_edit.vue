@@ -13,7 +13,7 @@
         <description-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></description-edit>
       </div>
       <h2 class="w-full relative z-50 h2-font">キズの位置を編集してください</h2>
-      <div @touchmove.prevent class="bg-slate-300 w-full flex flex-col items-center">
+      <div @touchmove.prevent class="bg-slate-300 w-full flex flex-col items-center overflow-hidden">
         <location-edit :form-data="formData" :map-form-data="mapFormData" target-model="mark" @emit-form-data="getFormData"></location-edit>
       </div>
       <div class="w-full relative z-50">
