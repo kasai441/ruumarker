@@ -1,9 +1,6 @@
 <template>
   <section id="description-edit">
-    <div class="form-control w-full">
-      <label class="label">
-        <span class="label-text">キズの概要を記入してください</span>
-      </label>
+    <div class="form-control w-full relative z-60">
       <input type="text" placeholder="キズ概要" v-model="description" @blur="emitData" id="edit-description" class="input input-bordered w-full" />
     </div>
   </section>

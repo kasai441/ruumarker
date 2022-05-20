@@ -9,9 +9,6 @@
         <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-112 outline-slate-200 opacity-40"></div>
       </div>
     </div>
-    <div>pointerX: {{ pointerX }}</div>
-    <div>pointerY: {{ pointerY }}</div>
-    <div>imageOffsetX: {{ imageOffsetX }}</div>
   </section>
 </template>
 <script>

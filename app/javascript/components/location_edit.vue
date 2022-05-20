@@ -1,5 +1,6 @@
 <template>
   <section id="location-edit">
+    <div id="top-screen" class="w-full h-16"></div>
     <div id="edit-location-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
          class="my-16 edit-size">
       <div class="relative">

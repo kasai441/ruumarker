@@ -2,12 +2,15 @@
   <section>
     <div class="flex flex-col items-center">
       <h1 class="w-full bg-white text-center p-4 text-2xl font-bold relative z-50 outline outline-white outline-32">キズ情報</h1>
+      <h2 class="w-full p-1 text-sm relative z-50">キズ画像を編集してください</h2>
       <div @touchmove.prevent>
-        <h2 class="w-full p-1 text-sm relative z-50">キズ画像を編集してください</h2>
         <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>
         <image-upload :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-upload>
-        <description-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></description-edit>
-        <h2 class="w-full p-1 text-sm relative z-50">キズの位置を編集してください</h2>
+      </div>
+      <h2 class="w-full p-1 text-sm relative z-60">キズの概要を記入してください</h2>
+      <description-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></description-edit>
+      <h2 class="w-full p-1 text-sm relative z-50 bg-white outline outline-white outline-60">キズの位置を編集してください</h2>
+      <div @touchmove.prevent>
         <location-edit :form-data="formData" :map-form-data="mapFormData" target-model="mark" @emit-form-data="getFormData"></location-edit>
         <image-update :room-id="roomId" :form-data="formData" target-model="mark"></image-update>
       </div>
