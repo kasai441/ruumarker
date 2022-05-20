@@ -1,7 +1,11 @@
 <template>
   <section id="image-upload">
     <div class="p-4 text-sm z-50">
-      <input type="file" id="upload-image" name="upload-image" accept="image/png,image/jpeg" @change="upload" />
+      <label for="file" class="btn">ファイルを選択</label>
+      <input type="file" id="file" name="upload-image"
+             accept="image/png,image/jpeg" @change="upload"
+             class="hidden"
+      />
     </div>
   </section>
 </template>
