@@ -16,4 +16,9 @@ html
           |ruumarker
     - if flash.notice.present?
       .alert.alert-success= flash.notice
-    = yield
+    div.flex.justify-between
+      div.side-screen
+      div.flex.flex-col.main-screen
+        = yield
+      div.side-screen
+    div.w-full.h-12.border-t.border-slate-900/10.bg-white.relative.z-60

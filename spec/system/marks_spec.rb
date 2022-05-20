@@ -71,8 +71,8 @@ describe 'キズ管理機能', type: :system do
         edit_image = page.find_by_id('edit-image')
         left = style_px_to_i(edit_image, 'left')
         top = style_px_to_i(edit_image, 'top')
-        expect(left).to be_within(1).of(ex_left + move_x)
-        expect(top).to be_within(1).of(ex_top + move_y)
+        expect(left).to be_within(2).of(ex_left + move_x)
+        expect(top).to be_within(2).of(ex_top + move_y)
       end
     end
 
@@ -134,8 +134,8 @@ describe 'キズ管理機能', type: :system do
         edit_image = page.find_by_id('edit-image')
         left = style_px_to_i(edit_image, 'left')
         top = style_px_to_i(edit_image, 'top')
-        expect(left).to be_within(1).of(ex_left + move_x)
-        expect(top).to be_within(1).of(ex_top + move_y)
+        expect(left).to be_within(2).of(ex_left + move_x)
+        expect(top).to be_within(2).of(ex_top + move_y)
       end
     end
 
@@ -154,8 +154,8 @@ describe 'キズ管理機能', type: :system do
         edit_image = page.find_by_id('edit-image')
         left = style_px_to_i(edit_image, 'left')
         top = style_px_to_i(edit_image, 'top')
-        expect(left).to be_within(1).of(ex_left + constrainRangeX)
-        expect(top).to be_within(1).of(ex_top + constrainRangeY)
+        expect(left).to be_within(2).of(ex_left + constrainRangeX)
+        expect(top).to be_within(2).of(ex_top + constrainRangeY)
       end
     end
 
@@ -174,8 +174,8 @@ describe 'キズ管理機能', type: :system do
         edit_image = page.find_by_id('edit-image')
         left = style_px_to_i(edit_image, 'left')
         top = style_px_to_i(edit_image, 'top')
-        expect(left).to be_within(1).of(ex_left - constrainRangeX)
-        expect(top).to be_within(1).of(ex_top - constrainRangeY)
+        expect(left).to be_within(2).of(ex_left - constrainRangeX)
+        expect(top).to be_within(2).of(ex_top - constrainRangeY)
       end
     end
 

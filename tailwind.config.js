@@ -19,8 +19,8 @@ module.exports = {
       },
       outlineWidth: {
         32: '32px',
-        60: '60px',
-        112: '112px'
+        112: '112px',
+        240: '240px'
       },
       zIndex: {
         '60': '60'

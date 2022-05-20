@@ -7,6 +7,15 @@ const trimming = (formData, targetModel) => {
   }
 }
 
+const location = (formData, targetModel) => {
+  const location = formData.get(`${targetModel}[location]`)
+  if (location) {
+    return JSON.parse(location)
+  } else {
+    return {x: 0, y: 0}
+  }
+}
+
 const initFormData = (modelJson, targetModel) => {
   const model = JSON.parse(modelJson)
   const formData = new FormData()
@@ -62,6 +71,7 @@ const reduceLargeImage = (imageUrl, imageFile) => {
 export default {
   namespaced: true,
   trimming,
+  location,
   initFormData,
   renewFormData,
   getImageUrl,
