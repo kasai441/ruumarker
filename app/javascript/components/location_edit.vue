@@ -79,8 +79,9 @@ export default {
       this.frameOffsetY += shiftY
 
       // 外側に出ないように画像の移動を抑制する
-      const constrainFrameRangeX = Math.floor(this.fieldWidth / 2)
-      const constrainFrameRangeY = Math.floor(this.fieldHeight / 2)
+      const safe_blank = 2
+      const constrainFrameRangeX = Math.floor(this.fieldWidth / 2) - safe_blank
+      const constrainFrameRangeY = Math.floor(this.fieldHeight / 2) - safe_blank
       if (this.frameOffsetX >= constrainFrameRangeX) {
         this.frameOffsetX = constrainFrameRangeX
         this.imageOffsetX = constrainFrameRangeX + this.imageTrimmingX
