@@ -7,6 +7,9 @@
              class="pointer-events-none absolute z-20 edit-size
              bg-transparent bg-transparent
              outline outline-112 outline-slate-300"></div>
+        <div id="edit-location-shade"
+             class="pointer-events-none absolute z-20 edit-size
+             bg-transparent bg-transparent"></div>
         <img :src="imageUrl" id="edit-location-image" draggable="false" @pointerdown="touchstart($event)"
              class="absolute z-10 edit-size w-full object-contain">
       </div>
@@ -47,6 +50,7 @@ export default {
       fieldWidth: 0,
       fieldHeight: 0,
       frame: null,
+      shade: null,
       frameOffsetX: 0,
       frameOffsetY: 0,
       image: null,
@@ -59,7 +63,7 @@ export default {
   methods: {
     touchstart(e) {
       this.isMovable = true
-      // this.frame.classList.add('shadow-2xl')
+      this.shade.classList.add('shadow-2xl')
 
       // エレメントの左上からポインターまでの位置
       this.pointerX = Math.floor(e.offsetX)
@@ -99,14 +103,14 @@ export default {
         this.imageOffsetY = -constrainFrameRangeY + this.imageTrimmingY
       }
 
-      this.frame.style.left = this.frameOffsetX + 'px'
-      this.frame.style.top = this.frameOffsetY + 'px'
+      this.frame.style.left = this.shade.style.left = this.frameOffsetX + 'px'
+      this.frame.style.top = this.shade.style.top = this.frameOffsetY + 'px'
       this.image.style.left = this.imageOffsetX + 'px'
       this.image.style.top = this.imageOffsetY + 'px'
     },
     touchend() {
       this.isMovable = false
-      // this.frame.classList.remove('shadow-2xl')
+      this.shade.classList.remove('shadow-2xl')
       this.updateLocation()
     },
     handleResize() {
@@ -127,10 +131,11 @@ export default {
         // 移動分の反映
         console.log(`LocationEdit.fieldClientY: ${this.fieldClientY}`)
         this.frame = document.getElementById('edit-location-frame')
+        this.shade = document.getElementById('edit-location-shade')
         this.frameOffsetX = Math.floor(this.fieldWidth * this.location.x)
         this.frameOffsetY = Math.floor(this.fieldHeight * this.location.y)
-        this.frame.style.left = this.frameOffsetX + 'px'
-        this.frame.style.top = this.frameOffsetY + 'px'
+        this.frame.style.left = this.shade.style.left = this.frameOffsetX + 'px'
+        this.frame.style.top = this.shade.style.top = this.frameOffsetY + 'px'
 
         // トリミング分の反映
         const trimming = params.trimming(this.mapFormData, 'map')
