@@ -12,9 +12,9 @@
              bg-transparent bg-transparent"></div>
         <img :src="imageUrl" id="edit-location-image" draggable="false" @pointerdown="touchstart($event)"
              class="absolute z-10 edit-size w-full object-contain">
+        <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
+        <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
       </div>
-      <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
-      <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
     </div>
   </section>
 </template>
