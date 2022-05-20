@@ -152,8 +152,8 @@ export default {
       this.location.x = (this.frameOffsetX / this.fieldWidth).toFixed(3)
       this.location.y = (this.frameOffsetY / this.fieldHeight).toFixed(3)
       const formData = params.renewFormData(this.formData)
-      formData.set(`${this.targetModel}[location]`, JSON.stringify({x: this.location.x, y: this.location.y}))
-      // this.$emit('emitFormData', formData)
+      formData.set(`${this.targetModel}[location]`, JSON.stringify(this.location))
+      this.$emit('emitFormData', formData)
     }
   },
   mounted() {
@@ -164,7 +164,8 @@ export default {
 
     this.imageUrl = this.mapFormData.get('map[image_url]')
 
-    // this.location = this.formData.get(`${this.targetModel}[location]`)
+    this.location = params.location(this.formData, 'mark')
+    console.log(this.location)
     this.getFieldSize()
   },
   async updated() {

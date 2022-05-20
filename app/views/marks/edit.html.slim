@@ -1,4 +1,4 @@
-- mark_keys = %w[id trimming description]
+- mark_keys = %w[id trimming description location]
 - mark = @mark.attributes.filter {|k,_| mark_keys.include?(k)}
 - mark[:image_url] = url_for @mark.image if @mark.image.present?
 - map_keys = %w[id trimming]
