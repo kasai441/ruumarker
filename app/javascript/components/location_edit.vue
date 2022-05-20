@@ -22,6 +22,7 @@
     <div>imageOffsetY{{ imageOffsetY }}</div>
     <div>locationx{{ location.x }}</div>
     <div>locationy{{ location.y }}</div>
+    <div>imageTrimmingX{{imageTrimmingX}}</div>
   </section>
 </template>
 <script>
@@ -36,7 +37,8 @@ export default {
   ],
   data() {
     return {
-      trimming: null,
+      imageTrimmingX: 0,
+      imageTrimmingY: 0,
       imageUrl: null,
       location: {x:0, y:0},
       isMovable: false,
@@ -79,23 +81,21 @@ export default {
       // 外側に出ないように画像の移動を抑制する
       const constrainFrameRangeX = Math.floor(this.fieldWidth / 2)
       const constrainFrameRangeY = Math.floor(this.fieldHeight / 2)
-      const trimmingX = Math.floor(this.fieldWidth * this.trimming.x)
-      const trimmingY = Math.floor(this.fieldWidth * this.trimming.y)
       if (this.frameOffsetX >= constrainFrameRangeX) {
         this.frameOffsetX = constrainFrameRangeX
-        this.imageOffsetX = constrainFrameRangeX + trimmingX
+        this.imageOffsetX = constrainFrameRangeX + this.imageTrimmingX
       }
       if (this.frameOffsetX <= -constrainFrameRangeX) {
         this.frameOffsetX = -constrainFrameRangeX
-        this.imageOffsetX = -constrainFrameRangeX + trimmingX
+        this.imageOffsetX = -constrainFrameRangeX + this.imageTrimmingX
       }
       if (this.frameOffsetY >= constrainFrameRangeY) {
         this.frameOffsetY = constrainFrameRangeY
-        this.imageOffsetY = constrainFrameRangeY + trimmingY
+        this.imageOffsetY = constrainFrameRangeY + this.imageTrimmingY
       }
       if (this.frameOffsetY <= -constrainFrameRangeY) {
         this.frameOffsetY = -constrainFrameRangeY
-        this.imageOffsetY = -constrainFrameRangeY + trimmingY
+        this.imageOffsetY = -constrainFrameRangeY + this.imageTrimmingY
       }
 
       this.frame.style.left = this.frameOffsetX + 'px'
@@ -132,9 +132,12 @@ export default {
         this.frame.style.top = this.frameOffsetY + 'px'
 
         // トリミング分の反映
+        const trimming = params.trimming(this.mapFormData, 'map')
+        this.imageTrimmingX = Math.floor(this.fieldWidth * trimming.x)
+        this.imageTrimmingY = Math.floor(this.fieldHeight * trimming.y)
         this.image = document.getElementById('edit-location-image')
-        this.imageOffsetX = Math.floor(this.fieldWidth * this.trimming.x)
-        this.imageOffsetY = Math.floor(this.fieldHeight * this.trimming.y)
+        this.imageOffsetX = this.frameOffsetX + this.imageTrimmingX
+        this.imageOffsetY = this.frameOffsetY + this.imageTrimmingY
         this.image.style.left = this.imageOffsetX + 'px'
         this.image.style.top = this.imageOffsetY + 'px'
       }
@@ -154,7 +157,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
 
     this.imageUrl = this.mapFormData.get('map[image_url]')
-    this.trimming = params.trimming(this.mapFormData, 'map')
+
     // this.location = this.formData.get(`${this.targetModel}[location]`)
     this.getFieldSize()
   },
