@@ -3,7 +3,7 @@
     <div class="flex flex-col items-center">
       <h1 class="w-full bg-white text-center p-4 text-2xl font-bold relative z-50 outline outline-white outline-32">キズ情報</h1>
       <h2 class="w-full relative z-50 h2-font">キズ画像を編集してください</h2>
-      <div @touchmove.prevent class="flex flex-col items-center">
+      <div @touchmove.prevent class="w-full flex flex-col items-center overflow-hidden">
         <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>
         <image-upload :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-upload>
       </div>
