@@ -12,7 +12,6 @@
     <div>pointerX: {{ pointerX }}</div>
     <div>pointerY: {{ pointerY }}</div>
     <div>imageOffsetX: {{ imageOffsetX }}</div>
-    <div>imageOffsetY: {{ imageOffsetY }}</div>
   </section>
 </template>
 <script>
@@ -57,7 +56,6 @@ export default {
       // e.offsetXY =  ドラッグ中
       this.imageOffsetX += Math.floor(e.offsetX) - this.pointerX
       this.imageOffsetY += Math.floor(e.offsetY) - this.pointerY
-      console.log('e.offsetX: ' + e.offsetX)
 
       // 外側に出ないように画像の移動を抑制する
       const constrainRangeX = Math.floor(this.fieldWidth / 4)

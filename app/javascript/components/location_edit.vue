@@ -5,7 +5,8 @@
       <div class="relative">
         <div id="edit-location-frame"
              class="pointer-events-none absolute z-20 edit-size
-             bg-transparent bg-transparent outline outline-112 opacity-40 outline-white"></div>
+             bg-transparent bg-transparent
+             outline outline-112 outline-slate-300"></div>
         <img :src="imageUrl" id="edit-location-image" draggable="false" @pointerdown="touchstart($event)"
              class="absolute z-10 edit-size w-full object-contain">
       </div>
@@ -61,8 +62,6 @@ export default {
       // エレメントの左上からポインターまでの位置
       this.pointerX = Math.floor(e.offsetX)
       this.pointerY = Math.floor(e.offsetY)
-      console.log(e.clientX)
-      console.log(this.framePointerX)
     },
     touchmove(e) {
       if (!this.isMovable) return
@@ -70,7 +69,6 @@ export default {
       // 動かす画像の左上からポインターまでの距離
       // framePointerXY = クリック時点
       // e.offsetXY = ドラッグ中
-      console.log(this.trimming)
       const shiftX = Math.floor(e.offsetX) - this.pointerX
       const shiftY = Math.floor(e.offsetY) - this.pointerY
       this.imageOffsetX += shiftX
@@ -78,19 +76,27 @@ export default {
       this.frameOffsetX += shiftX
       this.frameOffsetY += shiftY
 
-      console.log(e.offsetX)
-
-      // // 外側に出ないように画像の移動を抑制する
-      // const constrainRangeX = Math.floor(this.fieldWidth / 4)
-      // const constrainRangeY = Math.floor(this.fieldHeight / 4)
-      // const maxLeft = this.fieldClientX + constrainRangeX
-      // const maxTop = this.fieldClientY + constrainRangeY
-      // const minLeft = maxLeft - constrainRangeX * 2
-      // const minTop = maxTop - constrainRangeY * 2
-      // if (this.frameOffsetX > maxLeft) this.frameOffsetX = maxLeft
-      // if (this.frameOffsetX < minLeft) this.frameOffsetX = minLeft
-      // if (this.frameOffsetY > maxTop) this.frameOffsetY = maxTop
-      // if (this.frameOffsetY < minTop) this.frameOffsetY = minTop
+      // 外側に出ないように画像の移動を抑制する
+      const constrainFrameRangeX = Math.floor(this.fieldWidth / 2)
+      const constrainFrameRangeY = Math.floor(this.fieldHeight / 2)
+      const trimmingX = Math.floor(this.fieldWidth * this.trimming.x)
+      const trimmingY = Math.floor(this.fieldWidth * this.trimming.y)
+      if (this.frameOffsetX >= constrainFrameRangeX) {
+        this.frameOffsetX = constrainFrameRangeX
+        this.imageOffsetX = constrainFrameRangeX + trimmingX
+      }
+      if (this.frameOffsetX <= -constrainFrameRangeX) {
+        this.frameOffsetX = -constrainFrameRangeX
+        this.imageOffsetX = -constrainFrameRangeX + trimmingX
+      }
+      if (this.frameOffsetY >= constrainFrameRangeY) {
+        this.frameOffsetY = constrainFrameRangeY
+        this.imageOffsetY = constrainFrameRangeY + trimmingY
+      }
+      if (this.frameOffsetY <= -constrainFrameRangeY) {
+        this.frameOffsetY = -constrainFrameRangeY
+        this.imageOffsetY = -constrainFrameRangeY + trimmingY
+      }
 
       this.frame.style.left = this.frameOffsetX + 'px'
       this.frame.style.top = this.frameOffsetY + 'px'
@@ -118,7 +124,7 @@ export default {
         this.fieldHeight = Math.floor(field.getBoundingClientRect().bottom) - this.fieldClientY
 
         // 移動分の反映
-        console.log(`ImageEdit.fieldClientY: ${this.fieldClientY}`)
+        console.log(`LocationEdit.fieldClientY: ${this.fieldClientY}`)
         this.frame = document.getElementById('edit-location-frame')
         this.frameOffsetX = Math.floor(this.fieldWidth * this.location.x)
         this.frameOffsetY = Math.floor(this.fieldHeight * this.location.y)
@@ -149,7 +155,6 @@ export default {
 
     this.imageUrl = this.mapFormData.get('map[image_url]')
     this.trimming = params.trimming(this.mapFormData, 'map')
-    console.log(this.trimming)
     // this.location = this.formData.get(`${this.targetModel}[location]`)
     this.getFieldSize()
   },

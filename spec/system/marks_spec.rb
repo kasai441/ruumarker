@@ -190,7 +190,7 @@ describe 'キズ管理機能', type: :system do
       end
     end
   end
-  1
+
   describe '削除機能' do
     let(:room1) { FactoryBot.create(:room) }
     let!(:map1) { FactoryBot.create(:map, room: room1) }
