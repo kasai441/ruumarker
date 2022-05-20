@@ -1,6 +1,5 @@
 <template>
   <section id="location-edit">
-    <div id="top-screen" class="w-full h-16"></div>
     <div id="edit-location-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
          class="my-16 edit-size">
       <div class="relative">
@@ -15,18 +14,8 @@
              class="absolute z-10 edit-size w-full object-contain">
       </div>
       <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
-      <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-112 outline-slate-200 opacity-40"></div>
+      <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
     </div>
-    <div>fieldClientX{{ fieldClientX }}</div>
-    <div>fieldClientY{{ fieldClientY }}</div>
-    <div>fieldWidth{{ fieldWidth }}</div>
-    <div>fieldHeight{{ fieldHeight }}</div>
-    <div>frameOffsetX{{ frameOffsetX }}</div>
-    <div>frameOffsetY{{ frameOffsetY }}</div>
-    <div>imageOffsetY{{ imageOffsetY }}</div>
-    <div>locationx{{ location.x }}</div>
-    <div>locationy{{ location.y }}</div>
-    <div>imageTrimmingX{{imageTrimmingX}}</div>
   </section>
 </template>
 <script>

@@ -9,4 +9,13 @@
     .edit-size {
         @apply w-72 h-48 sm:w-84 sm:h-56 md:w-96 md:h-64 lg:w-108 lg:h-72;
     }
+    .side-screen {
+        @apply sm:w-1/6 lg:w-1/5 relative z-50 bg-white;
+    }
+    .main-screen {
+        @apply w-full sm:w-2/3 lg:w-3/5;
+    }
+    .h2-font {
+        @apply p-2 pt-8 text-lg font-bold bg-white;
+    }
 }
