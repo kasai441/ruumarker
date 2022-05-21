@@ -3,18 +3,19 @@
     <div id="edit-location-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
          class="my-16 edit-size">
       <div class="relative">
+        <img :src="imageUrl" id="edit-location-image" draggable="false" @pointerdown="touchstart($event)" @touchmove.prevent
+             class="absolute edit-size object-contain">
         <div id="edit-location-frame"
-             class="pointer-events-none absolute z-20 edit-size
+             class="pointer-events-none absolute edit-size
              bg-transparent bg-transparent
              outline outline-112 outline-slate-300"></div>
         <div id="edit-location-shade"
-             class="pointer-events-none absolute z-20 edit-size
+             class="pointer-events-none absolute edit-size
+             outline outline-slate-100
              bg-transparent bg-transparent"></div>
-        <img :src="imageUrl" id="edit-location-image" draggable="false" @pointerdown="touchstart($event)"
-             class="absolute z-10 edit-size w-full object-contain">
+        <div class="absolute edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
+        <div class="absolute edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
       </div>
-      <div class="absolute z-30 edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
-      <div class="absolute z-20 edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
     </div>
   </section>
 </template>

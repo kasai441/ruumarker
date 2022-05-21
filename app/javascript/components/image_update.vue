@@ -1,8 +1,8 @@
 <template>
   <section id="image-update">
-    <div class="flex justify-center p-4 relative z-60">
-      <a @click="back" id="show" class="btn btn-secondary">＜</a>
-      <a @click="update" id="update" class="btn btn-primary">変更</a>
+    <div class="flex justify-center p-4">
+      <a @click="back" id="show" class="btn btn-lime">＜</a>
+      <a @click="update" id="update" class="btn btn-lime">変更</a>
     </div>
   </section>
 </template>

@@ -1,10 +1,10 @@
 <template>
   <section>
-    <div class="flex flex-col items-center" @touchmove.prevent>
+    <div class="w-full flex flex-col items-center overflow-hidden">
       <image-edit :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-edit>
-      <image-upload :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-upload>
-      <image-update :room-id="roomId" :form-data="formData" target-model="map"></image-update>
     </div>
+    <image-upload :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-upload>
+    <image-update :room-id="roomId" :form-data="formData" target-model="map"></image-update>
   </section>
 </template>
 

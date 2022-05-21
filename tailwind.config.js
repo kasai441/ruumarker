@@ -24,6 +24,9 @@ module.exports = {
       },
       zIndex: {
         '60': '60'
+      },
+      minWidth: {
+        '72': '18rem',
       }
     }
   }

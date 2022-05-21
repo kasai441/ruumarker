@@ -79,7 +79,7 @@ describe 'キズ管理機能', type: :system do
     context '画像をアップロードしたとき' do
       before do
         expect(page.find_by_id('edit-image')[:src]).to include 'test_image.jpg'
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+        attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
       end
 
       it '画像が変更される' do
@@ -92,7 +92,7 @@ describe 'キズ管理機能', type: :system do
     context '画像以外のファイルをアップロードしたとき' do
       before do
         expect(page.find_by_id('edit-image')[:src]).to include 'test_image.jpg'
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'not_image.jpg')
+        attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'not_image.jpg'), make_visible: true
       end
 
       it '更新を失敗して画像が変化しない' do
@@ -104,7 +104,7 @@ describe 'キズ管理機能', type: :system do
     context '画像をアップロードして変更を押したとき' do
       before do
         expect(edit_image[:src]).to include 'test_image.jpg'
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+        attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
         find('#update').click
       end
 
@@ -120,7 +120,7 @@ describe 'キズ管理機能', type: :system do
 
     context '画像をアップロードしてトリミングしたとき' do
       before do
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+        attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
         page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
         find('#update').click
       end

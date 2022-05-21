@@ -17,7 +17,7 @@ describe 'マップ管理機能', type: :system do
     context '画像をアップロードしたとき' do
       before do
         expect(preview[:src]).to include 'sample.png'
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+        attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg'), make_visible: true
       end
 
       it '画像が登録されてルームに遷移する' do
@@ -29,7 +29,7 @@ describe 'マップ管理機能', type: :system do
 
     context '画像をアップロードしたとき' do
       before do
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+        attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg'), make_visible: true
       end
 
       it '初期のトリミングが0x0になる' do
@@ -42,7 +42,7 @@ describe 'マップ管理機能', type: :system do
 
     context '画像以外のファイルをアップロードしたとき' do
       before do
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'not_image.jpg')
+        attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'not_image.jpg'), make_visible: true
       end
 
       it '画像が変化しない' do
@@ -54,7 +54,7 @@ describe 'マップ管理機能', type: :system do
 
     context '制約幅以下の画像ファイルをアップロードしたとき' do
       before do
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg')
+        attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg'), make_visible: true
       end
 
       it '画像幅が元のままとなる' do
@@ -66,7 +66,7 @@ describe 'マップ管理機能', type: :system do
 
     context '制約幅以上の画像ファイルをアップロードしたとき' do
       before do
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'large_image.jpg')
+        attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'large_image.jpg'), make_visible: true
       end
 
       it '画像が制約幅になる' do
@@ -124,7 +124,7 @@ describe 'マップ管理機能', type: :system do
     context '画像をアップロードしたとき' do
       before do
         expect(page.find_by_id('edit-image')[:src]).to include 'test_image.jpg'
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+        attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
       end
 
       it '画像が変更される' do
@@ -136,7 +136,7 @@ describe 'マップ管理機能', type: :system do
 
     context '画像以外のファイルをアップロードしたとき' do
       before do
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'not_image.jpg')
+        attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'not_image.jpg'), make_visible: true
       end
 
       it '更新を失敗して画面がそのまま遷移しない' do
@@ -148,7 +148,7 @@ describe 'マップ管理機能', type: :system do
     context '画像をアップロードして変更を押したとき' do
       before do
         expect(edit_image[:src]).to include 'test_image.jpg'
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+        attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
         find('#update').click
       end
 
@@ -161,7 +161,7 @@ describe 'マップ管理機能', type: :system do
 
     context '画像をアップロードしてトリミングしたとき' do
       before do
-        attach_file 'upload-image', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png')
+        attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
         page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
         find('#update').click
       end
