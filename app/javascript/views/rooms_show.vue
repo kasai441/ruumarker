@@ -1,6 +1,7 @@
 <template>
   <section>
-    <image-show :id="mapId" :image-url="mapImageUrl" :trimming="mapTrimming" target-model="map" @emit-form-data="getFormData"></image-show>
+    <image-show :id="mapId" :image-url="mapImageUrl" :trimming="mapTrimming"
+                target-model="map" @emit-form-data="getFormData"></image-show>
   </section>
 </template>
 
