@@ -3,7 +3,7 @@
     <div class="flex flex-col items-center">
       <h1 class="w-full bg-white text-center p-4 text-2xl font-bold">キズ情報</h1>
       <h2 class="w-full h2-font">キズ画像を編集してください</h2>
-      <div @touchmove.prevent class="w-full flex flex-col items-center overflow-hidden">
+      <div class="w-full flex flex-col items-center overflow-hidden">
         <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>
       </div>
       <image-upload :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-upload>
@@ -12,7 +12,7 @@
         <description-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></description-edit>
       </div>
       <h2 class="w-full h2-font">キズの位置を編集してください</h2>
-      <div @touchmove.prevent class="bg-slate-300 w-full flex flex-col items-center overflow-hidden">
+      <div class="bg-slate-300 w-full flex flex-col items-center overflow-hidden">
         <location-edit :form-data="formData" :map-form-data="mapFormData" target-model="mark" @emit-form-data="getFormData"></location-edit>
       </div>
       <image-update :room-id="roomId" :form-data="formData" target-model="mark"></image-update>

@@ -3,14 +3,15 @@
     <div id="edit-location-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
          class="my-16 edit-size">
       <div class="relative">
-        <img :src="imageUrl" id="edit-location-image" draggable="false" @pointerdown="touchstart($event)"
-             class="absolute edit-size w-full object-contain">
+        <img :src="imageUrl" id="edit-location-image" draggable="false" @pointerdown="touchstart($event)" @touchmove.prevent
+             class="absolute edit-size object-contain">
         <div id="edit-location-frame"
              class="pointer-events-none absolute edit-size
              bg-transparent bg-transparent
              outline outline-112 outline-slate-300"></div>
         <div id="edit-location-shade"
              class="pointer-events-none absolute edit-size
+             outline outline-slate-100
              bg-transparent bg-transparent"></div>
         <div class="absolute edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
         <div class="absolute edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>

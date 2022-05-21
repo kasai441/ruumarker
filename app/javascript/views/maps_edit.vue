@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="w-full flex flex-col items-center overflow-hidden" @touchmove.prevent>
+    <div class="w-full flex flex-col items-center overflow-hidden">
       <image-edit :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-edit>
     </div>
     <image-upload :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-upload>
