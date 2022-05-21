@@ -1,7 +1,7 @@
 <template>
   <section id="image-upload">
     <div class="p-4 text-sm z-50">
-      <label for="file" class="btn">ファイルを選択</label>
+      <label for="file" class="btn btn-outline">ファイルを選択</label>
       <input type="file" id="file" name="upload-image"
              accept="image/png,image/jpeg" @change="upload"
              class="hidden"

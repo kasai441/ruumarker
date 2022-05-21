@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-    .btn {
+    .btn-lime {
         @apply py-3 px-5 mx-1 bg-lime-600 text-white font-semibold rounded-lg shadow-md hover:bg-lime-500 border-none;
     }
     .edit-size {
