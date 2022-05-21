@@ -1,25 +1,21 @@
 <template>
   <section>
     <div class="flex flex-col items-center">
-      <h1 class="w-full bg-white text-center p-4 text-2xl font-bold relative z-50 outline outline-white outline-32">キズ情報</h1>
-      <h2 class="w-full relative z-50 h2-font">キズ画像を編集してください</h2>
+      <h1 class="w-full bg-white text-center p-4 text-2xl font-bold">キズ情報</h1>
+      <h2 class="w-full h2-font">キズ画像を編集してください</h2>
       <div @touchmove.prevent class="w-full flex flex-col items-center overflow-hidden">
         <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>
-        <image-upload :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-upload>
       </div>
-      <h2 class="w-full relative z-50 h2-font">キズの概要を記入してください</h2>
-      <div class="w-full relative z-50">
-        <div id="bg-description" class="w-full bg-white h-24 absolute"></div>
+      <image-upload :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-upload>
+      <h2 class="w-full h2-font">キズの概要を記入してください</h2>
+      <div class="w-full">
         <description-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></description-edit>
       </div>
-      <h2 class="w-full relative z-50 h2-font">キズの位置を編集してください</h2>
+      <h2 class="w-full h2-font">キズの位置を編集してください</h2>
       <div @touchmove.prevent class="bg-slate-300 w-full flex flex-col items-center overflow-hidden">
         <location-edit :form-data="formData" :map-form-data="mapFormData" target-model="mark" @emit-form-data="getFormData"></location-edit>
       </div>
-      <div class="w-full relative z-50">
-        <div id="bg-update" class="w-full h-24 bg-white absolute"></div>
-        <image-update :room-id="roomId" :form-data="formData" target-model="mark"></image-update>
-      </div>
+      <image-update :room-id="roomId" :form-data="formData" target-model="mark"></image-update>
     </div>
   </section>
 </template>

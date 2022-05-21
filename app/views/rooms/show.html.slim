@@ -1,4 +1,4 @@
-h1.w-full.p-6.text-lg.font-bold.bg-white.flex.justify-center.relative.z-50
+h1.w-full.p-6.text-lg.font-bold.bg-white.flex.justify-center
   |キズ点検表
 - map_keys = %w[id trimming]
 - map = @room.map.attributes.filter {|k,_| map_keys.include?(k)}
@@ -10,7 +10,7 @@ map="#{map.to_json}"
 
 / = link_to 'マップ編集', edit_room_map_path(@room, @room.map), class: 'btn btn-lime'
 
-div.relative.z-60
+div
   table
     thead
       tr

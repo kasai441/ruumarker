@@ -6,9 +6,7 @@
         <div class="absolute -z-20 edit-size rounded-lg bg-transparent bg-transparent outline outline-112 outline-white"></div>
         <img :src="imageUrl" id="show-image" class="rounded-lg absolute -z-30 edit-size w-full object-contain">
       </div>
-      <div class="submit_container relative z-60">
-        <a @click="mapEdit" id="map-edit" class="btn btn-lime">マップ編集</a>
-      </div>
+      <a @click="mapEdit" id="map-edit" class="btn btn-lime">マップ編集</a>
     </div>
   </section>
 </template>

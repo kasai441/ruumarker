@@ -1,6 +1,6 @@
 <template>
   <section id="description-edit">
-    <div class="form-control w-full p-4 relative z-60">
+    <div class="form-control w-full p-4">
       <input type="text" placeholder="キズ概要" v-model="description"
              @blur="emitData" id="edit-description"
              class="input input-bordered w-full" />
