@@ -43,19 +43,19 @@ describe 'キズ管理機能', type: :system do
       end
     end
 
-    let(:edit_image) { page.find_by_id('edit-image') }
-    let(:edit_field) { page.find_by_id('edit-field') }
-    let!(:ex_left) { style_px_to_i(edit_image, 'left') }
-    let!(:ex_top) { style_px_to_i(edit_image, 'top') }
-    let!(:edit_field_width) { style_px_to_i(edit_field, 'width') }
-    let!(:edit_field_height) { style_px_to_i(edit_field, 'height') }
-    let!(:constrainRangeX) { edit_field_width / 4 }
-    let!(:constrainRangeY) { edit_field_height / 4 }
-    let!(:ex_upload) { page.find_by_id('edit-image')[:src] }
-    let(:move_x) { edit_field_width / 5 }
-    let(:move_y) { edit_field_height / 5 }
-
     describe 'キズ画像トリミング機能' do
+      let(:edit_image) { page.find_by_id('edit-image') }
+      let(:edit_field) { page.find_by_id('edit-field') }
+      let!(:ex_left) { style_px_to_i(edit_image, 'left') }
+      let!(:ex_top) { style_px_to_i(edit_image, 'top') }
+      let!(:edit_field_width) { style_px_to_i(edit_field, 'width') }
+      let!(:edit_field_height) { style_px_to_i(edit_field, 'height') }
+      let!(:constrainRangeX) { edit_field_width / 4 }
+      let!(:constrainRangeY) { edit_field_height / 4 }
+      let!(:ex_upload) { page.find_by_id('edit-image')[:src] }
+      let(:move_x) { edit_field_width / 5 }
+      let(:move_y) { edit_field_height / 5 }
+
       context '編集画面にてトリミング操作を行ったとき' do
         before do
           page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
@@ -225,9 +225,82 @@ describe 'キズ管理機能', type: :system do
     end
 
     describe 'キズ配置機能' do
+      let(:edit_location_image) { page.find_by_id('edit-location-image') }
+      let(:edit_location_field) { page.find_by_id('edit-location-field') }
+      let!(:ex_left) { style_px_to_i(edit_location_image, 'left') }
+      let!(:ex_top) { style_px_to_i(edit_location_image, 'top') }
+      let!(:edit_location_field_width) { style_px_to_i(edit_location_field, 'width') }
+      let!(:edit_location_field_height) { style_px_to_i(edit_location_field, 'height') }
+      let!(:constrainRangeX) { edit_location_field_width / 2 - 2 }
+      let!(:constrainRangeY) { edit_location_field_height / 2 - 2 }
+      let(:move_x) { edit_location_field_width / 5 }
+      let(:move_y) { edit_location_field_height / 5 }
 
+      context '編集画面にて配置を変更したとき' do
+        before do
+          page.driver.browser.action.drag_and_drop_by(edit_location_image.native, move_x, move_y).perform
+          find('#update').click
+        end
+
+        it '配置が保存され、もう一度編集画面を開くと変更が反映されている' do
+          # expect(page).to have_selector '.alert-success', text: '変更しました
+          expect(page).to have_selector 'h1', text: 'キズ点検表'
+          within("#mark-#{mark1.id}") do
+            click_link('変更')
+          end
+          expect(page).to have_selector '#edit-location-image'
+          edit_location_image = page.find_by_id('edit-location-image')
+          left = style_px_to_i(edit_location_image, 'left')
+          top = style_px_to_i(edit_location_image, 'top')
+          expect(left).to be_within(2).of(ex_left + move_x)
+          expect(top).to be_within(2).of(ex_top + move_y)
+        end
+      end
+
+      context '画面編集時に上限以上の配置移動を行ったとき' do
+        before do
+          page.driver.browser.action
+              .move_to(edit_location_image.native, 0, 0)
+              .click_and_hold.move_by(constrainRangeX + 10, constrainRangeY + 10)
+              .release.perform
+          find('#update').click
+        end
+
+        it '上限の配置移動幅となる' do
+          within("#mark-#{mark1.id}") do
+            click_link('変更')
+          end
+          expect(page).to have_selector '#edit-location-image'
+          edit_location_image = page.find_by_id('edit-location-image')
+          left = style_px_to_i(edit_location_image, 'left')
+          top = style_px_to_i(edit_location_image, 'top')
+          expect(left).to be_within(2).of(ex_left + constrainRangeX)
+          expect(top).to be_within(2).of(ex_top + constrainRangeY)
+        end
+      end
+
+      context '画面編集時に下限以下の配置移動を行ったとき' do
+        before do
+          page.driver.browser.action
+              .move_to(edit_location_image.native, edit_location_field_width - 1, edit_location_field_height - 1)
+              .click_and_hold.move_by(-constrainRangeX - 10, -constrainRangeY - 10)
+              .release.perform
+          find('#update').click
+        end
+
+        it '下限の配置移動幅となる' do
+          within("#mark-#{mark1.id}") do
+            click_link('変更')
+          end
+          expect(page).to have_selector '#edit-location-image'
+          edit_location_image = page.find_by_id('edit-location-image')
+          left = style_px_to_i(edit_location_image, 'left')
+          top = style_px_to_i(edit_location_image, 'top')
+          expect(left).to be_within(2).of(ex_left - constrainRangeX)
+          expect(top).to be_within(2).of(ex_top - constrainRangeY)
+        end
+      end
     end
-
   end
 
   describe '削除機能' do
