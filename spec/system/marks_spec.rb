@@ -204,6 +204,8 @@ describe 'キズ管理機能', type: :system do
         expect(find('#edit-description').value).to eq '滲み　（２個所）⁉️？ ( 100cm )️'
       end
     end
+
+    context '文字数制限を設ける'
   end
 
   describe '削除機能' do
