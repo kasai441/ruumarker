@@ -3,7 +3,11 @@
     <div class="form-control w-full p-4">
       <input type="text" placeholder="キズ概要" v-model="description"
              @blur="emitData" id="edit-description"
+             :maxlength="maxLength"
              class="input input-bordered w-full" />
+      <label class="label flex justify-end">
+        <span id="text-length" class="label-text-alt">{{ String(description).length }}/{{ maxLength }}</span>
+      </label>
     </div>
   </section>
 </template>
@@ -18,7 +22,8 @@ export default {
   ],
   data() {
     return {
-      description: null
+      description: null,
+      maxLength: 60
     }
   },
   methods: {
