@@ -205,7 +205,20 @@ describe 'キズ管理機能', type: :system do
       end
     end
 
-    context '文字数制限を設ける'
+    context '制限文字数以上の入力をして登録したとき' do
+      before do
+        fill_in 'edit-description', with: 'a' * 61
+      end
+
+      it '入力が60以上できず、制限文字数で登録される' do
+        expect(find('#edit-description').value.length).to eq 60
+        find('#update').click
+        within("#mark-#{mark1.id}") do
+          click_link('変更')
+        end
+        expect(find('#edit-description').value.length).to eq 60
+      end
+    end
   end
 
   describe '削除機能' do
