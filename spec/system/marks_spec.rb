@@ -189,6 +189,21 @@ describe 'キズ管理機能', type: :system do
         expect(page).to have_content '壁紙はがれかけ、50…'
       end
     end
+
+    context 'キズの概要のテキストに漢字ひらがな数字記号を混ぜて入力して更新したとき' do
+      before do
+        fill_in 'edit-description', with: '滲み　（２個所）⁉️？ ( 100cm )️'
+        find('#update').click
+      end
+
+      it '変更が反映される' do
+        within("#mark-#{mark1.id}") do
+          expect(page).to have_content '滲み　（２個所）⁉️…'
+          click_link('変更')
+        end
+        expect(find('#edit-description').value).to eq '滲み　（２個所）⁉️？ ( 100cm )️'
+      end
+    end
   end
 
   describe '削除機能' do
