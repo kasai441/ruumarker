@@ -300,6 +300,52 @@ describe 'キズ管理機能', type: :system do
           expect(top).to be_within(2).of(ex_top - constrainRangeY)
         end
       end
+
+      # let(:room2) { FactoryBot.create(:room) }
+      # let(:map2) { FactoryBot.create(:map, room: room2, trimming: '{"x":-10,"y":15}') }
+      # let!(:mark2) { FactoryBot.create(:mark, map: map2) }
+
+      context 'トリミングされたマップで配置移動をするとき' do
+        let(:trim_x) { 100 }
+        let(:trim_y) { -15 }
+        let(:locate_x) { -10 }
+        let(:locate_y) { 100 }
+        before do
+          visit root_path
+          find('#map-edit').click
+          edit_image = page.find_by_id('edit-image')
+          page.driver.browser.action.drag_and_drop_by(edit_image.native, trim_x, trim_y).perform
+          find('#update').click
+
+          within("#mark-#{mark1.id}") do
+            click_link('変更')
+          end
+          # debugger
+          # expect(page).to have_selector '#edit-location-image'
+          edit_location_image = page.find_by_id('edit-location-image')
+          page.driver.browser.action.drag_and_drop_by(edit_location_image.native, locate_x, locate_y).perform
+          find('#update').click
+        end
+
+        it 'フレームが配置移動して、さらに画像はトリミングの移動が反映されている' do
+          # expect(page).to have_selector '.alert-success', text: '変更しました
+          expect(page).to have_selector 'h1', text: 'キズ点検表'
+          within("#mark-#{mark1.id}") do
+            click_link('変更')
+          end
+          expect(page).to have_selector '#edit-location-image'
+          edit_location_frame = page.find_by_id('edit-location-frame')
+          edit_location_image = page.find_by_id('edit-location-image')
+          frame_left = style_px_to_i(edit_location_frame, 'left')
+          frame_top = style_px_to_i(edit_location_frame, 'top')
+          image_left = style_px_to_i(edit_location_image, 'left')
+          image_top = style_px_to_i(edit_location_image, 'top')
+          expect(frame_left).to be_within(2).of(ex_left + locate_x)
+          expect(frame_top).to be_within(2).of(ex_top + locate_y)
+          expect(image_left).to be_within(4).of(ex_left + locate_x + trim_x)
+          expect(image_top).to be_within(4).of(ex_top + locate_y + trim_y)
+        end
+      end
     end
   end
 
