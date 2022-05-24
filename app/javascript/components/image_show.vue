@@ -9,6 +9,7 @@
   </section>
 </template>
 <script>
+import params from '../modules/params'
 
 export default {
   name: 'ImageShow',
@@ -22,6 +23,7 @@ export default {
   ],
   data() {
     return {
+      showField: null,
       showFieldWidth: 0,
       showFieldHeight: 0
     }
@@ -31,18 +33,35 @@ export default {
       location.href = `/rooms/${this.roomId}/${this.targetModel}s/${this.id}/edit`
     },
     getFieldSize() {
-      const showField = document.getElementById('show-field')
-      if (showField) {
-        const showFieldLeft = Math.floor(showField.getBoundingClientRect().left)
-        const showFieldTop = Math.floor(showField.getBoundingClientRect().top)
-        this.showFieldWidth = Math.floor(showField.getBoundingClientRect().right) - showFieldLeft
-        this.showFieldHeight = Math.floor(showField.getBoundingClientRect().bottom) - showFieldTop
+      this.showField = document.getElementById('show-field')
+      if (this.showField) {
+        const showFieldLeft = Math.floor(this.showField.getBoundingClientRect().left)
+        const showFieldTop = Math.floor(this.showField.getBoundingClientRect().top)
+        this.showFieldWidth = Math.floor(this.showField.getBoundingClientRect().right) - showFieldLeft
+        this.showFieldHeight = Math.floor(this.showField.getBoundingClientRect().bottom) - showFieldTop
 
         const showImage = document.getElementById('show-image')
         const trimming = JSON.parse(this.trimming)
         showImage.style.left = Math.floor(this.showFieldWidth * trimming.x) + 'px'
         showImage.style.top = Math.floor(this.showFieldHeight * trimming.y) + 'px'
       }
+    },
+    locateMarks() {
+      const ms = JSON.parse(this.marks)
+      Object.keys(ms).forEach((key, index) => {
+        const a = document.createElement('a')
+        a.append(index + 1)
+        const location = ms[key]['location'] ? JSON.parse(ms[key]['location']) : {x: 0, y: 0}
+        a.classList.add('absolute', 'bg-white')
+        const trimming = JSON.parse(this.trimming)
+        console.log(trimming)
+        console.log(location)
+        console.log(0.5 - location.x + trimming.x)
+        a.style.left = this.showFieldWidth * (0.5 - location.x + Number(trimming.x)) + 'px'
+        a.style.top = this.showFieldWidth * (0.5 - location.y + Number(trimming.y)) + 'px'
+        this.showField.append(a)
+      })
+
     },
     handleResize() {
       this.getFieldSize()
@@ -51,6 +70,7 @@ export default {
   mounted() {
     window.addEventListener('resize', this.handleResize)
     this.getFieldSize()
+    this.locateMarks()
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)
