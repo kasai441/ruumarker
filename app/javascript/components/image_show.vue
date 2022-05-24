@@ -9,8 +9,6 @@
   </section>
 </template>
 <script>
-import params from '../modules/params'
-
 export default {
   name: 'ImageShow',
   props: [
