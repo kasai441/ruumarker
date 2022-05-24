@@ -43,8 +43,14 @@ export default {
         showImage.style.left = Math.floor(this.showFieldWidth * trimming.x) + 'px'
         showImage.style.top = Math.floor(this.showFieldHeight * trimming.y) + 'px'
       }
+
     },
     locateMarks() {
+      const divs = this.showField.getElementsByTagName('div')
+      for (let i = 0; i < divs.length; i++) {
+        divs[i].remove()
+      }
+
       const ms = JSON.parse(this.marks)
       Object.keys(ms).forEach((key, index) => {
         const a = document.createElement('a')
@@ -65,10 +71,10 @@ export default {
         div.style.top = Math.floor(this.showFieldHeight * (trimming.y - location.y + 0.5)) + 'px'
         this.showField.append(div)
       })
-
     },
     handleResize() {
       this.getFieldSize()
+      this.locateMarks()
     }
   },
   mounted() {
