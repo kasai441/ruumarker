@@ -55,8 +55,8 @@ export default {
         console.log(trimming)
         console.log(location)
         console.log(0.5 - location.x + trimming.x)
-        a.style.left = this.showFieldWidth * (0.5 - location.x + Number(trimming.x)) + 'px'
-        a.style.top = this.showFieldWidth * (0.5 - location.y + Number(trimming.y)) + 'px'
+        a.style.left = Math.floor(this.showFieldWidth * (trimming.x - location.x + 0.5)) + 'px'
+        a.style.top = Math.floor(this.showFieldHeight * (trimming.y - location.y + 0.5)) + 'px'
         this.showField.append(a)
       })
 
