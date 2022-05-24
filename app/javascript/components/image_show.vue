@@ -17,7 +17,8 @@ export default {
     'id',
     'targetModel',
     'imageUrl',
-    'trimming'
+    'trimming',
+    'marks'
   ],
   data() {
     return {

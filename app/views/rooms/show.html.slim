@@ -1,10 +1,13 @@
 h1.w-full.p-6.text-lg.font-bold.bg-white.flex.justify-center
   |キズ点検表
+- mark_keys = %w[id location updated_at]
+- marks = @room.map.marks.map {|mark| mark.attributes.filter {|k,_| mark_keys.include?(k)}}
 - map_keys = %w[id trimming]
 - map = @room.map.attributes.filter {|k,_| map_keys.include?(k)}
 - map[:image_url] = url_for @room.map.image if @room.map.image.present?
 #rooms-show(
 room_id="#{@room.id}"
+marks="#{marks.to_json}"
 map="#{map.to_json}"
 )
 

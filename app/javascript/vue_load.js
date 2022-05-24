@@ -31,8 +31,9 @@ document.addEventListener('turbo:load', () => {
         break
       }
       app.provide('roomId', element.getAttribute('room_id'))
-      app.provide('mark', element.getAttribute('mark'))
       app.provide('map', element.getAttribute('map'))
+      app.provide('marks', element.getAttribute('marks'))
+      app.provide('mark', element.getAttribute('mark'))
       app.mount(selector)
     }
   })
