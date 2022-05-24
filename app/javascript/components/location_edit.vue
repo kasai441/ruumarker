@@ -13,6 +13,8 @@
              class="pointer-events-none absolute edit-size
              outline outline-slate-100
              bg-transparent bg-transparent"></div>
+        <img src="/mark.png" id="mark-image" draggable="false"
+             class="pointer-events-none absolute">
         <div class="absolute edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
         <div class="absolute edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
       </div>
@@ -137,6 +139,10 @@ export default {
         this.imageOffsetY = this.frameOffsetY + this.imageTrimmingY
         this.image.style.left = this.imageOffsetX + 'px'
         this.image.style.top = this.imageOffsetY + 'px'
+
+        const mark_image = document.getElementById('mark-image')
+        mark_image.style.left = this.fieldWidth / 2 - 10 + 'px'
+        mark_image.style.top = this.fieldHeight / 2 - 10 + 'px'
       }
     },
     updateLocation() {
