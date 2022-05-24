@@ -49,15 +49,21 @@ export default {
       Object.keys(ms).forEach((key, index) => {
         const a = document.createElement('a')
         a.append(index + 1)
+        a.classList.add('relative', 'text-white', 'left-1', '-top-3', 'text-xs')
+
+        const img = document.createElement('img')
+        img.src = '/mark.png'
+        img.classList.add('absolute', 'w-5')
+
+        const div = document.createElement('div')
+        div.append(img)
+        div.append(a)
         const location = ms[key]['location'] ? JSON.parse(ms[key]['location']) : {x: 0, y: 0}
-        a.classList.add('absolute', 'bg-white')
+        div.classList.add('absolute', 'w-5')
         const trimming = JSON.parse(this.trimming)
-        console.log(trimming)
-        console.log(location)
-        console.log(0.5 - location.x + trimming.x)
-        a.style.left = Math.floor(this.showFieldWidth * (trimming.x - location.x + 0.5)) + 'px'
-        a.style.top = Math.floor(this.showFieldHeight * (trimming.y - location.y + 0.5)) + 'px'
-        this.showField.append(a)
+        div.style.left = Math.floor(this.showFieldWidth * (trimming.x - location.x + 0.5)) + 'px'
+        div.style.top = Math.floor(this.showFieldHeight * (trimming.y - location.y + 0.5)) + 'px'
+        this.showField.append(div)
       })
 
     },
