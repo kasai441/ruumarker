@@ -4,7 +4,7 @@
       <div id="show-field" class="my-8 edit-size rounded-lg relative outline outline-3 outline-slate-200 overflow-hidden">
         <img :src="imageUrl" id="show-image" class="rounded-lg absolute edit-size w-full object-contain">
       </div>
-      <a @click="imageEdit" id="image-edit" class="btn btn-lime">変更</a>
+      <a @click="imageEdit" id="image-edit" class="btn btn-lime">{{ fieldEditName }}</a>
     </div>
   </section>
 </template>
@@ -16,10 +16,11 @@ export default {
   props: [
     'roomId',
     'id',
-    'targetModel',
-    'locatorModel',
+    'fieldModel',
     'imageUrl',
     'trimming',
+    'fieldEditName',
+    'locatorsModel',
     'locatorsJson'
   ],
   data() {
@@ -32,7 +33,7 @@ export default {
   },
   methods: {
     imageEdit() {
-      location.href = `/rooms/${this.roomId}/${this.targetModel}s/${this.id}/edit`
+      location.href = `/rooms/${this.roomId}/${this.fieldModel}s/${this.id}/edit`
     },
     getFieldSize() {
       const showFieldLeft = Math.floor(this.showField.getBoundingClientRect().left)
@@ -54,7 +55,7 @@ export default {
     generateLocators() {
       this.locators.forEach((locator, index) => {
         const img = document.createElement('img')
-        img.src = `/${this.locatorModel}.png`
+        img.src = `/${this.locatorsModel}.png`
         img.classList.add('absolute', 'w-5')
 
         const number = document.createElement('a')
@@ -66,7 +67,7 @@ export default {
         a.append(number)
         a.classList.add('absolute', 'w-5')
         a.id = `locator-${locator.id}`
-        a.href = `/rooms/${this.roomId}/${this.locatorModel}s/${locator.id}/edit`
+        a.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${locator.id}/edit`
         this.showField.append(a)
       })
     },

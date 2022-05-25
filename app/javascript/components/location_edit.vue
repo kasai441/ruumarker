@@ -13,7 +13,7 @@
              class="pointer-events-none absolute edit-size
              outline outline-slate-100
              bg-transparent bg-transparent"></div>
-        <img src="/mark.png" id="mark-image" draggable="false"
+        <img :src="locatorImage" id="locators-image" draggable="false"
              class="pointer-events-none absolute">
         <div class="absolute edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
         <div class="absolute edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
@@ -27,9 +27,11 @@ import params from '../modules/params'
 export default {
   name: 'LocationEdit',
   props: [
-    'formData',
-    'mapFormData',
-    'targetModel'
+    'locatorFormData',
+    'locatorModel',
+    'locatorImage',
+    'fieldFormData',
+    'fieldModel'
   ],
   data() {
     return {
@@ -131,7 +133,7 @@ export default {
         this.frame.style.top = this.shade.style.top = this.frameOffsetY + 'px'
 
         // トリミング分の反映
-        const trimming = params.fromJson(this.mapFormData, 'map', 'trimming')
+        const trimming = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
         this.imageTrimmingX = Math.floor(this.fieldWidth * trimming.x)
         this.imageTrimmingY = Math.floor(this.fieldHeight * trimming.y)
         this.image = document.getElementById('edit-location-image')
@@ -140,27 +142,27 @@ export default {
         this.image.style.left = this.imageOffsetX + 'px'
         this.image.style.top = this.imageOffsetY + 'px'
 
-        const mark_image = document.getElementById('mark-image')
-        mark_image.style.left = this.fieldWidth / 2 - 10 + 'px'
-        mark_image.style.top = this.fieldHeight / 2 - 10 + 'px'
+        const locators_image = document.getElementById('locators-image')
+        locators_image.style.left = this.fieldWidth / 2 - 10 + 'px'
+        locators_image.style.top = this.fieldHeight / 2 - 10 + 'px'
       }
     },
     updateLocation() {
       this.location.x = (this.frameOffsetX / this.fieldWidth).toFixed(3)
       this.location.y = (this.frameOffsetY / this.fieldHeight).toFixed(3)
-      const formData = params.renewFormData(this.formData)
-      formData.set(`${this.targetModel}[location]`, JSON.stringify(this.location))
-      this.$emit('emitFormData', formData)
+      const locatorFormData = params.renewFormData(this.locatorFormData)
+      locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(this.location))
+      this.$emit('emitFormData', locatorFormData)
     }
   },
   mounted() {
-    console.log('ImageEdit#mounted')
+    console.log('LocationEdit#mounted')
 
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
 
-    this.imageUrl = this.mapFormData.get('map[image_url]')
-    this.location = params.fromJson(this.formData, this.targetModel, 'location')
+    this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
+    this.location = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
     this.getFieldSize()
   },
   beforeDestroy: () => {

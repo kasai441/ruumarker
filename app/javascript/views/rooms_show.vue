@@ -1,7 +1,8 @@
 <template>
   <section>
-    <image-show :id="mapId" :image-url="mapImageUrl" :trimming="mapTrimming" :locators-json="marks"
-                target-model="map" locator-model="mark" @emit-form-data="getFormData"></image-show>
+    <image-show :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming" field-edit-name="間取り図の編集"
+                locators-model="mark" :locators-json="marks"
+                @emit-form-data="getFormData"></image-show>
   </section>
 </template>
 

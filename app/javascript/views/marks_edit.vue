@@ -13,7 +13,9 @@
       </div>
       <h2 class="w-full h2-font">キズの位置を編集してください</h2>
       <div class="bg-slate-300 w-full flex flex-col items-center overflow-hidden">
-        <location-edit :form-data="formData" :map-form-data="mapFormData" target-model="mark" @emit-form-data="getFormData"></location-edit>
+        <location-edit :locator-form-data="formData" locator-model="mark" locator-image="/mark.png"
+                       :field-form-data="mapFormData" field-model="map"
+                       @emit-form-data="getFormData"></location-edit>
       </div>
       <image-update :room-id="roomId" :form-data="formData" target-model="mark"></image-update>
     </div>

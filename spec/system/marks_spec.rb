@@ -233,8 +233,8 @@ describe 'キズ管理機能', type: :system do
       let!(:edit_location_field_height) { style_px_to_i(edit_location_field, 'height') }
       let!(:constrainRangeX) { edit_location_field_width / 2 - 2 }
       let!(:constrainRangeY) { edit_location_field_height / 2 - 2 }
-      let(:move_x) { edit_location_field_width / 5 }
-      let(:move_y) { edit_location_field_height / 5 }
+      let(:move_x) { edit_location_field_width / 4 }
+      let(:move_y) { edit_location_field_height / 4 }
 
       context '編集画面にて配置を変更したとき' do
         before do
