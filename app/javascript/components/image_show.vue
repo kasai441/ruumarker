@@ -66,6 +66,7 @@ export default {
         a.append(number)
         a.classList.add('absolute', 'w-5')
         a.id = `locator-${locator.id}`
+        a.href = `/rooms/${this.roomId}/${this.locatorModel}s/${locator.id}/edit`
         this.showField.append(a)
       })
     },
