@@ -301,10 +301,6 @@ describe 'キズ管理機能', type: :system do
         end
       end
 
-      # let(:room2) { FactoryBot.create(:room) }
-      # let(:map2) { FactoryBot.create(:map, room: room2, trimming: '{"x":-10,"y":15}') }
-      # let!(:mark2) { FactoryBot.create(:mark, map: map2) }
-
       context 'トリミングされたマップで配置移動をするとき' do
         let(:trim_x) { 100 }
         let(:trim_y) { -15 }
@@ -312,7 +308,7 @@ describe 'キズ管理機能', type: :system do
         let(:locate_y) { 100 }
         before do
           visit root_path
-          find('#map-edit').click
+          find('#image-edit').click
           edit_image = page.find_by_id('edit-image')
           page.driver.browser.action.drag_and_drop_by(edit_image.native, trim_x, trim_y).perform
           find('#update').click

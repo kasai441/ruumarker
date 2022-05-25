@@ -4,7 +4,7 @@
       <div id="show-field" class="my-8 edit-size rounded-lg relative outline outline-3 outline-slate-200 overflow-hidden">
         <img :src="imageUrl" id="show-image" class="rounded-lg absolute edit-size w-full object-contain">
       </div>
-      <a @click="mapEdit" id="map-edit" class="btn btn-lime">マップ編集</a>
+      <a @click="imageEdit" id="image-edit" class="btn btn-lime">変更</a>
     </div>
   </section>
 </template>
@@ -31,7 +31,7 @@ export default {
     }
   },
   methods: {
-    mapEdit() {
+    imageEdit() {
       location.href = `/rooms/${this.roomId}/${this.targetModel}s/${this.id}/edit`
     },
     getFieldSize() {
