@@ -17,16 +17,17 @@ export default {
     'roomId',
     'id',
     'targetModel',
+    'locatorModel',
     'imageUrl',
     'trimming',
-    'marksJSON'
+    'locatorsJson'
   ],
   data() {
     return {
       showField: null,
       showFieldWidth: 0,
       showFieldHeight: 0,
-      marks: JSON.parse(this.marksJSON)
+      locators: JSON.parse(this.locatorsJson)
     }
   },
   methods: {
@@ -43,29 +44,29 @@ export default {
       const trimming = JSON.parse(this.trimming)
       showImage.style.left = Math.floor(this.showFieldWidth * trimming.x) + 'px'
       showImage.style.top = Math.floor(this.showFieldHeight * trimming.y) + 'px'
-      this.marks.forEach(mark => {
-        const div = document.getElementById(`locate-mark-${mark.id}`)
-        const location = params.parseOrInit(mark.location)
-        div.style.left = Math.floor(this.showFieldWidth * (0.5 - location.x)) - 10 + 'px'
-        div.style.top = Math.floor(this.showFieldHeight * (0.5 - location.y)) - 10 + 'px'
+      this.locators.forEach(locator => {
+        const a = document.getElementById(`locator-${locator.id}`)
+        const location = params.parseOrInit(locator.location)
+        a.style.left = Math.floor(this.showFieldWidth * (0.5 - location.x)) - 10 + 'px'
+        a.style.top = Math.floor(this.showFieldHeight * (0.5 - location.y)) - 10 + 'px'
       })
     },
-    locateMarks() {
-      this.marks.forEach((mark, index) => {
-        const a = document.createElement('a')
-        a.append(index + 1)
-        a.classList.add('relative', 'text-white', 'left-1', '-top-3', 'text-xs')
-
+    generateLocators() {
+      this.locators.forEach((locator, index) => {
         const img = document.createElement('img')
-        img.src = '/mark.png'
+        img.src = `/${this.locatorModel}.png`
         img.classList.add('absolute', 'w-5')
 
-        const div = document.createElement('div')
-        div.append(img)
-        div.append(a)
-        div.classList.add('absolute', 'w-5')
-        div.id = `locate-mark-${mark.id}`
-        this.showField.append(div)
+        const number = document.createElement('a')
+        number.append(index + 1)
+        number.classList.add('relative', 'text-white', 'left-1', '-top-3', 'text-xs')
+
+        const a = document.createElement('a')
+        a.append(img)
+        a.append(number)
+        a.classList.add('absolute', 'w-5')
+        a.id = `locator-${locator.id}`
+        this.showField.append(a)
       })
     },
     handleResize() {
@@ -75,7 +76,7 @@ export default {
   mounted() {
     window.addEventListener('resize', this.handleResize)
     this.showField = document.getElementById('show-field')
-    this.locateMarks()
+    this.generateLocators()
     this.getFieldSize()
   },
   beforeDestroy() {
