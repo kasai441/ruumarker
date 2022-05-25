@@ -1,8 +1,10 @@
 <template>
   <section id="image-show">
     <div class="flex flex-col items-center">
-      <div id="show-field" class="my-8 edit-size rounded-lg relative outline outline-3 outline-slate-200 overflow-hidden">
-        <img :src="imageUrl" id="show-image" class="rounded-lg absolute edit-size w-full object-contain">
+      <div id="show-field" @mouseover="activate($event)"
+           class="my-8 edit-size rounded-lg relative outline outline-3 outline-slate-200 overflow-hidden">
+        <img :src="imageUrl" @mouseover.prevent
+             id="show-image" class="rounded-lg absolute edit-size w-full object-contain">
       </div>
       <a @click="imageEdit" id="image-edit" class="btn btn-lime">{{ fieldEditName }}</a>
     </div>
@@ -70,6 +72,16 @@ export default {
         a.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${locator.id}/edit`
         this.showField.append(a)
       })
+    },
+    activate(e) {
+      const id = e.path[0].id
+      console.log(id)
+      const regex = /locator/g
+      if (id && id.match(regex)) {
+        console.log(id.replace(regex, this.locatorsModel))
+        const a = document.getElementById(id.replace(regex, this.locatorsModel))
+        a.classList.add('active')
+      }
     },
     handleResize() {
       this.getFieldSize()

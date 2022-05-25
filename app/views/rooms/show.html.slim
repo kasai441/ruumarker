@@ -11,10 +11,8 @@ marks="#{marks.to_json}"
 map="#{map.to_json}"
 )
 
-/ = link_to 'マップ編集', edit_room_map_path(@room, @room.map), class: 'btn btn-lime'
-
 div
-  table
+  table.table
     thead
       tr
         th 番号
