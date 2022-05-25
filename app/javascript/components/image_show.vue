@@ -17,13 +17,14 @@ export default {
     'targetModel',
     'imageUrl',
     'trimming',
-    'marks'
+    'marksJSON'
   ],
   data() {
     return {
       showField: null,
       showFieldWidth: 0,
-      showFieldHeight: 0
+      showFieldHeight: 0,
+      marks: JSON.parse(this.marksJSON)
     }
   },
   methods: {
@@ -31,28 +32,24 @@ export default {
       location.href = `/rooms/${this.roomId}/${this.targetModel}s/${this.id}/edit`
     },
     getFieldSize() {
-      this.showField = document.getElementById('show-field')
-      if (this.showField) {
-        const showFieldLeft = Math.floor(this.showField.getBoundingClientRect().left)
-        const showFieldTop = Math.floor(this.showField.getBoundingClientRect().top)
-        this.showFieldWidth = Math.floor(this.showField.getBoundingClientRect().right) - showFieldLeft
-        this.showFieldHeight = Math.floor(this.showField.getBoundingClientRect().bottom) - showFieldTop
+      const showFieldLeft = Math.floor(this.showField.getBoundingClientRect().left)
+      const showFieldTop = Math.floor(this.showField.getBoundingClientRect().top)
+      this.showFieldWidth = Math.floor(this.showField.getBoundingClientRect().right) - showFieldLeft
+      this.showFieldHeight = Math.floor(this.showField.getBoundingClientRect().bottom) - showFieldTop
 
-        const showImage = document.getElementById('show-image')
-        const trimming = JSON.parse(this.trimming)
-        showImage.style.left = Math.floor(this.showFieldWidth * trimming.x) + 'px'
-        showImage.style.top = Math.floor(this.showFieldHeight * trimming.y) + 'px'
-      }
-
+      const showImage = document.getElementById('show-image')
+      const trimming = JSON.parse(this.trimming)
+      showImage.style.left = Math.floor(this.showFieldWidth * trimming.x) + 'px'
+      showImage.style.top = Math.floor(this.showFieldHeight * trimming.y) + 'px'
+      this.marks.forEach(mark => {
+        const div = document.getElementById(`locate-mark-${mark.id}`)
+        const location = mark.location ? JSON.parse(mark.location) : {x: 0, y: 0}
+        div.style.left = Math.floor(this.showFieldWidth * (0.5 - location.x)) - 10 + 'px'
+        div.style.top = Math.floor(this.showFieldHeight * (0.5 - location.y)) - 10 + 'px'
+      })
     },
     locateMarks() {
-      const divs = this.showField.getElementsByTagName('div')
-      for (let i = 0; i < divs.length; i++) {
-        divs[i].remove()
-      }
-
-      const ms = JSON.parse(this.marks)
-      Object.keys(ms).forEach((key, index) => {
+      this.marks.forEach((mark, index) => {
         const a = document.createElement('a')
         a.append(index + 1)
         a.classList.add('relative', 'text-white', 'left-1', '-top-3', 'text-xs')
@@ -64,23 +61,20 @@ export default {
         const div = document.createElement('div')
         div.append(img)
         div.append(a)
-        const location = ms[key]['location'] ? JSON.parse(ms[key]['location']) : {x: 0, y: 0}
         div.classList.add('absolute', 'w-5')
-        const trimming = JSON.parse(this.trimming)
-        div.style.left = Math.floor(this.showFieldWidth * (trimming.x - location.x + 0.5)) + 'px'
-        div.style.top = Math.floor(this.showFieldHeight * (trimming.y - location.y + 0.5)) + 'px'
+        div.id = `locate-mark-${mark.id}`
         this.showField.append(div)
       })
     },
     handleResize() {
       this.getFieldSize()
-      this.locateMarks()
     }
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
-    this.getFieldSize()
+    this.showField = document.getElementById('show-field')
     this.locateMarks()
+    this.getFieldSize()
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)

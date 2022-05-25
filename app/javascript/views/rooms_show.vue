@@ -1,6 +1,6 @@
 <template>
   <section>
-    <image-show :id="mapId" :image-url="mapImageUrl" :trimming="mapTrimming" :marks="marks"
+    <image-show :id="mapId" :image-url="mapImageUrl" :trimming="mapTrimming" :marksJSON="marks"
                 target-model="map" @emit-form-data="getFormData"></image-show>
   </section>
 </template>
