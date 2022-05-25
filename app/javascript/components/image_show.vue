@@ -81,6 +81,14 @@ export default {
         console.log(id.replace(regex, this.locatorsModel))
         const a = document.getElementById(id.replace(regex, this.locatorsModel))
         a.classList.add('active')
+        console.log(a.offsetTop)
+        const table = document.getElementById('marks-table')
+        console.log(table)
+        table.scrollTo({
+          behavior: 'smooth',
+          left: 0,
+          top: a.offsetTop
+        })
       }
     },
     handleResize() {
