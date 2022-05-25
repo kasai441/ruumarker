@@ -1,16 +1,10 @@
-const trimming = (formData, targetModel) => {
-  const trimming = formData.get(`${targetModel}[trimming]`)
-  if (trimming) {
-    return JSON.parse(trimming)
-  } else {
-    return {x: 0, y: 0}
-  }
+const fromJson = (formData, targetModel, param) => {
+  return parseOrInit(formData.get(`${targetModel}[${param}]`))
 }
 
-const location = (formData, targetModel) => {
-  const location = formData.get(`${targetModel}[location]`)
-  if (location) {
-    return JSON.parse(location)
+const parseOrInit = param => {
+  if (param) {
+    return JSON.parse(param)
   } else {
     return {x: 0, y: 0}
   }
@@ -70,8 +64,8 @@ const reduceLargeImage = (imageUrl, imageFile) => {
 
 export default {
   namespaced: true,
-  trimming,
-  location,
+  fromJson,
+  parseOrInit,
   initFormData,
   renewFormData,
   getImageUrl,

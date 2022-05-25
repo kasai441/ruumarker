@@ -131,7 +131,7 @@ export default {
         this.frame.style.top = this.shade.style.top = this.frameOffsetY + 'px'
 
         // トリミング分の反映
-        const trimming = params.trimming(this.mapFormData, 'map')
+        const trimming = params.fromJson(this.mapFormData, 'map', 'trimming')
         this.imageTrimmingX = Math.floor(this.fieldWidth * trimming.x)
         this.imageTrimmingY = Math.floor(this.fieldHeight * trimming.y)
         this.image = document.getElementById('edit-location-image')
@@ -160,9 +160,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
 
     this.imageUrl = this.mapFormData.get('map[image_url]')
-
-    this.location = params.location(this.formData, 'mark')
-    console.log(this.location)
+    this.location = params.fromJson(this.formData, this.targetModel, 'location')
     this.getFieldSize()
   },
   async updated() {

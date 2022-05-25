@@ -9,6 +9,8 @@
   </section>
 </template>
 <script>
+import params from '../modules/params'
+
 export default {
   name: 'ImageShow',
   props: [
@@ -43,7 +45,7 @@ export default {
       showImage.style.top = Math.floor(this.showFieldHeight * trimming.y) + 'px'
       this.marks.forEach(mark => {
         const div = document.getElementById(`locate-mark-${mark.id}`)
-        const location = mark.location ? JSON.parse(mark.location) : {x: 0, y: 0}
+        const location = params.parseOrInit(mark.location)
         div.style.left = Math.floor(this.showFieldWidth * (0.5 - location.x)) - 10 + 'px'
         div.style.top = Math.floor(this.showFieldHeight * (0.5 - location.y)) - 10 + 'px'
       })
