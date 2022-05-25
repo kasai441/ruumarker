@@ -163,14 +163,6 @@ export default {
     this.location = params.fromJson(this.formData, this.targetModel, 'location')
     this.getFieldSize()
   },
-  async updated() {
-    console.log('LocationEdit#updated')
-    // const imageFile = this.formData.get(`${this.targetModel}[image]`)
-    // if (!imageFile) return
-    //
-    // const image = document.getElementById( 'location-image' )
-    // image.src = await params.getImageUrl(imageFile)
-  },
   beforeDestroy: () => {
     window.removeEventListener('resize', this.handleResize)
     window.removeEventListener('scroll', this.handleScroll)
