@@ -1,9 +1,9 @@
 <template>
   <section id="image-show">
     <div class="flex flex-col items-center">
-      <div id="show-field" @mouseover="activate($event)"
+      <div id="show-field" @pointerdown="activate($event)"
            class="my-8 edit-size rounded-lg relative outline outline-3 outline-slate-200 overflow-hidden">
-        <img :src="imageUrl" @mouseover.prevent
+        <img :src="imageUrl"
              id="show-image" class="rounded-lg absolute edit-size w-full object-contain">
       </div>
       <a @click="imageEdit" id="image-edit" class="btn btn-lime">{{ fieldEditName }}</a>
@@ -58,36 +58,36 @@ export default {
       this.locators.forEach((locator, index) => {
         const img = document.createElement('img')
         img.src = `/${this.locatorsModel}.png`
-        img.classList.add('absolute', 'w-5')
+        img.classList.add('absolute', 'w-5', 'pointer-events-none')
 
         const number = document.createElement('a')
         number.append(index + 1)
-        number.classList.add('relative', 'text-white', 'left-1', '-top-3', 'text-xs')
+        number.classList.add('relative', 'text-white', 'left-1', '-top-3', 'text-xs', 'pointer-events-none')
 
         const a = document.createElement('a')
         a.append(img)
         a.append(number)
         a.classList.add('absolute', 'w-5')
         a.id = `locator-${locator.id}`
-        a.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${locator.id}/edit`
         this.showField.append(a)
       })
     },
     activate(e) {
       const id = e.path[0].id
-      console.log(id)
       const regex = /locator/g
       if (id && id.match(regex)) {
-        console.log(id.replace(regex, this.locatorsModel))
-        const a = document.getElementById(id.replace(regex, this.locatorsModel))
-        a.classList.add('active')
-        console.log(a.offsetTop)
         const table = document.getElementById('marks-table')
-        console.log(table)
+        const trs = table.getElementsByTagName('tr')
+        Array.prototype.forEach.call(trs, tr => {
+          tr.classList.remove('active')
+        })
+
+        const tr = document.getElementById(id.replace(regex, this.locatorsModel))
+        tr.classList.add('active')
         table.scrollTo({
           behavior: 'smooth',
           left: 0,
-          top: a.offsetTop
+          top: tr.offsetTop
         })
       }
     },

@@ -14,13 +14,6 @@ map="#{map.to_json}"
 div
   div.h-64.overflow-y-auto.w-full id="marks-table"
     table.table.table-compact.w-full
-      thead
-        tr
-          th 番号
-          th= Mark.human_attribute_name(:description)
-          th= Mark.human_attribute_name(:created_at)
-          th
-          th
       tbody
         - @room.map.marks.order(:created_at).each_with_index do |mark, index|
           tr id="mark-#{mark.id}"
