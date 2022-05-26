@@ -333,7 +333,7 @@ describe 'キズ管理機能', type: :system do
         visit room_path(room1)
         page.accept_confirm do
           within("#mark-#{mark1.id}") do
-            click_link('削除')
+            click_link('×')
           end
         end
       end
