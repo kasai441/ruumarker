@@ -92,8 +92,8 @@ export default {
       }
     },
     visitLocators(e) {
-      if (e.path[0].childNodes[0].classList.value.includes('btn')) return
-
+      if (e.path[0].classList.value.includes('btn')) return
+      
       location.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${e.path[1].id.replace('mark-', '')}/edit`
     },
     handleResize() {

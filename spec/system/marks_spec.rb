@@ -38,9 +38,7 @@ describe 'キズ管理機能', type: :system do
 
     before do
       visit room_path(room1)
-      within("#mark-#{mark1.id}") do
-        click_link('変更')
-      end
+      find("#mark-#{mark1.id}").click
     end
 
     describe 'キズ画像トリミング機能' do
@@ -65,9 +63,7 @@ describe 'キズ管理機能', type: :system do
         it 'トリミングが保存され、もう一度編集画面を開くとトリミングが反映されている' do
           # expect(page).to have_selector '.alert-success', text: '変更しました
           expect(page).to have_selector 'h1', text: 'キズ点検表'
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-image'
           edit_image = page.find_by_id('edit-image')
           left = style_px_to_i(edit_image, 'left')
@@ -110,9 +106,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '画像が更新されている' do
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-image'
           edit_image = page.find_by_id('edit-image')
           expect(edit_image[:src]).to include 'test_image.png'
@@ -128,9 +122,7 @@ describe 'キズ管理機能', type: :system do
 
         it '更新内容が反映される' do
           # expect(page).to have_selector '.alert-success', text: '変更しました
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-image'
           edit_image = page.find_by_id('edit-image')
           left = style_px_to_i(edit_image, 'left')
@@ -148,9 +140,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '上限のトリミング幅となる' do
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-image'
           edit_image = page.find_by_id('edit-image')
           left = style_px_to_i(edit_image, 'left')
@@ -168,9 +158,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '下限のトリミング幅となる' do
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-image'
           edit_image = page.find_by_id('edit-image')
           left = style_px_to_i(edit_image, 'left')
@@ -200,10 +188,11 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '変更が反映される' do
-          within("#mark-#{mark1.id}") do
+          tr = find("#mark-#{mark1.id}")
+          within(tr) do
             expect(page).to have_content '滲み　（２個所）⁉️…'
-            click_link('変更')
           end
+          tr.click
           expect(find('#edit-description').value).to eq '滲み　（２個所）⁉️？ ( 100cm )️'
         end
       end
@@ -216,9 +205,7 @@ describe 'キズ管理機能', type: :system do
         it '入力が60以上できず、制限文字数で登録される' do
           expect(find('#edit-description').value.length).to eq 60
           find('#update').click
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(find('#edit-description').value.length).to eq 60
         end
       end
@@ -245,9 +232,7 @@ describe 'キズ管理機能', type: :system do
         it '配置が保存され、もう一度編集画面を開くと変更が反映されている' do
           # expect(page).to have_selector '.alert-success', text: '変更しました
           expect(page).to have_selector 'h1', text: 'キズ点検表'
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-location-image'
           edit_location_image = page.find_by_id('edit-location-image')
           left = style_px_to_i(edit_location_image, 'left')
@@ -267,9 +252,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '上限の配置移動幅となる' do
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-location-image'
           edit_location_image = page.find_by_id('edit-location-image')
           left = style_px_to_i(edit_location_image, 'left')
@@ -289,9 +272,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '下限の配置移動幅となる' do
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-location-image'
           edit_location_image = page.find_by_id('edit-location-image')
           left = style_px_to_i(edit_location_image, 'left')
@@ -313,9 +294,7 @@ describe 'キズ管理機能', type: :system do
           page.driver.browser.action.drag_and_drop_by(edit_image.native, trim_x, trim_y).perform
           find('#update').click
 
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           # debugger
           # expect(page).to have_selector '#edit-location-image'
           edit_location_image = page.find_by_id('edit-location-image')
@@ -326,9 +305,7 @@ describe 'キズ管理機能', type: :system do
         it 'フレームが配置移動して、さらに画像はトリミングの移動が反映されている' do
           # expect(page).to have_selector '.alert-success', text: '変更しました
           expect(page).to have_selector 'h1', text: 'キズ点検表'
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-location-image'
           edit_location_frame = page.find_by_id('edit-location-frame')
           edit_location_image = page.find_by_id('edit-location-image')
