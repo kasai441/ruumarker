@@ -2,7 +2,7 @@
   <section id="image-show">
     <div class="flex flex-col items-center">
       <div id="show-field" @pointerdown="activate($event)"
-           class="my-8 edit-size rounded-lg relative outline outline-3 outline-slate-200 overflow-hidden">
+           class="mb-4 edit-size rounded-lg relative outline outline-3 outline-slate-200 overflow-hidden">
         <img :src="imageUrl"
              id="show-image" class="rounded-lg absolute edit-size w-full object-contain">
       </div>

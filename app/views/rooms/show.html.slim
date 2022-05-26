@@ -1,4 +1,4 @@
-h1.w-full.p-6.text-lg.font-bold.bg-white.flex.justify-center
+h1.w-full.p-4.text-lg.font-bold.bg-white.flex.justify-center
   |キズ点検表
 - mark_keys = %w[id location created_at]
 - marks = @room.map.marks.order(:created_at).map {|mark| mark.attributes.filter {|k,_| mark_keys.include?(k)}}
@@ -11,8 +11,8 @@ marks="#{marks.to_json}"
 map="#{map.to_json}"
 )
 
-div.flex.flex-col.items-center
-  div.h-64.overflow-y-auto id="marks-table"
+div.py-4.flex.flex-col.items-center
+  div.pb-4.h-64.overflow-y-auto id="marks-table"
     table.table.table-compact
       thead
         tr
@@ -30,7 +30,7 @@ div.flex.flex-col.items-center
                     data: { turbo_method: :delete,
                             turbo_confirm: "キズ（#{mark.brief_description}）を削除します。よろしいですか？" },
                     class: 'btn btn-circle btn-outline btn-sm'
-  div.flex.justify-center
+  div.flex.justify-center.py-4
     = link_to 'キズ追加', new_room_mark_path(@room),
             id: 'create-mark', class: 'btn btn-lime', data: { turbo: false }
     = link_to 'ルーム削除', @room,
