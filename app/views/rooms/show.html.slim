@@ -11,15 +11,15 @@ marks="#{marks.to_json}"
 map="#{map.to_json}"
 )
 
-div
-  div.h-64.overflow-y-auto.w-full id="marks-table"
-    table.table.table-compact.w-full
+div.flex.flex-col.items-center
+  div.h-64.overflow-y-auto.edit-size id="marks-table"
+    table.table.table-compact
       tbody
         - @room.map.marks.order(:created_at).each_with_index do |mark, index|
           tr id="mark-#{mark.id}"
             td= index + 1
             td= mark.brief_description
-            td= mark.created_at
+            td.whitespace-normal= mark.created_at
             td= link_to '変更', edit_room_mark_path(mark.map.room, mark),
                     data: { turbo: false }, class: 'btn btn-lime'
             td= link_to '削除', room_mark_path(mark.map.room, mark),

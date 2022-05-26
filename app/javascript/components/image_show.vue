@@ -91,17 +91,32 @@ export default {
         })
       }
     },
+    visitLocators(e) {
+      location.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${e.path[1].id.replace('mark-', '')}/edit`
+    },
     handleResize() {
       this.getFieldSize()
     }
   },
   mounted() {
+    const table = document.getElementById('marks-table')
+    const trs = table.getElementsByTagName('tr')
+    Array.prototype.forEach.call(trs, tr => {
+      tr.addEventListener('click', this.visitLocators)
+    })
     window.addEventListener('resize', this.handleResize)
+
     this.showField = document.getElementById('show-field')
     this.generateLocators()
     this.getFieldSize()
   },
   beforeDestroy() {
+    const table = document.getElementById('marks-table')
+    const trs = table.getElementsByTagName('tr')
+    Array.prototype.forEach.call(trs, tr => {
+      tr.removeEventListener('click', this.visitLocators)
+    })
+
     window.removeEventListener('resize', this.handleResize)
   }
 }
