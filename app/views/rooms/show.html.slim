@@ -12,8 +12,14 @@ map="#{map.to_json}"
 )
 
 div.flex.flex-col.items-center
-  div.h-64.overflow-y-auto.edit-size id="marks-table"
+  div.h-64.overflow-y-auto id="marks-table"
     table.table.table-compact
+      thead
+        tr
+          th
+          th 概要
+          th 作成日
+          th 削除
       tbody
         - @room.map.marks.order(:created_at).each_with_index do |mark, index|
           tr id="mark-#{mark.id}"
