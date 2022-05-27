@@ -68,11 +68,11 @@ describe 'ルーム管理機能', type: :system do
     context 'キズを2つ作ってそれぞれ移動したとき' do
       before do
         find_by_id("mark-#{mark1.id}").click
-        page.driver.browser.action.drag_and_drop_by(page.find_by_id('edit-location-image').native, 15, -25).perform
+        page.driver.browser.action.drag_and_drop_by(page.find_by_id('edit-location-image').native, 11, -21).perform
         find_by_id('update').click
 
         find_by_id("mark-#{mark2.id}").click
-        page.driver.browser.action.drag_and_drop_by(page.find_by_id('edit-location-image').native, -40, 25).perform
+        page.driver.browser.action.drag_and_drop_by(page.find_by_id('edit-location-image').native, -31, 41).perform
         find_by_id('update').click
       end
 
@@ -83,19 +83,38 @@ describe 'ルーム管理機能', type: :system do
         m1 = find_by_id("locator-#{mark1.id}")
         left = style_px_to_i(m1, 'left')
         top = style_px_to_i(m1, 'top')
-        expect(left).to be_within(2).of(field_width / 2 - 10 - 15)
-        expect(top).to be_within(2).of(field_height / 2 - 10 + 25)
+        expect(left).to be_within(2).of(field_width / 2 - 10 - 11)
+        expect(top).to be_within(2).of(field_height / 2 - 10 + 21)
 
         m2 = find_by_id("locator-#{mark2.id}")
         left = style_px_to_i(m2, 'left')
         top = style_px_to_i(m2, 'top')
-        expect(left).to be_within(2).of(field_width / 2 - 10 + 40)
-        expect(top).to be_within(2).of(field_height / 2 - 10 - 25)
+        expect(left).to be_within(2).of(field_width / 2 - 10 + 31)
+        expect(top).to be_within(2).of(field_height / 2 - 10 - 41)
       end
     end
 
     context 'キズを移動した後、マップのトリミングを変えたとき' do
-      it '画像の中でのキズの位置がキープされている（移動分＋トリミング分、動いている）'
+      before do
+        find_by_id("mark-#{mark1.id}").click
+        page.driver.browser.action.drag_and_drop_by(page.find_by_id('edit-location-image').native, -52, 42).perform
+        find_by_id('update').click
+
+        find_by_id('image-edit').click
+        page.driver.browser.action.drag_and_drop_by(page.find_by_id('edit-image').native, -32, -22).perform
+        find_by_id('update').click
+      end
+
+      let!(:field_width) { style_px_to_i(show_image, 'width') }
+      let!(:field_height) { style_px_to_i(show_image, 'height') }
+
+      it '画像の中でのキズの位置がキープされている（移動分＋トリミング分、動いている）' do
+        m = find_by_id("locator-#{mark1.id}")
+        left = style_px_to_i(m, 'left')
+        top = style_px_to_i(m, 'top')
+        expect(left).to be_within(4).of(field_width / 2 - 10 + 52 - 32)
+        expect(top).to be_within(4).of(field_height / 2 - 10 - 42 - 22)
+      end
     end
   end
 
