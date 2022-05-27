@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'support/dom_helper'
 
 describe 'ルーム管理機能', type: :system do
+  include DomHelper
+
   describe '新規作成機能' do
     let(:room1) { FactoryBot.create(:room) }
     let!(:map1) { FactoryBot.create(:map, room: room1) }
@@ -48,7 +51,21 @@ describe 'ルーム管理機能', type: :system do
     end
 
     context '初期のキズ作成時' do
-      it 'キズが真ん中に表示されている'
+      before do
+        visit room_path(room1)
+      end
+
+      let!(:field_width) { style_px_to_i(show_image, 'width') }
+      let!(:field_height) { style_px_to_i(show_image, 'height') }
+
+      it 'キズが真ん中に表示されている' do
+        a = find_by_id("locator-#{mark1.id}")
+
+        left = style_px_to_i(a, 'left')
+        top = style_px_to_i(a, 'top')
+        expect(left).to be_within(2).of(field_width / 2 - 10)
+        expect(top).to be_within(2).of(field_height / 2 - 10)
+      end
     end
 
     context 'キズを2つ作ってそれぞれ移動したとき' do
