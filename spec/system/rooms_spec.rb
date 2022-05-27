@@ -20,7 +20,7 @@ describe 'ルーム管理機能', type: :system do
       let!(:ex_rooms_count) { Room.all.count }
 
       before do
-        find('#create-room').click
+        find_by_id('create-room').click
       end
 
       it 'ルームが作成されてマップアップロード画面に遷移する' do
@@ -66,7 +66,7 @@ describe 'ルーム管理機能', type: :system do
 
     context 'キズを2つ作ってそれぞれ移動したとき' do
       before do
-        
+        find_by_id('creat-mark').click
       end
 
       it 'それぞれの位置に表示される'
@@ -86,7 +86,7 @@ describe 'ルーム管理機能', type: :system do
     context 'タイトルをクリックするとき' do
       before do
         visit room_path(room1)
-        find('#title-logo').click
+        find_by_id('title-logo').click
       end
 
       it 'ルーム詳細画面に遷移し、マップ画像が表示される' do
@@ -98,8 +98,8 @@ describe 'ルーム管理機能', type: :system do
     context '2回タイトルをクリックするとき' do
       before do
         visit room_path(room1)
-        find('#title-logo').click
-        find('#title-logo').click
+        find_by_id('title-logo').click
+        find_by_id('title-logo').click
       end
 
       it 'ルーム詳細画面に遷移し、マップ画像が表示される' do

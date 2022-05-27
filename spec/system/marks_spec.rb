@@ -16,10 +16,10 @@ describe 'キズ管理機能', type: :system do
 
     context '「キズ追加ボタン」を押したとき' do
       let!(:ex_marks_count) { Mark.all.count }
-      let(:edit_image) { find('#edit-image') }
+      let(:edit_image) { find_by_id('edit-image') }
 
       before do
-        find('#create-mark').click
+        find_by_id('create-mark').click
       end
 
       it '登録され、キズ編集画面に遷移し、サンプルのキズ画像が表示される' do
@@ -57,7 +57,7 @@ describe 'キズ管理機能', type: :system do
       context '編集画面にてトリミング操作を行ったとき' do
         before do
           page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
-          find('#update').click
+          find_by_id('update').click
         end
 
         it 'トリミングが保存され、もう一度編集画面を開くとトリミングが反映されている' do
@@ -102,7 +102,7 @@ describe 'キズ管理機能', type: :system do
         before do
           expect(edit_image[:src]).to include 'test_image.jpg'
           attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
-          find('#update').click
+          find_by_id('update').click
         end
 
         it '画像が更新されている' do
@@ -117,7 +117,7 @@ describe 'キズ管理機能', type: :system do
         before do
           attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
           page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
-          find('#update').click
+          find_by_id('update').click
         end
 
         it '更新内容が反映される' do
@@ -136,7 +136,7 @@ describe 'キズ管理機能', type: :system do
         before do
           page.driver.browser.action.drag_and_drop_by(edit_image.native, constrainRangeX + 10,
                                                       constrainRangeY + 10).perform
-          find('#update').click
+          find_by_id('update').click
         end
 
         it '上限のトリミング幅となる' do
@@ -154,7 +154,7 @@ describe 'キズ管理機能', type: :system do
         before do
           page.driver.browser.action.drag_and_drop_by(edit_image.native, -constrainRangeX - 10,
                                                       -constrainRangeY - 10).perform
-          find('#update').click
+          find_by_id('update').click
         end
 
         it '下限のトリミング幅となる' do
@@ -173,7 +173,7 @@ describe 'キズ管理機能', type: :system do
       context 'キズの概要をテキストエリアに入力して更新したとき' do
         before do
           fill_in 'edit-description', with: '壁紙はがれかけ、50cm'
-          find('#update').click
+          find_by_id('update').click
         end
 
         it '変更が反映される' do
@@ -184,7 +184,7 @@ describe 'キズ管理機能', type: :system do
       context 'キズの概要のテキストに漢字ひらがな数字記号を混ぜて入力して更新したとき' do
         before do
           fill_in 'edit-description', with: '滲み　（２個所）⁉️？ ( 100cm )️'
-          find('#update').click
+          find_by_id('update').click
         end
 
         it '変更が反映される' do
@@ -193,7 +193,7 @@ describe 'キズ管理機能', type: :system do
             expect(page).to have_content '滲み　（２個所）⁉️…'
           end
           tr.click
-          expect(find('#edit-description').value).to eq '滲み　（２個所）⁉️？ ( 100cm )️'
+          expect(find_by_id('edit-description').value).to eq '滲み　（２個所）⁉️？ ( 100cm )️'
         end
       end
 
@@ -203,10 +203,10 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '入力が60以上できず、制限文字数で登録される' do
-          expect(find('#edit-description').value.length).to eq 60
-          find('#update').click
+          expect(find_by_id('edit-description').value.length).to eq 60
+          find_by_id('update').click
           find("#mark-#{mark1.id}").click
-          expect(find('#edit-description').value.length).to eq 60
+          expect(find_by_id('edit-description').value.length).to eq 60
         end
       end
     end
@@ -226,7 +226,7 @@ describe 'キズ管理機能', type: :system do
       context '編集画面にて配置を変更したとき' do
         before do
           page.driver.browser.action.drag_and_drop_by(edit_location_image.native, move_x, move_y).perform
-          find('#update').click
+          find_by_id('update').click
         end
 
         it '配置が保存され、もう一度編集画面を開くと変更が反映されている' do
@@ -248,7 +248,7 @@ describe 'キズ管理機能', type: :system do
               .move_to(edit_location_image.native, 0, 0)
               .click_and_hold.move_by(constrainRangeX + 10, constrainRangeY + 10)
               .release.perform
-          find('#update').click
+          find_by_id('update').click
         end
 
         it '上限の配置移動幅となる' do
@@ -268,7 +268,7 @@ describe 'キズ管理機能', type: :system do
               .move_to(edit_location_image.native, edit_location_field_width - 1, edit_location_field_height - 1)
               .click_and_hold.move_by(-constrainRangeX - 10, -constrainRangeY - 10)
               .release.perform
-          find('#update').click
+          find_by_id('update').click
         end
 
         it '下限の配置移動幅となる' do
@@ -289,16 +289,16 @@ describe 'キズ管理機能', type: :system do
         let(:locate_y) { 100 }
         before do
           visit root_path
-          find('#image-edit').click
+          find_by_id('image-edit').click
           edit_image = page.find_by_id('edit-image')
           page.driver.browser.action.drag_and_drop_by(edit_image.native, trim_x, trim_y).perform
-          find('#update').click
+          find_by_id('update').click
 
           find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-location-image'
           edit_location_image = page.find_by_id('edit-location-image')
           page.driver.browser.action.drag_and_drop_by(edit_location_image.native, locate_x, locate_y).perform
-          find('#update').click
+          find_by_id('update').click
         end
 
         it 'フレームと画像が配置移動分だけ移動して、フレームはトリミング分だけ反対方向に移動する' do
