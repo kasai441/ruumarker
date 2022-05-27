@@ -46,6 +46,18 @@ describe 'ルーム管理機能', type: :system do
         expect(page).to have_content 'リビング、フローリン…'
       end
     end
+
+    context '初期のキズ作成時' do
+      it 'キズが真ん中に表示されている'
+    end
+
+    context 'キズを2つ作ってそれぞれ移動したとき' do
+      it 'それぞれの位置に表示される'
+    end
+
+    context 'キズを移動した後、マップのトリミングを変えたとき' do
+      it '画像の中でのキズの位置がキープされている（移動分＋トリミング分、動いている）'
+    end
   end
 
   describe 'リンク' do
