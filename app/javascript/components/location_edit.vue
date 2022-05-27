@@ -13,7 +13,7 @@
              class="pointer-events-none absolute edit-size
              outline outline-slate-100
              bg-transparent bg-transparent"></div>
-        <img :src="locatorImage" id="locators-image" draggable="false"
+        <img :src="locatorImage" id="locators-image" draggable="false" width="20"
              class="pointer-events-none absolute">
         <div class="absolute edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
         <div class="absolute edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
