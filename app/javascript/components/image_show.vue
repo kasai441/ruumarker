@@ -12,6 +12,7 @@
 </template>
 <script>
 import params from '../modules/params'
+import tags from '../modules/tags'
 
 export default {
   name: 'ImageShow',
@@ -73,7 +74,7 @@ export default {
       })
     },
     activate(e) {
-      const id = e.path[0].id
+      const id = tags.parentTr(e.target).id
       const regex = /locator/g
       if (id && id.match(regex)) {
         const table = document.getElementById('marks-table')
@@ -95,9 +96,10 @@ export default {
       }
     },
     visitLocators(e) {
-      if (e.path[0].classList.value.includes('btn')) return
+      if (e.target.classList.value.includes('btn')) return
 
-      location.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${e.path[1].id.replace('mark-', '')}/edit`
+      const id = tags.parentTr(e.target).id.replace('mark-', '')
+      location.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${id}/edit`
     },
     handleResize() {
       this.getFieldSize()
