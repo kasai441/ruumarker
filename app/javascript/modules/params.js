@@ -69,5 +69,5 @@ export default {
   initFormData,
   renewFormData,
   getImageUrl,
-  reduceLargeImage,
+  reduceLargeImage
 }

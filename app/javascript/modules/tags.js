@@ -1,14 +1,10 @@
-const parentTr = element => {
-  if (element.nodeName === 'BODY') return null
+const parent = (name, elem) => {
+  if (elem.nodeName === 'BODY') return
 
-  if (element.parentElement.nodeName === 'TR') {
-    return element.parentElement
-  } else {
-    return parentTr(element.parentElement)
-  }
+  return elem.nodeName === name ? elem : parent(name, elem.parentElement)
 }
 
 export default {
   namespaced: true,
-  parentTr
+  parent
 }

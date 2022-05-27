@@ -74,10 +74,10 @@ export default {
       })
     },
     activate(e) {
-      const id = tags.parentTr(e.target).id
+      const a = tags.parent('A', e.target)
       const regex = /locator/g
-      if (id && id.match(regex)) {
-        const table = document.getElementById('marks-table')
+      if (a && a.id.match(regex)) {
+        const table = document.getElementById('locators-table')
         const trs = table.getElementsByTagName('tr')
         Array.prototype.forEach.call(trs, tr => {
           // CSS動作中にCSSを停止して再度動かすための処理
@@ -86,7 +86,7 @@ export default {
           tr.classList.remove('animate-fadeout')
         })
 
-        const tr = document.getElementById(id.replace(regex, this.locatorsModel))
+        const tr = document.getElementById(a.id.replace(regex, this.locatorsModel))
         tr.classList.add('animate-fadeout')
         table.scrollTo({
           behavior: 'smooth',
@@ -97,16 +97,19 @@ export default {
     },
     visitLocators(e) {
       if (e.target.classList.value.includes('btn')) return
-
-      const id = tags.parentTr(e.target).id.replace('mark-', '')
-      location.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${id}/edit`
+      const tr = tags.parent('TR', e.target)
+      const regex = `${this.locatorsModel}-`
+      if (tr && tr.id.match(regex)) {
+        const id = tr.id.replace(regex, '')
+        location.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${id}/edit`
+      }
     },
     handleResize() {
       this.getFieldSize()
     }
   },
   mounted() {
-    const table = document.getElementById('marks-table')
+    const table = document.getElementById('locators-table')
     const trs = table.getElementsByTagName('tr')
     Array.prototype.forEach.call(trs, tr => {
       tr.addEventListener('click', this.visitLocators)
@@ -118,7 +121,7 @@ export default {
     this.getFieldSize()
   },
   beforeDestroy() {
-    const table = document.getElementById('marks-table')
+    const table = document.getElementById('locators-table')
     const trs = table.getElementsByTagName('tr')
     Array.prototype.forEach.call(trs, tr => {
       tr.removeEventListener('click', this.visitLocators)
