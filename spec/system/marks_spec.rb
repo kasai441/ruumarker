@@ -301,7 +301,7 @@ describe 'キズ管理機能', type: :system do
           find('#update').click
         end
 
-        it 'フレームが配置移動して、さらに画像はトリミングの移動が反映されている' do
+        it 'フレームと画像が配置移動分だけ移動して、フレームはトリミング分だけ反対方向に移動する' do
           # expect(page).to have_selector '.alert-success', text: '変更しました
           expect(page).to have_selector 'h1', text: 'キズ点検表'
           find("#mark-#{mark1.id}").click
