@@ -295,8 +295,7 @@ describe 'キズ管理機能', type: :system do
           find('#update').click
 
           find("#mark-#{mark1.id}").click
-          # debugger
-          # expect(page).to have_selector '#edit-location-image'
+          expect(page).to have_selector '#edit-location-image'
           edit_location_image = page.find_by_id('edit-location-image')
           page.driver.browser.action.drag_and_drop_by(edit_location_image.native, locate_x, locate_y).perform
           find('#update').click
@@ -313,10 +312,10 @@ describe 'キズ管理機能', type: :system do
           frame_top = style_px_to_i(edit_location_frame, 'top')
           image_left = style_px_to_i(edit_location_image, 'left')
           image_top = style_px_to_i(edit_location_image, 'top')
-          expect(frame_left).to be_within(2).of(ex_left + locate_x)
-          expect(frame_top).to be_within(2).of(ex_top + locate_y)
-          expect(image_left).to be_within(4).of(ex_left + locate_x + trim_x)
-          expect(image_top).to be_within(4).of(ex_top + locate_y + trim_y)
+          expect(frame_left).to be_within(4).of(ex_left - trim_x + locate_x)
+          expect(frame_top).to be_within(4).of(ex_top - trim_y + locate_y)
+          expect(image_left).to be_within(4).of(ex_left + locate_x)
+          expect(image_top).to be_within(4).of(ex_top + locate_y)
         end
       end
     end

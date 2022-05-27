@@ -50,8 +50,8 @@ export default {
       this.locators.forEach(locator => {
         const a = document.getElementById(`locator-${locator.id}`)
         const location = params.parseOrInit(locator.location)
-        a.style.left = Math.floor(this.showFieldWidth * (0.5 - location.x)) - 10 + 'px'
-        a.style.top = Math.floor(this.showFieldHeight * (0.5 - location.y)) - 10 + 'px'
+        a.style.left = Math.floor(this.showFieldWidth * (0.5 - location.x + Number(trimming.x))) - 10 + 'px'
+        a.style.top = Math.floor(this.showFieldHeight * (0.5 - location.y + Number(trimming.y))) - 10 + 'px'
       })
     },
     generateLocators() {
