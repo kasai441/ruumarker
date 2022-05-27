@@ -22,11 +22,11 @@ div.py-4.flex.flex-col.items-center
           th 削除
       tbody
         - @room.map.marks.order(:created_at).each_with_index do |mark, index|
-          tr id="mark-#{mark.id}"
-            td= index + 1
-            td= mark.brief_description
-            td.whitespace-normal= mark.created_at
-            td= link_to '×', room_mark_path(mark.map.room, mark),
+          tr.hover id="mark-#{mark.id}"
+            td.bg-transparent= index + 1
+            td.bg-transparent= mark.brief_description
+            td.bg-transparent.whitespace-normal= mark.created_at
+            td.bg-transparent= link_to '×', room_mark_path(mark.map.room, mark),
                     data: { turbo_method: :delete,
                             turbo_confirm: "キズ（#{mark.brief_description}）を削除します。よろしいですか？" },
                     class: 'btn btn-circle btn-outline btn-sm'

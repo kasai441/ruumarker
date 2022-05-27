@@ -79,11 +79,14 @@ export default {
         const table = document.getElementById('marks-table')
         const trs = table.getElementsByTagName('tr')
         Array.prototype.forEach.call(trs, tr => {
-          tr.classList.remove('active')
+          // CSS動作中にCSSを停止して再度動かすための処理
+          // https://stackoverflow.com/questions/11131875/what-is-the-cleanest-way-to-disable-css-transition-effects-temporarily
+          tr.offsetHeight
+          tr.classList.remove('animate-fadeout')
         })
 
         const tr = document.getElementById(id.replace(regex, this.locatorsModel))
-        tr.classList.add('active')
+        tr.classList.add('animate-fadeout')
         table.scrollTo({
           behavior: 'smooth',
           left: 0,
