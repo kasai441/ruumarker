@@ -1,11 +1,11 @@
-- mark_keys = %w[id trimming description location]
-- mark = @mark.attributes.filter {|k,_| mark_keys.include?(k)}
-- mark[:image_url] = url_for @mark.image if @mark.image.present?
 - map_keys = %w[id trimming]
 - map = @mark.map.attributes.filter {|k,_| map_keys.include?(k)}
 - map[:image_url] = url_for @mark.map.image if @mark.map.image.present?
+- mark_keys = %w[id trimming description location]
+- mark = @mark.attributes.filter {|k,_| mark_keys.include?(k)}
+- mark[:image_url] = url_for @mark.image if @mark.image.present?
 #marks-edit(
 room_id="#{@mark.map.room.id}"
-mark="#{mark.to_json}"
 map="#{map.to_json}"
+mark="#{mark.to_json}"
 )

@@ -101,7 +101,7 @@ describe 'マップ管理機能', type: :system do
     let(:move_y) { show_field_height / 5 }
 
     before do
-      find('#map-edit').click
+      find('#image-edit').click
     end
 
     context '編集画面にてトリミング操作を行ったとき' do

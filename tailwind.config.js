@@ -27,6 +27,15 @@ module.exports = {
       },
       minWidth: {
         '72': '18rem',
+      },
+      animation: {
+        fadeout: 'fadeout 1s ease 1',
+      },
+      keyframes: {
+        fadeout: {
+          '0%': { 'background': 'rgba(223, 223, 223, 1)' },
+          '100%': { 'background': 'rgba(223, 223, 223, 0)' }
+        }
       }
     }
   }

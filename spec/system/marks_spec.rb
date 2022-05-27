@@ -38,9 +38,7 @@ describe 'キズ管理機能', type: :system do
 
     before do
       visit room_path(room1)
-      within("#mark-#{mark1.id}") do
-        click_link('変更')
-      end
+      find("#mark-#{mark1.id}").click
     end
 
     describe 'キズ画像トリミング機能' do
@@ -65,9 +63,7 @@ describe 'キズ管理機能', type: :system do
         it 'トリミングが保存され、もう一度編集画面を開くとトリミングが反映されている' do
           # expect(page).to have_selector '.alert-success', text: '変更しました
           expect(page).to have_selector 'h1', text: 'キズ点検表'
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-image'
           edit_image = page.find_by_id('edit-image')
           left = style_px_to_i(edit_image, 'left')
@@ -110,9 +106,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '画像が更新されている' do
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-image'
           edit_image = page.find_by_id('edit-image')
           expect(edit_image[:src]).to include 'test_image.png'
@@ -128,9 +122,7 @@ describe 'キズ管理機能', type: :system do
 
         it '更新内容が反映される' do
           # expect(page).to have_selector '.alert-success', text: '変更しました
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-image'
           edit_image = page.find_by_id('edit-image')
           left = style_px_to_i(edit_image, 'left')
@@ -148,9 +140,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '上限のトリミング幅となる' do
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-image'
           edit_image = page.find_by_id('edit-image')
           left = style_px_to_i(edit_image, 'left')
@@ -168,9 +158,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '下限のトリミング幅となる' do
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-image'
           edit_image = page.find_by_id('edit-image')
           left = style_px_to_i(edit_image, 'left')
@@ -200,10 +188,11 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '変更が反映される' do
-          within("#mark-#{mark1.id}") do
+          tr = find("#mark-#{mark1.id}")
+          within(tr) do
             expect(page).to have_content '滲み　（２個所）⁉️…'
-            click_link('変更')
           end
+          tr.click
           expect(find('#edit-description').value).to eq '滲み　（２個所）⁉️？ ( 100cm )️'
         end
       end
@@ -216,9 +205,7 @@ describe 'キズ管理機能', type: :system do
         it '入力が60以上できず、制限文字数で登録される' do
           expect(find('#edit-description').value.length).to eq 60
           find('#update').click
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(find('#edit-description').value.length).to eq 60
         end
       end
@@ -233,8 +220,8 @@ describe 'キズ管理機能', type: :system do
       let!(:edit_location_field_height) { style_px_to_i(edit_location_field, 'height') }
       let!(:constrainRangeX) { edit_location_field_width / 2 - 2 }
       let!(:constrainRangeY) { edit_location_field_height / 2 - 2 }
-      let(:move_x) { edit_location_field_width / 5 }
-      let(:move_y) { edit_location_field_height / 5 }
+      let(:move_x) { edit_location_field_width / 4 }
+      let(:move_y) { edit_location_field_height / 4 }
 
       context '編集画面にて配置を変更したとき' do
         before do
@@ -245,9 +232,7 @@ describe 'キズ管理機能', type: :system do
         it '配置が保存され、もう一度編集画面を開くと変更が反映されている' do
           # expect(page).to have_selector '.alert-success', text: '変更しました
           expect(page).to have_selector 'h1', text: 'キズ点検表'
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-location-image'
           edit_location_image = page.find_by_id('edit-location-image')
           left = style_px_to_i(edit_location_image, 'left')
@@ -267,9 +252,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '上限の配置移動幅となる' do
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-location-image'
           edit_location_image = page.find_by_id('edit-location-image')
           left = style_px_to_i(edit_location_image, 'left')
@@ -289,9 +272,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '下限の配置移動幅となる' do
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-location-image'
           edit_location_image = page.find_by_id('edit-location-image')
           left = style_px_to_i(edit_location_image, 'left')
@@ -301,10 +282,6 @@ describe 'キズ管理機能', type: :system do
         end
       end
 
-      # let(:room2) { FactoryBot.create(:room) }
-      # let(:map2) { FactoryBot.create(:map, room: room2, trimming: '{"x":-10,"y":15}') }
-      # let!(:mark2) { FactoryBot.create(:mark, map: map2) }
-
       context 'トリミングされたマップで配置移動をするとき' do
         let(:trim_x) { 100 }
         let(:trim_y) { -15 }
@@ -312,16 +289,13 @@ describe 'キズ管理機能', type: :system do
         let(:locate_y) { 100 }
         before do
           visit root_path
-          find('#map-edit').click
+          find('#image-edit').click
           edit_image = page.find_by_id('edit-image')
           page.driver.browser.action.drag_and_drop_by(edit_image.native, trim_x, trim_y).perform
           find('#update').click
 
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
-          # debugger
-          # expect(page).to have_selector '#edit-location-image'
+          find("#mark-#{mark1.id}").click
+          expect(page).to have_selector '#edit-location-image'
           edit_location_image = page.find_by_id('edit-location-image')
           page.driver.browser.action.drag_and_drop_by(edit_location_image.native, locate_x, locate_y).perform
           find('#update').click
@@ -330,9 +304,7 @@ describe 'キズ管理機能', type: :system do
         it 'フレームが配置移動して、さらに画像はトリミングの移動が反映されている' do
           # expect(page).to have_selector '.alert-success', text: '変更しました
           expect(page).to have_selector 'h1', text: 'キズ点検表'
-          within("#mark-#{mark1.id}") do
-            click_link('変更')
-          end
+          find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-location-image'
           edit_location_frame = page.find_by_id('edit-location-frame')
           edit_location_image = page.find_by_id('edit-location-image')
@@ -340,10 +312,10 @@ describe 'キズ管理機能', type: :system do
           frame_top = style_px_to_i(edit_location_frame, 'top')
           image_left = style_px_to_i(edit_location_image, 'left')
           image_top = style_px_to_i(edit_location_image, 'top')
-          expect(frame_left).to be_within(2).of(ex_left + locate_x)
-          expect(frame_top).to be_within(2).of(ex_top + locate_y)
-          expect(image_left).to be_within(4).of(ex_left + locate_x + trim_x)
-          expect(image_top).to be_within(4).of(ex_top + locate_y + trim_y)
+          expect(frame_left).to be_within(4).of(ex_left - trim_x + locate_x)
+          expect(frame_top).to be_within(4).of(ex_top - trim_y + locate_y)
+          expect(image_left).to be_within(4).of(ex_left + locate_x)
+          expect(image_top).to be_within(4).of(ex_top + locate_y)
         end
       end
     end
@@ -360,7 +332,7 @@ describe 'キズ管理機能', type: :system do
         visit room_path(room1)
         page.accept_confirm do
           within("#mark-#{mark1.id}") do
-            click_link('削除')
+            click_link('×')
           end
         end
       end

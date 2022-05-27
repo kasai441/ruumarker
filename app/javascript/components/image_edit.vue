@@ -109,7 +109,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
 
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
-    this.trimming = params.trimming(this.formData, this.targetModel)
+    this.trimming = params.fromJson(this.formData, this.targetModel, 'trimming')
     this.getFieldSize()
   },
   async updated() {
