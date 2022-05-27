@@ -3,8 +3,8 @@
 FactoryBot.define do
   factory :mark do
     description { 'リビング、フローリングに削れ' }
-    location { '{"x":0,"y":0}' }
-    trimming { '{"x":0,"y":0}' }
+    location { '' }
+    trimming { '' }
     after(:build) do |item|
       file_name = 'test_image.jpg'
       file_path = Rails.root.join('spec', 'fixtures', 'files', file_name)
