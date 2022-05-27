@@ -45,7 +45,7 @@ export default {
       this.showFieldHeight = Math.floor(this.showField.getBoundingClientRect().bottom) - showFieldTop
 
       const showImage = document.getElementById('show-image')
-      const trimming = JSON.parse(this.trimming)
+      const trimming = params.parseOrInit(this.trimming)
       showImage.style.left = Math.floor(this.showFieldWidth * trimming.x) + 'px'
       showImage.style.top = Math.floor(this.showFieldHeight * trimming.y) + 'px'
       this.locators.forEach(locator => {
