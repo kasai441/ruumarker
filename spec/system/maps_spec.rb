@@ -101,13 +101,13 @@ describe 'マップ管理機能', type: :system do
     let(:move_y) { show_field_height / 5 }
 
     before do
-      find('#image-edit').click
+      find_by_id('image-edit').click
     end
 
     context '編集画面にてトリミング操作を行ったとき' do
       before do
         page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
-        find('#update').click
+        find_by_id('update').click
       end
 
       it 'トリミングが保存され、詳細画面で反映されている' do
@@ -149,7 +149,7 @@ describe 'マップ管理機能', type: :system do
       before do
         expect(edit_image[:src]).to include 'test_image.jpg'
         attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
-        find('#update').click
+        find_by_id('update').click
       end
 
       it '画像が更新されている' do
@@ -163,7 +163,7 @@ describe 'マップ管理機能', type: :system do
       before do
         attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
         page.driver.browser.action.drag_and_drop_by(edit_image.native, move_x, move_y).perform
-        find('#update').click
+        find_by_id('update').click
       end
 
       it '更新内容が反映される' do
@@ -181,7 +181,7 @@ describe 'マップ管理機能', type: :system do
       before do
         page.driver.browser.action.drag_and_drop_by(edit_image.native, constrainRangeX + 10,
                                                     constrainRangeY + 10).perform
-        find('#update').click
+        find_by_id('update').click
       end
 
       it '上限のトリミング幅となる' do
@@ -198,7 +198,7 @@ describe 'マップ管理機能', type: :system do
       before do
         page.driver.browser.action.drag_and_drop_by(edit_image.native, -constrainRangeX - 10,
                                                     -constrainRangeY - 10).perform
-        find('#update').click
+        find_by_id('update').click
       end
 
       it '下限のトリミング幅となる' do
