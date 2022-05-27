@@ -38,11 +38,11 @@ describe 'ルーム管理機能', type: :system do
     let!(:mark1) { FactoryBot.create(:mark, map: map1) }
     let(:show_image) { page.find_by_id('show-image') }
 
-    context 'ルームにアクセスするとき' do
-      before do
-        visit room_path(room1)
-      end
+    before do
+      visit room_path(room1)
+    end
 
+    context 'ルームにアクセスするとき' do
       it 'ルーム詳細画面に遷移し、マップ画像が表示され、キズの説明が表示される' do
         expect(page).to have_selector 'h1', text: 'キズ点検表'
         expect(show_image[:src]).to include 'test_image.jpg'
@@ -51,10 +51,6 @@ describe 'ルーム管理機能', type: :system do
     end
 
     context '初期のキズ作成時' do
-      before do
-        visit room_path(room1)
-      end
-
       let!(:field_width) { style_px_to_i(show_image, 'width') }
       let!(:field_height) { style_px_to_i(show_image, 'height') }
 
@@ -69,6 +65,10 @@ describe 'ルーム管理機能', type: :system do
     end
 
     context 'キズを2つ作ってそれぞれ移動したとき' do
+      before do
+        
+      end
+
       it 'それぞれの位置に表示される'
     end
 
