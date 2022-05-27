@@ -36,6 +36,7 @@ describe 'ルーム管理機能', type: :system do
     let(:room1) { FactoryBot.create(:room) }
     let!(:map1) { FactoryBot.create(:map, room: room1) }
     let!(:mark1) { FactoryBot.create(:mark, map: map1) }
+    let!(:mark2) { FactoryBot.create(:mark, map: map1) }
     let(:show_image) { page.find_by_id('show-image') }
 
     before do
@@ -66,10 +67,31 @@ describe 'ルーム管理機能', type: :system do
 
     context 'キズを2つ作ってそれぞれ移動したとき' do
       before do
-        find_by_id('creat-mark').click
+        find_by_id("mark-#{mark1.id}").click
+        page.driver.browser.action.drag_and_drop_by(page.find_by_id('edit-location-image').native, 15, -25).perform
+        find_by_id('update').click
+
+        find_by_id("mark-#{mark2.id}").click
+        page.driver.browser.action.drag_and_drop_by(page.find_by_id('edit-location-image').native, -40, 25).perform
+        find_by_id('update').click
       end
 
-      it 'それぞれの位置に表示される'
+      let!(:field_width) { style_px_to_i(show_image, 'width') }
+      let!(:field_height) { style_px_to_i(show_image, 'height') }
+
+      it 'それぞれの位置に表示される' do
+        m1 = find_by_id("locator-#{mark1.id}")
+        left = style_px_to_i(m1, 'left')
+        top = style_px_to_i(m1, 'top')
+        expect(left).to be_within(2).of(field_width / 2 - 10 - 15)
+        expect(top).to be_within(2).of(field_height / 2 - 10 + 25)
+
+        m2 = find_by_id("locator-#{mark2.id}")
+        left = style_px_to_i(m2, 'left')
+        top = style_px_to_i(m2, 'top')
+        expect(left).to be_within(2).of(field_width / 2 - 10 + 40)
+        expect(top).to be_within(2).of(field_height / 2 - 10 - 25)
+      end
     end
 
     context 'キズを移動した後、マップのトリミングを変えたとき' do
