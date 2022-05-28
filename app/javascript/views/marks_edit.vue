@@ -2,16 +2,16 @@
   <section>
     <div class="flex flex-col items-center">
       <h1 class="w-full bg-white text-center p-4 text-2xl font-bold">キズ情報</h1>
-      <h2 class="w-full h2-font">キズ画像を編集してください</h2>
+      <h2 class="w-full font-h2">キズ画像を編集してください</h2>
       <div class="w-full flex flex-col items-center overflow-hidden">
         <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>
       </div>
       <image-upload :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-upload>
-      <h2 class="w-full h2-font">キズの概要を記入してください</h2>
+      <h2 class="w-full font-h2">キズの概要を記入してください</h2>
       <div class="w-full">
         <description-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></description-edit>
       </div>
-      <h2 class="w-full h2-font">キズの位置を編集してください</h2>
+      <h2 class="w-full font-h2">キズの位置を編集してください</h2>
       <div class="bg-slate-300 w-full flex flex-col items-center overflow-hidden">
         <location-edit :locator-form-data="formData" locator-model="mark" locator-image="/mark.png"
                        :field-form-data="mapFormData" field-model="map"

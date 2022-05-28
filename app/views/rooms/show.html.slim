@@ -1,5 +1,6 @@
-h1.w-full.p-4.text-lg.font-bold.bg-white.flex.justify-center
-  |キズ点検表
+div.flex.flex-col.items-center.pt-1
+  h2.w-field.font-h2
+    |キズ点検表
 - mark_keys = %w[id location created_at]
 - marks = @room.map.marks.order(:created_at).map {|mark| mark.attributes.filter {|k,_| mark_keys.include?(k)}}
 - map_keys = %w[id trimming]

@@ -18,7 +18,10 @@
     .main-screen {
         @apply w-5/6 sm:w-2/3 lg:w-3/5 min-w-72;
     }
-    .h2-font {
-        @apply p-2 pt-8 text-lg font-bold bg-white;
+    .font-h2 {
+        @apply py-4 font-bold text-lime-600;
+    }
+    .font-p {
+        @apply pb-4 text-sm
     }
 }
