@@ -5,8 +5,9 @@
            class="mb-4 edit-size rounded-lg relative outline outline-3 outline-slate-200 overflow-hidden">
         <img :src="imageUrl"
              id="show-image" class="rounded-lg absolute edit-size w-full object-contain">
+        <img src="/camera.png" @click='imageEdit' @pointerdown="shadeOn" @pointerup="shadeOff"
+             id="image-edit" class="absolute " width="40">
       </div>
-      <a @click="imageEdit" id="image-edit" class="btn btn-lime">{{ fieldEditName }}</a>
     </div>
   </section>
 </template>
@@ -54,6 +55,10 @@ export default {
         a.style.left = Math.floor(this.showFieldWidth * (0.5 - location.x + Number(trimming.x))) - 10 + 'px'
         a.style.top = Math.floor(this.showFieldHeight * (0.5 - location.y + Number(trimming.y))) - 10 + 'px'
       })
+
+      const camera = document.getElementById('image-edit')
+      camera.style.left = this.showFieldWidth - 45 + 'px'
+      camera.style.top = this.showFieldHeight - 45 + 'px'
     },
     generateLocators() {
       this.locators.forEach((locator, index) => {
@@ -103,6 +108,12 @@ export default {
         const id = tr.id.replace(regex, '')
         location.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${id}/edit`
       }
+    },
+    shadeOn(e) {
+      tags.parent('IMG', e.target).classList.add('animate-halfvanish')
+    },
+    shadeOff(e) {
+      tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
     handleResize() {
       this.getFieldSize()
