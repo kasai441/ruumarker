@@ -2,9 +2,9 @@
   <section id="image-show">
     <div class="flex flex-col items-center">
       <div id="show-field" @pointerdown="activate($event)"
-           class="mb-4 edit-size rounded-lg relative outline outline-3 outline-slate-200 overflow-hidden">
+           class="mb-4 w-field h-field rounded-lg relative outline outline-3 outline-slate-200 overflow-hidden">
         <img :src="imageUrl"
-             id="show-image" class="rounded-lg absolute edit-size w-full object-contain">
+             id="show-image" class="rounded-lg absolute w-field h-field w-full object-contain">
         <img src="/camera.png" @click='imageEdit' @pointerdown="shadeOn" @pointerup="shadeOff"
              id="image-edit" class="absolute " width="40">
       </div>

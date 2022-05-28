@@ -1,12 +1,12 @@
 <template>
   <section id="image-edit">
     <div id="edit-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
-         class="my-16 edit-size">
+         class="my-16 w-field h-field">
       <div class="relative">
         <img :src="imageUrl" id="edit-image" draggable="false" @pointerdown="touchstart($event)" @touchmove.prevent
-             class="absolute edit-size outline outline-slate-200 object-contain">
-        <div class="absolute edit-size pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
-        <div class="absolute edit-size pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
+             class="absolute w-field h-field outline outline-slate-200 object-contain">
+        <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
+        <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
       </div>
     </div>
   </section>
