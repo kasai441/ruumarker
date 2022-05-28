@@ -6,7 +6,7 @@
         <img :src="imageUrl"
              id="show-image" class="rounded-lg absolute w-field h-field w-full object-contain">
         <img src="/camera.png" @click='imageEdit' @pointerdown="shadeOn" @pointerup="shadeOff"
-             id="image-edit" class="absolute " width="40">
+             id="image-edit" class="absolute z-10" width="40">
       </div>
     </div>
   </section>
@@ -63,17 +63,17 @@ export default {
     generateLocators() {
       this.locators.forEach((locator, index) => {
         const img = document.createElement('img')
-        img.src = `/${this.locatorsModel}.png`
+        img.src = `/${this.locatorsModel}s.png`
         img.classList.add('absolute', 'w-5', 'pointer-events-none')
 
         const number = document.createElement('a')
         number.append(index + 1)
-        number.classList.add('relative', 'text-white', 'left-1', '-top-3', 'text-xs', 'pointer-events-none')
+        number.classList.add('relative', 'text-white', 'text-sm', 'pointer-events-none')
 
         const a = document.createElement('a')
         a.append(img)
         a.append(number)
-        a.classList.add('absolute', 'w-5')
+        a.classList.add('absolute', 'w-5', 'flex', 'justify-center', 'items-center')
         a.id = `locator-${locator.id}`
         this.showField.append(a)
       })
