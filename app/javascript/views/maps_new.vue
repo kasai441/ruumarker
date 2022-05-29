@@ -1,10 +1,12 @@
 <template>
   <section>
-    <div class="px-4 sm:px-6 md:px-8 pt-4 sm:pt-6 md:pt-8 flex flex-col items-center text-center">
-      <h1 class="p-4 text-2xl font-bold">間取り画像のアップロード</h1>
-      <p class="p-4 mx-8 text-sm sm:mx-32 lg:mx-48">お部屋の間取り画像をアップロードします。画像は端末に保存されてるものを選択するか、スマホの場合はカメラで画像として取り込んで、アップロードできます。</p>
-      <div id="preview-field" class="edit-size rounded-lg bg-white outline outline-3 outline-slate-200">
-        <img id="preview-image" src="/sample.png" class="object-contain edit-size rounded-lg">
+    <div class="pt-1 flex flex-col items-center">
+      <div class="w-field">
+        <h2 class="font-h2">間取り画像のアップロード</h2>
+        <p class="font-p">お部屋の間取り画像をアップロードします。画像は端末に保存されてるものを選択するか、スマホの場合はカメラで画像として取り込んで、アップロードできます。</p>
+      </div>
+      <div id="preview-field" class="w-field h-field rounded-lg bg-white outline outline-3 outline-slate-200">
+        <img id="preview-image" src="/sample.png" class="object-contain w-field h-field rounded-lg">
       </div>
       <image-upload target-model="map" @emit-form-data="getFormData"></image-upload>
     </div>

@@ -6,7 +6,7 @@
              :maxlength="maxLength"
              class="input input-bordered w-full" />
       <label class="label flex justify-end">
-        <span id="text-length" class="label-text-alt">{{ String(description).length }}/{{ maxLength }}</span>
+        <span id="text-length" class="label-text-alt">{{ descriptionLength }}/{{ maxLength }}</span>
       </label>
     </div>
   </section>
@@ -23,6 +23,7 @@ export default {
   data() {
     return {
       description: null,
+      descriptionLength: 0,
       maxLength: 60
     }
   },
@@ -35,6 +36,12 @@ export default {
   },
   mounted() {
     this.description = this.formData.get(`${this.targetModel}[description]`)
+    console.log('desc')
+    console.log(this.description)
+    console.log(String(this.description).length)
+  },
+  updated() {
+    this.descriptionLength = this.description ? this.description.length : 0
   }
 }
 </script>

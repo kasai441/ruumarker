@@ -1,5 +1,6 @@
-h1.w-full.p-4.text-lg.font-bold.bg-white.flex.justify-center
-  |キズ点検表
+div.flex.flex-col.items-center.pt-1
+  h2.w-field.font-h2
+    |キズ点検表
 - mark_keys = %w[id location created_at]
 - marks = @room.map.marks.order(:created_at).map {|mark| mark.attributes.filter {|k,_| mark_keys.include?(k)}}
 - map_keys = %w[id trimming]
@@ -12,28 +13,26 @@ map="#{map.to_json}"
 )
 
 div.py-4.flex.flex-col.items-center
-  div.pb-4.h-64.overflow-y-auto id="locators-table"
-    table.table.table-compact
-      thead
-        tr
-          th
-          th 概要
-          th 作成日
-          th 削除
-      tbody
-        - @room.map.marks.order(:created_at).each_with_index do |mark, index|
-          tr.hover id="mark-#{mark.id}"
-            td.bg-transparent= index + 1
-            td.bg-transparent= mark.brief_description
-            td.bg-transparent.whitespace-normal= mark.created_at
-            td.bg-transparent= link_to '×', room_mark_path(mark.map.room, mark),
-                    data: { turbo_method: :delete,
-                            turbo_confirm: "キズ（#{mark.brief_description}）を削除します。よろしいですか？" },
-                    class: 'btn btn-circle btn-outline btn-sm'
-  div.flex.justify-center.py-4
-    = link_to 'キズ追加', new_room_mark_path(@room),
-            id: 'create-mark', class: 'btn btn-lime', data: { turbo: false }
-    = link_to 'ルーム削除', @room,
-            data: { turbo_method: :delete,
-                    turbo_confirm: 'ルームを削除します。よろしいですか？' },
-            class: 'btn btn-lime'
+  div.h-28.overflow-y-auto id="locators-table"
+    - if @room.map.marks.present?
+      table.table.table-compact
+        thead
+          tr
+            th
+            th キズ
+            th 作成日
+            th
+        tbody
+          - @room.map.marks.order(:created_at).each_with_index do |mark, index|
+            tr.hover id="mark-#{mark.id}"
+              td.bg-transparent= index + 1
+              td.bg-transparent= mark.brief_description
+              td.bg-transparent.whitespace-normal= mark.created_at
+              td.bg-transparent= link_to '×', room_mark_path(mark.map.room, mark),
+                      data: { turbo_method: :delete,
+                              turbo_confirm: "キズ（#{mark.brief_description}）を削除します。よろしいですか？" },
+                      class: 'btn btn-circle btn-outline btn-sm'
+    - else
+      div.w-field.h-28.rounded-lg.bg-slate-100.flex.justify-center.items-center
+        | キズを追加できます
+  div.h-20

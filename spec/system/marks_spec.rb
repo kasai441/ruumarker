@@ -24,7 +24,7 @@ describe 'キズ管理機能', type: :system do
 
       it '登録され、キズ編集画面に遷移し、サンプルのキズ画像が表示される' do
         expect(Mark.all.count).to eq ex_marks_count + 1
-        expect(page).to have_selector 'h1', text: 'キズ情報'
+        expect(page).to have_selector 'h2', text: 'キズの位置'
         expect(page).to have_selector '#edit-image'
         expect(edit_image[:src]).to include 'sample.png'
       end
@@ -62,7 +62,7 @@ describe 'キズ管理機能', type: :system do
 
         it 'トリミングが保存され、もう一度編集画面を開くとトリミングが反映されている' do
           # expect(page).to have_selector '.alert-success', text: '変更しました
-          expect(page).to have_selector 'h1', text: 'キズ点検表'
+          expect(page).to have_selector 'h2', text: 'キズ点検表'
           find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-image'
           edit_image = page.find_by_id('edit-image')
@@ -231,7 +231,7 @@ describe 'キズ管理機能', type: :system do
 
         it '配置が保存され、もう一度編集画面を開くと変更が反映されている' do
           # expect(page).to have_selector '.alert-success', text: '変更しました
-          expect(page).to have_selector 'h1', text: 'キズ点検表'
+          expect(page).to have_selector 'h2', text: 'キズ点検表'
           find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-location-image'
           edit_location_image = page.find_by_id('edit-location-image')
@@ -303,7 +303,7 @@ describe 'キズ管理機能', type: :system do
 
         it 'フレームと画像が配置移動分だけ移動して、フレームはトリミング分だけ反対方向に移動する' do
           # expect(page).to have_selector '.alert-success', text: '変更しました
-          expect(page).to have_selector 'h1', text: 'キズ点検表'
+          expect(page).to have_selector 'h2', text: 'キズ点検表'
           find("#mark-#{mark1.id}").click
           expect(page).to have_selector '#edit-location-image'
           edit_location_frame = page.find_by_id('edit-location-frame')

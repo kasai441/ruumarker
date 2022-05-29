@@ -2,11 +2,12 @@
   <section id="image-show">
     <div class="flex flex-col items-center">
       <div id="show-field" @pointerdown="activate($event)"
-           class="mb-4 edit-size rounded-lg relative outline outline-3 outline-slate-200 overflow-hidden">
+           class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
         <img :src="imageUrl"
-             id="show-image" class="rounded-lg absolute edit-size w-full object-contain">
+             id="show-image" class="rounded-lg absolute w-field h-field w-full object-contain">
+        <img src="/camera.png" @click='imageEdit' @pointerdown="shadeOn" @pointerup="shadeOff"
+             id="image-edit" class="absolute z-10" width="40">
       </div>
-      <a @click="imageEdit" id="image-edit" class="btn btn-lime">{{ fieldEditName }}</a>
     </div>
   </section>
 </template>
@@ -54,21 +55,25 @@ export default {
         a.style.left = Math.floor(this.showFieldWidth * (0.5 - location.x + Number(trimming.x))) - 10 + 'px'
         a.style.top = Math.floor(this.showFieldHeight * (0.5 - location.y + Number(trimming.y))) - 10 + 'px'
       })
+
+      const camera = document.getElementById('image-edit')
+      camera.style.left = this.showFieldWidth - 45 + 'px'
+      camera.style.top = this.showFieldHeight - 45 + 'px'
     },
     generateLocators() {
       this.locators.forEach((locator, index) => {
         const img = document.createElement('img')
-        img.src = `/${this.locatorsModel}.png`
+        img.src = `/${this.locatorsModel}s.png`
         img.classList.add('absolute', 'w-5', 'pointer-events-none')
 
         const number = document.createElement('a')
         number.append(index + 1)
-        number.classList.add('relative', 'text-white', 'left-1', '-top-3', 'text-xs', 'pointer-events-none')
+        number.classList.add('relative', 'text-white', 'text-sm', 'pointer-events-none')
 
         const a = document.createElement('a')
         a.append(img)
         a.append(number)
-        a.classList.add('absolute', 'w-5')
+        a.classList.add('absolute', 'w-5', 'flex', 'justify-center', 'items-center')
         a.id = `locator-${locator.id}`
         this.showField.append(a)
       })
@@ -103,6 +108,12 @@ export default {
         const id = tr.id.replace(regex, '')
         location.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${id}/edit`
       }
+    },
+    shadeOn(e) {
+      tags.parent('IMG', e.target).classList.add('animate-halfvanish')
+    },
+    shadeOff(e) {
+      tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
     handleResize() {
       this.getFieldSize()
