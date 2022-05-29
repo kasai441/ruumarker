@@ -25,7 +25,7 @@ describe 'ホーム管理機能', type: :system do
       end
 
       it '1度目につくったルームにリダイレクトされる' do
-        expect(page).to have_selector 'h1', text: 'キズ点検表'
+        expect(page).to have_selector 'h2', text: 'キズ点検表'
         expect(show_image[:src]).to include 'test_image.jpg'
       end
     end

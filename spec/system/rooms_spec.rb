@@ -27,7 +27,7 @@ describe 'ルーム管理機能', type: :system do
         expect(Room.all.count).to eq ex_rooms_count + 1
         expect(page).to have_selector '#preview-image'
         expect(preview[:src]).to include 'sample.png'
-        expect(page).to have_selector 'h1', text: '間取り画像のアップロード'
+        expect(page).to have_selector 'h2', text: '間取り画像のアップロード'
       end
     end
   end
@@ -45,7 +45,7 @@ describe 'ルーム管理機能', type: :system do
 
     context 'ルームにアクセスするとき' do
       it 'ルーム詳細画面に遷移し、マップ画像が表示され、キズの説明が表示される' do
-        expect(page).to have_selector 'h1', text: 'キズ点検表'
+        expect(page).to have_selector 'h2', text: 'キズ点検表'
         expect(show_image[:src]).to include 'test_image.jpg'
         expect(page).to have_content 'リビング、フローリン…'
       end
@@ -131,7 +131,7 @@ describe 'ルーム管理機能', type: :system do
       end
 
       it 'ルーム詳細画面に遷移し、マップ画像が表示される' do
-        expect(page).to have_selector 'h1', text: 'キズ点検表'
+        expect(page).to have_selector 'h2', text: 'キズ点検表'
         expect(show_image[:src]).to include 'test_image.jpg'
       end
     end
@@ -144,7 +144,7 @@ describe 'ルーム管理機能', type: :system do
       end
 
       it 'ルーム詳細画面に遷移し、マップ画像が表示される' do
-        expect(page).to have_selector 'h1', text: 'キズ点検表'
+        expect(page).to have_selector 'h2', text: 'キズ点検表'
         expect(show_image[:src]).to include 'test_image.jpg'
       end
     end

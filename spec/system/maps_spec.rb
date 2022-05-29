@@ -23,7 +23,7 @@ describe 'マップ管理機能', type: :system do
       it '画像が登録されてルームに遷移する' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
         expect(show_image[:src]).to include 'test_image.jpg'
-        expect(page).to have_selector 'h1', text: 'キズ点検表'
+        expect(page).to have_selector 'h2', text: 'キズ点検表'
       end
     end
 
