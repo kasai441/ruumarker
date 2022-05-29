@@ -4,7 +4,7 @@
 
 @layer components {
     .btn-lime {
-        @apply py-3 px-5 mx-1 bg-lime-600 text-white font-semibold rounded-lg shadow-md hover:bg-lime-500 border-none;
+        @apply py-3 px-5 bg-lime-600 text-white font-semibold rounded-lg shadow-md hover:bg-lime-500 border-none;
     }
     .w-field {
         @apply w-72 sm:w-84 md:w-96 lg:w-108;

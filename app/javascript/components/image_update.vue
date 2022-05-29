@@ -1,9 +1,11 @@
 <template>
   <section id="image-update">
-    <div class="w-field flex justify-center items-center p-4">
-      <a @click="back" id="show" class="w-1/3 text-xl text-slate-400 btn btn btn-ghost">＜</a>
-      <a @click="update" id="update" class="w-1/3 btn btn-lime">変更</a>
-      <div class="w-1/3"></div>
+    <div class="flex justify-center p-4">
+      <div class="w-field flex items-center">
+        <a @click="back" id="show" class="w-1/3 text-xl text-slate-400 btn btn btn-ghost">＜</a>
+        <a @click="update" id="update" class="w-1/3 btn btn-lime">変更</a>
+        <div class="w-1/3"></div>
+      </div>
     </div>
   </section>
 </template>
