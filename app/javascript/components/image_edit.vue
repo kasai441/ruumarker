@@ -119,7 +119,6 @@ export default {
       this.$emit('emitFormData', formData)
     },
     generateLocators() {
-      console.log('a')
       const field = document.getElementById('edit-field')
       tags.generateLocators(this.locators, field)
     }

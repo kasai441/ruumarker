@@ -1,32 +1,32 @@
 <template>
   <section id="location-edit">
     <div id="edit-location-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
-         class="my-16 w-field h-field">
-      <div class="relative">
-        <img :src="imageUrl" id="edit-location-image" draggable="false" @pointerdown="touchstart($event)" @touchmove.prevent
-             class="absolute w-field h-field object-contain">
-        <div id="edit-location-frame"
-             class="pointer-events-none absolute w-field h-field
-             bg-transparent bg-transparent
-             outline outline-112 outline-slate-300"></div>
-        <div id="edit-location-shade"
-             class="pointer-events-none absolute w-field h-field
-             outline outline-slate-100
-             bg-transparent bg-transparent"></div>
-        <img :src="locatorImage" id="locators-image" draggable="false" width="20"
-             class="pointer-events-none absolute">
-        <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
-        <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
-      </div>
+         class="my-16 w-field h-field relative">
+      <img :src="imageUrl" id="edit-location-image" draggable="false" @pointerdown="touchstart($event)" @touchmove.prevent
+           class="absolute w-field h-field object-contain">
+      <div id="edit-location-frame"
+           class="pointer-events-none absolute w-field h-field
+           bg-transparent bg-transparent
+           outline outline-112 outline-slate-300"></div>
+      <div id="edit-location-shade"
+           class="pointer-events-none absolute w-field h-field
+           outline outline-slate-100
+           bg-transparent bg-transparent"></div>
+      <img :src="locatorImage" id="locators-image" draggable="false" width="20"
+           class="pointer-events-none absolute z-10">
+      <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
+      <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
     </div>
   </section>
 </template>
 <script>
 import params from '../modules/params'
+import tags from '../modules/tags'
 
 export default {
   name: 'LocationEdit',
   props: [
+    'locatorsJson',
     'locatorFormData',
     'locatorModel',
     'locatorImage',
@@ -53,7 +53,8 @@ export default {
       imageOffsetX: 0,
       imageOffsetY: 0,
       pointerX: 0,
-      pointerY: 0
+      pointerY: 0,
+      locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
     }
   },
   methods: {
@@ -103,6 +104,13 @@ export default {
       this.frame.style.top = this.shade.style.top = this.frameOffsetY + 'px'
       this.image.style.left = this.imageOffsetX + 'px'
       this.image.style.top = this.imageOffsetY + 'px'
+
+      this.locators.forEach(locator => {
+        const a = document.getElementById(`locator-${locator.id}`)
+        const location = params.parseOrInit(locator.location)
+        a.style.left = this.imageOffsetX + Math.floor(this.fieldWidth * (0.5 - location.x)) - 10 + 'px'
+        a.style.top = this.imageOffsetY + Math.floor(this.fieldHeight * (0.5 - location.y)) - 10 + 'px'
+      })
     },
     touchend() {
       this.isMovable = false
@@ -142,6 +150,13 @@ export default {
         this.image.style.left = this.imageOffsetX + 'px'
         this.image.style.top = this.imageOffsetY + 'px'
 
+        this.locators.forEach(locator => {
+          const a = document.getElementById(`locator-${locator.id}`)
+          const location = params.parseOrInit(locator.location)
+          a.style.left = this.imageOffsetX + Math.floor(this.fieldWidth * (0.5 - location.x)) - 10 + 'px'
+          a.style.top = this.imageOffsetY + Math.floor(this.fieldHeight * (0.5 - location.y)) - 10 + 'px'
+        })
+
         const locators_image = document.getElementById('locators-image')
         locators_image.style.left = this.fieldWidth / 2 - 10 + 'px'
         locators_image.style.top = this.fieldHeight / 2 - 10 + 'px'
@@ -153,6 +168,10 @@ export default {
       const locatorFormData = params.renewFormData(this.locatorFormData)
       locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(this.location))
       this.$emit('emitFormData', locatorFormData)
+    },
+    generateLocators() {
+      const field = document.getElementById('edit-location-field')
+      tags.generateLocators(this.locators, field)
     }
   },
   mounted() {
@@ -164,6 +183,7 @@ export default {
     this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
     this.trimming = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
     this.location = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
+    this.generateLocators()
     this.getFieldSize()
   },
   beforeDestroy: () => {

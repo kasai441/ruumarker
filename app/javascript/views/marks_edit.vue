@@ -14,12 +14,14 @@
         <description-edit :form-data.="formData" target-model="mark" @emit-form-data="getFormData"></description-edit>
       </div>
       <div class="w-full flex flex-col items-center overflow-hidden">
-        <image-edit :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-edit>
+        <image-edit :form-data="formData" target-model="mark"
+                    @emit-form-data="getFormData"></image-edit>
       </div>
       <image-upload :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-upload>
       <h2 class="w-full font-h2">キズの位置</h2>
       <div class="bg-slate-300 w-full flex flex-col items-center overflow-hidden">
         <location-edit :locator-form-data="formData" locator-model="mark" locator-image="/locator.png"
+                       :locators-json="marks"
                        :field-form-data="mapFormData" field-model="map"
                        @emit-form-data="getFormData"></location-edit>
       </div>
@@ -40,6 +42,7 @@ export default {
   name: 'MarksEdit',
   inject: [
     'roomId',
+    'marks',
     'mark',
     'map'
   ],
