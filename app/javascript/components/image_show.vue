@@ -33,7 +33,7 @@ export default {
       showField: null,
       showFieldWidth: 0,
       showFieldHeight: 0,
-      locators: JSON.parse(this.locatorsJson)
+      locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
     }
   },
   methods: {

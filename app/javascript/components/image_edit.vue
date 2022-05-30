@@ -36,7 +36,7 @@ export default {
       imageTop: 0,
       pointerX: 0,
       pointerY: 0,
-      locators: JSON.parse(this.locatorsJson)
+      locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
     }
   },
   methods: {
