@@ -1,7 +1,7 @@
 <template>
   <section id="image-show">
     <div class="flex flex-col items-center">
-      <div id="show-field" @pointerdown="activate($event)"
+      <div id="show-field" @pointerdown="scrollTable($event)" @pointerup="unbindFadeout($event)"
            class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
         <img :src="imageUrl" id="show-image"
              class="rounded-lg absolute w-field h-field
@@ -79,26 +79,32 @@ export default {
         this.showField.append(a)
       })
     },
-    activate(e) {
+    scrollTable(e) {
       const a = tags.parent('A', e.target)
       const regex = /locator/g
       if (a && a.id.match(regex)) {
         const table = document.getElementById('locators-table')
         const trs = table.getElementsByTagName('tr')
         Array.prototype.forEach.call(trs, tr => {
-          // CSS動作中にCSSを停止して再度動かすための処理
-          // https://stackoverflow.com/questions/11131875/what-is-the-cleanest-way-to-disable-css-transition-effects-temporarily
-          tr.offsetHeight
-          tr.classList.remove('animate-fadeout')
+          tr.classList.remove('active', 'animate-fadeout')
         })
 
         const tr = document.getElementById(a.id.replace(regex, this.locatorsModel))
-        tr.classList.add('animate-fadeout')
+        tr.classList.add('active')
         table.scrollTo({
           behavior: 'smooth',
           left: 0,
           top: tr.offsetTop
         })
+      }
+    },
+    unbindFadeout(e) {
+      const a = tags.parent('A', e.target)
+      const regex = /locator/g
+      if (a && a.id.match(regex)) {
+        const tr = document.getElementById(a.id.replace(regex, this.locatorsModel))
+        tr.classList.remove('active')
+        tr.classList.add('animate-fadeout')
       }
     },
     visitLocators(e) {
