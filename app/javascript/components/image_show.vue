@@ -68,22 +68,7 @@ export default {
       camera.style.top = this.showFieldHeight - 45 + 'px'
     },
     generateLocators() {
-      this.locators.forEach((locator, index) => {
-        const img = document.createElement('img')
-        img.src = '/locators.png'
-        img.classList.add('absolute', 'w-5', 'pointer-events-none')
-
-        const number = document.createElement('a')
-        number.append(index + 1)
-        number.classList.add('relative', 'text-white', 'text-sm', 'pointer-events-none')
-
-        const a = document.createElement('a')
-        a.append(img)
-        a.append(number)
-        a.classList.add('absolute', 'w-5', 'flex', 'justify-center', 'items-center')
-        a.id = `locator-${locator.id}`
-        this.showField.append(a)
-      })
+      tags.generateLocators(this.locators, this.showField)
     },
     scrollTable(e) {
       const a = tags.parent('A', e.target)
