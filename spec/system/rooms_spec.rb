@@ -10,7 +10,7 @@ describe 'ルーム管理機能', type: :system do
     let(:room1) { FactoryBot.create(:room) }
     let!(:map1) { FactoryBot.create(:map, room: room1) }
     let!(:mark1) { FactoryBot.create(:mark, map: map1) }
-    let(:preview) { page.find_by_id('preview-image') }
+    let(:preview) { find_by_id('preview-image') }
 
     before do
       visit root_path
@@ -37,7 +37,7 @@ describe 'ルーム管理機能', type: :system do
     let!(:map1) { FactoryBot.create(:map, room: room1) }
     let!(:mark1) { FactoryBot.create(:mark, map: map1) }
     let!(:mark2) { FactoryBot.create(:mark, map: map1) }
-    let(:show_image) { page.find_by_id('show-image') }
+    let(:show_image) { find_by_id('show-image') }
 
     before do
       visit room_path(room1)
@@ -68,11 +68,11 @@ describe 'ルーム管理機能', type: :system do
     context 'キズを2つ作ってそれぞれ移動したとき' do
       before do
         find_by_id("mark-#{mark1.id}").click
-        page.driver.browser.action.drag_and_drop_by(page.find_by_id('edit-location-image').native, 11, -21).perform
+        page.driver.browser.action.drag_and_drop_by(find_by_id('edit-location-image').native, 11, -21).perform
         find_by_id('update').click
 
         find_by_id("mark-#{mark2.id}").click
-        page.driver.browser.action.drag_and_drop_by(page.find_by_id('edit-location-image').native, -31, 41).perform
+        page.driver.browser.action.drag_and_drop_by(find_by_id('edit-location-image').native, -31, 41).perform
         find_by_id('update').click
       end
 
@@ -97,11 +97,11 @@ describe 'ルーム管理機能', type: :system do
     context 'キズを移動した後、マップのトリミングを変えたとき' do
       before do
         find_by_id("mark-#{mark1.id}").click
-        page.driver.browser.action.drag_and_drop_by(page.find_by_id('edit-location-image').native, -52, 42).perform
+        page.driver.browser.action.drag_and_drop_by(find_by_id('edit-location-image').native, -52, 42).perform
         find_by_id('update').click
 
         find_by_id('image-edit').click
-        page.driver.browser.action.drag_and_drop_by(page.find_by_id('edit-image').native, -32, -22).perform
+        page.driver.browser.action.drag_and_drop_by(find_by_id('edit-image').native, -32, -22).perform
         find_by_id('update').click
       end
 
@@ -122,7 +122,7 @@ describe 'ルーム管理機能', type: :system do
     let(:room1) { FactoryBot.create(:room) }
     let!(:map1) { FactoryBot.create(:map, room: room1) }
     let!(:mark1) { FactoryBot.create(:mark, map: map1) }
-    let(:show_image) { page.find_by_id('show-image') }
+    let(:show_image) { find_by_id('show-image') }
 
     context 'タイトルをクリックするとき' do
       before do
