@@ -70,7 +70,7 @@ export default {
     generateLocators() {
       this.locators.forEach((locator, index) => {
         const img = document.createElement('img')
-        img.src = `/${this.locatorsModel}s.png`
+        img.src = '/locators.png'
         img.classList.add('absolute', 'w-5', 'pointer-events-none')
 
         const number = document.createElement('a')

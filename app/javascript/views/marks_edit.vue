@@ -3,7 +3,7 @@
     <div class="pt-6 flex flex-col items-center">
       <div class="w-full relative flex flex-row items-center">
         <div class="w-full flex justify-center items-center relative">
-          <img src="/marks.png" style="width: 50px; height: 50px" class="relative">
+          <img src="/locators.png" style="width: 50px; height: 50px" class="relative">
           <h1 class="text-white text-2xl font-bold absolute">{{ markNumber }}</h1>
         </div>
         <div class="absolute">
@@ -19,7 +19,7 @@
       <image-upload :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-upload>
       <h2 class="w-full font-h2">キズの位置</h2>
       <div class="bg-slate-300 w-full flex flex-col items-center overflow-hidden">
-        <location-edit :locator-form-data="formData" locator-model="mark" locator-image="/mark.png"
+        <location-edit :locator-form-data="formData" locator-model="mark" locator-image="/locator.png"
                        :field-form-data="mapFormData" field-model="map"
                        @emit-form-data="getFormData"></location-edit>
       </div>
