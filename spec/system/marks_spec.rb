@@ -283,13 +283,14 @@ describe 'キズ管理機能', type: :system do
       end
 
       context 'トリミングされたマップで配置移動をするとき' do
-        let(:trim_x) { 100 }
-        let(:trim_y) { -15 }
-        let(:locate_x) { -10 }
-        let(:locate_y) { 100 }
+        let(:trim_x) { 11 }
+        let(:trim_y) { -22 }
+        let(:locate_x) { -33 }
+        let(:locate_y) { 44 }
         before do
           visit root_path
           find_by_id('image-edit').click
+          expect(page).to have_selector '#edit-image'
           edit_image = page.find_by_id('edit-image')
           page.driver.browser.action.drag_and_drop_by(edit_image.native, trim_x, trim_y).perform
           find_by_id('update').click
