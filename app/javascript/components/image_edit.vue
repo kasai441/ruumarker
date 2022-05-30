@@ -1,26 +1,26 @@
 <template>
   <section id="image-edit">
     <div id="edit-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
-         class="my-16 w-field h-field">
-      <div class="relative">
-        <img :src="imageUrl" id="edit-image" draggable="false"
-             @pointerdown="touchstart($event)" @touchmove.prevent
-             class="absolute w-field h-field
-             outline outline-slate-200 object-contain">
-        <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
-        <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
-      </div>
+         class="my-16 w-field h-field relative">
+      <img :src="imageUrl" id="edit-image" draggable="false"
+           @pointerdown="touchstart($event)" @touchmove.prevent
+           class="absolute w-field h-field
+           outline outline-slate-200 object-contain">
+      <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
+      <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
     </div>
   </section>
 </template>
 <script>
 import params from '../modules/params'
+import tags from '../modules/tags'
 
 export default {
   name: 'ImageEdit',
   props: [
     'formData',
-    'targetModel'
+    'targetModel',
+    'locatorsJson'
   ],
   data() {
     return {
@@ -35,7 +35,8 @@ export default {
       imageOffsetX: 0,
       imageTop: 0,
       pointerX: 0,
-      pointerY: 0
+      pointerY: 0,
+      locators: JSON.parse(this.locatorsJson)
     }
   },
   methods: {
@@ -66,6 +67,13 @@ export default {
 
       this.image.style.left = this.imageOffsetX + 'px'
       this.image.style.top = this.imageOffsetY + 'px'
+
+      this.locators.forEach(locator => {
+        const a = document.getElementById(`locator-${locator.id}`)
+        const location = params.parseOrInit(locator.location)
+        a.style.left = this.imageOffsetX + Math.floor(this.fieldWidth * (0.5 - location.x)) - 10 + 'px'
+        a.style.top = this.imageOffsetY + Math.floor(this.fieldHeight * (0.5 - location.y)) - 10 + 'px'
+      })
     },
     touchend() {
       this.isMovable = false
@@ -94,6 +102,13 @@ export default {
         this.imageOffsetY = Math.floor(this.fieldHeight * this.trimming.y)
         this.image.style.left = this.imageOffsetX + 'px'
         this.image.style.top = this.imageOffsetY + 'px'
+
+        this.locators.forEach(locator => {
+          const a = document.getElementById(`locator-${locator.id}`)
+          const location = params.parseOrInit(locator.location)
+          a.style.left = this.imageOffsetX + Math.floor(this.fieldWidth * (0.5 - location.x)) - 10 + 'px'
+          a.style.top = this.imageOffsetY + Math.floor(this.fieldHeight * (0.5 - location.y)) - 10 + 'px'
+        })
       }
     },
     updateTrimming() {
@@ -102,6 +117,11 @@ export default {
       const formData = params.renewFormData(this.formData)
       formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: this.trimming.x, y: this.trimming.y}))
       this.$emit('emitFormData', formData)
+    },
+    generateLocators() {
+      console.log('a')
+      const field = document.getElementById('edit-field')
+      tags.generateLocators(this.locators, field)
     }
   },
   mounted() {
@@ -112,6 +132,7 @@ export default {
 
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
     this.trimming = params.fromJson(this.formData, this.targetModel, 'trimming')
+    this.generateLocators()
     this.getFieldSize()
   },
   async updated() {

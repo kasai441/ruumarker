@@ -56,6 +56,7 @@ export default {
       const trimming = params.parseOrInit(this.trimming)
       showImage.style.left = Math.floor(this.showFieldWidth * trimming.x) + 'px'
       showImage.style.top = Math.floor(this.showFieldHeight * trimming.y) + 'px'
+
       this.locators.forEach(locator => {
         const a = document.getElementById(`locator-${locator.id}`)
         const location = params.parseOrInit(locator.location)

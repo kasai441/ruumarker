@@ -1,7 +1,8 @@
 <template>
   <section>
     <div class="w-full flex flex-col items-center overflow-hidden">
-      <image-edit :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-edit>
+      <image-edit :form-data="formData" target-model="map" :locators-json="marks"
+                  @emit-form-data="getFormData"></image-edit>
     </div>
     <image-upload :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-upload>
     <image-update :room-id="roomId" :form-data="formData" target-model="map"></image-update>
@@ -18,6 +19,7 @@ export default {
   name: 'MapsEdit',
   inject: [
     'roomId',
+    'marks',
     'map'
   ],
   data() {

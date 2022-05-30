@@ -20,8 +20,8 @@ export default {
   name: 'RoomsShow',
   inject: [
     'roomId',
+    'marks',
     'map',
-    'marks'
   ],
   data() {
     return {
