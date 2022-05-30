@@ -6,7 +6,7 @@
         <img :src="imageUrl" id="show-image"
              class="rounded-lg absolute w-field h-field
              object-contain">
-        <img src="/camera.png" @click='imageEdit' @pointerdown="shadeOn" @pointerup="shadeOff"
+        <img src="/camera.png" @click='imageEdit' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
              id="image-edit" class="absolute z-10" width="40">
       </div>
     </div>
@@ -39,6 +39,12 @@ export default {
   methods: {
     imageEdit() {
       location.href = `/rooms/${this.roomId}/${this.fieldModel}s/${this.id}/edit`
+    },
+    halfvanish(e) {
+      tags.parent('IMG', e.target).classList.add('animate-halfvanish')
+    },
+    unbindHalfvanish(e) {
+      tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
     getFieldSize() {
       const showFieldLeft = Math.floor(this.showField.getBoundingClientRect().left)
@@ -115,12 +121,6 @@ export default {
         const id = tr.id.replace(regex, '')
         location.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${id}/edit`
       }
-    },
-    shadeOn(e) {
-      tags.parent('IMG', e.target).classList.add('animate-halfvanish')
-    },
-    shadeOff(e) {
-      tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
     handleResize() {
       this.getFieldSize()

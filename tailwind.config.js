@@ -30,7 +30,7 @@ module.exports = {
       },
       animation: {
         fadeout: 'fadeout 2.5s ease 1',
-        halfvanish: 'halfvanish 1s ease 1'
+        halfvanish: 'halfvanish 0.5s ease 1'
       },
       keyframes: {
         fadeout: {
@@ -39,8 +39,8 @@ module.exports = {
           '100%': { 'background': 'rgba(223, 223, 223, 0)' }
         },
         halfvanish: {
-          '0%': { 'opacity': 1 },
-          '100%': { 'opacity': 0.5}
+          '0%': { 'opacity': 0.7 },
+          '100%': { 'opacity': 0.4}
         }
       }
     }
