@@ -201,9 +201,9 @@ describe 'マップ管理機能', type: :system do
   describe '表示機能' do
     let!(:room1) { FactoryBot.create(:room) }
     let!(:map1) { FactoryBot.create(:map, room: room1) }
-    let!(:mark1) {FactoryBot.create(:mark, map: map1)}
-    let!(:mark2) {FactoryBot.create(:mark, map: map1)}
-    let!(:mark3) {FactoryBot.create(:mark, map: map1)}
+    let!(:mark1) { FactoryBot.create(:mark, map: map1) }
+    let!(:mark2) { FactoryBot.create(:mark, map: map1) }
+    let!(:mark3) { FactoryBot.create(:mark, map: map1) }
 
     before do
       visit room_path(room1)
