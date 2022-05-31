@@ -52,14 +52,14 @@ describe 'ルーム管理機能', type: :system do
     end
 
     context '初期のキズ作成時' do
-      let!(:field_width) { style_px_to_i(show_image, 'width') }
-      let!(:field_height) { style_px_to_i(show_image, 'height') }
+      let!(:field_width) { pixel(show_image, 'width') }
+      let!(:field_height) { pixel(show_image, 'height') }
 
       it 'キズが真ん中に表示されている' do
         a = find_by_id("locator-#{mark1.id}")
 
-        left = style_px_to_i(a, 'left')
-        top = style_px_to_i(a, 'top')
+        left = pixel(a, 'left')
+        top = pixel(a, 'top')
         expect(left).to be_within(2).of(field_width / 2 - 10)
         expect(top).to be_within(2).of(field_height / 2 - 10)
       end
@@ -76,19 +76,19 @@ describe 'ルーム管理機能', type: :system do
         find_by_id('update').click
       end
 
-      let!(:field_width) { style_px_to_i(show_image, 'width') }
-      let!(:field_height) { style_px_to_i(show_image, 'height') }
+      let!(:field_width) { pixel(show_image, 'width') }
+      let!(:field_height) { pixel(show_image, 'height') }
 
       it 'それぞれの位置に表示される' do
         m1 = find_by_id("locator-#{mark1.id}")
-        left = style_px_to_i(m1, 'left')
-        top = style_px_to_i(m1, 'top')
+        left = pixel(m1, 'left')
+        top = pixel(m1, 'top')
         expect(left).to be_within(2).of(field_width / 2 - 10 - 11)
         expect(top).to be_within(2).of(field_height / 2 - 10 + 21)
 
         m2 = find_by_id("locator-#{mark2.id}")
-        left = style_px_to_i(m2, 'left')
-        top = style_px_to_i(m2, 'top')
+        left = pixel(m2, 'left')
+        top = pixel(m2, 'top')
         expect(left).to be_within(2).of(field_width / 2 - 10 + 31)
         expect(top).to be_within(2).of(field_height / 2 - 10 - 41)
       end
@@ -105,13 +105,13 @@ describe 'ルーム管理機能', type: :system do
         find_by_id('update').click
       end
 
-      let!(:field_width) { style_px_to_i(show_image, 'width') }
-      let!(:field_height) { style_px_to_i(show_image, 'height') }
+      let!(:field_width) { pixel(show_image, 'width') }
+      let!(:field_height) { pixel(show_image, 'height') }
 
       it '画像の中でのキズの位置がキープされている（移動分＋トリミング分、動いている）' do
         m = find_by_id("locator-#{mark1.id}")
-        left = style_px_to_i(m, 'left')
-        top = style_px_to_i(m, 'top')
+        left = pixel(m, 'left')
+        top = pixel(m, 'top')
         expect(left).to be_within(4).of(field_width / 2 - 10 + 52 - 32)
         expect(top).to be_within(4).of(field_height / 2 - 10 - 42 - 22)
       end

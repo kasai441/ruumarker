@@ -54,8 +54,8 @@ describe 'キズ管理機能', type: :system do
           expect(page).to have_selector 'h2', text: 'キズ点検表'
           find_by_id("mark-#{mark1.id}").click
           edit_image = find_by_id('edit-image')
-          left = style_px_to_i(edit_image, 'left')
-          top = style_px_to_i(edit_image, 'top')
+          left = pixel(edit_image, 'left')
+          top = pixel(edit_image, 'top')
           expect(left).to be_within(2).of(11)
           expect(top).to be_within(2).of(12)
         end
@@ -113,15 +113,15 @@ describe 'キズ管理機能', type: :system do
           # expect(page).to have_selector '.alert-success', text: '変更しました
           find_by_id("mark-#{mark1.id}").click
           edit_image = find_by_id('edit-image')
-          left = style_px_to_i(edit_image, 'left')
-          top = style_px_to_i(edit_image, 'top')
+          left = pixel(edit_image, 'left')
+          top = pixel(edit_image, 'top')
           expect(left).to be_within(2).of(21)
           expect(top).to be_within(2).of(22)
         end
       end
 
-      let!(:edit_field_width) { style_px_to_i(find_by_id('edit-field'), 'width') }
-      let!(:edit_field_height) { style_px_to_i(find_by_id('edit-field'), 'height') }
+      let!(:edit_field_width) { pixel(find_by_id('edit-field'), 'width') }
+      let!(:edit_field_height) { pixel(find_by_id('edit-field'), 'height') }
       let!(:constrainRangeX) { edit_field_width / 4 }
       let!(:constrainRangeY) { edit_field_height / 4 }
 
@@ -137,8 +137,8 @@ describe 'キズ管理機能', type: :system do
         it '上限のトリミング幅となる' do
           find_by_id("mark-#{mark1.id}").click
           edit_image = find_by_id('edit-image')
-          left = style_px_to_i(edit_image, 'left')
-          top = style_px_to_i(edit_image, 'top')
+          left = pixel(edit_image, 'left')
+          top = pixel(edit_image, 'top')
           expect(left).to be_within(2).of(constrainRangeX)
           expect(top).to be_within(2).of(constrainRangeY)
         end
@@ -155,8 +155,8 @@ describe 'キズ管理機能', type: :system do
         it '下限のトリミング幅となる' do
           find_by_id("mark-#{mark1.id}").click
           edit_image = find_by_id('edit-image')
-          left = style_px_to_i(edit_image, 'left')
-          top = style_px_to_i(edit_image, 'top')
+          left = pixel(edit_image, 'left')
+          top = pixel(edit_image, 'top')
           expect(left).to be_within(2).of(-constrainRangeX)
           expect(top).to be_within(2).of(-constrainRangeY)
         end
@@ -218,15 +218,15 @@ describe 'キズ管理機能', type: :system do
           expect(page).to have_selector 'h2', text: 'キズ点検表'
           find_by_id("mark-#{mark1.id}").click
           edit_location_image = find_by_id('edit-location-image')
-          left = style_px_to_i(edit_location_image, 'left')
-          top = style_px_to_i(edit_location_image, 'top')
+          left = pixel(edit_location_image, 'left')
+          top = pixel(edit_location_image, 'top')
           expect(left).to be_within(2).of(33)
           expect(top).to be_within(2).of(34)
         end
       end
 
-      let!(:edit_location_field_width) { style_px_to_i(find_by_id('edit-location-field'), 'width') }
-      let!(:edit_location_field_height) { style_px_to_i(find_by_id('edit-location-field'), 'height') }
+      let!(:edit_location_field_width) { pixel(find_by_id('edit-location-field'), 'width') }
+      let!(:edit_location_field_height) { pixel(find_by_id('edit-location-field'), 'height') }
       let!(:constrainRangeX) { edit_location_field_width / 2 }
       let!(:constrainRangeY) { edit_location_field_height / 2 }
 
@@ -243,8 +243,8 @@ describe 'キズ管理機能', type: :system do
         it '上限の配置移動幅となる' do
           find_by_id("mark-#{mark1.id}").click
           edit_location_image = find_by_id('edit-location-image')
-          left = style_px_to_i(edit_location_image, 'left')
-          top = style_px_to_i(edit_location_image, 'top')
+          left = pixel(edit_location_image, 'left')
+          top = pixel(edit_location_image, 'top')
           expect(left).to be_within(4).of(constrainRangeX)
           expect(top).to be_within(4).of(constrainRangeY)
         end
@@ -263,8 +263,8 @@ describe 'キズ管理機能', type: :system do
         it '下限の配置移動幅となる' do
           find_by_id("mark-#{mark1.id}").click
           edit_location_image = find_by_id('edit-location-image')
-          left = style_px_to_i(edit_location_image, 'left')
-          top = style_px_to_i(edit_location_image, 'top')
+          left = pixel(edit_location_image, 'left')
+          top = pixel(edit_location_image, 'top')
           expect(left).to be_within(2).of(-constrainRangeX)
           expect(top).to be_within(2).of(-constrainRangeY)
         end
@@ -290,12 +290,12 @@ describe 'キズ管理機能', type: :system do
           find_by_id("mark-#{mark1.id}").click
 
           edit_location_frame = find_by_id('edit-location-frame')
-          frame_left = style_px_to_i(edit_location_frame, 'left')
-          frame_top = style_px_to_i(edit_location_frame, 'top')
+          frame_left = pixel(edit_location_frame, 'left')
+          frame_top = pixel(edit_location_frame, 'top')
 
           edit_location_image = find_by_id('edit-location-image')
-          image_left = style_px_to_i(edit_location_image, 'left')
-          image_top = style_px_to_i(edit_location_image, 'top')
+          image_left = pixel(edit_location_image, 'left')
+          image_top = pixel(edit_location_image, 'top')
 
           expect(frame_left).to be_within(4).of(-33 - 11)
           expect(frame_top).to be_within(4).of(44 - -22)
@@ -316,8 +316,8 @@ describe 'キズ管理機能', type: :system do
         visit room_path(room1)
       end
 
-      let!(:field_width) { style_px_to_i(find_by_id('show-field'), 'width') }
-      let!(:field_height) { style_px_to_i(find_by_id('show-field'), 'height') }
+      let!(:field_width) { pixel(find_by_id('show-field'), 'width') }
+      let!(:field_height) { pixel(find_by_id('show-field'), 'height') }
 
       context '3つのマークをそれぞれ移動した時' do
         before do
@@ -343,20 +343,20 @@ describe 'キズ管理機能', type: :system do
           mark_radius = 10
 
           mark = find_by_id('locator-image')
-          left = style_px_to_i(mark, 'left')
-          top = style_px_to_i(mark, 'top')
+          left = pixel(mark, 'left')
+          top = pixel(mark, 'top')
           expect(left).to be_within(2).of(field_width / 2 - mark_radius)
           expect(top).to be_within(2).of(field_height / 2 - mark_radius)
 
           mark = find_by_id("locator-#{mark1.id}")
-          left = style_px_to_i(mark, 'left')
-          top = style_px_to_i(mark, 'top')
+          left = pixel(mark, 'left')
+          top = pixel(mark, 'top')
           expect(left).to be_within(2).of(field_width / 2 - mark_radius - -11 + 22)
           expect(top).to be_within(2).of(field_height / 2 - mark_radius - -11 + 22)
 
           mark = find_by_id("locator-#{mark3.id}")
-          left = style_px_to_i(mark, 'left')
-          top = style_px_to_i(mark, 'top')
+          left = pixel(mark, 'left')
+          top = pixel(mark, 'top')
           expect(left).to be_within(2).of(field_width / 2 - mark_radius - -33 + 22)
           expect(top).to be_within(2).of(field_height / 2 - mark_radius - -33 + 22)
         end

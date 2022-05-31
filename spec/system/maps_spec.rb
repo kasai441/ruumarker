@@ -33,8 +33,8 @@ describe 'マップ管理機能', type: :system do
 
       it '初期のトリミングが0x0になる' do
         show_image = find_by_id('show-image')
-        left = style_px_to_i(show_image, 'left')
-        top = style_px_to_i(show_image, 'top')
+        left = pixel(show_image, 'left')
+        top = pixel(show_image, 'top')
         expect(left).to eq 0
         expect(top).to eq 0
       end
@@ -95,8 +95,8 @@ describe 'マップ管理機能', type: :system do
       it 'トリミングが保存され、詳細画面で反映されている' do
         # expect(page).to have_selector '.alert-success', text: '変更しました
         show_image = find_by_id('show-image')
-        left = style_px_to_i(show_image, 'left')
-        top = style_px_to_i(show_image, 'top')
+        left = pixel(show_image, 'left')
+        top = pixel(show_image, 'top')
         expect(left).to be_within(2).of(42)
         expect(top).to be_within(2).of(-25)
       end
@@ -151,15 +151,15 @@ describe 'マップ管理機能', type: :system do
       it '更新内容が反映される' do
         # expect(page).to have_selector '.alert-success', text: '変更しました
         show_image = find_by_id('show-image')
-        left = style_px_to_i(show_image, 'left')
-        top = style_px_to_i(show_image, 'top')
+        left = pixel(show_image, 'left')
+        top = pixel(show_image, 'top')
         expect(left).to be_within(2).of(-27)
         expect(top).to be_within(2).of(37)
       end
     end
 
-    let!(:field_width) { style_px_to_i(find_by_id('edit-field'), 'width') }
-    let!(:field_height) { style_px_to_i(find_by_id('edit-field'), 'height') }
+    let!(:field_width) { pixel(find_by_id('edit-field'), 'width') }
+    let!(:field_height) { pixel(find_by_id('edit-field'), 'height') }
     let!(:constrainRangeX) { field_width / 4 }
     let!(:constrainRangeY) { field_height / 4 }
 
@@ -173,8 +173,8 @@ describe 'マップ管理機能', type: :system do
 
       it '上限のトリミング幅となる' do
         show_image = find_by_id('show-image')
-        left = style_px_to_i(show_image, 'left')
-        top = style_px_to_i(show_image, 'top')
+        left = pixel(show_image, 'left')
+        top = pixel(show_image, 'top')
         expect(left).to be_within(2).of(constrainRangeX)
         expect(top).to be_within(2).of(constrainRangeY)
       end
@@ -190,8 +190,8 @@ describe 'マップ管理機能', type: :system do
 
       it '下限のトリミング幅となる' do
         show_image = find_by_id('show-image')
-        left = style_px_to_i(show_image, 'left')
-        top = style_px_to_i(show_image, 'top')
+        left = pixel(show_image, 'left')
+        top = pixel(show_image, 'top')
         expect(left).to be_within(2).of(-constrainRangeX)
         expect(top).to be_within(2).of(-constrainRangeY)
       end
@@ -209,8 +209,8 @@ describe 'マップ管理機能', type: :system do
       visit room_path(room1)
     end
 
-    let!(:field_width) { style_px_to_i(find_by_id('show-field'), 'width') }
-    let!(:field_height) { style_px_to_i(find_by_id('show-field'), 'height') }
+    let!(:field_width) { pixel(find_by_id('show-field'), 'width') }
+    let!(:field_height) { pixel(find_by_id('show-field'), 'height') }
 
     context '3つのマークをそれぞれ移動した時' do
       before do
@@ -236,20 +236,20 @@ describe 'マップ管理機能', type: :system do
         mark_radius = 10
 
         m1 = find_by_id("locator-#{mark1.id}")
-        left = style_px_to_i(m1, 'left')
-        top = style_px_to_i(m1, 'top')
+        left = pixel(m1, 'left')
+        top = pixel(m1, 'top')
         expect(left).to be_within(2).of(field_width / 2 - mark_radius - -11)
         expect(top).to be_within(2).of(field_height / 2 - mark_radius - -11)
 
         m2 = find_by_id("locator-#{mark2.id}")
-        left = style_px_to_i(m2, 'left')
-        top = style_px_to_i(m2, 'top')
+        left = pixel(m2, 'left')
+        top = pixel(m2, 'top')
         expect(left).to be_within(2).of(field_width / 2 - mark_radius - 22)
         expect(top).to be_within(2).of(field_height / 2 - mark_radius - 22)
 
         m3 = find_by_id("locator-#{mark3.id}")
-        left = style_px_to_i(m3, 'left')
-        top = style_px_to_i(m3, 'top')
+        left = pixel(m3, 'left')
+        top = pixel(m3, 'top')
         expect(left).to be_within(2).of(field_width / 2 - mark_radius - -33)
         expect(top).to be_within(2).of(field_height / 2 - mark_radius - -33)
       end
