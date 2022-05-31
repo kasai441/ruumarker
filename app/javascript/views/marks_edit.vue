@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       formData: null,
-      markNumber: 128,
+      markNumber: 0,
       mapFormData: null
     }
   },
@@ -74,8 +74,15 @@ export default {
     if (this.formData) return
 
     this.formData = params.initFormData(this.mark, 'mark')
+
     const imageUrl = this.formData.get('mark[image_url]')
     if (!imageUrl) this.formData.append('mark[image_url]', '/sample.png')
+
+    const markId = this.formData.get('mark[id]')
+    const marks = this.marks ? JSON.parse(this.marks) : []
+    marks.forEach((mark, index) => {
+      if (mark.id == markId) this.markNumber = index + 1
+    })
 
     this.mapFormData = params.initFormData(this.map, 'map')
   }
