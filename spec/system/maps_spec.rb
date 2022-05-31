@@ -197,4 +197,62 @@ describe 'マップ管理機能', type: :system do
       end
     end
   end
+
+  describe '表示機能' do
+    let!(:room1) { FactoryBot.create(:room) }
+    let!(:map1) { FactoryBot.create(:map, room: room1) }
+    let!(:mark1) {FactoryBot.create(:mark, map: map1)}
+    let!(:mark2) {FactoryBot.create(:mark, map: map1)}
+    let!(:mark3) {FactoryBot.create(:mark, map: map1)}
+
+    before do
+      visit room_path(room1)
+    end
+
+    let!(:field_width) { style_px_to_i(find_by_id('show-field'), 'width') }
+    let!(:field_height) { style_px_to_i(find_by_id('show-field'), 'height') }
+
+    context '3つのマークをそれぞれ移動した時' do
+      before do
+        find_by_id("mark-#{mark3.id}").click
+        image = find_by_id('edit-location-image')
+        page.driver.browser.action.drag_and_drop_by(image.native, -33, -33).perform
+        find_by_id('update').click
+
+        find_by_id("mark-#{mark2.id}").click
+        image = find_by_id('edit-location-image')
+        page.driver.browser.action.drag_and_drop_by(image.native, 22, 22).perform
+        find_by_id('update').click
+
+        find_by_id("mark-#{mark1.id}").click
+        image = find_by_id('edit-location-image')
+        page.driver.browser.action.drag_and_drop_by(image.native, -11, -11).perform
+        find_by_id('update').click
+
+        find_by_id('image-edit').click
+      end
+
+      it '移動分がマップ編集画面で反映されている' do
+        mark_radius = 10
+
+        m1 = find_by_id("locator-#{mark1.id}")
+        left = style_px_to_i(m1, 'left')
+        top = style_px_to_i(m1, 'top')
+        expect(left).to be_within(2).of(field_width / 2 - mark_radius - -11)
+        expect(top).to be_within(2).of(field_height / 2 - mark_radius - -11)
+
+        m2 = find_by_id("locator-#{mark2.id}")
+        left = style_px_to_i(m2, 'left')
+        top = style_px_to_i(m2, 'top')
+        expect(left).to be_within(2).of(field_width / 2 - mark_radius - 22)
+        expect(top).to be_within(2).of(field_height / 2 - mark_radius - 22)
+
+        m3 = find_by_id("locator-#{mark3.id}")
+        left = style_px_to_i(m3, 'left')
+        top = style_px_to_i(m3, 'top')
+        expect(left).to be_within(2).of(field_width / 2 - mark_radius - -33)
+        expect(top).to be_within(2).of(field_height / 2 - mark_radius - -33)
+      end
+    end
+  end
 end
