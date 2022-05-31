@@ -43,7 +43,8 @@ describe 'キズ管理機能', type: :system do
       context '編集画面にてトリミング操作を行ったとき' do
         before do
           page.driver.browser.action.drag_and_drop_by(
-            find_by_id('edit-image').native, 11, 12).perform
+            find_by_id('edit-image').native, 11, 12
+          ).perform
           find_by_id('update').click
         end
 
@@ -99,7 +100,8 @@ describe 'キズ管理機能', type: :system do
         before do
           attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
           page.driver.browser.action.drag_and_drop_by(
-            find_by_id('edit-image').native, 21, 22).perform
+            find_by_id('edit-image').native, 21, 22
+          ).perform
           find_by_id('update').click
         end
 
@@ -118,7 +120,8 @@ describe 'キズ管理機能', type: :system do
       context '画面編集時に上限以上のトリミングを行ったとき' do
         before do
           page.driver.browser.action.drag_and_drop_by(
-            find_by_id('edit-image').native, limitX + 10, limitY + 10).perform
+            find_by_id('edit-image').native, limitX + 10, limitY + 10
+          ).perform
           find_by_id('update').click
         end
 
@@ -133,7 +136,8 @@ describe 'キズ管理機能', type: :system do
       context '画面編集時に下限以下のトリミングを行ったとき' do
         before do
           page.driver.browser.action.drag_and_drop_by(
-            find_by_id('edit-image').native, -limitX - 10, -limitY - 10).perform
+            find_by_id('edit-image').native, -limitX - 10, -limitY - 10
+          ).perform
           find_by_id('update').click
         end
 
@@ -192,7 +196,8 @@ describe 'キズ管理機能', type: :system do
       context '編集画面にて配置を変更したとき' do
         before do
           page.driver.browser.action.drag_and_drop_by(
-            find_by_id('edit-location-image').native, 33, 34).perform
+            find_by_id('edit-location-image').native, 33, 34
+          ).perform
           find_by_id('update').click
         end
 
@@ -228,10 +233,9 @@ describe 'キズ管理機能', type: :system do
 
       context '画面編集時に下限以下の配置移動を行ったとき' do
         before do
-          image = find_by_id('edit-location-image')
-          w, h = pixel(image, 'width', 'height')
+          w, h = pixel(find_by_id('edit-location-image'), 'width', 'height')
           page.driver.browser.action
-              .move_to(image.native, w - 1, h - 1)
+              .move_to(find_by_id('edit-location-image').native, w - 1, h - 1)
               .click_and_hold.move_by(-limitX - 10, -limitY - 10)
               .release.perform
           find_by_id('update').click
@@ -250,12 +254,14 @@ describe 'キズ管理機能', type: :system do
           visit root_path
           find_by_id('image-edit').click
           page.driver.browser.action.drag_and_drop_by(
-            find_by_id('edit-image').native, 11, -22).perform
+            find_by_id('edit-image').native, 11, -22
+          ).perform
           find_by_id('update').click
 
           find_by_id("mark-#{mark1.id}").click
           page.driver.browser.action.drag_and_drop_by(
-            find_by_id('edit-location-image').native, -33, 44).perform
+            find_by_id('edit-location-image').native, -33, 44
+          ).perform
           find_by_id('update').click
         end
 
@@ -286,43 +292,44 @@ describe 'キズ管理機能', type: :system do
         visit room_path(room1)
       end
 
-      let!(:field_width) { pixel(find_by_id('show-field'), 'width') }
-      let!(:field_height) { pixel(find_by_id('show-field'), 'height') }
-
       context '3つのマークをそれぞれ移動した時' do
         before do
           find_by_id("mark-#{mark3.id}").click
           page.driver.browser.action.drag_and_drop_by(
-            find_by_id('edit-location-image').native, -33, -33).perform
+            find_by_id('edit-location-image').native, -33, -33
+          ).perform
           find_by_id('update').click
 
           find_by_id("mark-#{mark2.id}").click
           page.driver.browser.action.drag_and_drop_by(
-            find_by_id('edit-location-image').native, 22, 22).perform
+            find_by_id('edit-location-image').native, 22, 22
+          ).perform
           find_by_id('update').click
 
           find_by_id("mark-#{mark1.id}").click
           page.driver.browser.action.drag_and_drop_by(
-            find_by_id('edit-location-image').native, -11, -11).perform
+            find_by_id('edit-location-image').native, -11, -11
+          ).perform
           find_by_id('update').click
 
           find_by_id("mark-#{mark2.id}").click
         end
 
-        it 'マップ編集画面で自分のキズは中心になり、他のキズが相対位置に表示される' do
+        it 'キズ編集画面で自分のキズは中心になり、他のキズが相対位置に表示される' do
           mark_radius = 10
+          w, h = pixel(find_by_id('edit-field'), 'width', 'height')
 
           left, top = pixel(find_by_id('locator-image'), 'left', 'top')
-          expect(left).to be_within(2).of(field_width / 2 - mark_radius)
-          expect(top).to be_within(2).of(field_height / 2 - mark_radius)
+          expect(left).to be_within(2).of(w / 2 - mark_radius)
+          expect(top).to be_within(2).of(h / 2 - mark_radius)
 
           left, top = pixel(find_by_id("locator-#{mark1.id}"), 'left', 'top')
-          expect(left).to be_within(2).of(field_width / 2 - mark_radius - -11 + 22)
-          expect(top).to be_within(2).of(field_height / 2 - mark_radius - -11 + 22)
+          expect(left).to be_within(2).of(w / 2 - mark_radius - -11 + 22)
+          expect(top).to be_within(2).of(h / 2 - mark_radius - -11 + 22)
 
           left, top = pixel(find_by_id("locator-#{mark3.id}"), 'left', 'top')
-          expect(left).to be_within(2).of(field_width / 2 - mark_radius - -33 + 22)
-          expect(top).to be_within(2).of(field_height / 2 - mark_radius - -33 + 22)
+          expect(left).to be_within(2).of(w / 2 - mark_radius - -33 + 22)
+          expect(top).to be_within(2).of(h / 2 - mark_radius - -33 + 22)
         end
       end
     end
