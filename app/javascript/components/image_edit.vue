@@ -1,15 +1,13 @@
 <template>
   <section id="image-edit">
     <div id="edit-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
-         class="my-16 w-field h-field">
-      <div class="relative">
-        <img :src="imageUrl" id="edit-image" draggable="false"
-             @pointerdown="touchstart($event)" @touchmove.prevent
-             class="absolute w-field h-field
-           outline outline-slate-200 object-contain">
-        <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
-        <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
-      </div>
+         class="my-16 w-field h-field relative">
+      <img :src="imageUrl" id="edit-image" draggable="false"
+           @pointerdown="touchstart($event)" @touchmove.prevent
+           class="absolute w-field h-field
+         outline outline-slate-200 object-contain">
+      <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
+      <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
     </div>
   </section>
 </template>
@@ -122,7 +120,7 @@ export default {
     },
     generateLocators() {
       const field = document.getElementById('edit-field')
-      tags.generateLocators(this.locators, field.getElementsByClassName('relative')[0], { class: ['pointer-events-none'] })
+      tags.generateLocators(this.locators, field, { class: ['pointer-events-none'] })
     }
   },
   mounted() {
