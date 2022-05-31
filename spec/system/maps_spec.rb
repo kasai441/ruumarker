@@ -7,21 +7,20 @@ describe 'マップ管理機能', type: :system do
   include DomHelper
 
   describe '新規作成機能' do
-    let(:show_image) { find_by_id('show-image') }
-    let(:preview) { find_by_id('preview-image') }
-
     before do
       visit new_room_path
     end
 
     context '画像をアップロードしたとき' do
       before do
+        preview = find_by_id('preview-image')
         expect(preview[:src]).to include 'sample.png'
         attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg'), make_visible: true
       end
 
       it '画像が登録されてルームに遷移する' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
+        show_image = find_by_id('show-image')
         expect(show_image[:src]).to include 'test_image.jpg'
         expect(page).to have_selector 'h2', text: 'キズ点検表'
       end
@@ -33,6 +32,7 @@ describe 'マップ管理機能', type: :system do
       end
 
       it '初期のトリミングが0x0になる' do
+        show_image = find_by_id('show-image')
         left = style_px_to_i(show_image, 'left')
         top = style_px_to_i(show_image, 'top')
         expect(left).to eq 0
@@ -47,8 +47,8 @@ describe 'マップ管理機能', type: :system do
 
       it '画像が変化しない' do
         # expect(page).to have_selector '#error_explanation', text: 'マップの画像ファイルは[jpg/jpeg/png/gif]の形式のみ受け付けています'
+        preview = find_by_id('preview-image')
         expect(preview[:src]).to include 'sample.png'
-        expect(page).to have_selector '#preview-image'
       end
     end
 
@@ -58,7 +58,6 @@ describe 'マップ管理機能', type: :system do
       end
 
       it '画像幅が元のままとなる' do
-        expect(page).to have_selector '#show-image'
         show_image = find_by_id('show-image')
         expect(execute_script('return arguments[0].naturalWidth', show_image)).to eq 88
       end
@@ -71,7 +70,6 @@ describe 'マップ管理機能', type: :system do
 
       it '画像が制約幅になる' do
         max = 500
-        expect(page).to have_selector '#show-image'
         show_image = find_by_id('show-image')
         expect(execute_script('return arguments[0].naturalWidth', show_image)).to eq max
       end
