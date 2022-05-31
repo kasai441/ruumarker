@@ -1,11 +1,12 @@
 <template>
   <section id="image-show">
     <div class="flex flex-col items-center">
-      <div id="show-field" @pointerdown="activate($event)"
+      <div id="show-field" @pointerdown="scrollTable($event)" @pointerup="unbindFadeout($event)"
            class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
-        <img :src="imageUrl"
-             id="show-image" class="rounded-lg absolute w-field h-field w-full object-contain">
-        <img src="/camera.png" @click='imageEdit' @pointerdown="shadeOn" @pointerup="shadeOff"
+        <img :src="imageUrl" id="show-image"
+             class="rounded-lg absolute w-field h-field
+             object-contain">
+        <img src="/camera.png" @click='imageEdit' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
              id="image-edit" class="absolute z-10" width="40">
       </div>
     </div>
@@ -32,12 +33,18 @@ export default {
       showField: null,
       showFieldWidth: 0,
       showFieldHeight: 0,
-      locators: JSON.parse(this.locatorsJson)
+      locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
     }
   },
   methods: {
     imageEdit() {
       location.href = `/rooms/${this.roomId}/${this.fieldModel}s/${this.id}/edit`
+    },
+    halfvanish(e) {
+      tags.parent('IMG', e.target).classList.add('animate-halfvanish')
+    },
+    unbindHalfvanish(e) {
+      tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
     getFieldSize() {
       const showFieldLeft = Math.floor(this.showField.getBoundingClientRect().left)
@@ -49,6 +56,7 @@ export default {
       const trimming = params.parseOrInit(this.trimming)
       showImage.style.left = Math.floor(this.showFieldWidth * trimming.x) + 'px'
       showImage.style.top = Math.floor(this.showFieldHeight * trimming.y) + 'px'
+
       this.locators.forEach(locator => {
         const a = document.getElementById(`locator-${locator.id}`)
         const location = params.parseOrInit(locator.location)
@@ -61,43 +69,34 @@ export default {
       camera.style.top = this.showFieldHeight - 45 + 'px'
     },
     generateLocators() {
-      this.locators.forEach((locator, index) => {
-        const img = document.createElement('img')
-        img.src = `/${this.locatorsModel}s.png`
-        img.classList.add('absolute', 'w-5', 'pointer-events-none')
-
-        const number = document.createElement('a')
-        number.append(index + 1)
-        number.classList.add('relative', 'text-white', 'text-sm', 'pointer-events-none')
-
-        const a = document.createElement('a')
-        a.append(img)
-        a.append(number)
-        a.classList.add('absolute', 'w-5', 'flex', 'justify-center', 'items-center')
-        a.id = `locator-${locator.id}`
-        this.showField.append(a)
-      })
+      tags.generateLocators(this.locators, this.showField)
     },
-    activate(e) {
+    scrollTable(e) {
       const a = tags.parent('A', e.target)
       const regex = /locator/g
       if (a && a.id.match(regex)) {
         const table = document.getElementById('locators-table')
         const trs = table.getElementsByTagName('tr')
         Array.prototype.forEach.call(trs, tr => {
-          // CSS動作中にCSSを停止して再度動かすための処理
-          // https://stackoverflow.com/questions/11131875/what-is-the-cleanest-way-to-disable-css-transition-effects-temporarily
-          tr.offsetHeight
-          tr.classList.remove('animate-fadeout')
+          tr.classList.remove('active', 'animate-fadeout')
         })
 
         const tr = document.getElementById(a.id.replace(regex, this.locatorsModel))
-        tr.classList.add('animate-fadeout')
+        tr.classList.add('active')
         table.scrollTo({
           behavior: 'smooth',
           left: 0,
           top: tr.offsetTop
         })
+      }
+    },
+    unbindFadeout(e) {
+      const a = tags.parent('A', e.target)
+      const regex = /locator/g
+      if (a && a.id.match(regex)) {
+        const tr = document.getElementById(a.id.replace(regex, this.locatorsModel))
+        tr.classList.remove('active')
+        tr.classList.add('animate-fadeout')
       }
     },
     visitLocators(e) {
@@ -108,12 +107,6 @@ export default {
         const id = tr.id.replace(regex, '')
         location.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${id}/edit`
       }
-    },
-    shadeOn(e) {
-      tags.parent('IMG', e.target).classList.add('animate-halfvanish')
-    },
-    shadeOff(e) {
-      tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
     handleResize() {
       this.getFieldSize()

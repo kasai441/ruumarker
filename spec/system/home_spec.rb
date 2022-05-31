@@ -17,7 +17,7 @@ describe 'ホーム管理機能', type: :system do
     context '2度目にホームページにアクセスしたとき' do
       let(:room1) { FactoryBot.create(:room) }
       let!(:map1) { FactoryBot.create(:map, room: room1) }
-      let(:show_image) { page.find_by_id('show-image') }
+      let(:show_image) { find_by_id('show-image') }
 
       before do
         visit room_path(room1)

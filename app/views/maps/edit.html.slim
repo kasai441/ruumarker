@@ -1,7 +1,10 @@
+- marks_keys = %w[id location created_at]
+- marks = @map.marks.order(:created_at).map {|mark| mark.attributes.filter {|k,_| marks_keys.include?(k)}}
 - map_keys = %w[id trimming]
 - map = @map.attributes.filter {|k,_| map_keys.include?(k)}
 - map[:image_url] = url_for @map.image if @map.image.present?
 #maps-edit(
 room_id="#{@map.room.id}"
+marks="#{marks.to_json}"
 map="#{map.to_json}"
 )

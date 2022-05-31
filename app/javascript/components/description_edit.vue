@@ -36,9 +36,6 @@ export default {
   },
   mounted() {
     this.description = this.formData.get(`${this.targetModel}[description]`)
-    console.log('desc')
-    console.log(this.description)
-    console.log(String(this.description).length)
   },
   updated() {
     this.descriptionLength = this.description ? this.description.length : 0
