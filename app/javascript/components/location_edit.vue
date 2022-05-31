@@ -183,6 +183,10 @@ export default {
     this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
     this.trimming = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
     this.location = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
+
+    const locatorId = this.locatorFormData.get(`${this.locatorModel}[id]`)
+    this.locators = this.locators.filter(locator => locatorId != locator.id)
+
     this.generateLocators()
     this.getFieldSize()
   },
