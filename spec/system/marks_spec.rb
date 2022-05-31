@@ -16,7 +16,6 @@ describe 'キズ管理機能', type: :system do
 
     context '「キズ追加ボタン」を押したとき' do
       let!(:ex_marks_count) { Mark.all.count }
-      let(:edit_image) { find_by_id('edit-image') }
 
       before do
         find_by_id('create-mark').click
@@ -25,8 +24,8 @@ describe 'キズ管理機能', type: :system do
       it '登録され、キズ編集画面に遷移し、サンプルのキズ画像が表示される' do
         expect(Mark.all.count).to eq ex_marks_count + 1
         expect(page).to have_selector 'h2', text: 'キズの位置'
-        expect(page).to have_selector '#edit-image'
-        expect(edit_image[:src]).to include 'sample.png'
+        image = find_by_id('edit-image')
+        expect(image[:src]).to include 'sample.png'
       end
     end
   end
@@ -44,8 +43,8 @@ describe 'キズ管理機能', type: :system do
     describe 'キズ画像トリミング機能' do
       context '編集画面にてトリミング操作を行ったとき' do
         before do
-          edit_image = find_by_id('edit-image')
-          page.driver.browser.action.drag_and_drop_by(edit_image.native, 11, 12).perform
+          image = find_by_id('edit-image')
+          page.driver.browser.action.drag_and_drop_by(image.native, 11, 12).perform
           find_by_id('update').click
         end
 
@@ -53,9 +52,9 @@ describe 'キズ管理機能', type: :system do
           # expect(page).to have_selector '.alert-success', text: '変更しました
           expect(page).to have_selector 'h2', text: 'キズ点検表'
           find_by_id("mark-#{mark1.id}").click
-          edit_image = find_by_id('edit-image')
-          left = pixel(edit_image, 'left')
-          top = pixel(edit_image, 'top')
+          image = find_by_id('edit-image')
+          left = pixel(image, 'left')
+          top = pixel(image, 'top')
           expect(left).to be_within(2).of(11)
           expect(top).to be_within(2).of(12)
         end
@@ -88,33 +87,33 @@ describe 'キズ管理機能', type: :system do
 
       context '画像をアップロードして変更を押したとき' do
         before do
-          edit_image = find_by_id('edit-image')
-          expect(edit_image[:src]).to include 'test_image.jpg'
+          image = find_by_id('edit-image')
+          expect(image[:src]).to include 'test_image.jpg'
           attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
           find_by_id('update').click
         end
 
         it '画像が更新されている' do
           find_by_id("mark-#{mark1.id}").click
-          edit_image = find_by_id('edit-image')
-          expect(edit_image[:src]).to include 'test_image.png'
+          image = find_by_id('edit-image')
+          expect(image[:src]).to include 'test_image.png'
         end
       end
 
       context '画像をアップロードしてトリミングしたとき' do
         before do
           attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
-          edit_image = find_by_id('edit-image')
-          page.driver.browser.action.drag_and_drop_by(edit_image.native, 21, 22).perform
+          image = find_by_id('edit-image')
+          page.driver.browser.action.drag_and_drop_by(image.native, 21, 22).perform
           find_by_id('update').click
         end
 
         it '更新内容が反映される' do
           # expect(page).to have_selector '.alert-success', text: '変更しました
           find_by_id("mark-#{mark1.id}").click
-          edit_image = find_by_id('edit-image')
-          left = pixel(edit_image, 'left')
-          top = pixel(edit_image, 'top')
+          image = find_by_id('edit-image')
+          left = pixel(image, 'left')
+          top = pixel(image, 'top')
           expect(left).to be_within(2).of(21)
           expect(top).to be_within(2).of(22)
         end
@@ -122,43 +121,43 @@ describe 'キズ管理機能', type: :system do
 
       let!(:edit_field_width) { pixel(find_by_id('edit-field'), 'width') }
       let!(:edit_field_height) { pixel(find_by_id('edit-field'), 'height') }
-      let!(:constrainRangeX) { edit_field_width / 4 }
-      let!(:constrainRangeY) { edit_field_height / 4 }
+      let!(:limitX) { edit_field_width / 4 }
+      let!(:limitY) { edit_field_height / 4 }
 
       context '画面編集時に上限以上のトリミングを行ったとき' do
         before do
           expect(page).to have_selector '#edit-image'
-          edit_image = find_by_id('edit-image')
-          page.driver.browser.action.drag_and_drop_by(edit_image.native, constrainRangeX + 10,
-                                                      constrainRangeY + 10).perform
+          image = find_by_id('edit-image')
+          page.driver.browser.action.drag_and_drop_by(image.native, limitX + 10,
+                                                      limitY + 10).perform
           find_by_id('update').click
         end
 
         it '上限のトリミング幅となる' do
           find_by_id("mark-#{mark1.id}").click
-          edit_image = find_by_id('edit-image')
-          left = pixel(edit_image, 'left')
-          top = pixel(edit_image, 'top')
-          expect(left).to be_within(2).of(constrainRangeX)
-          expect(top).to be_within(2).of(constrainRangeY)
+          image = find_by_id('edit-image')
+          left = pixel(image, 'left')
+          top = pixel(image, 'top')
+          expect(left).to be_within(2).of(limitX)
+          expect(top).to be_within(2).of(limitY)
         end
       end
 
       context '画面編集時に下限以下のトリミングを行ったとき' do
         before do
-          edit_image = find_by_id('edit-image')
-          page.driver.browser.action.drag_and_drop_by(edit_image.native, -constrainRangeX - 10,
-                                                      -constrainRangeY - 10).perform
+          image = find_by_id('edit-image')
+          page.driver.browser.action.drag_and_drop_by(image.native, -limitX - 10,
+                                                      -limitY - 10).perform
           find_by_id('update').click
         end
 
         it '下限のトリミング幅となる' do
           find_by_id("mark-#{mark1.id}").click
-          edit_image = find_by_id('edit-image')
-          left = pixel(edit_image, 'left')
-          top = pixel(edit_image, 'top')
-          expect(left).to be_within(2).of(-constrainRangeX)
-          expect(top).to be_within(2).of(-constrainRangeY)
+          image = find_by_id('edit-image')
+          left = pixel(image, 'left')
+          top = pixel(image, 'top')
+          expect(left).to be_within(2).of(-limitX)
+          expect(top).to be_within(2).of(-limitY)
         end
       end
     end
@@ -208,8 +207,8 @@ describe 'キズ管理機能', type: :system do
     describe 'キズ配置機能' do
       context '編集画面にて配置を変更したとき' do
         before do
-          edit_location_image = find_by_id('edit-location-image')
-          page.driver.browser.action.drag_and_drop_by(edit_location_image.native, 33, 34).perform
+          image = find_by_id('edit-location-image')
+          page.driver.browser.action.drag_and_drop_by(image.native, 33, 34).perform
           find_by_id('update').click
         end
 
@@ -217,56 +216,56 @@ describe 'キズ管理機能', type: :system do
           # expect(page).to have_selector '.alert-success', text: '変更しました
           expect(page).to have_selector 'h2', text: 'キズ点検表'
           find_by_id("mark-#{mark1.id}").click
-          edit_location_image = find_by_id('edit-location-image')
-          left = pixel(edit_location_image, 'left')
-          top = pixel(edit_location_image, 'top')
+          image = find_by_id('edit-location-image')
+          left = pixel(image, 'left')
+          top = pixel(image, 'top')
           expect(left).to be_within(2).of(33)
           expect(top).to be_within(2).of(34)
         end
       end
 
-      let!(:edit_location_field_width) { pixel(find_by_id('edit-location-field'), 'width') }
-      let!(:edit_location_field_height) { pixel(find_by_id('edit-location-field'), 'height') }
-      let!(:constrainRangeX) { edit_location_field_width / 2 }
-      let!(:constrainRangeY) { edit_location_field_height / 2 }
+      let!(:field_width) { pixel(find_by_id('edit-location-field'), 'width') }
+      let!(:field_height) { pixel(find_by_id('edit-location-field'), 'height') }
+      let!(:limitX) { field_width / 2 }
+      let!(:limitY) { field_height / 2 }
 
       context '画面編集時に上限以上の配置移動を行ったとき' do
         before do
-          edit_location_image = find_by_id('edit-location-image')
+          image = find_by_id('edit-location-image')
           page.driver.browser.action
-              .move_to(edit_location_image.native, 0, 0)
-              .click_and_hold.move_by(constrainRangeX + 10, constrainRangeY + 10)
+              .move_to(image.native, 0, 0)
+              .click_and_hold.move_by(limitX + 10, limitY + 10)
               .release.perform
           find_by_id('update').click
         end
 
         it '上限の配置移動幅となる' do
           find_by_id("mark-#{mark1.id}").click
-          edit_location_image = find_by_id('edit-location-image')
-          left = pixel(edit_location_image, 'left')
-          top = pixel(edit_location_image, 'top')
-          expect(left).to be_within(4).of(constrainRangeX)
-          expect(top).to be_within(4).of(constrainRangeY)
+          image = find_by_id('edit-location-image')
+          left = pixel(image, 'left')
+          top = pixel(image, 'top')
+          expect(left).to be_within(4).of(limitX)
+          expect(top).to be_within(4).of(limitY)
         end
       end
 
       context '画面編集時に下限以下の配置移動を行ったとき' do
         before do
-          edit_location_image = find_by_id('edit-location-image')
+          image = find_by_id('edit-location-image')
           page.driver.browser.action
-              .move_to(edit_location_image.native, edit_location_field_width - 1, edit_location_field_height - 1)
-              .click_and_hold.move_by(-constrainRangeX - 10, -constrainRangeY - 10)
+              .move_to(image.native, field_width - 1, field_height - 1)
+              .click_and_hold.move_by(-limitX - 10, -limitY - 10)
               .release.perform
           find_by_id('update').click
         end
 
         it '下限の配置移動幅となる' do
           find_by_id("mark-#{mark1.id}").click
-          edit_location_image = find_by_id('edit-location-image')
-          left = pixel(edit_location_image, 'left')
-          top = pixel(edit_location_image, 'top')
-          expect(left).to be_within(2).of(-constrainRangeX)
-          expect(top).to be_within(2).of(-constrainRangeY)
+          image = find_by_id('edit-location-image')
+          left = pixel(image, 'left')
+          top = pixel(image, 'top')
+          expect(left).to be_within(2).of(-limitX)
+          expect(top).to be_within(2).of(-limitY)
         end
       end
 
@@ -274,13 +273,13 @@ describe 'キズ管理機能', type: :system do
         before do
           visit root_path
           find_by_id('image-edit').click
-          edit_image = find_by_id('edit-image')
-          page.driver.browser.action.drag_and_drop_by(edit_image.native, 11, -22).perform
+          image = find_by_id('edit-image')
+          page.driver.browser.action.drag_and_drop_by(image.native, 11, -22).perform
           find_by_id('update').click
 
           find_by_id("mark-#{mark1.id}").click
-          edit_location_image = find_by_id('edit-location-image')
-          page.driver.browser.action.drag_and_drop_by(edit_location_image.native, -33, 44).perform
+          image = find_by_id('edit-location-image')
+          page.driver.browser.action.drag_and_drop_by(image.native, -33, 44).perform
           find_by_id('update').click
         end
 
@@ -289,13 +288,13 @@ describe 'キズ管理機能', type: :system do
           expect(page).to have_selector 'h2', text: 'キズ点検表'
           find_by_id("mark-#{mark1.id}").click
 
-          edit_location_frame = find_by_id('edit-location-frame')
-          frame_left = pixel(edit_location_frame, 'left')
-          frame_top = pixel(edit_location_frame, 'top')
+          frame = find_by_id('edit-location-frame')
+          frame_left = pixel(frame, 'left')
+          frame_top = pixel(frame, 'top')
 
-          edit_location_image = find_by_id('edit-location-image')
-          image_left = pixel(edit_location_image, 'left')
-          image_top = pixel(edit_location_image, 'top')
+          image = find_by_id('edit-location-image')
+          image_left = pixel(image, 'left')
+          image_top = pixel(image, 'top')
 
           expect(frame_left).to be_within(4).of(-33 - 11)
           expect(frame_top).to be_within(4).of(44 - -22)

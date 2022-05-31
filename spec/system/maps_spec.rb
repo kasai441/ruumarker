@@ -20,8 +20,8 @@ describe 'マップ管理機能', type: :system do
 
       it '画像が登録されてルームに遷移する' do
         # expect(page).to have_selector '.alert-success', text: '登録しました'
-        show_image = find_by_id('show-image')
-        expect(show_image[:src]).to include 'test_image.jpg'
+        image = find_by_id('show-image')
+        expect(image[:src]).to include 'test_image.jpg'
         expect(page).to have_selector 'h2', text: 'キズ点検表'
       end
     end
@@ -32,9 +32,9 @@ describe 'マップ管理機能', type: :system do
       end
 
       it '初期のトリミングが0x0になる' do
-        show_image = find_by_id('show-image')
-        left = pixel(show_image, 'left')
-        top = pixel(show_image, 'top')
+        image = find_by_id('show-image')
+        left = pixel(image, 'left')
+        top = pixel(image, 'top')
         expect(left).to eq 0
         expect(top).to eq 0
       end
@@ -58,8 +58,8 @@ describe 'マップ管理機能', type: :system do
       end
 
       it '画像幅が元のままとなる' do
-        show_image = find_by_id('show-image')
-        expect(execute_script('return arguments[0].naturalWidth', show_image)).to eq 88
+        image = find_by_id('show-image')
+        expect(execute_script('return arguments[0].naturalWidth', image)).to eq 88
       end
     end
 
@@ -70,8 +70,8 @@ describe 'マップ管理機能', type: :system do
 
       it '画像が制約幅になる' do
         max = 500
-        show_image = find_by_id('show-image')
-        expect(execute_script('return arguments[0].naturalWidth', show_image)).to eq max
+        image = find_by_id('show-image')
+        expect(execute_script('return arguments[0].naturalWidth', image)).to eq max
       end
     end
   end
@@ -87,16 +87,16 @@ describe 'マップ管理機能', type: :system do
 
     context '編集画面にてトリミング操作を行ったとき' do
       before do
-        edit_image = find_by_id('edit-image')
-        page.driver.browser.action.drag_and_drop_by(edit_image.native, 42, -25).perform
+        image = find_by_id('edit-image')
+        page.driver.browser.action.drag_and_drop_by(image.native, 42, -25).perform
         find_by_id('update').click
       end
 
       it 'トリミングが保存され、詳細画面で反映されている' do
         # expect(page).to have_selector '.alert-success', text: '変更しました
-        show_image = find_by_id('show-image')
-        left = pixel(show_image, 'left')
-        top = pixel(show_image, 'top')
+        image = find_by_id('show-image')
+        left = pixel(image, 'left')
+        top = pixel(image, 'top')
         expect(left).to be_within(2).of(42)
         expect(top).to be_within(2).of(-25)
       end
@@ -128,31 +128,31 @@ describe 'マップ管理機能', type: :system do
 
     context '画像をアップロードして変更を押したとき' do
       before do
-        edit_image = find_by_id('edit-image')
-        expect(edit_image[:src]).to include 'test_image.jpg'
+        image = find_by_id('edit-image')
+        expect(image[:src]).to include 'test_image.jpg'
         attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
         find_by_id('update').click
       end
 
       it '画像が更新されている' do
-        show_image = find_by_id('show-image')
-        expect(show_image[:src]).to include 'test_image.png'
+        image = find_by_id('show-image')
+        expect(image[:src]).to include 'test_image.png'
       end
     end
 
     context '画像をアップロードしてトリミングしたとき' do
       before do
         attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
-        edit_image = find_by_id('edit-image')
-        page.driver.browser.action.drag_and_drop_by(edit_image.native, -27, 37).perform
+        image = find_by_id('edit-image')
+        page.driver.browser.action.drag_and_drop_by(image.native, -27, 37).perform
         find_by_id('update').click
       end
 
       it '更新内容が反映される' do
         # expect(page).to have_selector '.alert-success', text: '変更しました
-        show_image = find_by_id('show-image')
-        left = pixel(show_image, 'left')
-        top = pixel(show_image, 'top')
+        image = find_by_id('show-image')
+        left = pixel(image, 'left')
+        top = pixel(image, 'top')
         expect(left).to be_within(2).of(-27)
         expect(top).to be_within(2).of(37)
       end
@@ -160,40 +160,40 @@ describe 'マップ管理機能', type: :system do
 
     let!(:field_width) { pixel(find_by_id('edit-field'), 'width') }
     let!(:field_height) { pixel(find_by_id('edit-field'), 'height') }
-    let!(:constrainRangeX) { field_width / 4 }
-    let!(:constrainRangeY) { field_height / 4 }
+    let!(:limitX) { field_width / 4 }
+    let!(:limitY) { field_height / 4 }
 
     context '画面編集時に上限以上のトリミングを行ったとき' do
       before do
-        edit_image = find_by_id('edit-image')
-        page.driver.browser.action.drag_and_drop_by(edit_image.native, constrainRangeX + 10,
-                                                    constrainRangeY + 10).perform
+        image = find_by_id('edit-image')
+        page.driver.browser.action.drag_and_drop_by(image.native, limitX + 10,
+                                                    limitY + 10).perform
         find_by_id('update').click
       end
 
       it '上限のトリミング幅となる' do
-        show_image = find_by_id('show-image')
-        left = pixel(show_image, 'left')
-        top = pixel(show_image, 'top')
-        expect(left).to be_within(2).of(constrainRangeX)
-        expect(top).to be_within(2).of(constrainRangeY)
+        image = find_by_id('show-image')
+        left = pixel(image, 'left')
+        top = pixel(image, 'top')
+        expect(left).to be_within(2).of(limitX)
+        expect(top).to be_within(2).of(limitY)
       end
     end
 
     context '画面編集時に下限以下のトリミングを行ったとき' do
       before do
-        edit_image = find_by_id('edit-image')
-        page.driver.browser.action.drag_and_drop_by(edit_image.native, -constrainRangeX - 10,
-                                                    -constrainRangeY - 10).perform
+        image = find_by_id('edit-image')
+        page.driver.browser.action.drag_and_drop_by(image.native, -limitX - 10,
+                                                    -limitY - 10).perform
         find_by_id('update').click
       end
 
       it '下限のトリミング幅となる' do
-        show_image = find_by_id('show-image')
-        left = pixel(show_image, 'left')
-        top = pixel(show_image, 'top')
-        expect(left).to be_within(2).of(-constrainRangeX)
-        expect(top).to be_within(2).of(-constrainRangeY)
+        image = find_by_id('show-image')
+        left = pixel(image, 'left')
+        top = pixel(image, 'top')
+        expect(left).to be_within(2).of(-limitX)
+        expect(top).to be_within(2).of(-limitY)
       end
     end
   end
