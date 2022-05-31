@@ -40,7 +40,7 @@ describe 'キズ管理機能', type: :system do
       visit room_path(room1)
       find("#mark-#{mark1.id}").click
     end
-    
+
     describe 'キズ画像トリミング機能' do
       context '編集画面にてトリミング操作を行ったとき' do
         before do

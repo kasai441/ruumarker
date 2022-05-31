@@ -6,6 +6,8 @@ const parent = (name, elem) => {
 
 const generateLocators = (locators, field, options) => {
   locators.forEach((locator, index) => {
+    if (options && options.except == locator.id) return
+
     const img = document.createElement('img')
     img.src = '/locators.png'
     img.classList.add('absolute', 'w-5', 'pointer-events-none')

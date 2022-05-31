@@ -107,6 +107,8 @@ export default {
 
       this.locators.forEach(locator => {
         const a = document.getElementById(`locator-${locator.id}`)
+        if (!a) return
+
         const location = params.parseOrInit(locator.location)
         a.style.left = this.imageOffsetX + Math.floor(this.fieldWidth * (0.5 - location.x)) - 10 + 'px'
         a.style.top = this.imageOffsetY + Math.floor(this.fieldHeight * (0.5 - location.y)) - 10 + 'px'
@@ -152,6 +154,8 @@ export default {
 
         this.locators.forEach(locator => {
           const a = document.getElementById(`locator-${locator.id}`)
+          if (!a) return
+
           const location = params.parseOrInit(locator.location)
           a.style.left = this.imageOffsetX + Math.floor(this.fieldWidth * (0.5 - location.x)) - 10 + 'px'
           a.style.top = this.imageOffsetY + Math.floor(this.fieldHeight * (0.5 - location.y)) - 10 + 'px'
@@ -171,7 +175,8 @@ export default {
     },
     generateLocators() {
       const field = document.getElementById('edit-location-field')
-      tags.generateLocators(this.locators, field, { class: ['pointer-events-none'] })
+      const locatorId = this.locatorFormData.get(`${this.locatorModel}[id]`)
+      tags.generateLocators(this.locators, field, { except: locatorId, class: ['pointer-events-none'] })
     }
   },
   mounted() {
@@ -183,9 +188,6 @@ export default {
     this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
     this.trimming = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
     this.location = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
-
-    const locatorId = this.locatorFormData.get(`${this.locatorModel}[id]`)
-    this.locators = this.locators.filter(locator => locatorId != locator.id)
 
     this.generateLocators()
     this.getFieldSize()
