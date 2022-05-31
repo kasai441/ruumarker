@@ -173,7 +173,7 @@ export default {
     },
     generateLocators() {
       const field = document.getElementById('edit-location-field')
-      tags.generateLocators(this.locators, field)
+      tags.generateLocators(this.locators, field.getElementsByClassName('relative')[0], { class: ['pointer-events-none'] })
     }
   },
   mounted() {

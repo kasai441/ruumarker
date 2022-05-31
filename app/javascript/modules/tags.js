@@ -4,7 +4,7 @@ const parent = (name, elem) => {
   return elem.nodeName === name ? elem : parent(name, elem.parentElement)
 }
 
-const generateLocators = (locators, field) => {
+const generateLocators = (locators, field, options) => {
   locators.forEach((locator, index) => {
     const img = document.createElement('img')
     img.src = '/locators.png'
@@ -19,6 +19,11 @@ const generateLocators = (locators, field) => {
     a.append(number)
     a.classList.add('absolute', 'w-5', 'flex', 'justify-center', 'items-center')
     a.id = `locator-${locator.id}`
+
+    if (options && options.class) {
+      options.class.forEach(c => a.classList.add(c))
+    }
+
     field.append(a)
   })
 }
