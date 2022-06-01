@@ -1,3 +1,5 @@
+import params from './params'
+
 const parent = (name, elem) => {
   if (elem.nodeName === 'BODY') return
 
@@ -30,8 +32,30 @@ const generateLocators = (locators, field, options) => {
   })
 }
 
+const transferLocators = (locators, offset, field) => {
+  locators.forEach(locator => {
+    const a = document.getElementById(`locator-${locator.id}`)
+    if (!a) return
+
+    const location = params.parseOrInit(locator.location)
+    const r = 10
+    a.style.left = offset.x + locate(field, location).left - r + 'px'
+    a.style.top = offset.y + locate(field, location).top - r + 'px'
+  })
+}
+
+// private
+
+const locate = (field, location,) => {
+  return {
+    left: Math.floor(field.w * (0.5 - location.x)),
+    top:  Math.floor(field.h * (0.5 - location.y))
+  }
+}
+
 export default {
   namespaced: true,
   parent,
-  generateLocators
+  generateLocators,
+  transferLocators
 }

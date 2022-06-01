@@ -68,12 +68,10 @@ export default {
       this.image.style.left = this.imageOffsetX + 'px'
       this.image.style.top = this.imageOffsetY + 'px'
 
-      this.locators.forEach(locator => {
-        const a = document.getElementById(`locator-${locator.id}`)
-        const location = params.parseOrInit(locator.location)
-        a.style.left = this.imageOffsetX + Math.floor(this.fieldWidth * (0.5 - location.x)) - 10 + 'px'
-        a.style.top = this.imageOffsetY + Math.floor(this.fieldHeight * (0.5 - location.y)) - 10 + 'px'
-      })
+      tags.transferLocators(this.locators,
+        { x: this.imageOffsetX, y: this.imageOffsetY },
+        { w: this.fieldWidth, h: this.fieldHeight }
+      )
     },
     touchend() {
       this.isMovable = false
@@ -103,12 +101,10 @@ export default {
         this.image.style.left = this.imageOffsetX + 'px'
         this.image.style.top = this.imageOffsetY + 'px'
 
-        this.locators.forEach(locator => {
-          const a = document.getElementById(`locator-${locator.id}`)
-          const location = params.parseOrInit(locator.location)
-          a.style.left = this.imageOffsetX + Math.floor(this.fieldWidth * (0.5 - location.x)) - 10 + 'px'
-          a.style.top = this.imageOffsetY + Math.floor(this.fieldHeight * (0.5 - location.y)) - 10 + 'px'
-        })
+        tags.transferLocators(this.locators,
+          { x: this.imageOffsetX, y: this.imageOffsetY },
+          { w: this.fieldWidth, h: this.fieldHeight }
+        )
       }
     },
     updateTrimming() {
