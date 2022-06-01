@@ -147,8 +147,9 @@ export default {
       )
 
       const locator_image = document.getElementById('locator-image')
-      locator_image.style.left = field.w / 2 - 10 + 'px'
-      locator_image.style.top = field.h / 2 - 10 + 'px'
+      const r = 10
+      locator_image.style.left = field.w / 2 - r + 'px'
+      locator_image.style.top = field.h / 2 - r + 'px'
 
     },
     updateLocation() {
