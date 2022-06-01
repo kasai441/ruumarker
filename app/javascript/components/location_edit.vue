@@ -38,12 +38,12 @@ export default {
       imageTrimmingX: 0,
       imageTrimmingY: 0,
       imageUrl: null,
-      location: null,
+      locationRate: null,
+      locationX: 0,
+      locationY: 0,
       isMovable: false,
       frameOffsetX: 0,
       frameOffsetY: 0,
-      imageOffsetX: 0,
-      imageOffsetY: 0,
       pointerX: 0,
       pointerY: 0,
       locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
@@ -67,8 +67,8 @@ export default {
       // e.offsetXY = ドラッグ中
       const shiftX = Math.floor(e.offsetX) - this.pointerX
       const shiftY = Math.floor(e.offsetY) - this.pointerY
-      this.imageOffsetX += shiftX
-      this.imageOffsetY += shiftY
+      this.locationX += shiftX
+      this.locationY += shiftY
       this.frameOffsetX += shiftX
       this.frameOffsetY += shiftY
       const field = tags.field('edit-location-field')
@@ -79,19 +79,19 @@ export default {
       const constrainFrameRangeY = Math.floor(field.h / 2) - safe_blank
       if (this.frameOffsetX >= constrainFrameRangeX) {
         this.frameOffsetX = constrainFrameRangeX
-        this.imageOffsetX = constrainFrameRangeX + this.imageTrimmingX
+        this.locationX = constrainFrameRangeX + this.imageTrimmingX
       }
       if (this.frameOffsetX <= -constrainFrameRangeX) {
         this.frameOffsetX = -constrainFrameRangeX
-        this.imageOffsetX = -constrainFrameRangeX + this.imageTrimmingX
+        this.locationX = -constrainFrameRangeX + this.imageTrimmingX
       }
       if (this.frameOffsetY >= constrainFrameRangeY) {
         this.frameOffsetY = constrainFrameRangeY
-        this.imageOffsetY = constrainFrameRangeY + this.imageTrimmingY
+        this.locationY = constrainFrameRangeY + this.imageTrimmingY
       }
       if (this.frameOffsetY <= -constrainFrameRangeY) {
         this.frameOffsetY = -constrainFrameRangeY
-        this.imageOffsetY = -constrainFrameRangeY + this.imageTrimmingY
+        this.locationY = -constrainFrameRangeY + this.imageTrimmingY
       }
 
       const frame = document.getElementById('edit-location-frame')
@@ -99,11 +99,11 @@ export default {
       const image = document.getElementById('edit-location-image')
       frame.style.left = shade.style.left = this.frameOffsetX + 'px'
       frame.style.top = shade.style.top = this.frameOffsetY + 'px'
-      image.style.left = this.imageOffsetX + 'px'
-      image.style.top = this.imageOffsetY + 'px'
+      image.style.left = this.locationX + 'px'
+      image.style.top = this.locationY + 'px'
 
       tags.transferLocators(this.locators,
-        { x: this.imageOffsetX, y: this.imageOffsetY },
+        { x: this.locationX, y: this.locationY },
         { w: field.w, h: field.h }
       )
     },
@@ -127,23 +127,25 @@ export default {
       const trimming = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
       this.imageTrimmingX = Math.floor(field.w * trimming.x)
       this.imageTrimmingY = Math.floor(field.h * trimming.y)
+      this.locationX = Math.floor(field.w * this.locationRate.x)
+      this.locationY = Math.floor(field.h * this.locationRate.y)
 
       const frame = document.getElementById('edit-location-frame')
       const shade = document.getElementById('edit-location-shade')
-      this.frameOffsetX = Math.floor(field.w * this.location.x) - this.imageTrimmingX
-      this.frameOffsetY = Math.floor(field.h * this.location.y) - this.imageTrimmingY
+      this.frameOffsetX = this.locationX - this.imageTrimmingX
+      this.frameOffsetY = this.locationY - this.imageTrimmingY
       frame.style.left = shade.style.left = this.frameOffsetX + 'px'
       frame.style.top = shade.style.top = this.frameOffsetY + 'px'
 
       // 画像の位置
       const image = document.getElementById('edit-location-image')
-      this.imageOffsetX = this.frameOffsetX + this.imageTrimmingX
-      this.imageOffsetY = this.frameOffsetY + this.imageTrimmingY
-      image.style.left = this.imageOffsetX + 'px'
-      image.style.top = this.imageOffsetY + 'px'
+      // this.imageOffsetX = this.frameOffsetX + this.imageTrimmingX
+      // this.imageOffsetY = this.frameOffsetY + this.imageTrimmingY
+      image.style.left = this.locationX + 'px'
+      image.style.top = this.locationY + 'px'
 
       tags.transferLocators(this.locators,
-        { x: this.imageOffsetX, y: this.imageOffsetY },
+        { x: this.locationX, y: this.locationY },
         { w: field.w, h: field.h }
       )
 
@@ -155,10 +157,10 @@ export default {
     },
     updateLocation() {
       const field = tags.field('edit-location-field')
-      this.location.x = ((this.frameOffsetX + this.imageTrimmingX) / field.w).toFixed(3)
-      this.location.y = ((this.frameOffsetY + this.imageTrimmingY) / field.h).toFixed(3)
+      this.locationRate.x = (this.locationX / field.w).toFixed(3)
+      this.locationRate.y = (this.locationY / field.h).toFixed(3)
       const locatorFormData = params.renewFormData(this.locatorFormData)
-      locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(this.location))
+      locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(this.locationRate))
       this.$emit('emitFormData', locatorFormData)
     },
     generateLocators() {
@@ -174,7 +176,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
 
     this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
-    this.location = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
+    this.locationRate = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
 
     this.generateLocators()
     this.getFieldSize()
