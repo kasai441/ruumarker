@@ -35,12 +35,12 @@ export default {
   ],
   data() {
     return {
+      isMovable: false,
+      imageUrl: null,
       trimmingX: 0,
       trimmingY: 0,
-      imageUrl: null,
       locationX: 0,
       locationY: 0,
-      isMovable: false,
       frameOffsetX: 0,
       frameOffsetY: 0,
       pointerX: 0,
@@ -74,23 +74,23 @@ export default {
 
       // 外側に出ないように画像の移動を抑制する
       const safe_blank = 2
-      const constrainFrameRangeX = Math.floor(field.w / 2) - safe_blank
-      const constrainFrameRangeY = Math.floor(field.h / 2) - safe_blank
-      if (this.frameOffsetX >= constrainFrameRangeX) {
-        this.frameOffsetX = constrainFrameRangeX
-        this.locationX = constrainFrameRangeX + this.trimmingX
+      const limitX = Math.floor(field.w / 2) - safe_blank
+      const limitY = Math.floor(field.h / 2) - safe_blank
+      if (this.frameOffsetX >= limitX) {
+        this.frameOffsetX = limitX
+        this.locationX = limitX + this.trimmingX
       }
-      if (this.frameOffsetX <= -constrainFrameRangeX) {
-        this.frameOffsetX = -constrainFrameRangeX
-        this.locationX = -constrainFrameRangeX + this.trimmingX
+      if (this.frameOffsetX <= -limitX) {
+        this.frameOffsetX = -limitX
+        this.locationX = -limitX + this.trimmingX
       }
-      if (this.frameOffsetY >= constrainFrameRangeY) {
-        this.frameOffsetY = constrainFrameRangeY
-        this.locationY = constrainFrameRangeY + this.trimmingY
+      if (this.frameOffsetY >= limitY) {
+        this.frameOffsetY = limitY
+        this.locationY = limitY + this.trimmingY
       }
-      if (this.frameOffsetY <= -constrainFrameRangeY) {
-        this.frameOffsetY = -constrainFrameRangeY
-        this.locationY = -constrainFrameRangeY + this.trimmingY
+      if (this.frameOffsetY <= -limitY) {
+        this.frameOffsetY = -limitY
+        this.locationY = -limitY + this.trimmingY
       }
 
       const frame = document.getElementById('edit-location-frame')
@@ -174,7 +174,6 @@ export default {
 
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
-
     this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
     this.generateLocators()
     this.getFieldSize()

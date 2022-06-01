@@ -55,12 +55,12 @@ export default {
       const field = tags.field('edit-field')
 
       // 外側に出ないように画像の移動を抑制する
-      const constrainRangeX = Math.floor(field.w / 4)
-      const constrainRangeY = Math.floor(field.h / 4)
-      if (this.imageOffsetX > constrainRangeX) this.imageOffsetX = constrainRangeX
-      if (this.imageOffsetX < -constrainRangeX) this.imageOffsetX = -constrainRangeX
-      if (this.imageOffsetY > constrainRangeY) this.imageOffsetY = constrainRangeY
-      if (this.imageOffsetY < -constrainRangeY) this.imageOffsetY = -constrainRangeY
+      const limitX = Math.floor(field.w / 4)
+      const limitY = Math.floor(field.h / 4)
+      if (this.imageOffsetX > limitX) this.imageOffsetX = limitX
+      if (this.imageOffsetX < -limitX) this.imageOffsetX = -limitX
+      if (this.imageOffsetY > limitY) this.imageOffsetY = limitY
+      if (this.imageOffsetY < -limitY) this.imageOffsetY = -limitY
 
       const image = document.getElementById('edit-image')
       image.style.left = this.imageOffsetX + 'px'
