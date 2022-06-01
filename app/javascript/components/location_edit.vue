@@ -38,7 +38,6 @@ export default {
       imageTrimmingX: 0,
       imageTrimmingY: 0,
       imageUrl: null,
-      trimming: null,
       location: null,
       isMovable: false,
       frameOffsetX: 0,
@@ -125,16 +124,17 @@ export default {
       const field = tags.field('edit-location-field')
 
       // 目隠しフレームの位置
+      const trimming = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
       const frame = document.getElementById('edit-location-frame')
       const shade = document.getElementById('edit-location-shade')
-      this.frameOffsetX = Math.floor(field.w * (this.location.x - this.trimming.x))
-      this.frameOffsetY = Math.floor(field.h * (this.location.y - this.trimming.y))
+      this.frameOffsetX = Math.floor(field.w * (this.location.x - trimming.x))
+      this.frameOffsetY = Math.floor(field.h * (this.location.y - trimming.y))
       frame.style.left = shade.style.left = this.frameOffsetX + 'px'
       frame.style.top = shade.style.top = this.frameOffsetY + 'px'
 
       // 画像の位置
-      this.imageTrimmingX = Math.floor(field.w * this.trimming.x)
-      this.imageTrimmingY = Math.floor(field.h * this.trimming.y)
+      this.imageTrimmingX = Math.floor(field.w * trimming.x)
+      this.imageTrimmingY = Math.floor(field.h * trimming.y)
       const image = document.getElementById('edit-location-image')
       this.imageOffsetX = this.frameOffsetX + this.imageTrimmingX
       this.imageOffsetY = this.frameOffsetY + this.imageTrimmingY
@@ -154,8 +154,9 @@ export default {
     },
     updateLocation() {
       const field = tags.field('edit-location-field')
-      this.location.x = (this.frameOffsetX / field.w + Number(this.trimming.x)).toFixed(3)
-      this.location.y = (this.frameOffsetY / field.h + Number(this.trimming.y)).toFixed(3)
+      const trimming = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
+      this.location.x = (this.frameOffsetX / field.w + Number(trimming.x)).toFixed(3)
+      this.location.y = (this.frameOffsetY / field.h + Number(trimming.y)).toFixed(3)
       const locatorFormData = params.renewFormData(this.locatorFormData)
       locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(this.location))
       this.$emit('emitFormData', locatorFormData)
@@ -173,7 +174,6 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
 
     this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
-    this.trimming = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
     this.location = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
 
     this.generateLocators()
