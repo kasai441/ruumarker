@@ -12,7 +12,7 @@
            class="pointer-events-none absolute w-field h-field
          outline outline-slate-100
          bg-transparent bg-transparent"></div>
-      <img :src="locatorImage" id="locators-image" draggable="false" width="20"
+      <img :src="locatorImage" id="locator-image" draggable="false" width="20"
            class="pointer-events-none absolute z-10">
       <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
       <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
@@ -161,9 +161,9 @@ export default {
           a.style.top = this.imageOffsetY + Math.floor(this.fieldHeight * (0.5 - location.y)) - 10 + 'px'
         })
 
-        const locators_image = document.getElementById('locators-image')
-        locators_image.style.left = this.fieldWidth / 2 - 10 + 'px'
-        locators_image.style.top = this.fieldHeight / 2 - 10 + 'px'
+        const locator_image = document.getElementById('locator-image')
+        locator_image.style.left = this.fieldWidth / 2 - 10 + 'px'
+        locator_image.style.top = this.fieldHeight / 2 - 10 + 'px'
       }
     },
     updateLocation() {
