@@ -35,8 +35,8 @@ export default {
   ],
   data() {
     return {
-      imageTrimmingX: 0,
-      imageTrimmingY: 0,
+      trimmingX: 0,
+      trimmingY: 0,
       imageUrl: null,
       locationX: 0,
       locationY: 0,
@@ -78,19 +78,19 @@ export default {
       const constrainFrameRangeY = Math.floor(field.h / 2) - safe_blank
       if (this.frameOffsetX >= constrainFrameRangeX) {
         this.frameOffsetX = constrainFrameRangeX
-        this.locationX = constrainFrameRangeX + this.imageTrimmingX
+        this.locationX = constrainFrameRangeX + this.trimmingX
       }
       if (this.frameOffsetX <= -constrainFrameRangeX) {
         this.frameOffsetX = -constrainFrameRangeX
-        this.locationX = -constrainFrameRangeX + this.imageTrimmingX
+        this.locationX = -constrainFrameRangeX + this.trimmingX
       }
       if (this.frameOffsetY >= constrainFrameRangeY) {
         this.frameOffsetY = constrainFrameRangeY
-        this.locationY = constrainFrameRangeY + this.imageTrimmingY
+        this.locationY = constrainFrameRangeY + this.trimmingY
       }
       if (this.frameOffsetY <= -constrainFrameRangeY) {
         this.frameOffsetY = -constrainFrameRangeY
-        this.locationY = -constrainFrameRangeY + this.imageTrimmingY
+        this.locationY = -constrainFrameRangeY + this.trimmingY
       }
 
       const frame = document.getElementById('edit-location-frame')
@@ -121,26 +121,24 @@ export default {
     },
     getFieldSize() {
       const field = tags.field('edit-location-field')
-      const trimming = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
+      const trimmingRate = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
       const locationRate = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
 
-      this.imageTrimmingX = Math.floor(field.w * trimming.x)
-      this.imageTrimmingY = Math.floor(field.h * trimming.y)
+      this.trimmingX = Math.floor(field.w * trimmingRate.x)
+      this.trimmingY = Math.floor(field.h * trimmingRate.y)
       this.locationX = Math.floor(field.w * locationRate.x)
       this.locationY = Math.floor(field.h * locationRate.y)
 
       // 目隠しフレームの位置
       const frame = document.getElementById('edit-location-frame')
       const shade = document.getElementById('edit-location-shade')
-      this.frameOffsetX = this.locationX - this.imageTrimmingX
-      this.frameOffsetY = this.locationY - this.imageTrimmingY
+      this.frameOffsetX = this.locationX - this.trimmingX
+      this.frameOffsetY = this.locationY - this.trimmingY
       frame.style.left = shade.style.left = this.frameOffsetX + 'px'
       frame.style.top = shade.style.top = this.frameOffsetY + 'px'
 
       // 画像の位置
       const image = document.getElementById('edit-location-image')
-      // this.imageOffsetX = this.frameOffsetX + this.imageTrimmingX
-      // this.imageOffsetY = this.frameOffsetY + this.imageTrimmingY
       image.style.left = this.locationX + 'px'
       image.style.top = this.locationY + 'px'
 
