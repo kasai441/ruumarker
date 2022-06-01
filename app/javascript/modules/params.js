@@ -1,3 +1,10 @@
+const toPx = (field, rate) => {
+  return {
+    x: Math.floor(field.w * rate.x),
+    y: Math.floor(field.h * rate.y)
+  }
+}
+
 const fromJson = (formData, targetModel, param) => {
   return parseOrInit(formData.get(`${targetModel}[${param}]`))
 }
@@ -64,6 +71,7 @@ const reduceLargeImage = (imageUrl, imageFile) => {
 
 export default {
   namespaced: true,
+  toPx,
   fromJson,
   parseOrInit,
   initFormData,
