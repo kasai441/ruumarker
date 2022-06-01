@@ -32,17 +32,17 @@ const generateLocators = (locators, field, options) => {
   })
 }
 
-const transferLocators = (locators, offset, field) => {
+const transferLocators = (locators, fieldLocation, field) => {
   locators.forEach(locator => {
     const a = document.getElementById(`locator-${locator.id}`)
     if (!a) return
 
-    const location = params.parseOrInit(locator.location)
-    const left = Math.floor(field.w * (0.5 - location.x))
-    const top = Math.floor(field.h * (0.5 - location.y))
+    const locationRate = params.parseOrInit(locator.location)
+    const locatorLocationX = Math.floor(field.w * (0.5 - locationRate.x))
+    const locatorLocationY = Math.floor(field.h * (0.5 - locationRate.y))
     const r = 10
-    a.style.left = offset.x + left - r + 'px'
-    a.style.top = offset.y + top - r + 'px'
+    a.style.left = fieldLocation.x + locatorLocationX - r + 'px'
+    a.style.top = fieldLocation.y + locatorLocationY - r + 'px'
   })
 }
 
