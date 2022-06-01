@@ -125,16 +125,17 @@ export default {
 
       // 目隠しフレームの位置
       const trimming = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
+      this.imageTrimmingX = Math.floor(field.w * trimming.x)
+      this.imageTrimmingY = Math.floor(field.h * trimming.y)
+
       const frame = document.getElementById('edit-location-frame')
       const shade = document.getElementById('edit-location-shade')
-      this.frameOffsetX = Math.floor(field.w * (this.location.x - trimming.x))
-      this.frameOffsetY = Math.floor(field.h * (this.location.y - trimming.y))
+      this.frameOffsetX = Math.floor(field.w * this.location.x) - this.imageTrimmingX
+      this.frameOffsetY = Math.floor(field.h * this.location.y) - this.imageTrimmingY
       frame.style.left = shade.style.left = this.frameOffsetX + 'px'
       frame.style.top = shade.style.top = this.frameOffsetY + 'px'
 
       // 画像の位置
-      this.imageTrimmingX = Math.floor(field.w * trimming.x)
-      this.imageTrimmingY = Math.floor(field.h * trimming.y)
       const image = document.getElementById('edit-location-image')
       this.imageOffsetX = this.frameOffsetX + this.imageTrimmingX
       this.imageOffsetY = this.frameOffsetY + this.imageTrimmingY
@@ -154,9 +155,8 @@ export default {
     },
     updateLocation() {
       const field = tags.field('edit-location-field')
-      const trimming = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
-      this.location.x = (this.frameOffsetX / field.w + Number(trimming.x)).toFixed(3)
-      this.location.y = (this.frameOffsetY / field.h + Number(trimming.y)).toFixed(3)
+      this.location.x = ((this.frameOffsetX + this.imageTrimmingX) / field.w).toFixed(3)
+      this.location.y = ((this.frameOffsetY + this.imageTrimmingY) / field.h).toFixed(3)
       const locatorFormData = params.renewFormData(this.locatorFormData)
       locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(this.location))
       this.$emit('emitFormData', locatorFormData)
