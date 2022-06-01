@@ -38,7 +38,6 @@ export default {
       imageTrimmingX: 0,
       imageTrimmingY: 0,
       imageUrl: null,
-      locationRate: null,
       locationX: 0,
       locationY: 0,
       isMovable: false,
@@ -122,14 +121,15 @@ export default {
     },
     getFieldSize() {
       const field = tags.field('edit-location-field')
-
-      // 目隠しフレームの位置
       const trimming = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
+      const locationRate = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
+
       this.imageTrimmingX = Math.floor(field.w * trimming.x)
       this.imageTrimmingY = Math.floor(field.h * trimming.y)
-      this.locationX = Math.floor(field.w * this.locationRate.x)
-      this.locationY = Math.floor(field.h * this.locationRate.y)
+      this.locationX = Math.floor(field.w * locationRate.x)
+      this.locationY = Math.floor(field.h * locationRate.y)
 
+      // 目隠しフレームの位置
       const frame = document.getElementById('edit-location-frame')
       const shade = document.getElementById('edit-location-shade')
       this.frameOffsetX = this.locationX - this.imageTrimmingX
@@ -157,10 +157,12 @@ export default {
     },
     updateLocation() {
       const field = tags.field('edit-location-field')
-      this.locationRate.x = (this.locationX / field.w).toFixed(3)
-      this.locationRate.y = (this.locationY / field.h).toFixed(3)
+      const locationRate = {
+        x: (this.locationX / field.w).toFixed(3),
+        y: (this.locationY / field.h).toFixed(3)
+      }
       const locatorFormData = params.renewFormData(this.locatorFormData)
-      locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(this.locationRate))
+      locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(locationRate))
       this.$emit('emitFormData', locatorFormData)
     },
     generateLocators() {
@@ -176,8 +178,6 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
 
     this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
-    this.locationRate = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
-
     this.generateLocators()
     this.getFieldSize()
   },
