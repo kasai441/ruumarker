@@ -38,9 +38,11 @@ const transferLocators = (locators, offset, field) => {
     if (!a) return
 
     const location = params.parseOrInit(locator.location)
+    const left = Math.floor(field.w * (0.5 - location.x))
+    const top = Math.floor(field.h * (0.5 - location.y))
     const r = 10
-    a.style.left = offset.x + locate(field, location).left - r + 'px'
-    a.style.top = offset.y + locate(field, location).top - r + 'px'
+    a.style.left = offset.x + left - r + 'px'
+    a.style.top = offset.y + top - r + 'px'
   })
 }
 
@@ -51,15 +53,6 @@ const field = id => {
   return {
     w: Math.floor(field.getBoundingClientRect().right) - left,
     h: Math.floor(field.getBoundingClientRect().bottom) - top
-  }
-}
-
-// private
-
-const locate = (field, location,) => {
-  return {
-    left: Math.floor(field.w * (0.5 - location.x)),
-    top:  Math.floor(field.h * (0.5 - location.y))
   }
 }
 
