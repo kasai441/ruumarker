@@ -44,8 +44,8 @@ const transferLocators = (locators, offset, field) => {
   })
 }
 
-const field = tagId => {
-  const field = document.getElementById(tagId)
+const field = id => {
+  const field = document.getElementById(id)
   const left = Math.floor(field.getBoundingClientRect().left)
   const top = Math.floor(field.getBoundingClientRect().top)
   return {

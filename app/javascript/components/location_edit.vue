@@ -41,11 +41,8 @@ export default {
       trimming: null,
       location: null,
       isMovable: false,
-      frame: null,
-      shade: null,
       frameOffsetX: 0,
       frameOffsetY: 0,
-      image: null,
       imageOffsetX: 0,
       imageOffsetY: 0,
       pointerX: 0,
@@ -56,7 +53,8 @@ export default {
   methods: {
     touchstart(e) {
       this.isMovable = true
-      this.shade.classList.add('shadow-2xl')
+      const shade = document.getElementById('edit-location-shade')
+      shade.classList.add('shadow-2xl')
 
       // エレメントの左上からポインターまでの位置
       this.pointerX = Math.floor(e.offsetX)
@@ -97,10 +95,13 @@ export default {
         this.imageOffsetY = -constrainFrameRangeY + this.imageTrimmingY
       }
 
-      this.frame.style.left = this.shade.style.left = this.frameOffsetX + 'px'
-      this.frame.style.top = this.shade.style.top = this.frameOffsetY + 'px'
-      this.image.style.left = this.imageOffsetX + 'px'
-      this.image.style.top = this.imageOffsetY + 'px'
+      const frame = document.getElementById('edit-location-frame')
+      const shade = document.getElementById('edit-location-shade')
+      const image = document.getElementById('edit-location-image')
+      frame.style.left = shade.style.left = this.frameOffsetX + 'px'
+      frame.style.top = shade.style.top = this.frameOffsetY + 'px'
+      image.style.left = this.imageOffsetX + 'px'
+      image.style.top = this.imageOffsetY + 'px'
 
       tags.transferLocators(this.locators,
         { x: this.imageOffsetX, y: this.imageOffsetY },
@@ -109,7 +110,8 @@ export default {
     },
     touchend() {
       this.isMovable = false
-      this.shade.classList.remove('shadow-2xl')
+      const shade = document.getElementById('edit-location-shade')
+      shade.classList.remove('shadow-2xl')
       this.updateLocation()
     },
     handleResize() {
@@ -123,21 +125,21 @@ export default {
       const field = tags.field('edit-location-field')
 
       // 目隠しフレームの位置
-      this.frame = document.getElementById('edit-location-frame')
-      this.shade = document.getElementById('edit-location-shade')
+      const frame = document.getElementById('edit-location-frame')
+      const shade = document.getElementById('edit-location-shade')
       this.frameOffsetX = Math.floor(field.w * (this.location.x - this.trimming.x))
       this.frameOffsetY = Math.floor(field.h * (this.location.y - this.trimming.y))
-      this.frame.style.left = this.shade.style.left = this.frameOffsetX + 'px'
-      this.frame.style.top = this.shade.style.top = this.frameOffsetY + 'px'
+      frame.style.left = shade.style.left = this.frameOffsetX + 'px'
+      frame.style.top = shade.style.top = this.frameOffsetY + 'px'
 
       // 画像の位置
       this.imageTrimmingX = Math.floor(field.w * this.trimming.x)
       this.imageTrimmingY = Math.floor(field.h * this.trimming.y)
-      this.image = document.getElementById('edit-location-image')
+      const image = document.getElementById('edit-location-image')
       this.imageOffsetX = this.frameOffsetX + this.imageTrimmingX
       this.imageOffsetY = this.frameOffsetY + this.imageTrimmingY
-      this.image.style.left = this.imageOffsetX + 'px'
-      this.image.style.top = this.imageOffsetY + 'px'
+      image.style.left = this.imageOffsetX + 'px'
+      image.style.top = this.imageOffsetY + 'px'
 
       tags.transferLocators(this.locators,
         { x: this.imageOffsetX, y: this.imageOffsetY },

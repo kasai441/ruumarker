@@ -27,7 +27,6 @@ export default {
       trimming: null,
       imageUrl: null,
       isMovable: false,
-      image: null,
       imageOffsetX: 0,
       imageTop: 0,
       pointerX: 0,
@@ -38,7 +37,8 @@ export default {
   methods: {
     touchstart(e) {
       this.isMovable = true
-      this.image.classList.add('shadow-2xl')
+      const image = document.getElementById('edit-image')
+      image.classList.add('shadow-2xl')
 
       // エレメントの左上からポインターまでの位置
       this.pointerX = Math.floor(e.offsetX)
@@ -62,8 +62,9 @@ export default {
       if (this.imageOffsetY > constrainRangeY) this.imageOffsetY = constrainRangeY
       if (this.imageOffsetY < -constrainRangeY) this.imageOffsetY = -constrainRangeY
 
-      this.image.style.left = this.imageOffsetX + 'px'
-      this.image.style.top = this.imageOffsetY + 'px'
+      const image = document.getElementById('edit-image')
+      image.style.left = this.imageOffsetX + 'px'
+      image.style.top = this.imageOffsetY + 'px'
 
       tags.transferLocators(this.locators,
         { x: this.imageOffsetX, y: this.imageOffsetY },
@@ -72,7 +73,8 @@ export default {
     },
     touchend() {
       this.isMovable = false
-      this.image.classList.remove('shadow-2xl')
+      const image = document.getElementById('edit-image')
+      image.classList.remove('shadow-2xl')
       this.updateTrimming()
     },
     handleResize() {
@@ -86,11 +88,11 @@ export default {
       const field = tags.field('edit-field')
 
       // 移動分の反映
-      this.image = document.getElementById('edit-image')
+      const image = document.getElementById('edit-image')
       this.imageOffsetX = Math.floor(field.w * this.trimming.x)
       this.imageOffsetY = Math.floor(field.h * this.trimming.y)
-      this.image.style.left = this.imageOffsetX + 'px'
-      this.image.style.top = this.imageOffsetY + 'px'
+      image.style.left = this.imageOffsetX + 'px'
+      image.style.top = this.imageOffsetY + 'px'
 
       tags.transferLocators(this.locators,
         { x: this.imageOffsetX, y: this.imageOffsetY },
