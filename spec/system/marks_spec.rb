@@ -211,8 +211,9 @@ describe 'キズ管理機能', type: :system do
         end
       end
 
-      let!(:limitX) { pixel(find_by_id('edit-location-field'), 'width') / 2 }
-      let!(:limitY) { pixel(find_by_id('edit-location-field'), 'height') / 2 }
+      safe_blank = 2
+      let!(:limitX) { pixel(find_by_id('edit-location-field'), 'width') / 2 - safe_blank }
+      let!(:limitY) { pixel(find_by_id('edit-location-field'), 'height') / 2 - safe_blank }
 
       context '画面編集時に上限以上の配置移動を行ったとき' do
         before do
@@ -226,8 +227,8 @@ describe 'キズ管理機能', type: :system do
         it '上限の配置移動幅となる' do
           find_by_id("mark-#{mark1.id}").click
           left, top = pixel(find_by_id('edit-location-image'), 'left', 'top')
-          expect(left).to be_within(4).of(limitX)
-          expect(top).to be_within(4).of(limitY)
+          expect(left).to be_within(2).of(limitX)
+          expect(top).to be_within(2).of(limitY)
         end
       end
 

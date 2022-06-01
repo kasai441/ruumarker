@@ -142,9 +142,9 @@ export default {
       )
 
       const locator_image = document.getElementById('locator-image')
-      const r = 10
-      locator_image.style.left = field.w / 2 - r + 'px'
-      locator_image.style.top = field.h / 2 - r + 'px'
+      const locatorRadius = 10
+      locator_image.style.left = field.w / 2 - locatorRadius + 'px'
+      locator_image.style.top = field.h / 2 - locatorRadius + 'px'
 
     },
     updateLocation() {
