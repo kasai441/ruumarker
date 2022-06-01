@@ -41,10 +41,6 @@ export default {
       trimming: null,
       location: null,
       isMovable: false,
-      fieldClientX: 0,
-      fieldClientY: 0,
-      fieldWidth: 0,
-      fieldHeight: 0,
       frame: null,
       shade: null,
       frameOffsetX: 0,
@@ -78,11 +74,12 @@ export default {
       this.imageOffsetY += shiftY
       this.frameOffsetX += shiftX
       this.frameOffsetY += shiftY
+      const field = tags.field('edit-location-field')
 
       // 外側に出ないように画像の移動を抑制する
       const safe_blank = 2
-      const constrainFrameRangeX = Math.floor(this.fieldWidth / 2) - safe_blank
-      const constrainFrameRangeY = Math.floor(this.fieldHeight / 2) - safe_blank
+      const constrainFrameRangeX = Math.floor(field.w / 2) - safe_blank
+      const constrainFrameRangeY = Math.floor(field.h / 2) - safe_blank
       if (this.frameOffsetX >= constrainFrameRangeX) {
         this.frameOffsetX = constrainFrameRangeX
         this.imageOffsetX = constrainFrameRangeX + this.imageTrimmingX
@@ -107,7 +104,7 @@ export default {
 
       tags.transferLocators(this.locators,
         { x: this.imageOffsetX, y: this.imageOffsetY },
-        { w: this.fieldWidth, h: this.fieldHeight }
+        { w: field.w, h: field.h }
       )
     },
     touchend() {
@@ -123,44 +120,39 @@ export default {
       this.getFieldSize()
     },
     getFieldSize() {
-      const field = document.getElementById('edit-location-field')
-      if(field) {
-        this.fieldClientX = Math.floor(field.getBoundingClientRect().left)
-        this.fieldClientY = Math.floor(field.getBoundingClientRect().top)
-        this.fieldWidth = Math.floor(field.getBoundingClientRect().right) - this.fieldClientX
-        this.fieldHeight = Math.floor(field.getBoundingClientRect().bottom) - this.fieldClientY
+      const field = tags.field('edit-location-field')
 
-        // 目隠しフレームの位置
-        console.log(`LocationEdit.fieldClientY: ${this.fieldClientY}`)
-        this.frame = document.getElementById('edit-location-frame')
-        this.shade = document.getElementById('edit-location-shade')
-        this.frameOffsetX = Math.floor(this.fieldWidth * (this.location.x - this.trimming.x))
-        this.frameOffsetY = Math.floor(this.fieldHeight * (this.location.y - this.trimming.y))
-        this.frame.style.left = this.shade.style.left = this.frameOffsetX + 'px'
-        this.frame.style.top = this.shade.style.top = this.frameOffsetY + 'px'
+      // 目隠しフレームの位置
+      this.frame = document.getElementById('edit-location-frame')
+      this.shade = document.getElementById('edit-location-shade')
+      this.frameOffsetX = Math.floor(field.w * (this.location.x - this.trimming.x))
+      this.frameOffsetY = Math.floor(field.h * (this.location.y - this.trimming.y))
+      this.frame.style.left = this.shade.style.left = this.frameOffsetX + 'px'
+      this.frame.style.top = this.shade.style.top = this.frameOffsetY + 'px'
 
-        // 画像の位置
-        this.imageTrimmingX = Math.floor(this.fieldWidth * this.trimming.x)
-        this.imageTrimmingY = Math.floor(this.fieldHeight * this.trimming.y)
-        this.image = document.getElementById('edit-location-image')
-        this.imageOffsetX = this.frameOffsetX + this.imageTrimmingX
-        this.imageOffsetY = this.frameOffsetY + this.imageTrimmingY
-        this.image.style.left = this.imageOffsetX + 'px'
-        this.image.style.top = this.imageOffsetY + 'px'
+      // 画像の位置
+      this.imageTrimmingX = Math.floor(field.w * this.trimming.x)
+      this.imageTrimmingY = Math.floor(field.h * this.trimming.y)
+      this.image = document.getElementById('edit-location-image')
+      this.imageOffsetX = this.frameOffsetX + this.imageTrimmingX
+      this.imageOffsetY = this.frameOffsetY + this.imageTrimmingY
+      this.image.style.left = this.imageOffsetX + 'px'
+      this.image.style.top = this.imageOffsetY + 'px'
 
-        tags.transferLocators(this.locators,
-          { x: this.imageOffsetX, y: this.imageOffsetY },
-          { w: this.fieldWidth, h: this.fieldHeight }
-        )
+      tags.transferLocators(this.locators,
+        { x: this.imageOffsetX, y: this.imageOffsetY },
+        { w: field.w, h: field.h }
+      )
 
-        const locator_image = document.getElementById('locator-image')
-        locator_image.style.left = this.fieldWidth / 2 - 10 + 'px'
-        locator_image.style.top = this.fieldHeight / 2 - 10 + 'px'
-      }
+      const locator_image = document.getElementById('locator-image')
+      locator_image.style.left = field.w / 2 - 10 + 'px'
+      locator_image.style.top = field.h / 2 - 10 + 'px'
+
     },
     updateLocation() {
-      this.location.x = (this.frameOffsetX / this.fieldWidth + Number(this.trimming.x)).toFixed(3)
-      this.location.y = (this.frameOffsetY / this.fieldHeight + Number(this.trimming.y)).toFixed(3)
+      const field = tags.field('edit-location-field')
+      this.location.x = (this.frameOffsetX / field.w + Number(this.trimming.x)).toFixed(3)
+      this.location.y = (this.frameOffsetY / field.h + Number(this.trimming.y)).toFixed(3)
       const locatorFormData = params.renewFormData(this.locatorFormData)
       locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(this.location))
       this.$emit('emitFormData', locatorFormData)

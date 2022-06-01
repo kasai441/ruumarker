@@ -44,6 +44,16 @@ const transferLocators = (locators, offset, field) => {
   })
 }
 
+const field = tagId => {
+  const field = document.getElementById(tagId)
+  const left = Math.floor(field.getBoundingClientRect().left)
+  const top = Math.floor(field.getBoundingClientRect().top)
+  return {
+    w: Math.floor(field.getBoundingClientRect().right) - left,
+    h: Math.floor(field.getBoundingClientRect().bottom) - top
+  }
+}
+
 // private
 
 const locate = (field, location,) => {
@@ -57,5 +67,6 @@ export default {
   namespaced: true,
   parent,
   generateLocators,
-  transferLocators
+  transferLocators,
+  field
 }

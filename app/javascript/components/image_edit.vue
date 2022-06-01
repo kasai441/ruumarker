@@ -27,10 +27,6 @@ export default {
       trimming: null,
       imageUrl: null,
       isMovable: false,
-      fieldClientX: 0,
-      fieldClientY: 0,
-      fieldWidth: 0,
-      fieldHeight: 0,
       image: null,
       imageOffsetX: 0,
       imageTop: 0,
@@ -56,10 +52,11 @@ export default {
       // e.offsetXY =  ドラッグ中
       this.imageOffsetX += Math.floor(e.offsetX) - this.pointerX
       this.imageOffsetY += Math.floor(e.offsetY) - this.pointerY
+      const field = tags.field('edit-field')
 
       // 外側に出ないように画像の移動を抑制する
-      const constrainRangeX = Math.floor(this.fieldWidth / 4)
-      const constrainRangeY = Math.floor(this.fieldHeight / 4)
+      const constrainRangeX = Math.floor(field.w / 4)
+      const constrainRangeY = Math.floor(field.h / 4)
       if (this.imageOffsetX > constrainRangeX) this.imageOffsetX = constrainRangeX
       if (this.imageOffsetX < -constrainRangeX) this.imageOffsetX = -constrainRangeX
       if (this.imageOffsetY > constrainRangeY) this.imageOffsetY = constrainRangeY
@@ -70,7 +67,7 @@ export default {
 
       tags.transferLocators(this.locators,
         { x: this.imageOffsetX, y: this.imageOffsetY },
-        { w: this.fieldWidth, h: this.fieldHeight }
+        { w: field.w, h: field.h }
       )
     },
     touchend() {
@@ -86,30 +83,24 @@ export default {
       this.getFieldSize()
     },
     getFieldSize() {
-      const field = document.getElementById('edit-field')
-      if(field) {
-        this.fieldClientX = Math.floor(field.getBoundingClientRect().left)
-        this.fieldClientY = Math.floor(field.getBoundingClientRect().top)
-        this.fieldWidth = Math.floor(field.getBoundingClientRect().right) - this.fieldClientX
-        this.fieldHeight = Math.floor(field.getBoundingClientRect().bottom) - this.fieldClientY
+      const field = tags.field('edit-field')
 
-        // 移動分の反映
-        console.log(`ImageEdit.fieldClientY: ${this.fieldClientY}`)
-        this.image = document.getElementById('edit-image')
-        this.imageOffsetX = Math.floor(this.fieldWidth * this.trimming.x)
-        this.imageOffsetY = Math.floor(this.fieldHeight * this.trimming.y)
-        this.image.style.left = this.imageOffsetX + 'px'
-        this.image.style.top = this.imageOffsetY + 'px'
+      // 移動分の反映
+      this.image = document.getElementById('edit-image')
+      this.imageOffsetX = Math.floor(field.w * this.trimming.x)
+      this.imageOffsetY = Math.floor(field.h * this.trimming.y)
+      this.image.style.left = this.imageOffsetX + 'px'
+      this.image.style.top = this.imageOffsetY + 'px'
 
-        tags.transferLocators(this.locators,
-          { x: this.imageOffsetX, y: this.imageOffsetY },
-          { w: this.fieldWidth, h: this.fieldHeight }
-        )
-      }
+      tags.transferLocators(this.locators,
+        { x: this.imageOffsetX, y: this.imageOffsetY },
+        { w: field.w, h: field.h }
+      )
     },
     updateTrimming() {
-      this.trimming.x = (this.imageOffsetX / this.fieldWidth).toFixed(3)
-      this.trimming.y = (this.imageOffsetY / this.fieldHeight).toFixed(3)
+      const field = tags.field('edit-field')
+      this.trimming.x = (this.imageOffsetX / field.w).toFixed(3)
+      this.trimming.y = (this.imageOffsetY / field.h).toFixed(3)
       const formData = params.renewFormData(this.formData)
       formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: this.trimming.x, y: this.trimming.y}))
       this.$emit('emitFormData', formData)
