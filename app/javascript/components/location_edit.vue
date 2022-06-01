@@ -37,7 +37,6 @@ export default {
     return {
       isMovable: false,
       imageUrl: null,
-      trimming: null,
       location: null,
       frameOffset: null,
       pointer: null,
@@ -59,7 +58,7 @@ export default {
     touchmove(e) {
       if (!this.isMovable) return
 
-      // e.offsetXY = １ドラッグ終g了時点の座標
+      // e.offsetXY = １ドラッグ終了時点の座標
       // pointer.xy = クリックオン時点の座標
       const shiftX = Math.floor(e.offsetX) - this.pointer.x
       const shiftY = Math.floor(e.offsetY) - this.pointer.y
@@ -74,20 +73,20 @@ export default {
       const limitX = Math.floor(field.w / 2) - safe_blank
       const limitY = Math.floor(field.h / 2) - safe_blank
       if (this.frameOffset.x >= limitX) {
+        this.location.x += limitX - this.frameOffset.x
         this.frameOffset.x = limitX
-        this.location.x = limitX + this.trimming.x
       }
       if (this.frameOffset.x <= -limitX) {
+        this.location.x += -limitX - this.frameOffset.x
         this.frameOffset.x = -limitX
-        this.location.x = -limitX + this.trimming.x
       }
       if (this.frameOffset.y >= limitY) {
+        this.location.y += limitY - this.frameOffset.y
         this.frameOffset.y = limitY
-        this.location.y = limitY + this.trimming.y
       }
       if (this.frameOffset.y <= -limitY) {
+        this.location.y += -limitY - this.frameOffset.y
         this.frameOffset.y = -limitY
-        this.location.y = -limitY + this.trimming.y
       }
 
       const frame = document.getElementById('edit-location-frame')
@@ -117,27 +116,25 @@ export default {
       this.getFieldSize()
     },
     getFieldSize() {
-      const field = tags.field('edit-location-field')
-      const trimmingRate = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
-      const locationRate = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
-
-      this.trimming = params.toPx(field, trimmingRate)
-      this.location = params.toPx(field, locationRate)
-
-      // 目隠しフレームの位置
-      const frame = document.getElementById('edit-location-frame')
-      const shade = document.getElementById('edit-location-shade')
-      this.frameOffset = {
-        x: this.location.x - this.trimming.x,
-        y: this.location.y - this.trimming.y
-      }
-      frame.style.left = shade.style.left = this.frameOffset.x + 'px'
-      frame.style.top = shade.style.top = this.frameOffset.y + 'px'
-
       // 画像の位置
+      const field = tags.field('edit-location-field')
+      const locationRate = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
+      this.location = params.toPx(field, locationRate)
       const image = document.getElementById('edit-location-image')
       image.style.left = this.location.x + 'px'
       image.style.top = this.location.y + 'px'
+
+      // 目隠しフレームの位置
+      const trimmingRate = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
+      const trimming = params.toPx(field, trimmingRate)
+      this.frameOffset = {
+        x: this.location.x - trimming.x,
+        y: this.location.y - trimming.y
+      }
+      const frame = document.getElementById('edit-location-frame')
+      const shade = document.getElementById('edit-location-shade')
+      frame.style.left = shade.style.left = this.frameOffset.x + 'px'
+      frame.style.top = shade.style.top = this.frameOffset.y + 'px'
 
       tags.transferLocators(this.locators,
         { x: this.location.x, y: this.location.y },
