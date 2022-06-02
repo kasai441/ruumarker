@@ -148,14 +148,12 @@ export default {
       this.$emit('emitFormData', locatorFormData)
     },
     generateLocators() {
-      const field = document.getElementById('edit-location-field')
+      const div = document.getElementById('edit-location-field')
       const locatorId = this.locatorFormData.get(`${this.locatorModel}[id]`)
-      tags.generateLocators(this.locators, field, { except: locatorId, class: ['pointer-events-none'] })
+      tags.generateLocators(this.locators, div, { except: locatorId, class: ['pointer-events-none'] })
     }
   },
   mounted() {
-    console.log('LocationEdit#mounted')
-
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
     this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)

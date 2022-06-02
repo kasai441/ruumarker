@@ -58,8 +58,8 @@ export default {
       })
     },
     generateLocators() {
-      const field = document.getElementById('show-field')
-      tags.generateLocators(this.locators, field)
+      const div = document.getElementById('show-field')
+      tags.generateLocators(this.locators, div)
     },
     scrollTable(e) {
       const a = tags.parent('A', e.target)

@@ -95,13 +95,11 @@ export default {
       this.$emit('emitFormData', formData)
     },
     generateLocators() {
-      const field = document.getElementById('edit-field')
-      tags.generateLocators(this.locators, field, { class: ['pointer-events-none'] })
+      const div = document.getElementById('edit-field')
+      tags.generateLocators(this.locators, div, { class: ['pointer-events-none'] })
     }
   },
   mounted() {
-    console.log('ImageEdit#mounted')
-
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
@@ -109,7 +107,6 @@ export default {
     this.getFieldSize()
   },
   async updated() {
-    console.log('ImageEdit#updated')
     const imageFile = this.formData.get(`${this.targetModel}[image]`)
     if (!imageFile) return
 
