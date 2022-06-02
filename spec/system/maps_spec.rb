@@ -91,8 +91,8 @@ describe 'マップ管理機能', type: :system do
       it 'トリミングが保存され、詳細画面で反映されている' do
         # expect(page).to have_selector '.alert-success', text: '変更しました
         left, top = pixel(find_by_id('show-image'), 'left', 'top')
-        expect(left).to be_within(2).of(42)
-        expect(top).to be_within(2).of(-25)
+        expect(left).to be_within(1).of(42)
+        expect(top).to be_within(1).of(-25)
       end
     end
 
@@ -144,8 +144,8 @@ describe 'マップ管理機能', type: :system do
       it '更新内容が反映される' do
         # expect(page).to have_selector '.alert-success', text: '変更しました
         left, top = pixel(find_by_id('show-image'), 'left', 'top')
-        expect(left).to be_within(2).of(-27)
-        expect(top).to be_within(2).of(37)
+        expect(left).to be_within(1).of(-27)
+        expect(top).to be_within(1).of(37)
       end
     end
 
@@ -162,8 +162,8 @@ describe 'マップ管理機能', type: :system do
 
       it '上限のトリミング幅となる' do
         left, top = pixel(find_by_id('show-image'), 'left', 'top')
-        expect(left).to be_within(2).of(limitX)
-        expect(top).to be_within(2).of(limitY)
+        expect(left).to be_within(1).of(limitX)
+        expect(top).to be_within(1).of(limitY)
       end
     end
 
@@ -177,8 +177,8 @@ describe 'マップ管理機能', type: :system do
 
       it '下限のトリミング幅となる' do
         left, top = pixel(find_by_id('show-image'), 'left', 'top')
-        expect(left).to be_within(2).of(-limitX)
-        expect(top).to be_within(2).of(-limitY)
+        expect(left).to be_within(1).of(-limitX)
+        expect(top).to be_within(1).of(-limitY)
       end
     end
   end
@@ -222,16 +222,16 @@ describe 'マップ管理機能', type: :system do
         w, h = pixel(find_by_id('edit-field'), 'width', 'height')
 
         left, top = pixel(find_by_id("locator-#{mark1.id}"), 'left', 'top')
-        expect(left).to be_within(2).of(w / 2 - mark_radius - -11)
-        expect(top).to be_within(2).of(h / 2 - mark_radius - -11)
+        expect(left).to be_within(1).of(w / 2 - mark_radius - -11)
+        expect(top).to be_within(1).of(h / 2 - mark_radius - -11)
 
         left, top = pixel(find_by_id("locator-#{mark2.id}"), 'left', 'top')
-        expect(left).to be_within(2).of(w / 2 - mark_radius - 22)
-        expect(top).to be_within(2).of(h / 2 - mark_radius - 22)
+        expect(left).to be_within(1).of(w / 2 - mark_radius - 22)
+        expect(top).to be_within(1).of(h / 2 - mark_radius - 22)
 
         left, top = pixel(find_by_id("locator-#{mark3.id}"), 'left', 'top')
-        expect(left).to be_within(2).of(w / 2 - mark_radius - -33)
-        expect(top).to be_within(2).of(h / 2 - mark_radius - -33)
+        expect(left).to be_within(1).of(w / 2 - mark_radius - -33)
+        expect(top).to be_within(1).of(h / 2 - mark_radius - -33)
       end
     end
   end
