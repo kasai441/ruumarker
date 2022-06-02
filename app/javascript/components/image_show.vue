@@ -57,10 +57,6 @@ export default {
         y: field.h - 45
       })
     },
-    generateLocators() {
-      const div = document.getElementById('show-field')
-      tags.generateLocators(this.locators, div)
-    },
     scrollTable(e) {
       const a = tags.parent('A', e.target)
       const regex = /locator/g
@@ -109,7 +105,7 @@ export default {
       tr.addEventListener('click', this.visitLocators)
     })
     window.addEventListener('resize', this.handleResize)
-    this.generateLocators()
+    tags.generateLocators(this.locators, 'show-field')
     this.getFieldSize()
   },
   beforeDestroy() {

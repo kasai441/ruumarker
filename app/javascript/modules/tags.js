@@ -6,7 +6,7 @@ const parent = (name, elem) => {
   return elem.nodeName === name ? elem : parent(name, elem.parentElement)
 }
 
-const generateLocators = (locators, field, options) => {
+const generateLocators = (locators, id, options) => {
   locators.forEach((locator, index) => {
     if (options && options.except == locator.id) return
 
@@ -28,7 +28,7 @@ const generateLocators = (locators, field, options) => {
       options.class.forEach(c => a.classList.add(c))
     }
 
-    field.append(a)
+    document.getElementById(id).append(a)
   })
 }
 

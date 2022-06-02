@@ -94,16 +94,12 @@ export default {
       formData.set(`${this.targetModel}[trimming]`, JSON.stringify(trimmingRate))
       this.$emit('emitFormData', formData)
     },
-    generateLocators() {
-      const div = document.getElementById('edit-field')
-      tags.generateLocators(this.locators, div, { class: ['pointer-events-none'] })
-    }
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
-    this.generateLocators()
+    tags.generateLocators(this.locators, 'edit-field', { class: ['pointer-events-none'] })
     this.getFieldSize()
   },
   async updated() {

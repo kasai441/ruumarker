@@ -147,17 +147,13 @@ export default {
       locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(locationRate))
       this.$emit('emitFormData', locatorFormData)
     },
-    generateLocators() {
-      const div = document.getElementById('edit-location-field')
-      const locatorId = this.locatorFormData.get(`${this.locatorModel}[id]`)
-      tags.generateLocators(this.locators, div, { except: locatorId, class: ['pointer-events-none'] })
-    }
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
     this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
-    this.generateLocators()
+    const locatorId = this.locatorFormData.get(`${this.locatorModel}[id]`)
+    tags.generateLocators(this.locators, 'edit-location-field', { except: locatorId, class: ['pointer-events-none'] })
     this.getFieldSize()
   },
   beforeDestroy: () => {
