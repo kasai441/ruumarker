@@ -95,14 +95,9 @@ export default {
         this.frameOffset.y = -limitY
       }
 
-      const frame = document.getElementById('edit-location-frame')
-      const shade = document.getElementById('edit-location-shade')
-      const image = document.getElementById('edit-location-image')
-      frame.style.left = shade.style.left = this.frameOffset.x + 'px'
-      frame.style.top = shade.style.top = this.frameOffset.y + 'px'
-      image.style.left = this.location.x + 'px'
-      image.style.top = this.location.y + 'px'
-
+      tags.styleLeftTop('edit-location-frame', this.frameOffset)
+      tags.styleLeftTop('edit-location-shade', this.frameOffset)
+      tags.styleLeftTop('edit-location-image', this.location)
       tags.transferLocators(this.locators, this.location, field)
     },
     touchend() {
@@ -123,9 +118,7 @@ export default {
       const field = tags.field('edit-location-field')
       const locationRate = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
       this.location = params.toPx(field, locationRate)
-      const image = document.getElementById('edit-location-image')
-      image.style.left = this.location.x + 'px'
-      image.style.top = this.location.y + 'px'
+      tags.styleLeftTop('edit-location-image', this.location)
 
       // 目隠しフレームの位置
       const trimmingRate = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
@@ -134,17 +127,15 @@ export default {
         x: this.location.x - trimming.x,
         y: this.location.y - trimming.y
       }
-      const frame = document.getElementById('edit-location-frame')
-      const shade = document.getElementById('edit-location-shade')
-      frame.style.left = shade.style.left = this.frameOffset.x + 'px'
-      frame.style.top = shade.style.top = this.frameOffset.y + 'px'
-
+      tags.styleLeftTop('edit-location-frame', this.frameOffset)
+      tags.styleLeftTop('edit-location-shade', this.frameOffset)
       tags.transferLocators(this.locators, this.location, field)
 
-      const locator_image = document.getElementById('locator-image')
       const locatorRadius = 10
-      locator_image.style.left = field.w / 2 - locatorRadius + 'px'
-      locator_image.style.top = field.h / 2 - locatorRadius + 'px'
+      tags.styleLeftTop('locator-image', {
+        x: field.w / 2 - locatorRadius,
+        y: field.h / 2 - locatorRadius
+      })
     },
     updateLocation() {
       const field = tags.field('edit-location-field')

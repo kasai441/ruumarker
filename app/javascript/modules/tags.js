@@ -40,9 +40,9 @@ const transferLocators = (locators, fieldLocation, field) => {
     const locationRate = params.parseOrInit(locator.location)
     const locatorLocationX = params.toF(field.w * (0.5 - locationRate.x), 1)
     const locatorLocationY = params.toF(field.h * (0.5 - locationRate.y), 1)
-    const r = 10
-    a.style.left = fieldLocation.x + locatorLocationX - r + 'px'
-    a.style.top = fieldLocation.y + locatorLocationY - r + 'px'
+    const radius = 10
+    a.style.left = fieldLocation.x + locatorLocationX - radius + 'px'
+    a.style.top = fieldLocation.y + locatorLocationY - radius + 'px'
   })
 }
 
@@ -56,10 +56,17 @@ const field = id => {
   }
 }
 
+const styleLeftTop = (id, value) => {
+  const element = document.getElementById(id)
+  element.style.left = value.x + 'px'
+  element.style.top = value.y + 'px'
+}
+
 export default {
   namespaced: true,
   parent,
   generateLocators,
   transferLocators,
-  field
+  field,
+  styleLeftTop
 }

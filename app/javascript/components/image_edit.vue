@@ -60,10 +60,7 @@ export default {
       if (this.trimming.y > limitY) this.trimming.y = limitY
       if (this.trimming.y < -limitY) this.trimming.y = -limitY
 
-      const image = document.getElementById('edit-image')
-      image.style.left = this.trimming.x + 'px'
-      image.style.top = this.trimming.y + 'px'
-
+      tags.styleLeftTop('edit-image', this.trimming)
       tags.transferLocators(this.locators, this.trimming, field)
     },
     touchend() {
@@ -84,10 +81,7 @@ export default {
       const field = tags.field('edit-field')
       const trimmingRate = params.fromJson(this.formData, this.targetModel, 'trimming')
       this.trimming = params.toPx(field, trimmingRate)
-      const image = document.getElementById('edit-image')
-      image.style.left = this.trimming.x + 'px'
-      image.style.top = this.trimming.y + 'px'
-
+      tags.styleLeftTop('edit-image', this.trimming)
       tags.transferLocators(this.locators, this.trimming, field)
     },
     updateTrimming() {
