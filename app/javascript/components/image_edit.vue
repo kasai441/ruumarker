@@ -27,9 +27,6 @@ export default {
       isMovable: false,
       imageUrl: null,
       trimming: null,
-      imageOffsetX: 0,
-      imageOffsetY: 0,
-      imageTop: 0,
       pointerX: 0,
       pointerY: 0,
       locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
@@ -48,28 +45,25 @@ export default {
     touchmove(e) {
       if (!this.isMovable) return
 
-      // 動かす画像の左上からポインターまでの距離
-      // pointerXY = クリック時点
-      // e.offsetXY =  ドラッグ中
-      this.imageOffsetX += params.toF(e.offsetX, 1) - this.pointerX
-      this.imageOffsetY += params.toF(e.offsetY, 1) - this.pointerY
-      const field = tags.field('edit-field')
+      // e.offsetXY = １ドラッグ終了時点の座標
+      // pointer.xy = クリックオン時点の座標
+      this.trimming.x += params.toF(e.offsetX, 1) - this.pointerX
+      this.trimming.y += params.toF(e.offsetY, 1) - this.pointerY
 
       // 外側に出ないように画像の移動を抑制する
+      const field = tags.field('edit-field')
       const limitX = params.toF(field.w / 4, 1)
       const limitY = params.toF(field.h / 4, 1)
-      if (this.imageOffsetX > limitX) this.imageOffsetX = limitX
-      if (this.imageOffsetX < -limitX) this.imageOffsetX = -limitX
-      if (this.imageOffsetY > limitY) this.imageOffsetY = limitY
-      if (this.imageOffsetY < -limitY) this.imageOffsetY = -limitY
+      if (this.trimming.x > limitX) this.trimming.x = limitX
+      if (this.trimming.x < -limitX) this.trimming.x = -limitX
+      if (this.trimming.y > limitY) this.trimming.y = limitY
+      if (this.trimming.y < -limitY) this.trimming.y = -limitY
 
       const image = document.getElementById('edit-image')
-      image.style.left = this.imageOffsetX + 'px'
-      image.style.top = this.imageOffsetY + 'px'
+      image.style.left = this.trimming.x + 'px'
+      image.style.top = this.trimming.y + 'px'
 
-      tags.transferLocators(this.locators,
-        { x: this.imageOffsetX, y: this.imageOffsetY }, field
-      )
+      tags.transferLocators(this.locators, this.trimming, field)
     },
     touchend() {
       this.isMovable = false
@@ -88,22 +82,18 @@ export default {
       // 画像の位置
       const field = tags.field('edit-field')
       const trimmingRate = params.fromJson(this.formData, this.targetModel, 'trimming')
-      const trimming = params.toPx(field, trimmingRate)
-      this.imageOffsetX = params.toF(field.w * trimmingRate.x, 1)
-      this.imageOffsetY = params.toF(field.h * trimmingRate.y, 1)
+      this.trimming = params.toPx(field, trimmingRate)
       const image = document.getElementById('edit-image')
-      image.style.left = this.imageOffsetX + 'px'
-      image.style.top = this.imageOffsetY + 'px'
+      image.style.left = this.trimming.x + 'px'
+      image.style.top = this.trimming.y + 'px'
 
-      tags.transferLocators(this.locators,
-        { x: this.imageOffsetX, y: this.imageOffsetY }, field
-      )
+      tags.transferLocators(this.locators, this.trimming, field)
     },
     updateTrimming() {
       const field = tags.field('edit-field')
       const trimmingRate = {
-        x: (this.imageOffsetX / field.w).toFixed(3),
-        y: (this.imageOffsetY / field.h).toFixed(3)
+        x: (this.trimming.x / field.w).toFixed(3),
+        y: (this.trimming.y / field.h).toFixed(3)
       }
       const formData = params.renewFormData(this.formData)
       formData.set(`${this.targetModel}[trimming]`, JSON.stringify(trimmingRate))
