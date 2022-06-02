@@ -51,8 +51,8 @@ export default {
 
       // エレメントの左上からポインターまでの位置
       this.pointer = {
-        x: Math.floor(e.offsetX),
-        y: Math.floor(e.offsetY)
+        x: params.toF(e.offsetX, 1),
+        y: params.toF(e.offsetY, 1)
       }
     },
     touchmove(e) {
@@ -60,18 +60,19 @@ export default {
 
       // e.offsetXY = １ドラッグ終了時点の座標
       // pointer.xy = クリックオン時点の座標
-      const shiftX = Math.floor(e.offsetX) - this.pointer.x
-      const shiftY = Math.floor(e.offsetY) - this.pointer.y
+      const shiftX = params.toF(e.offsetX, 1) - this.pointer.x
+      const shiftY = params.toF(e.offsetY, 1) - this.pointer.y
       this.location.x += shiftX
       this.location.y += shiftY
       this.frameOffset.x += shiftX
       this.frameOffset.y += shiftY
-      const field = tags.field('edit-location-field')
+
 
       // 外側に出ないように画像の移動を抑制する
+      const field = tags.field('edit-location-field')
       const safe_blank = 2
-      const limitX = Math.floor(field.w / 2) - safe_blank
-      const limitY = Math.floor(field.h / 2) - safe_blank
+      const limitX = params.toF(field.w / 2, 1) - safe_blank
+      const limitY = params.toF(field.h / 2, 1) - safe_blank
       if (this.frameOffset.x >= limitX) {
         this.location.x += limitX - this.frameOffset.x
         this.frameOffset.x = limitX
@@ -145,7 +146,6 @@ export default {
       const locatorRadius = 10
       locator_image.style.left = field.w / 2 - locatorRadius + 'px'
       locator_image.style.top = field.h / 2 - locatorRadius + 'px'
-
     },
     updateLocation() {
       const field = tags.field('edit-location-field')

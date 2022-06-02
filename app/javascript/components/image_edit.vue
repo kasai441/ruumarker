@@ -41,8 +41,8 @@ export default {
       image.classList.add('shadow-2xl')
 
       // エレメントの左上からポインターまでの位置
-      this.pointerX = Math.floor(e.offsetX)
-      this.pointerY = Math.floor(e.offsetY)
+      this.pointerX = params.toF(e.offsetX, 1)
+      this.pointerY = params.toF(e.offsetY, 1)
     },
     touchmove(e) {
       if (!this.isMovable) return
@@ -50,13 +50,13 @@ export default {
       // 動かす画像の左上からポインターまでの距離
       // pointerXY = クリック時点
       // e.offsetXY =  ドラッグ中
-      this.imageOffsetX += Math.floor(e.offsetX) - this.pointerX
-      this.imageOffsetY += Math.floor(e.offsetY) - this.pointerY
+      this.imageOffsetX += params.toF(e.offsetX, 1) - this.pointerX
+      this.imageOffsetY += params.toF(e.offsetY, 1) - this.pointerY
       const field = tags.field('edit-field')
 
       // 外側に出ないように画像の移動を抑制する
-      const limitX = Math.floor(field.w / 4)
-      const limitY = Math.floor(field.h / 4)
+      const limitX = params.toF(field.w / 4, 1)
+      const limitY = params.toF(field.h / 4, 1)
       if (this.imageOffsetX > limitX) this.imageOffsetX = limitX
       if (this.imageOffsetX < -limitX) this.imageOffsetX = -limitX
       if (this.imageOffsetY > limitY) this.imageOffsetY = limitY
@@ -89,8 +89,8 @@ export default {
 
       // 移動分の反映
       const image = document.getElementById('edit-image')
-      this.imageOffsetX = Math.floor(field.w * this.trimming.x)
-      this.imageOffsetY = Math.floor(field.h * this.trimming.y)
+      this.imageOffsetX = params.toF(field.w * this.trimming.x, 1)
+      this.imageOffsetY = params.toF(field.h * this.trimming.y, 1)
       image.style.left = this.imageOffsetX + 'px'
       image.style.top = this.imageOffsetY + 'px'
 

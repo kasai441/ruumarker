@@ -38,8 +38,8 @@ const transferLocators = (locators, fieldLocation, field) => {
     if (!a) return
 
     const locationRate = params.parseOrInit(locator.location)
-    const locatorLocationX = Math.floor(field.w * (0.5 - locationRate.x))
-    const locatorLocationY = Math.floor(field.h * (0.5 - locationRate.y))
+    const locatorLocationX = params.toF(field.w * (0.5 - locationRate.x), 1)
+    const locatorLocationY = params.toF(field.h * (0.5 - locationRate.y), 1)
     const r = 10
     a.style.left = fieldLocation.x + locatorLocationX - r + 'px'
     a.style.top = fieldLocation.y + locatorLocationY - r + 'px'
@@ -48,11 +48,11 @@ const transferLocators = (locators, fieldLocation, field) => {
 
 const field = id => {
   const field = document.getElementById(id)
-  const left = Math.floor(field.getBoundingClientRect().left)
-  const top = Math.floor(field.getBoundingClientRect().top)
+  const left = params.toF(field.getBoundingClientRect().left, 1)
+  const top = params.toF(field.getBoundingClientRect().top, 1)
   return {
-    w: Math.floor(field.getBoundingClientRect().right) - left,
-    h: Math.floor(field.getBoundingClientRect().bottom) - top
+    w: params.toF(field.getBoundingClientRect().right, 1) - left,
+    h: params.toF(field.getBoundingClientRect().bottom, 1) - top
   }
 }
 

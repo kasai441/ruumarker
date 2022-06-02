@@ -47,21 +47,21 @@ export default {
       tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
     getFieldSize() {
-      const showFieldLeft = Math.floor(this.showField.getBoundingClientRect().left)
-      const showFieldTop = Math.floor(this.showField.getBoundingClientRect().top)
-      this.showFieldWidth = Math.floor(this.showField.getBoundingClientRect().right) - showFieldLeft
-      this.showFieldHeight = Math.floor(this.showField.getBoundingClientRect().bottom) - showFieldTop
+      const showFieldLeft = params.toF(this.showField.getBoundingClientRect().left, 1)
+      const showFieldTop = params.toF(this.showField.getBoundingClientRect().top, 1)
+      this.showFieldWidth = params.toF(this.showField.getBoundingClientRect().right, 1) - showFieldLeft
+      this.showFieldHeight = params.toF(this.showField.getBoundingClientRect().bottom, 1) - showFieldTop
 
       const showImage = document.getElementById('show-image')
       const trimming = params.parseOrInit(this.trimming)
-      showImage.style.left = Math.floor(this.showFieldWidth * trimming.x) + 'px'
-      showImage.style.top = Math.floor(this.showFieldHeight * trimming.y) + 'px'
+      showImage.style.left = params.toF(this.showFieldWidth * trimming.x, 1) + 'px'
+      showImage.style.top = params.toF(this.showFieldHeight * trimming.y, 1) + 'px'
 
       this.locators.forEach(locator => {
         const a = document.getElementById(`locator-${locator.id}`)
         const location = params.parseOrInit(locator.location)
-        a.style.left = Math.floor(this.showFieldWidth * (0.5 - location.x + Number(trimming.x))) - 10 + 'px'
-        a.style.top = Math.floor(this.showFieldHeight * (0.5 - location.y + Number(trimming.y))) - 10 + 'px'
+        a.style.left = params.toF(this.showFieldWidth * (0.5 - location.x + Number(trimming.x)), 1) - 10 + 'px'
+        a.style.top = params.toF(this.showFieldHeight * (0.5 - location.y + Number(trimming.y)), 1) - 10 + 'px'
       })
 
       const camera = document.getElementById('image-edit')
