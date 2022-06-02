@@ -53,6 +53,10 @@ export default {
     this.mapId = map['id']
     this.mapImageUrl = map['image_url']
     this.mapTrimming = map['trimming']
+  },
+  mounted() {
+    const download = document.getElementById('download')
+    download.classList.remove('hidden')
   }
 }
 </script>
