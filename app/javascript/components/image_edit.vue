@@ -27,8 +27,7 @@ export default {
       isMovable: false,
       imageUrl: null,
       trimming: null,
-      pointerX: 0,
-      pointerY: 0,
+      pointer: null,
       locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
     }
   },
@@ -39,16 +38,18 @@ export default {
       image.classList.add('shadow-2xl')
 
       // エレメントの左上からポインターまでの位置
-      this.pointerX = params.toF(e.offsetX, 1)
-      this.pointerY = params.toF(e.offsetY, 1)
+      this.pointer = {
+        x: params.toF(e.offsetX, 1),
+        y: params.toF(e.offsetY, 1)
+      }
     },
     touchmove(e) {
       if (!this.isMovable) return
 
       // e.offsetXY = １ドラッグ終了時点の座標
       // pointer.xy = クリックオン時点の座標
-      this.trimming.x += params.toF(e.offsetX, 1) - this.pointerX
-      this.trimming.y += params.toF(e.offsetY, 1) - this.pointerY
+      this.trimming.x += params.toF(e.offsetX, 1) - this.pointer.x
+      this.trimming.y += params.toF(e.offsetY, 1) - this.pointer.y
 
       // 外側に出ないように画像の移動を抑制する
       const field = tags.field('edit-field')
