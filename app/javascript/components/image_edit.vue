@@ -28,6 +28,7 @@ export default {
       imageUrl: null,
       trimming: null,
       imageOffsetX: 0,
+      imageOffsetY: 0,
       imageTop: 0,
       pointerX: 0,
       pointerY: 0,
@@ -84,12 +85,13 @@ export default {
       this.getFieldSize()
     },
     getFieldSize() {
+      // 画像の位置
       const field = tags.field('edit-field')
-
-      // 移動分の反映
+      const trimmingRate = params.fromJson(this.formData, this.targetModel, 'trimming')
+      const trimming = params.toPx(field, trimmingRate)
+      this.imageOffsetX = params.toF(field.w * trimmingRate.x, 1)
+      this.imageOffsetY = params.toF(field.h * trimmingRate.y, 1)
       const image = document.getElementById('edit-image')
-      this.imageOffsetX = params.toF(field.w * this.trimming.x, 1)
-      this.imageOffsetY = params.toF(field.h * this.trimming.y, 1)
       image.style.left = this.imageOffsetX + 'px'
       image.style.top = this.imageOffsetY + 'px'
 
@@ -99,10 +101,12 @@ export default {
     },
     updateTrimming() {
       const field = tags.field('edit-field')
-      this.trimming.x = (this.imageOffsetX / field.w).toFixed(3)
-      this.trimming.y = (this.imageOffsetY / field.h).toFixed(3)
+      const trimmingRate = {
+        x: (this.imageOffsetX / field.w).toFixed(3),
+        y: (this.imageOffsetY / field.h).toFixed(3)
+      }
       const formData = params.renewFormData(this.formData)
-      formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: this.trimming.x, y: this.trimming.y}))
+      formData.set(`${this.targetModel}[trimming]`, JSON.stringify(trimmingRate))
       this.$emit('emitFormData', formData)
     },
     generateLocators() {
@@ -115,9 +119,7 @@ export default {
 
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
-
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
-    this.trimming = params.fromJson(this.formData, this.targetModel, 'trimming')
     this.generateLocators()
     this.getFieldSize()
   },
