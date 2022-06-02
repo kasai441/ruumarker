@@ -24,9 +24,9 @@ export default {
   ],
   data() {
     return {
-      trimming: null,
-      imageUrl: null,
       isMovable: false,
+      imageUrl: null,
+      trimming: null,
       imageOffsetX: 0,
       imageTop: 0,
       pointerX: 0,
