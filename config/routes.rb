@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   end
   namespace :api do
     resources :rooms, only: '' do
-      resources :maps, only: %i[show create update]
-      resources :marks, only: %i[show create update]
+      resources :maps, only: %i[create update]
+      resources :marks, only: %i[create update]
     end
   end
 end
