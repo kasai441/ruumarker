@@ -69,8 +69,6 @@ export default {
     }
   },
   async created() {
-    console.log('MarksEdit#created')
-
     if (this.formData) return
 
     this.formData = params.initFormData(this.mark, 'mark')

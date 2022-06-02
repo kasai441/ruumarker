@@ -55,8 +55,8 @@ describe 'ルーム管理機能', type: :system do
       it 'キズが真ん中に表示されている' do
         w, h = pixel(find_by_id('show-image'), 'width', 'height')
         left, top = pixel(find_by_id("locator-#{mark1.id}"), 'left', 'top')
-        expect(left).to be_within(2).of(w / 2 - 10)
-        expect(top).to be_within(2).of(h / 2 - 10)
+        expect(left).to be_within(1).of(w / 2 - 10)
+        expect(top).to be_within(1).of(h / 2 - 10)
       end
     end
 
@@ -79,12 +79,12 @@ describe 'ルーム管理機能', type: :system do
         w, h = pixel(find_by_id('show-image'), 'width', 'height')
 
         left, top = pixel(find_by_id("locator-#{mark1.id}"), 'left', 'top')
-        expect(left).to be_within(2).of(w / 2 - 10 - 11)
-        expect(top).to be_within(2).of(h / 2 - 10 + 21)
+        expect(left).to be_within(1).of(w / 2 - 10 - 11)
+        expect(top).to be_within(1).of(h / 2 - 10 + 21)
 
         left, top = pixel(find_by_id("locator-#{mark2.id}"), 'left', 'top')
-        expect(left).to be_within(2).of(w / 2 - 10 + 31)
-        expect(top).to be_within(2).of(h / 2 - 10 - 41)
+        expect(left).to be_within(1).of(w / 2 - 10 + 31)
+        expect(top).to be_within(1).of(h / 2 - 10 - 41)
       end
     end
 
@@ -106,8 +106,8 @@ describe 'ルーム管理機能', type: :system do
       it '画像の中でのキズの位置がキープされている（移動分＋トリミング分、動いている）' do
         w, h = pixel(find_by_id('show-image'), 'width', 'height')
         left, top = pixel(find_by_id("locator-#{mark1.id}"), 'left', 'top')
-        expect(left).to be_within(4).of(w / 2 - 10 + 52 - 32)
-        expect(top).to be_within(4).of(h / 2 - 10 - 42 - 22)
+        expect(left).to be_within(1).of(w / 2 - 10 + 52 - 32)
+        expect(top).to be_within(1).of(h / 2 - 10 - 42 - 22)
       end
     end
   end

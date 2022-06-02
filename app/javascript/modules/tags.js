@@ -1,10 +1,12 @@
+import params from './params'
+
 const parent = (name, elem) => {
   if (elem.nodeName === 'BODY') return
 
   return elem.nodeName === name ? elem : parent(name, elem.parentElement)
 }
 
-const generateLocators = (locators, field, options) => {
+const generateLocators = (locators, id, options) => {
   locators.forEach((locator, index) => {
     if (options && options.except == locator.id) return
 
@@ -26,12 +28,45 @@ const generateLocators = (locators, field, options) => {
       options.class.forEach(c => a.classList.add(c))
     }
 
-    field.append(a)
+    document.getElementById(id).append(a)
   })
+}
+
+const transferLocators = (locators, fieldLocation, field) => {
+  locators.forEach(locator => {
+    const a = document.getElementById(`locator-${locator.id}`)
+    if (!a) return
+
+    const locationRate = params.parseOrInit(locator.location)
+    const locatorLocationX = params.toF(field.w * (0.5 - locationRate.x), 1)
+    const locatorLocationY = params.toF(field.h * (0.5 - locationRate.y), 1)
+    const radius = 10
+    a.style.left = fieldLocation.x + locatorLocationX - radius + 'px'
+    a.style.top = fieldLocation.y + locatorLocationY - radius + 'px'
+  })
+}
+
+const field = id => {
+  const field = document.getElementById(id)
+  const left = params.toF(field.getBoundingClientRect().left, 1)
+  const top = params.toF(field.getBoundingClientRect().top, 1)
+  return {
+    w: params.toF(field.getBoundingClientRect().right, 1) - left,
+    h: params.toF(field.getBoundingClientRect().bottom, 1) - top
+  }
+}
+
+const styleLeftTop = (id, value) => {
+  const element = document.getElementById(id)
+  element.style.left = value.x + 'px'
+  element.style.top = value.y + 'px'
 }
 
 export default {
   namespaced: true,
   parent,
-  generateLocators
+  generateLocators,
+  transferLocators,
+  field,
+  styleLeftTop
 }

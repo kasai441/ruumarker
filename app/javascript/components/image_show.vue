@@ -30,7 +30,6 @@ export default {
   ],
   data() {
     return {
-      showField: null,
       showFieldWidth: 0,
       showFieldHeight: 0,
       locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
@@ -47,29 +46,16 @@ export default {
       tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
     getFieldSize() {
-      const showFieldLeft = Math.floor(this.showField.getBoundingClientRect().left)
-      const showFieldTop = Math.floor(this.showField.getBoundingClientRect().top)
-      this.showFieldWidth = Math.floor(this.showField.getBoundingClientRect().right) - showFieldLeft
-      this.showFieldHeight = Math.floor(this.showField.getBoundingClientRect().bottom) - showFieldTop
+      const field = tags.field('show-field')
+      const trimmingRate = params.parseOrInit(this.trimming)
+      const trimming = params.toPx(field, trimmingRate)
+      tags.styleLeftTop('show-image', trimming)
+      tags.transferLocators(this.locators, trimming, field)
 
-      const showImage = document.getElementById('show-image')
-      const trimming = params.parseOrInit(this.trimming)
-      showImage.style.left = Math.floor(this.showFieldWidth * trimming.x) + 'px'
-      showImage.style.top = Math.floor(this.showFieldHeight * trimming.y) + 'px'
-
-      this.locators.forEach(locator => {
-        const a = document.getElementById(`locator-${locator.id}`)
-        const location = params.parseOrInit(locator.location)
-        a.style.left = Math.floor(this.showFieldWidth * (0.5 - location.x + Number(trimming.x))) - 10 + 'px'
-        a.style.top = Math.floor(this.showFieldHeight * (0.5 - location.y + Number(trimming.y))) - 10 + 'px'
+      tags.styleLeftTop('image-edit', {
+        x: field.w - 45,
+        y: field.h - 45
       })
-
-      const camera = document.getElementById('image-edit')
-      camera.style.left = this.showFieldWidth - 45 + 'px'
-      camera.style.top = this.showFieldHeight - 45 + 'px'
-    },
-    generateLocators() {
-      tags.generateLocators(this.locators, this.showField)
     },
     scrollTable(e) {
       const a = tags.parent('A', e.target)
@@ -119,9 +105,7 @@ export default {
       tr.addEventListener('click', this.visitLocators)
     })
     window.addEventListener('resize', this.handleResize)
-
-    this.showField = document.getElementById('show-field')
-    this.generateLocators()
+    tags.generateLocators(this.locators, 'show-field')
     this.getFieldSize()
   },
   beforeDestroy() {
@@ -130,7 +114,6 @@ export default {
     Array.prototype.forEach.call(trs, tr => {
       tr.removeEventListener('click', this.visitLocators)
     })
-
     window.removeEventListener('resize', this.handleResize)
   }
 }

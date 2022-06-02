@@ -1,21 +1,27 @@
 <template>
   <section id="location-edit">
-    <div id="edit-location-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
+    <div id="edit-location-field" @pointermove="touchmove($event)"
+         @pointerup="touchend($event)" @pointerleave="touchend($event)"
          class="my-16 w-field h-field relative">
-      <img :src="imageUrl" id="edit-location-image" draggable="false" @pointerdown="touchstart($event)" @touchmove.prevent
+      <img :src="imageUrl" id="edit-location-image" draggable="false"
+           @pointerdown="touchstart($event)" @touchmove.prevent
            class="absolute w-field h-field object-contain">
       <div id="edit-location-frame"
-           class="pointer-events-none absolute w-field h-field
-         bg-transparent bg-transparent
-         outline outline-112 outline-slate-300"></div>
+           class="absolute z-10 w-field h-field
+             pointer-events-none bg-transparent bg-transparent
+             outline outline-112 outline-slate-300"></div>
       <div id="edit-location-shade"
-           class="pointer-events-none absolute w-field h-field
-         outline outline-slate-100
-         bg-transparent bg-transparent"></div>
+           class="absolute z-10 w-field h-field
+             pointer-events-none bg-transparent bg-transparent
+             outline outline-slate-100"></div>
       <img :src="locatorImage" id="locator-image" draggable="false" width="20"
-           class="pointer-events-none absolute z-10">
-      <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
-      <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
+           class="absolute z-20 pointer-events-none">
+      <div class="absolute z-10 w-field h-field
+             pointer-events-none bg-transparent
+             outline outline-240 outline-slate-200 opacity-40"></div>
+      <div class="absolute z-10 w-field h-field
+             pointer-events-none bg-transparent
+             outline outline-4 outline-lime-500"></div>
     </div>
   </section>
 </template>
@@ -35,88 +41,69 @@ export default {
   ],
   data() {
     return {
-      imageTrimmingX: 0,
-      imageTrimmingY: 0,
-      imageUrl: null,
-      trimming: null,
-      location: null,
       isMovable: false,
-      fieldClientX: 0,
-      fieldClientY: 0,
-      fieldWidth: 0,
-      fieldHeight: 0,
-      frame: null,
-      shade: null,
-      frameOffsetX: 0,
-      frameOffsetY: 0,
-      image: null,
-      imageOffsetX: 0,
-      imageOffsetY: 0,
-      pointerX: 0,
-      pointerY: 0,
+      imageUrl: null,
+      location: null,
+      frameOffset: null,
+      pointer: null,
       locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
     }
   },
   methods: {
     touchstart(e) {
       this.isMovable = true
-      this.shade.classList.add('shadow-2xl')
+      const shade = document.getElementById('edit-location-shade')
+      shade.classList.add('shadow-2xl')
 
       // エレメントの左上からポインターまでの位置
-      this.pointerX = Math.floor(e.offsetX)
-      this.pointerY = Math.floor(e.offsetY)
+      this.pointer = {
+        x: params.toF(e.offsetX, 1),
+        y: params.toF(e.offsetY, 1)
+      }
     },
     touchmove(e) {
       if (!this.isMovable) return
 
-      // 動かす画像の左上からポインターまでの距離
-      // framePointerXY = クリック時点
-      // e.offsetXY = ドラッグ中
-      const shiftX = Math.floor(e.offsetX) - this.pointerX
-      const shiftY = Math.floor(e.offsetY) - this.pointerY
-      this.imageOffsetX += shiftX
-      this.imageOffsetY += shiftY
-      this.frameOffsetX += shiftX
-      this.frameOffsetY += shiftY
+      // e.offsetXY = １ドラッグ終了時点の座標
+      // pointer.xy = クリックオン時点の座標
+      const shiftX = params.toF(e.offsetX, 1) - this.pointer.x
+      const shiftY = params.toF(e.offsetY, 1) - this.pointer.y
+      this.location.x += shiftX
+      this.location.y += shiftY
+      this.frameOffset.x += shiftX
+      this.frameOffset.y += shiftY
 
       // 外側に出ないように画像の移動を抑制する
+      const field = tags.field('edit-location-field')
       const safe_blank = 2
-      const constrainFrameRangeX = Math.floor(this.fieldWidth / 2) - safe_blank
-      const constrainFrameRangeY = Math.floor(this.fieldHeight / 2) - safe_blank
-      if (this.frameOffsetX >= constrainFrameRangeX) {
-        this.frameOffsetX = constrainFrameRangeX
-        this.imageOffsetX = constrainFrameRangeX + this.imageTrimmingX
+      const limitX = params.toF(field.w / 2, 1) - safe_blank
+      const limitY = params.toF(field.h / 2, 1) - safe_blank
+      if (this.frameOffset.x >= limitX) {
+        this.location.x += limitX - this.frameOffset.x
+        this.frameOffset.x = limitX
       }
-      if (this.frameOffsetX <= -constrainFrameRangeX) {
-        this.frameOffsetX = -constrainFrameRangeX
-        this.imageOffsetX = -constrainFrameRangeX + this.imageTrimmingX
+      if (this.frameOffset.x <= -limitX) {
+        this.location.x += -limitX - this.frameOffset.x
+        this.frameOffset.x = -limitX
       }
-      if (this.frameOffsetY >= constrainFrameRangeY) {
-        this.frameOffsetY = constrainFrameRangeY
-        this.imageOffsetY = constrainFrameRangeY + this.imageTrimmingY
+      if (this.frameOffset.y >= limitY) {
+        this.location.y += limitY - this.frameOffset.y
+        this.frameOffset.y = limitY
       }
-      if (this.frameOffsetY <= -constrainFrameRangeY) {
-        this.frameOffsetY = -constrainFrameRangeY
-        this.imageOffsetY = -constrainFrameRangeY + this.imageTrimmingY
+      if (this.frameOffset.y <= -limitY) {
+        this.location.y += -limitY - this.frameOffset.y
+        this.frameOffset.y = -limitY
       }
 
-      this.frame.style.left = this.shade.style.left = this.frameOffsetX + 'px'
-      this.frame.style.top = this.shade.style.top = this.frameOffsetY + 'px'
-      this.image.style.left = this.imageOffsetX + 'px'
-      this.image.style.top = this.imageOffsetY + 'px'
-
-      this.locators.forEach(locator => {
-        const a = document.getElementById(`locator-${locator.id}`)
-        if (!a) return
-
-        const location = params.parseOrInit(locator.location)
-        a.style.left = this.imageOffsetX + Math.floor(this.fieldWidth * (0.5 - location.x)) - 10 + 'px'
-        a.style.top = this.imageOffsetY + Math.floor(this.fieldHeight * (0.5 - location.y)) - 10 + 'px'
-      })
+      tags.styleLeftTop('edit-location-frame', this.frameOffset)
+      tags.styleLeftTop('edit-location-shade', this.frameOffset)
+      tags.styleLeftTop('edit-location-image', this.location)
+      tags.transferLocators(this.locators, this.location, field)
     },
     touchend() {
       this.isMovable = false
-      this.shade.classList.remove('shadow-2xl')
+      const shade = document.getElementById('edit-location-shade')
+      shade.classList.remove('shadow-2xl')
       this.updateLocation()
     },
     handleResize() {
@@ -127,69 +114,46 @@ export default {
       this.getFieldSize()
     },
     getFieldSize() {
-      const field = document.getElementById('edit-location-field')
-      if(field) {
-        this.fieldClientX = Math.floor(field.getBoundingClientRect().left)
-        this.fieldClientY = Math.floor(field.getBoundingClientRect().top)
-        this.fieldWidth = Math.floor(field.getBoundingClientRect().right) - this.fieldClientX
-        this.fieldHeight = Math.floor(field.getBoundingClientRect().bottom) - this.fieldClientY
+      // 画像の位置
+      const field = tags.field('edit-location-field')
+      const locationRate = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
+      this.location = params.toPx(field, locationRate)
+      tags.styleLeftTop('edit-location-image', this.location)
 
-        // 目隠しフレームの位置
-        console.log(`LocationEdit.fieldClientY: ${this.fieldClientY}`)
-        this.frame = document.getElementById('edit-location-frame')
-        this.shade = document.getElementById('edit-location-shade')
-        this.frameOffsetX = Math.floor(this.fieldWidth * (this.location.x - this.trimming.x))
-        this.frameOffsetY = Math.floor(this.fieldHeight * (this.location.y - this.trimming.y))
-        this.frame.style.left = this.shade.style.left = this.frameOffsetX + 'px'
-        this.frame.style.top = this.shade.style.top = this.frameOffsetY + 'px'
-
-        // 画像の位置
-        this.imageTrimmingX = Math.floor(this.fieldWidth * this.trimming.x)
-        this.imageTrimmingY = Math.floor(this.fieldHeight * this.trimming.y)
-        this.image = document.getElementById('edit-location-image')
-        this.imageOffsetX = this.frameOffsetX + this.imageTrimmingX
-        this.imageOffsetY = this.frameOffsetY + this.imageTrimmingY
-        this.image.style.left = this.imageOffsetX + 'px'
-        this.image.style.top = this.imageOffsetY + 'px'
-
-        this.locators.forEach(locator => {
-          const a = document.getElementById(`locator-${locator.id}`)
-          if (!a) return
-
-          const location = params.parseOrInit(locator.location)
-          a.style.left = this.imageOffsetX + Math.floor(this.fieldWidth * (0.5 - location.x)) - 10 + 'px'
-          a.style.top = this.imageOffsetY + Math.floor(this.fieldHeight * (0.5 - location.y)) - 10 + 'px'
-        })
-
-        const locator_image = document.getElementById('locator-image')
-        locator_image.style.left = this.fieldWidth / 2 - 10 + 'px'
-        locator_image.style.top = this.fieldHeight / 2 - 10 + 'px'
+      // 目隠しフレームの位置
+      const trimmingRate = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
+      const trimming = params.toPx(field, trimmingRate)
+      this.frameOffset = {
+        x: this.location.x - trimming.x,
+        y: this.location.y - trimming.y
       }
+      tags.styleLeftTop('edit-location-frame', this.frameOffset)
+      tags.styleLeftTop('edit-location-shade', this.frameOffset)
+      tags.transferLocators(this.locators, this.location, field)
+
+      const locatorRadius = 10
+      tags.styleLeftTop('locator-image', {
+        x: field.w / 2 - locatorRadius,
+        y: field.h / 2 - locatorRadius
+      })
     },
     updateLocation() {
-      this.location.x = (this.frameOffsetX / this.fieldWidth + Number(this.trimming.x)).toFixed(3)
-      this.location.y = (this.frameOffsetY / this.fieldHeight + Number(this.trimming.y)).toFixed(3)
+      const field = tags.field('edit-location-field')
+      const locationRate = {
+        x: (this.location.x / field.w).toFixed(3),
+        y: (this.location.y / field.h).toFixed(3)
+      }
       const locatorFormData = params.renewFormData(this.locatorFormData)
-      locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(this.location))
+      locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(locationRate))
       this.$emit('emitFormData', locatorFormData)
     },
-    generateLocators() {
-      const field = document.getElementById('edit-location-field')
-      const locatorId = this.locatorFormData.get(`${this.locatorModel}[id]`)
-      tags.generateLocators(this.locators, field, { except: locatorId, class: ['pointer-events-none'] })
-    }
   },
   mounted() {
-    console.log('LocationEdit#mounted')
-
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
-
     this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
-    this.trimming = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
-    this.location = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
-
-    this.generateLocators()
+    const locatorId = this.locatorFormData.get(`${this.locatorModel}[id]`)
+    tags.generateLocators(this.locators, 'edit-location-field', { except: locatorId, class: ['pointer-events-none'] })
     this.getFieldSize()
   },
   beforeDestroy: () => {

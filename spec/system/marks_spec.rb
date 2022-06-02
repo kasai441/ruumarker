@@ -53,8 +53,8 @@ describe 'キズ管理機能', type: :system do
           expect(page).to have_selector 'h2', text: 'キズ点検表'
           find_by_id("mark-#{mark1.id}").click
           left, top = pixel(find_by_id('edit-image'), 'left', 'top')
-          expect(left).to be_within(2).of(11)
-          expect(top).to be_within(2).of(12)
+          expect(left).to be_within(1).of(11)
+          expect(top).to be_within(1).of(12)
         end
       end
 
@@ -109,8 +109,8 @@ describe 'キズ管理機能', type: :system do
           # expect(page).to have_selector '.alert-success', text: '変更しました
           find_by_id("mark-#{mark1.id}").click
           left, top = pixel(find_by_id('edit-image'), 'left', 'top')
-          expect(left).to be_within(2).of(21)
-          expect(top).to be_within(2).of(22)
+          expect(left).to be_within(1).of(21)
+          expect(top).to be_within(1).of(22)
         end
       end
 
@@ -128,8 +128,8 @@ describe 'キズ管理機能', type: :system do
         it '上限のトリミング幅となる' do
           find_by_id("mark-#{mark1.id}").click
           left, top = pixel(find_by_id('edit-image'), 'left', 'top')
-          expect(left).to be_within(2).of(limitX)
-          expect(top).to be_within(2).of(limitY)
+          expect(left).to be_within(1).of(limitX)
+          expect(top).to be_within(1).of(limitY)
         end
       end
 
@@ -144,8 +144,8 @@ describe 'キズ管理機能', type: :system do
         it '下限のトリミング幅となる' do
           find_by_id("mark-#{mark1.id}").click
           left, top = pixel(find_by_id('edit-image'), 'left', 'top')
-          expect(left).to be_within(2).of(-limitX)
-          expect(top).to be_within(2).of(-limitY)
+          expect(left).to be_within(1).of(-limitX)
+          expect(top).to be_within(1).of(-limitY)
         end
       end
     end
@@ -206,13 +206,14 @@ describe 'キズ管理機能', type: :system do
           expect(page).to have_selector 'h2', text: 'キズ点検表'
           find_by_id("mark-#{mark1.id}").click
           left, top = pixel(find_by_id('edit-location-image'), 'left', 'top')
-          expect(left).to be_within(2).of(33)
-          expect(top).to be_within(2).of(34)
+          expect(left).to be_within(1).of(33)
+          expect(top).to be_within(1).of(34)
         end
       end
 
-      let!(:limitX) { pixel(find_by_id('edit-location-field'), 'width') / 2 }
-      let!(:limitY) { pixel(find_by_id('edit-location-field'), 'height') / 2 }
+      safe_blank = 2
+      let!(:limitX) { pixel(find_by_id('edit-location-field'), 'width') / 2 - safe_blank }
+      let!(:limitY) { pixel(find_by_id('edit-location-field'), 'height') / 2 - safe_blank }
 
       context '画面編集時に上限以上の配置移動を行ったとき' do
         before do
@@ -226,8 +227,8 @@ describe 'キズ管理機能', type: :system do
         it '上限の配置移動幅となる' do
           find_by_id("mark-#{mark1.id}").click
           left, top = pixel(find_by_id('edit-location-image'), 'left', 'top')
-          expect(left).to be_within(4).of(limitX)
-          expect(top).to be_within(4).of(limitY)
+          expect(left).to be_within(1).of(limitX)
+          expect(top).to be_within(1).of(limitY)
         end
       end
 
@@ -244,8 +245,8 @@ describe 'キズ管理機能', type: :system do
         it '下限の配置移動幅となる' do
           find_by_id("mark-#{mark1.id}").click
           left, top = pixel(find_by_id('edit-location-image'), 'left', 'top')
-          expect(left).to be_within(2).of(-limitX)
-          expect(top).to be_within(2).of(-limitY)
+          expect(left).to be_within(1).of(-limitX)
+          expect(top).to be_within(1).of(-limitY)
         end
       end
 
@@ -273,10 +274,10 @@ describe 'キズ管理機能', type: :system do
           frame_left, frame_top = pixel(find_by_id('edit-location-frame'), 'left', 'top')
           image_left, image_top = pixel(find_by_id('edit-location-image'), 'left', 'top')
 
-          expect(frame_left).to be_within(4).of(-33 - 11)
-          expect(frame_top).to be_within(4).of(44 - -22)
-          expect(image_left).to be_within(4).of(-33)
-          expect(image_top).to be_within(4).of(44)
+          expect(frame_left).to be_within(1).of(-33 - 11)
+          expect(frame_top).to be_within(1).of(44 - -22)
+          expect(image_left).to be_within(1).of(-33)
+          expect(image_top).to be_within(1).of(44)
         end
       end
     end
@@ -320,16 +321,16 @@ describe 'キズ管理機能', type: :system do
           w, h = pixel(find_by_id('edit-field'), 'width', 'height')
 
           left, top = pixel(find_by_id('locator-image'), 'left', 'top')
-          expect(left).to be_within(2).of(w / 2 - mark_radius)
-          expect(top).to be_within(2).of(h / 2 - mark_radius)
+          expect(left).to be_within(1).of(w / 2 - mark_radius)
+          expect(top).to be_within(1).of(h / 2 - mark_radius)
 
           left, top = pixel(find_by_id("locator-#{mark1.id}"), 'left', 'top')
-          expect(left).to be_within(2).of(w / 2 - mark_radius - -11 + 22)
-          expect(top).to be_within(2).of(h / 2 - mark_radius - -11 + 22)
+          expect(left).to be_within(1).of(w / 2 - mark_radius - -11 + 22)
+          expect(top).to be_within(1).of(h / 2 - mark_radius - -11 + 22)
 
           left, top = pixel(find_by_id("locator-#{mark3.id}"), 'left', 'top')
-          expect(left).to be_within(2).of(w / 2 - mark_radius - -33 + 22)
-          expect(top).to be_within(2).of(h / 2 - mark_radius - -33 + 22)
+          expect(left).to be_within(1).of(w / 2 - mark_radius - -33 + 22)
+          expect(top).to be_within(1).of(h / 2 - mark_radius - -33 + 22)
         end
       end
     end

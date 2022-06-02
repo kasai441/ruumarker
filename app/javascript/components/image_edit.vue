@@ -24,60 +24,49 @@ export default {
   ],
   data() {
     return {
-      trimming: null,
-      imageUrl: null,
       isMovable: false,
-      fieldClientX: 0,
-      fieldClientY: 0,
-      fieldWidth: 0,
-      fieldHeight: 0,
-      image: null,
-      imageOffsetX: 0,
-      imageTop: 0,
-      pointerX: 0,
-      pointerY: 0,
+      imageUrl: null,
+      trimming: null,
+      pointer: null,
       locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
     }
   },
   methods: {
     touchstart(e) {
       this.isMovable = true
-      this.image.classList.add('shadow-2xl')
+      const image = document.getElementById('edit-image')
+      image.classList.add('shadow-2xl')
 
       // エレメントの左上からポインターまでの位置
-      this.pointerX = Math.floor(e.offsetX)
-      this.pointerY = Math.floor(e.offsetY)
+      this.pointer = {
+        x: params.toF(e.offsetX, 1),
+        y: params.toF(e.offsetY, 1)
+      }
     },
     touchmove(e) {
       if (!this.isMovable) return
 
-      // 動かす画像の左上からポインターまでの距離
-      // pointerXY = クリック時点
-      // e.offsetXY =  ドラッグ中
-      this.imageOffsetX += Math.floor(e.offsetX) - this.pointerX
-      this.imageOffsetY += Math.floor(e.offsetY) - this.pointerY
+      // e.offsetXY = １ドラッグ終了時点の座標
+      // pointer.xy = クリックオン時点の座標
+      this.trimming.x += params.toF(e.offsetX, 1) - this.pointer.x
+      this.trimming.y += params.toF(e.offsetY, 1) - this.pointer.y
 
       // 外側に出ないように画像の移動を抑制する
-      const constrainRangeX = Math.floor(this.fieldWidth / 4)
-      const constrainRangeY = Math.floor(this.fieldHeight / 4)
-      if (this.imageOffsetX > constrainRangeX) this.imageOffsetX = constrainRangeX
-      if (this.imageOffsetX < -constrainRangeX) this.imageOffsetX = -constrainRangeX
-      if (this.imageOffsetY > constrainRangeY) this.imageOffsetY = constrainRangeY
-      if (this.imageOffsetY < -constrainRangeY) this.imageOffsetY = -constrainRangeY
+      const field = tags.field('edit-field')
+      const limitX = params.toF(field.w / 4, 1)
+      const limitY = params.toF(field.h / 4, 1)
+      if (this.trimming.x > limitX) this.trimming.x = limitX
+      if (this.trimming.x < -limitX) this.trimming.x = -limitX
+      if (this.trimming.y > limitY) this.trimming.y = limitY
+      if (this.trimming.y < -limitY) this.trimming.y = -limitY
 
-      this.image.style.left = this.imageOffsetX + 'px'
-      this.image.style.top = this.imageOffsetY + 'px'
-
-      this.locators.forEach(locator => {
-        const a = document.getElementById(`locator-${locator.id}`)
-        const location = params.parseOrInit(locator.location)
-        a.style.left = this.imageOffsetX + Math.floor(this.fieldWidth * (0.5 - location.x)) - 10 + 'px'
-        a.style.top = this.imageOffsetY + Math.floor(this.fieldHeight * (0.5 - location.y)) - 10 + 'px'
-      })
+      tags.styleLeftTop('edit-image', this.trimming)
+      tags.transferLocators(this.locators, this.trimming, field)
     },
     touchend() {
       this.isMovable = false
-      this.image.classList.remove('shadow-2xl')
+      const image = document.getElementById('edit-image')
+      image.classList.remove('shadow-2xl')
       this.updateTrimming()
     },
     handleResize() {
@@ -88,54 +77,32 @@ export default {
       this.getFieldSize()
     },
     getFieldSize() {
-      const field = document.getElementById('edit-field')
-      if(field) {
-        this.fieldClientX = Math.floor(field.getBoundingClientRect().left)
-        this.fieldClientY = Math.floor(field.getBoundingClientRect().top)
-        this.fieldWidth = Math.floor(field.getBoundingClientRect().right) - this.fieldClientX
-        this.fieldHeight = Math.floor(field.getBoundingClientRect().bottom) - this.fieldClientY
-
-        // 移動分の反映
-        console.log(`ImageEdit.fieldClientY: ${this.fieldClientY}`)
-        this.image = document.getElementById('edit-image')
-        this.imageOffsetX = Math.floor(this.fieldWidth * this.trimming.x)
-        this.imageOffsetY = Math.floor(this.fieldHeight * this.trimming.y)
-        this.image.style.left = this.imageOffsetX + 'px'
-        this.image.style.top = this.imageOffsetY + 'px'
-
-        this.locators.forEach(locator => {
-          const a = document.getElementById(`locator-${locator.id}`)
-          const location = params.parseOrInit(locator.location)
-          a.style.left = this.imageOffsetX + Math.floor(this.fieldWidth * (0.5 - location.x)) - 10 + 'px'
-          a.style.top = this.imageOffsetY + Math.floor(this.fieldHeight * (0.5 - location.y)) - 10 + 'px'
-        })
-      }
+      // 画像の位置
+      const field = tags.field('edit-field')
+      const trimmingRate = params.fromJson(this.formData, this.targetModel, 'trimming')
+      this.trimming = params.toPx(field, trimmingRate)
+      tags.styleLeftTop('edit-image', this.trimming)
+      tags.transferLocators(this.locators, this.trimming, field)
     },
     updateTrimming() {
-      this.trimming.x = (this.imageOffsetX / this.fieldWidth).toFixed(3)
-      this.trimming.y = (this.imageOffsetY / this.fieldHeight).toFixed(3)
+      const field = tags.field('edit-field')
+      const trimmingRate = {
+        x: (this.trimming.x / field.w).toFixed(3),
+        y: (this.trimming.y / field.h).toFixed(3)
+      }
       const formData = params.renewFormData(this.formData)
-      formData.set(`${this.targetModel}[trimming]`, JSON.stringify({x: this.trimming.x, y: this.trimming.y}))
+      formData.set(`${this.targetModel}[trimming]`, JSON.stringify(trimmingRate))
       this.$emit('emitFormData', formData)
     },
-    generateLocators() {
-      const field = document.getElementById('edit-field')
-      tags.generateLocators(this.locators, field, { class: ['pointer-events-none'] })
-    }
   },
   mounted() {
-    console.log('ImageEdit#mounted')
-
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
-
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
-    this.trimming = params.fromJson(this.formData, this.targetModel, 'trimming')
-    this.generateLocators()
+    tags.generateLocators(this.locators, 'edit-field', { class: ['pointer-events-none'] })
     this.getFieldSize()
   },
   async updated() {
-    console.log('ImageEdit#updated')
     const imageFile = this.formData.get(`${this.targetModel}[image]`)
     if (!imageFile) return
 
