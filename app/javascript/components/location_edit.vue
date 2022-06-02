@@ -67,7 +67,6 @@ export default {
       this.frameOffset.x += shiftX
       this.frameOffset.y += shiftY
 
-
       // 外側に出ないように画像の移動を抑制する
       const field = tags.field('edit-location-field')
       const safe_blank = 2
@@ -98,10 +97,7 @@ export default {
       image.style.left = this.location.x + 'px'
       image.style.top = this.location.y + 'px'
 
-      tags.transferLocators(this.locators,
-        { x: this.location.x, y: this.location.y },
-        { w: field.w, h: field.h }
-      )
+      tags.transferLocators(this.locators, this.location, field)
     },
     touchend() {
       this.isMovable = false
@@ -137,10 +133,7 @@ export default {
       frame.style.left = shade.style.left = this.frameOffset.x + 'px'
       frame.style.top = shade.style.top = this.frameOffset.y + 'px'
 
-      tags.transferLocators(this.locators,
-        { x: this.location.x, y: this.location.y },
-        { w: field.w, h: field.h }
-      )
+      tags.transferLocators(this.locators, this.location, field)
 
       const locator_image = document.getElementById('locator-image')
       const locatorRadius = 10

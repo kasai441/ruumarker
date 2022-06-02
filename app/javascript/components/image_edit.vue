@@ -67,8 +67,7 @@ export default {
       image.style.top = this.imageOffsetY + 'px'
 
       tags.transferLocators(this.locators,
-        { x: this.imageOffsetX, y: this.imageOffsetY },
-        { w: field.w, h: field.h }
+        { x: this.imageOffsetX, y: this.imageOffsetY }, field
       )
     },
     touchend() {
@@ -95,8 +94,7 @@ export default {
       image.style.top = this.imageOffsetY + 'px'
 
       tags.transferLocators(this.locators,
-        { x: this.imageOffsetX, y: this.imageOffsetY },
-        { w: field.w, h: field.h }
+        { x: this.imageOffsetX, y: this.imageOffsetY }, field
       )
     },
     updateTrimming() {
