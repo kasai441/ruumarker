@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @layer components {
-    .btn-lime {
-        @apply py-3 px-5 bg-lime-600 text-white font-semibold rounded-lg shadow-md hover:bg-lime-500 border-none;
+    .main-screen {
+        @apply md:w-168 min-w-72;
     }
     .w-field {
         @apply w-92vw sm:w-83vw md:w-144 max-w-144;
@@ -12,13 +12,16 @@
     .h-field {
         @apply h-92vw2/3 sm:h-83vw2/3 md:h-96 max-h-96;
     }
-    .main-screen {
-        @apply md:w-168 min-w-72;
+    .top-table {
+        @apply top-base sm:top-sm md:top-128 top-max-128;
     }
     .font-h2 {
         @apply py-4 font-bold text-lime-600;
     }
     .font-p {
         @apply pb-4 text-sm
+    }
+    .btn-lime {
+        @apply py-3 px-5 bg-lime-600 text-white font-semibold rounded-lg shadow-md hover:bg-lime-500 border-none;
     }
 }

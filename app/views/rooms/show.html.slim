@@ -1,19 +1,21 @@
-div.flex.flex-col.items-center.pt-1
-  h2.w-field.font-h2
-    |キズ点検表
-- marks_keys = %w[id location created_at]
-- marks = @room.map.marks.order(:created_at).map {|mark| mark.attributes.filter {|k,_| marks_keys.include?(k)}}
-- map_keys = %w[id trimming]
-- map = @room.map.attributes.filter {|k,_| map_keys.include?(k)}
-- map[:image_url] = url_for @room.map.image if @room.map.image.present?
-#rooms-show(
-room_id="#{@room.id}"
-marks="#{marks.to_json}"
-map="#{map.to_json}"
-)
-
-div.py-4.flex.flex-col.items-center
-  div.h-28.overflow-y-auto id="locators-table"
+div.fixed.top-16
+  div.flex.flex-col.items-center.main-screen
+    h2.w-field.font-h2
+      |キズ点検表
+    - marks_keys = %w[id location created_at]
+    - marks = @room.map.marks.order(:created_at).map {|mark| mark.attributes.filter {|k,_| marks_keys.include?(k)}}
+    - map_keys = %w[id trimming]
+    - map = @room.map.attributes.filter {|k,_| map_keys.include?(k)}
+    - map[:image_url] = url_for @room.map.image if @room.map.image.present?
+    #rooms-show(
+    room_id="#{@room.id}"
+    marks="#{marks.to_json}"
+    map="#{map.to_json}"
+    )
+div.fixed.bg-white.w-field.h-16.top-16.-z-10
+div.fixed.bg-white.w-field.h-field.top-32.-z-10
+div.py-4.flex.flex-col.items-center.absolute.-z-20.top-table
+  div id="locators-table"
     - if @room.map.marks.present?
       table.table.table-compact
         thead
