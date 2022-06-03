@@ -12,9 +12,6 @@
     .h-field {
         @apply h-92vw2/3 sm:h-83vw2/3 md:h-96 max-h-96;
     }
-    .top-table {
-        @apply top-base sm:top-sm md:top-128 top-max-128;
-    }
     .font-h2 {
         @apply py-4 font-bold text-lime-600;
     }

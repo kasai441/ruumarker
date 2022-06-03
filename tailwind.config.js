@@ -35,11 +35,6 @@ module.exports = {
       zIndex: {
         '60': '60'
       },
-      inset: {
-        'base': 'calc(83vw * 2/3 + 6rem)',
-        'sm': 'calc(92vw * 2/3 + 6rem)',
-        'max-128': 'max(32rem)'
-      },
       animation: {
         fadeout: 'fadeout 2.5s ease 1',
         halfvanish: 'halfvanish 0.5s ease 1'
