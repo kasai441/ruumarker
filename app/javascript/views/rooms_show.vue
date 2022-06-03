@@ -4,7 +4,7 @@
                   locators-model="mark" :locators-json="marks"
                   @emit-form-data="getFormData"></image-show>
       <div class="flex flex-col items-center">
-        <div class="absolute w-field h-48 flex flex-row-reverse items-end">
+        <div class="absolute w-field h-48 flex flex-row-reverse items-end pointer-events-none">
           <img src="/new_mark.png" @click='newMark' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
              id="create-mark" class="absolute z-10" width="50">
         </div>
