@@ -7,16 +7,13 @@
         @apply py-3 px-5 bg-lime-600 text-white font-semibold rounded-lg shadow-md hover:bg-lime-500 border-none;
     }
     .w-field {
-        @apply w-72 sm:w-84 md:w-96 lg:w-108;
+        @apply w-92vw sm:w-83vw md:w-144 max-w-144;
     }
     .h-field {
-        @apply h-48 sm:h-56 md:h-64 lg:h-72;
-    }
-    .side-screen {
-        @apply w-1/12 sm:w-1/6 lg:w-1/5 relative;
+        @apply h-92vw2/3 sm:h-83vw2/3 md:h-96 max-h-96;
     }
     .main-screen {
-        @apply w-5/6 sm:w-2/3 lg:w-3/5 min-w-72;
+        @apply md:w-168 min-w-72;
     }
     .font-h2 {
         @apply py-4 font-bold text-lime-600;

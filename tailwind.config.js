@@ -12,10 +12,20 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
-        '56': '14rem',
         '72': '18rem',
-        '84': '21rem',
-        '108': '27rem'
+      },
+      width: {
+        '83vw': '83vw',
+        '92vw': '92vw',
+        '144': '36rem',
+        '168': '42rem'
+      },
+      maxWidth: {
+        '144': '36rem',
+      },
+      height: {
+        '83vw2/3': 'calc(83vw * 2/3)',
+        '92vw2/3': 'calc(92vw * 2/3)',
       },
       outlineWidth: {
         32: '32px',

@@ -1,0 +1,38 @@
+div.flex.flex-col.items-center.pt-1
+  h2.w-field.font-h2
+    |キズ点検表(印刷用)
+- marks_keys = %w[id location created_at]
+- marks = @room.map.marks.order(:created_at).map {|mark| mark.attributes.filter {|k,_| marks_keys.include?(k)}}
+- map_keys = %w[id trimming]
+- map = @room.map.attributes.filter {|k,_| map_keys.include?(k)}
+- map[:image_url] = url_for @room.map.image if @room.map.image.present?
+#rooms-show(
+room_id="#{@room.id}"
+marks="#{marks.to_json}"
+map="#{map.to_json}"
+)
+
+div.py-4.flex.flex-col.items-center
+  div.h-28.overflow-y-auto id="locators-table"
+    - if @room.map.marks.present?
+      table.table.table-compact
+        thead
+          tr
+            th
+            th キズ
+            th 作成日
+            th
+        tbody
+          - @room.map.marks.order(:created_at).each_with_index do |mark, index|
+            tr.hover id="mark-#{mark.id}"
+              td.bg-transparent= index + 1
+              td.bg-transparent= mark.brief_description
+              td.bg-transparent.whitespace-normal= mark.created_at
+              td.bg-transparent= link_to '×', room_mark_path(mark.map.room, mark),
+                      data: { turbo_method: :delete,
+                              turbo_confirm: "キズ（#{mark.brief_description}）を削除します。よろしいですか？" },
+                      class: 'btn btn-circle btn-outline btn-sm'
+    - else
+      div.w-field.h-28.rounded-lg.bg-slate-100.flex.justify-center.items-center
+        | キズを追加できます
+  div.h-20

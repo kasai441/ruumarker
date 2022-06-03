@@ -46,6 +46,9 @@ export default {
     },
     unbindHalfvanish(e) {
       tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
+    },
+    print() {
+      window.print()
     }
   },
   created() {
@@ -53,6 +56,15 @@ export default {
     this.mapId = map['id']
     this.mapImageUrl = map['image_url']
     this.mapTrimming = map['trimming']
+  },
+  mounted() {
+    const download = document.getElementById('download')
+    download.classList.remove('hidden')
+    download.addEventListener('click', this.print)
+  },
+  beforeDestroy() {
+    const download = document.getElementById('download')
+    download.removeEventListener('click', this.print)
   }
 }
 </script>

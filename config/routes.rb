@@ -5,11 +5,12 @@ Rails.application.routes.draw do
   resources :rooms, only: %i[new show destroy] do
     resources :maps, only: :edit
     resources :marks, only: %i[new edit destroy]
+    resources :reports, only: :index
   end
   namespace :api do
     resources :rooms, only: '' do
-      resources :maps, only: %i[show create update]
-      resources :marks, only: %i[show create update]
+      resources :maps, only: %i[create update]
+      resources :marks, only: %i[create update]
     end
   end
 end

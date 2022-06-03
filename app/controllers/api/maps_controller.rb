@@ -2,11 +2,6 @@
 
 module Api
   class MapsController < ApplicationController
-    def show
-      @map = Map.find(params[:id])
-      render :show
-    end
-
     def create
       room = Room.find(params[:room_id])
       @map = room.build_map(map_params)
