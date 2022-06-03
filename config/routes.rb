@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :rooms, only: %i[new show destroy] do
     resources :maps, only: :edit
     resources :marks, only: %i[new edit destroy]
+    resources :reports, only: :index
   end
   namespace :api do
     resources :rooms, only: '' do
