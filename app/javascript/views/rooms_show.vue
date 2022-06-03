@@ -46,6 +46,9 @@ export default {
     },
     unbindHalfvanish(e) {
       tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
+    },
+    print() {
+      window.print()
     }
   },
   created() {
@@ -57,6 +60,11 @@ export default {
   mounted() {
     const download = document.getElementById('download')
     download.classList.remove('hidden')
+    download.addEventListener('click', this.print)
+  },
+  beforeDestroy() {
+    const download = document.getElementById('download')
+    download.removeEventListener('click', this.print)
   }
 }
 </script>
