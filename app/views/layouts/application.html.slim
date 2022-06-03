@@ -20,9 +20,7 @@ html
           = image_tag 'help.png', size: '30x30', alt: 'help.png', id: 'help', class: 'mx-2 opacity-40'
       - if flash.notice.present?
         .alert.alert-success= flash.notice
-      div.flex.justify-between
-        div.side-screen
+      div.flex.justify-center
         div.flex.flex-col.main-screen
           = yield
-        div.side-screen
       div.w-full.h-24.border-t.border-slate-900/10.bg-white

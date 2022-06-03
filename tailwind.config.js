@@ -15,15 +15,13 @@ module.exports = {
         '72': '18rem',
       },
       width: {
-        '144': '36rem',
-        'side-144': 'calc(50vw - 18rem)',
-        '4vw': '4vw',
         '83vw': '83vw',
-        '92vw': '92vw'
+        '92vw': '92vw',
+        '144': '36rem',
+        '168': '42rem'
       },
       maxWidth: {
         '144': '36rem',
-        'side-144': 'calc(50vw - 18rem)'
       },
       height: {
         '83vw2/3': 'calc(83vw * 2/3)',
