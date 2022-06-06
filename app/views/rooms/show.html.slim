@@ -1,6 +1,3 @@
-div.flex.flex-col.items-center.pt-1
-  h2.w-field.font-h2
-    |キズ点検表
 - marks_keys = %w[id description location created_at]
 - marks = @room.map.marks.order(:created_at).map do |mark| \
     hash = mark.attributes.filter { |k, _| marks_keys.include?(k) }; \
