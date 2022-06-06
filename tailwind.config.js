@@ -13,13 +13,16 @@ module.exports = {
     extend: {
       spacing: {
         '72': '18rem',
+        '112': '28rem',
         '128': '32rem',
         '144': '36rem',
         '168': '42rem',
         '83vw': '83vw',
         '83vw2/3': 'calc(83vw * 2/3)',
         '92vw': '92vw',
-        '92vw2/3': 'calc(92vw * 2/3)'
+        '92vw2/3': 'calc(92vw * 2/3)',
+        '100vw': '100vw',
+        '100vw2/3': 'calc(100vw * 2/3)'
       },
       minWidth: {
         '72': '18rem',
@@ -49,6 +52,9 @@ module.exports = {
           '0%': { 'opacity': 0.7 },
           '100%': { 'opacity': 0.4}
         }
+      },
+      screens: {
+        'print': {'raw': 'print'}
       }
     }
   }

@@ -4,13 +4,13 @@
 
 @layer components {
     .main-screen {
-        @apply md:w-168 min-w-72;
+        @apply md:w-168 print:w-full min-w-72;
     }
     .w-field {
-        @apply w-92vw sm:w-83vw ;
+        @apply w-92vw sm:w-83vw md:w-144 print:w-168;
     }
     .h-field {
-        @apply h-92vw2/3 sm:h-83vw2/3;
+        @apply h-92vw2/3 sm:h-83vw2/3 md:h-96 print:h-112;
     }
     .font-h2 {
         @apply py-4 font-bold text-lime-600;
