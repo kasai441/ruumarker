@@ -34,9 +34,10 @@ const actions = {
       console.error(e)
     }
   },
-  async delete(url, id) {
+  async delete(url) {
     try {
-      axios.delete(`${url}/${id}`)
+      const response = await axios.delete(url)
+      return response.data
     } catch (e) {
       console.error(e)
     }
