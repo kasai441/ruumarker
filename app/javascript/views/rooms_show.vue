@@ -48,6 +48,7 @@ export default {
       tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
     print() {
+      document.getElementById('titlebar').classList.add('hidden')
       window.print()
     }
   },

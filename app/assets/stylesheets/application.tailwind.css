@@ -7,10 +7,10 @@
         @apply md:w-168 min-w-72;
     }
     .w-field {
-        @apply w-92vw sm:w-83vw md:w-144 max-w-144;
+        @apply w-92vw sm:w-83vw ;
     }
     .h-field {
-        @apply h-92vw2/3 sm:h-83vw2/3 md:h-96 max-h-96;
+        @apply h-92vw2/3 sm:h-83vw2/3;
     }
     .font-h2 {
         @apply py-4 font-bold text-lime-600;
