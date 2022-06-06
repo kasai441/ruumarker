@@ -9,8 +9,20 @@
 
 
       <div class="py-4 flex flex-col items-center">
-        <div id="locators-table" class="h-28">
-          <div v-if="marksPresent">aaaaa</div>
+        <div id="locators-tablehoho" class="h-28">
+          <div v-if="marksPresent">
+            <table class="table table-compact">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>キズ</th>
+                  <th>作成日</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="locators-tbody"></tbody>
+            </table>
+          </div>
           <div v-else>eeeeeeeee</div>
         </div>
       </div>
@@ -64,6 +76,44 @@ export default {
     areMarks() {
       return JSON.parse(this.marks).length > 0
     },
+    generateTbody() {
+      const tbody = document.getElementById('locators-tbody')
+
+      JSON.parse(this.marks).forEach((mark, index) => {
+        const tr = document.createElement('tr')
+        tr.classList.add('hover')
+        tr.id = `markhoho-${mark.id}`
+
+        const number = document.createElement('td')
+        number.innerHTML = index + 1
+
+        const description = document.createElement('td')
+        description.innerHTML = this.brief(mark.description)
+
+        tr.append(number)
+        tr.append(description)
+        tbody.append(tr)
+
+      })
+
+      // td.bg-transparent.whitespace-normal= mark.created_at
+      // td.bg-transparent= link_to '×', room_mark_path(mark.map.room, mark),
+      //     data: { turbo_method: :delete,
+      //     turbo_confirm: "キズ（#{mark.brief_description}）を削除します。よろしいですか？" },
+      // class: 'btn btn-circle btn-outline btn-sm'
+
+    },
+    brief(description) {
+      console.log(description)
+
+      if (!description || description.length === 0) {
+        return '説明なし'
+      } else if (description.length > 10) {
+        return `${description.substr(0, 10)}…`
+      } else {
+        return description
+      }
+    },
     print() {
       window.print()
     }
@@ -78,6 +128,7 @@ export default {
     const download = document.getElementById('download')
     download.classList.remove('hidden')
     download.addEventListener('click', this.print)
+    this.generateTbody()
   },
   beforeDestroy() {
     const download = document.getElementById('download')

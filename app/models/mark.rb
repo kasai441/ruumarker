@@ -4,7 +4,6 @@ class Mark < ApplicationRecord
   belongs_to :map
   has_one_attached :image
   validates :description, length: { maximum: 60 }
-  attr_accessor :image_url
 
   def brief_description
     if description.blank?
