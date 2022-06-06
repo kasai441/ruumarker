@@ -50,6 +50,8 @@ export default {
     print() {
       document.getElementById('overflow').classList.remove('overflow-scroll', 'h-screen')
       document.getElementById('titlebar').classList.add('hidden')
+      document.getElementById('image-edit').classList.add('hidden')
+      document.getElementById('create-mark').classList.add('hidden')
       window.print()
     }
   },

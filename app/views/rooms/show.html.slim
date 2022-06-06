@@ -1,30 +1,4 @@
 div.flex.flex-col.items-center
-  div.relative.bg-white.h-32.-z-10
-  div.relative.bg-white.h-field.-z-10
-  div.py-4.flex.flex-col.items-center.relative
-    div id="locators-table"
-      - if @room.map.marks.present?
-        table.table.table-compact
-          thead
-            tr
-              th
-              th キズ
-              th 作成日
-              th
-          tbody
-            - @room.map.marks.order(:created_at).each_with_index do |mark, index|
-              tr.hover id="mark-#{mark.id}"
-                td.bg-transparent= index + 1
-                td.bg-transparent= mark.brief_description
-                td.bg-transparent.whitespace-normal= mark.created_at
-                td.bg-transparent= link_to '×', room_mark_path(mark.map.room, mark),
-                        data: { turbo_method: :delete,
-                                turbo_confirm: "キズ（#{mark.brief_description}）を削除します。よろしいですか？" },
-                        class: 'btn btn-circle btn-outline btn-sm'
-      - else
-        div.w-field.h-28.rounded-lg.bg-slate-100.flex.justify-center.items-center
-          | キズを追加できます
-    div.h-20
   div.fixed.top-16
     div.flex.flex-col.items-center.main-screen
       h2.w-field.font-h2
@@ -41,3 +15,30 @@ div.flex.flex-col.items-center
       )
   / div.fixed.bg-white.w-field.h-16.top-16.-z-10
   / div.fixed.bg-slate-500.w-field.h-field.top-32.-z-10
+  div.main-screen
+    div.relative.bg-white.h-32.-z-10
+    div.relative.bg-white.h-field.-z-10
+    div.py-4.flex.flex-col.items-center.relative
+      div id="locators-table"
+        - if @room.map.marks.present?
+          table.table.table-compact
+            thead
+              tr
+                th
+                th キズ
+                th 作成日
+                th
+            tbody
+              - @room.map.marks.order(:created_at).each_with_index do |mark, index|
+                tr.hover.break-after-page id="mark-#{mark.id}"
+                  td.bg-transparent= index + 1
+                  td.bg-transparent= mark.brief_description
+                  td.bg-transparent.whitespace-normal= mark.created_at
+                  td.bg-transparent= link_to '×', room_mark_path(mark.map.room, mark),
+                          data: { turbo_method: :delete,
+                                  turbo_confirm: "キズ（#{mark.brief_description}）を削除します。よろしいですか？" },
+                          class: 'btn btn-circle btn-outline btn-sm'
+        - else
+          div.w-field.h-28.rounded-lg.bg-slate-100.flex.justify-center.items-center
+            | キズを追加できます
+      div.h-20
