@@ -6,6 +6,16 @@
       <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
                   locators-model="mark" :locators-json="marks"
                   @emit-form-data="getFormData"></image-show>
+
+
+      <div class="py-4 flex flex-col items-center">
+        <div id="locators-table" class="h-28">
+          <div v-if="marksPresent">aaaaa</div>
+          <div v-else>eeeeeeeee</div>
+        </div>
+      </div>
+
+
       <div class="flex flex-col items-center">
         <div class="absolute w-field h-48 flex flex-row-reverse items-end">
           <img src="/new_mark.png" @click='newMark' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
@@ -31,7 +41,8 @@ export default {
       mapId: null,
       mapImageUrl: null,
       mapTrimming: null,
-      formData: null
+      formData: null,
+      marksPresent: this.areMarks()
     }
   },
   components: {
@@ -49,6 +60,9 @@ export default {
     },
     unbindHalfvanish(e) {
       tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
+    },
+    areMarks() {
+      return JSON.parse(this.marks).length > 0
     },
     print() {
       window.print()
