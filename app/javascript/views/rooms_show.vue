@@ -11,7 +11,7 @@
       <div class="py-4 flex flex-col items-center">
         <div id="locators-tablehoho" class="h-28">
           <div v-if="marksPresent">
-            <table class="table table-compact">
+            <table class="table">
               <thead>
                 <tr>
                   <th></th>
@@ -40,6 +40,7 @@
 <script>
 import ImageShow from '../components/image_show.vue'
 import tags from '../modules/tags'
+import api from '../modules/api'
 
 export default {
   name: 'RoomsShow',
@@ -89,10 +90,17 @@ export default {
           class: ['whitespace-normal'],
           append: [this.formatDate(mark.created_at)]
         })
+        const deleteBtn = tags.generateElement('td', {
+          class: [],
+          append: [tags.generateElement('a', {
+            class: ['btn', 'btn-circle', 'btn-outline', 'btn-sm'],
+            append: ['×']
+          })]
+        })
         const tr = tags.generateElement('tr', {
           id: `markhoho-${mark.id}`,
           class: ['hover'],
-          append: [number, description, createdAt]
+          append: [number, description, createdAt, deleteBtn]
         })
         tbody.append(tr)
       })
@@ -122,6 +130,10 @@ export default {
     },
     print() {
       window.print()
+    },
+    async delete(markId) {
+      await api.actions.delete(`/api/rooms/${this.roomId}/marks/${markId}`)
+      // location.href = `/rooms/${this.roomId}`
     }
   },
   created() {
