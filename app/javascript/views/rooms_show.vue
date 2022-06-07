@@ -85,15 +85,18 @@ export default {
         const description = tags.generateElement('td', {
           append: [this.brief(mark.description)]
         })
+        const createdAt = tags.generateElement('td', {
+          class: ['whitespace-normal'],
+          append: [this.formatDate(mark.created_at)]
+        })
         const tr = tags.generateElement('tr', {
           id: `markhoho-${mark.id}`,
           class: ['hover'],
-          append: [number, description]
+          append: [number, description, createdAt]
         })
         tbody.append(tr)
       })
 
-      // td.bg-transparent.whitespace-normal= mark.created_at
       // td.bg-transparent= link_to '×', room_mark_path(mark.map.room, mark),
       //     data: { turbo_method: :delete,
       //     turbo_confirm: "キズ（#{mark.brief_description}）を削除します。よろしいですか？" },
@@ -110,6 +113,12 @@ export default {
       } else {
         return description
       }
+    },
+    formatDate(date) {
+      const d = new Date(date)
+      return `${d.getFullYear()}/
+      ${d.getMonth()+1}/
+      ${d.getDate()}`.replace(/\n|\r/g, '')
     },
     print() {
       window.print()
