@@ -141,7 +141,7 @@ export default {
         const id = tr.id.replace(regex, '')
         await api.actions.delete(`/api/rooms/${this.roomId}/marks/${id}`)
       }
-      // location.href = `/rooms/${this.roomId}`
+      location.href = `/rooms/${this.roomId}`
     }
   },
   created() {
