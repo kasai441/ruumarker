@@ -32,6 +32,22 @@ const generateLocators = (locators, id, options) => {
   })
 }
 
+const generateElement = (tagName, options) => {
+  const element = document.createElement(tagName)
+  if (!options) return element
+
+  if (options.id) {
+    element.id = options.id
+  }
+  if (options.class) {
+    options.class.forEach(cl => element.classList.add(cl))
+  }
+  if (options.append) {
+    options.append.forEach(ap => element.append(ap))
+  }
+  return element
+}
+
 const transferLocators = (locators, fieldLocation, field) => {
   locators.forEach(locator => {
     const a = document.getElementById(`locator-${locator.id}`)
@@ -66,6 +82,7 @@ export default {
   namespaced: true,
   parent,
   generateLocators,
+  generateElement,
   transferLocators,
   field,
   styleLeftTop

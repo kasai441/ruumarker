@@ -78,22 +78,19 @@ export default {
     },
     generateTbody() {
       const tbody = document.getElementById('locators-tbody')
-
       JSON.parse(this.marks).forEach((mark, index) => {
-        const tr = document.createElement('tr')
-        tr.classList.add('hover')
-        tr.id = `markhoho-${mark.id}`
-
-        const number = document.createElement('td')
-        number.innerHTML = index + 1
-
-        const description = document.createElement('td')
-        description.innerHTML = this.brief(mark.description)
-
-        tr.append(number)
-        tr.append(description)
+        const number = tags.generateElement('td', {
+          append: [index + 1]
+        })
+        const description = tags.generateElement('td', {
+          append: [this.brief(mark.description)]
+        })
+        const tr = tags.generateElement('tr', {
+          id: `markhoho-${mark.id}`,
+          class: ['hover'],
+          append: [number, description]
+        })
         tbody.append(tr)
-
       })
 
       // td.bg-transparent.whitespace-normal= mark.created_at
