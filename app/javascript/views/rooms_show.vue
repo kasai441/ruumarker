@@ -84,6 +84,7 @@ export default {
           append: [index + 1]
         })
         const description = tags.generateElement('td', {
+          class: ['description'],
           append: [this.brief(mark.description)]
         })
         const createdAt = tags.generateElement('td', {
@@ -132,15 +133,16 @@ export default {
       window.print()
     },
     async deleteLocators(e) {
-      console.log(e)
       const locatorsModel = 'mark'
       const tr = tags.parent('TR', e.target)
       const regex = `${locatorsModel}hoho-`
-      if (tr && tr.id.match(regex)) {
-        console.log('hohoho')
-        const id = tr.id.replace(regex, '')
-        await api.actions.delete(`/api/rooms/${this.roomId}/marks/${id}`)
-      }
+      if (!tr || !tr.id.match(regex)) return
+
+      const description = tr.getElementsByClassName('description')[0].innerHTML
+      if (!confirm(`「${this.brief(description)}」を削除します。よろしいですか？`)) return
+
+      const id = tr.id.replace(regex, '')
+      await api.actions.delete(`/api/rooms/${this.roomId}/marks/${id}`)
       location.href = `/rooms/${this.roomId}`
     }
   },
