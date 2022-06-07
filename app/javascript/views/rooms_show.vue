@@ -12,12 +12,8 @@
     <div v-else class="w-field h-28 rounded-lg bg-slate-100 flex justify-center items-center">
       キズを追加できます
     </div>
-    <div class="flex flex-col items-center">
-      <div class="absolute w-field h-48 flex flex-row-reverse items-end">
-        <img src="/new_mark.png" @click='newMark' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
-           id="create-mark" class="absolute z-10" width="50">
-      </div>
-    </div>
+    <img src="/new_mark.png" @click='newMark' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
+       id="create-mark" class="absolute z-10 new-mark" width="50">
     <div class="h-20"></div>
   </section>
 </template>
