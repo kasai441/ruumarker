@@ -78,18 +78,19 @@ export default {
       const tbody = document.getElementById('locators-tbody')
       JSON.parse(this.marks).forEach((mark, index) => {
         const number = tags.generateElement('td', {
+          class: ['bg-transparent'],
           append: [index + 1]
         })
         const description = tags.generateElement('td', {
-          class: ['description'],
+          class: ['description', 'bg-transparent'],
           append: [this.brief(mark.description)]
         })
         const createdAt = tags.generateElement('td', {
-          class: ['whitespace-normal'],
+          class: ['whitespace-normal', 'bg-transparent'],
           append: [this.formatDate(mark.created_at)]
         })
         const deleteBtn = tags.generateElement('td', {
-          class: [],
+          class: ['bg-transparent'],
           append: [tags.generateElement('a', {
             class: ['delete-locators', 'btn', 'btn-circle', 'btn-outline', 'btn-sm'],
             append: ['×']
