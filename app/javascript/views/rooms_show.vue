@@ -93,7 +93,7 @@ export default {
         const deleteBtn = tags.generateElement('td', {
           class: [],
           append: [tags.generateElement('a', {
-            class: ['btn', 'btn-circle', 'btn-outline', 'btn-sm'],
+            class: ['delete-locators', 'btn', 'btn-circle', 'btn-outline', 'btn-sm'],
             append: ['×']
           })]
         })
@@ -131,8 +131,16 @@ export default {
     print() {
       window.print()
     },
-    async delete(markId) {
-      await api.actions.delete(`/api/rooms/${this.roomId}/marks/${markId}`)
+    async deleteLocators(e) {
+      console.log(e)
+      const locatorsModel = 'mark'
+      const tr = tags.parent('TR', e.target)
+      const regex = `${locatorsModel}hoho-`
+      if (tr && tr.id.match(regex)) {
+        console.log('hohoho')
+        const id = tr.id.replace(regex, '')
+        await api.actions.delete(`/api/rooms/${this.roomId}/marks/${id}`)
+      }
       // location.href = `/rooms/${this.roomId}`
     }
   },
@@ -147,10 +155,18 @@ export default {
     download.classList.remove('hidden')
     download.addEventListener('click', this.print)
     this.generateTbody()
+    const as = document.getElementsByClassName('delete-locators')
+    Array.prototype.forEach.call(as, a => {
+      a.addEventListener('click', this.deleteLocators)
+    })
   },
   beforeDestroy() {
     const download = document.getElementById('download')
     download.removeEventListener('click', this.print)
+    const as = document.getElementsByClassName('delete-locators')
+    Array.prototype.forEach.call(as, a => {
+      a.removeEventListener('click', this.deleteLocators)
+    })
   }
 }
 </script>
