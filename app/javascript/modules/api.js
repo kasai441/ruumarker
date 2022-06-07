@@ -18,14 +18,6 @@ const actions = {
       console.error(e)
     }
   },
-  async show(url) {
-    try {
-      const response = await axios.get(url)
-      return response.data
-    } catch (e) {
-      console.error(e)
-    }
-  },
   async update(url, formData) {
     try {
       const response = await axios.put(url, formData, headers)
