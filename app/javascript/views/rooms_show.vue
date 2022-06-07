@@ -115,25 +115,24 @@ export default {
         return description
       }
     },
-    formatDate(date) {
-      const d = new Date(date)
-      return `${d.getFullYear()}/
-      ${d.getMonth()+1}/
-      ${d.getDate()}`.replace(/\n|\r/g, '')
+    formatDate(str) {
+      const d = new Date(str)
+      const date = `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`.replace(/\\s/g, '')
+      let minutes = String(d.getMinutes())
+      if (minutes.length === 1) minutes = `0${minutes}`
+      const time = `${d.getHours()}:${minutes}`.replace(/\s/g, '')
+      return `${date} ${time}`
     },
     print() {
       window.print()
     },
     visitLocators(e) {
       const locatorsModel = 'mark'
-      console.log('visit')
       if (e.target.classList.value.includes('btn')) return
 
-      console.log('vvvvv')
       const tr = tags.parent('TR', e.target)
       const regex = `${locatorsModel}-`
       if (tr && tr.id.match(regex)) {
-        console.log('iiiii')
         const id = tr.id.replace(regex, '')
         location.href = `/rooms/${this.roomId}/${locatorsModel}s/${id}/edit`
       }
