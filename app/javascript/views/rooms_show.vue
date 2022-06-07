@@ -1,39 +1,36 @@
 <template>
   <section>
-      <div class="flex flex-col items-center. pt-1">
-        <h2 class="w-field font-h2">キズ点検表</h2>
-      </div>
-      <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
-                  locators-model="mark" :locators-json="marks"
-                  @emit-form-data="getFormData"></image-show>
-
-
-      <div class="py-4 flex flex-col items-center">
-        <div id="locators-tablehoho" class="h-28">
-          <div v-if="marksPresent">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>キズ</th>
-                  <th>作成日</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody id="locators-tbody"></tbody>
-            </table>
-          </div>
-          <div v-else>eeeeeeeee</div>
+    <div class="flex flex-col items-center. pt-1">
+      <h2 class="w-field font-h2">キズ点検表</h2>
+    </div>
+    <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
+                locators-model="mark" :locators-json="marks"
+                @emit-form-data="getFormData"></image-show>
+    <div class="py-4 flex flex-col items-center">
+      <div id="locators-table" class="h-28">
+        <div v-if="marksPresent">
+          <table class="table table-compact">
+            <thead>
+              <tr>
+                <th></th>
+                <th>キズ</th>
+                <th>作成日</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="locators-tbody"></tbody>
+          </table>
         </div>
+        <div v-else class="w-field h-28 rounded-lg bg-slate-100 flex justify-center items-center">キズを追加できます</div>
       </div>
-
-
-      <div class="flex flex-col items-center">
-        <div class="absolute w-field h-48 flex flex-row-reverse items-end">
-          <img src="/new_mark.png" @click='newMark' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
-             id="create-mark" class="absolute z-10" width="50">
-        </div>
+    </div>
+    <div class="flex flex-col items-center">
+      <div class="absolute w-field h-48 flex flex-row-reverse items-end">
+        <img src="/new_mark.png" @click='newMark' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
+           id="create-mark" class="absolute z-10" width="50">
       </div>
+    </div>
+    <div class="h-20"></div>
   </section>
 </template>
 
@@ -99,18 +96,12 @@ export default {
           })]
         })
         const tr = tags.generateElement('tr', {
-          id: `markhoho-${mark.id}`,
+          id: `mark-${mark.id}`,
           class: ['hover'],
           append: [number, description, createdAt, deleteBtn]
         })
         tbody.append(tr)
       })
-
-      // td.bg-transparent= link_to '×', room_mark_path(mark.map.room, mark),
-      //     data: { turbo_method: :delete,
-      //     turbo_confirm: "キズ（#{mark.brief_description}）を削除します。よろしいですか？" },
-      // class: 'btn btn-circle btn-outline btn-sm'
-
     },
     brief(description) {
       console.log(description)
@@ -132,10 +123,24 @@ export default {
     print() {
       window.print()
     },
+    visitLocators(e) {
+      const locatorsModel = 'mark'
+      console.log('visit')
+      if (e.target.classList.value.includes('btn')) return
+
+      console.log('vvvvv')
+      const tr = tags.parent('TR', e.target)
+      const regex = `${locatorsModel}-`
+      if (tr && tr.id.match(regex)) {
+        console.log('iiiii')
+        const id = tr.id.replace(regex, '')
+        location.href = `/rooms/${this.roomId}/${locatorsModel}s/${id}/edit`
+      }
+    },
     async deleteLocators(e) {
       const locatorsModel = 'mark'
       const tr = tags.parent('TR', e.target)
-      const regex = `${locatorsModel}hoho-`
+      const regex = `${locatorsModel}-`
       if (!tr || !tr.id.match(regex)) return
 
       const description = tr.getElementsByClassName('description')[0].innerHTML
@@ -161,6 +166,11 @@ export default {
     Array.prototype.forEach.call(as, a => {
       a.addEventListener('click', this.deleteLocators)
     })
+    const table = document.getElementById('locators-table')
+    const trs = table.getElementsByTagName('tr')
+    Array.prototype.forEach.call(trs, tr => {
+      tr.addEventListener('click', this.visitLocators)
+    })
   },
   beforeDestroy() {
     const download = document.getElementById('download')
@@ -168,6 +178,11 @@ export default {
     const as = document.getElementsByClassName('delete-locators')
     Array.prototype.forEach.call(as, a => {
       a.removeEventListener('click', this.deleteLocators)
+    })
+    const table = document.getElementById('locators-table')
+    const trs = table.getElementsByTagName('tr')
+    Array.prototype.forEach.call(trs, tr => {
+      tr.removeEventListener('click', this.visitLocators)
     })
   }
 }

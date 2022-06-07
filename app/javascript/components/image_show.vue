@@ -85,35 +85,16 @@ export default {
         tr.classList.add('animate-fadeout')
       }
     },
-    visitLocators(e) {
-      if (e.target.classList.value.includes('btn')) return
-      const tr = tags.parent('TR', e.target)
-      const regex = `${this.locatorsModel}-`
-      if (tr && tr.id.match(regex)) {
-        const id = tr.id.replace(regex, '')
-        location.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${id}/edit`
-      }
-    },
     handleResize() {
       this.getFieldSize()
     }
   },
   mounted() {
-    const table = document.getElementById('locators-table')
-    const trs = table.getElementsByTagName('tr')
-    Array.prototype.forEach.call(trs, tr => {
-      tr.addEventListener('click', this.visitLocators)
-    })
     window.addEventListener('resize', this.handleResize)
     tags.generateLocators(this.locators, 'show-field')
     this.getFieldSize()
   },
   beforeDestroy() {
-    const table = document.getElementById('locators-table')
-    const trs = table.getElementsByTagName('tr')
-    Array.prototype.forEach.call(trs, tr => {
-      tr.removeEventListener('click', this.visitLocators)
-    })
     window.removeEventListener('resize', this.handleResize)
   }
 }
