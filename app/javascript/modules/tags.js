@@ -65,8 +65,8 @@ const transferLocators = (locators, fieldLocation, field) => {
   })
 }
 
-const field = id => {
-  const field = document.getElementById(id)
+const field = (id, element) => {
+  const field = element ? element : document.getElementById(id)
   const left = params.toF(field.getBoundingClientRect().left, 1)
   const top = params.toF(field.getBoundingClientRect().top, 1)
   return {

@@ -20,8 +20,9 @@
 </template>
 
 <script>
-import tags from '../modules/tags'
 import api from '../modules/api'
+import params from '../modules/params'
+import tags from '../modules/tags'
 
 export default {
   name: 'LocatorsIndex',
@@ -45,9 +46,9 @@ export default {
         const image = tags.generateElement('td', {
           class: ['bg-transparent'],
           append: [tags.generateElement('div', {
-            class: ['w-thumbnail', 'h-thumbnail', 'border', 'border-slate-100', 'rounded-lg'],
+            class: ['thumbnail-field', 'w-thumbnail', 'h-thumbnail', 'border', 'border-slate-100', 'rounded-lg', 'relative', 'overflow-hidden'],
             append: [tags.generateElement('img', {
-              class: ['w-thumbnail', 'h-thumbnail', 'rounded-lg', 'object-contain'],
+              class: ['thumbnail-image', 'w-thumbnail', 'h-thumbnail', 'rounded-lg', 'absolute', 'object-contain'],
               src: locator.image_url
             })]
           })]
@@ -107,17 +108,35 @@ export default {
       const regex = `${this.locatorsModel}-`
       if (!tr || !tr.id.match(regex)) return
 
-      console.log(tr)
       const description = tr.getElementsByClassName('description')[0].innerHTML
       if (!confirm(`「${this.brief(description)}」を削除します。よろしいですか？`)) return
 
       const id = tr.id.replace(regex, '')
       await api.actions.delete(`/api/rooms/${this.roomId}/${this.locatorsModel}s/${id}`)
       location.href = `/rooms/${this.roomId}`
+    },
+    styleThumbnail() {
+      // const field = tags.field('show-field')
+      const field = tags.field('_', document.getElementsByClassName('thumbnail-field')[0])
+      const images = document.getElementsByClassName('thumbnail-image')
+      console.log(this.locators)
+      JSON.parse(this.locators).forEach((locator, index) => {
+        console.log(locator.trimming)
+        console.log(field)
+        const trimmingRate = params.parseOrInit(locator.trimming)
+        console.log(trimmingRate)
+        const trimming = params.toPx(field, trimmingRate)
+        console.log(trimming)
+        // tags.styleLeftTop('show-image', trimming)
+        console.log(images[index])
+        images[index].style.left = trimming.x + 'px'
+        images[index].style.top = trimming.y + 'px'
+      })
     }
   },
   mounted() {
     this.generateTbody()
+    this.styleThumbnail()
     const as = document.getElementsByClassName('delete-locators')
     Array.prototype.forEach.call(as, a => {
       a.addEventListener('click', this.deleteLocators)
