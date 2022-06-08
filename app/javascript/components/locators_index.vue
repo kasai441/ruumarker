@@ -43,10 +43,11 @@ export default {
           class: ['bg-transparent'],
           append: [index + 1]
         })
+        locator.image_url ||= '/sample.png'
         const image = tags.generateElement('td', {
           class: ['bg-transparent'],
           append: [tags.generateElement('div', {
-            class: ['thumbnail-field', 'w-thumbnail', 'h-thumbnail', 'border', 'border-slate-100', 'rounded-lg', 'relative', 'overflow-hidden'],
+            class: ['thumbnail-field', 'w-thumbnail', 'h-thumbnail', 'border', 'border-slate-200', 'rounded-lg', 'relative', 'overflow-hidden'],
             append: [tags.generateElement('img', {
               class: ['thumbnail-image', 'w-thumbnail', 'h-thumbnail', 'rounded-lg', 'absolute', 'object-contain'],
               src: locator.image_url
