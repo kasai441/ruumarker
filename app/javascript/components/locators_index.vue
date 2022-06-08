@@ -1,7 +1,7 @@
 <template>
   <section id="locators-index">
     <div class="py-4 flex flex-col items-center">
-      <div id="locators-table" class="">
+      <div id="locators-table" class="w-field">
         <table class="table table-compact">
           <thead>
           <tr>
@@ -44,9 +44,12 @@ export default {
         })
         const image = tags.generateElement('td', {
           class: ['bg-transparent'],
-          append: [tags.generateElement('img', {
-            class: ['w-42'],
-            src: locator.image_url
+          append: [tags.generateElement('div', {
+            class: ['w-thumbnail', 'h-thumbnail', 'border', 'border-slate-100', 'rounded-lg'],
+            append: [tags.generateElement('img', {
+              class: ['w-thumbnail', 'h-thumbnail', 'rounded-lg', 'object-contain'],
+              src: locator.image_url
+            })]
           })]
         })
         const description = tags.generateElement('td', {

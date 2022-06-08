@@ -12,23 +12,26 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
-        '72': '18rem',
+        '72': '18rem'
       },
       width: {
+        '24vw': '24vw',
         '83vw': '83vw',
         '92vw': '92vw',
         '144': '36rem',
         '168': '42rem'
       },
       minWidth: {
-        '72': '18rem',
+        '72': '18rem'
       },
       maxWidth: {
-        '144': '36rem',
+        '48': '12rem',
+        '144': '36rem'
       },
       height: {
+        '24vw2/3': 'calc(24vw * 2/3)',
         '83vw2/3': 'calc(83vw * 2/3)',
-        '92vw2/3': 'calc(92vw * 2/3)',
+        '92vw2/3': 'calc(92vw * 2/3)'
       },
       zIndex: {
         '60': '60'
