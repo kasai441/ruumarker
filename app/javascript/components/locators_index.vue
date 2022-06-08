@@ -7,6 +7,7 @@
           <tr>
             <th></th>
             <th>キズ</th>
+            <th></th>
             <th>作成日</th>
             <th></th>
           </tr>
@@ -41,6 +42,13 @@ export default {
           class: ['bg-transparent'],
           append: [index + 1]
         })
+        const image = tags.generateElement('td', {
+          class: ['bg-transparent'],
+          append: [tags.generateElement('img', {
+            class: ['w-42'],
+            src: locator.image_url
+          })]
+        })
         const description = tags.generateElement('td', {
           class: ['description', 'bg-transparent'],
           append: [this.brief(locator.description)]
@@ -59,7 +67,7 @@ export default {
         const tr = tags.generateElement('tr', {
           id: `${this.locatorsModel}-${locator.id}`,
           class: ['hover'],
-          append: [number, description, createdAt, deleteBtn]
+          append: [number, image, description, createdAt, deleteBtn]
         })
         tbody.append(tr)
       })
