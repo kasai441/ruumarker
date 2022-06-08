@@ -60,6 +60,8 @@ export default {
       return JSON.parse(this.marks).length > 0
     },
     print() {
+      const div = document.getElementById('screen-scroll')
+      div.classList.remove('overflow-scroll', 'h-screen')
       window.print()
     },
   },
