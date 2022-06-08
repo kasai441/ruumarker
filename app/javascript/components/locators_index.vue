@@ -1,7 +1,7 @@
 <template>
   <section id="locators-index">
     <div class="py-4 flex flex-col items-center">
-      <div id="locators-table" class="h-28">
+      <div id="locators-table" class="">
         <table class="table table-compact">
           <thead>
           <tr>
