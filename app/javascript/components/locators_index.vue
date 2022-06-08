@@ -2,12 +2,12 @@
   <section id="locators-index">
     <div class="py-4 flex flex-col items-center">
       <div id="locators-table" class="w-field">
-        <table class="table table-compac w-full">
+        <table class="table table-compact w-full">
           <thead>
           <tr>
             <th></th>
             <th>キズ</th>
-            <th></th>
+            <th>説明</th>
             <th>作成日</th>
             <th></th>
           </tr>
@@ -54,7 +54,7 @@ export default {
           })]
         })
         const description = tags.generateElement('td', {
-          class: ['description', 'bg-transparent'],
+          class: ['whitespace-normal', 'description', 'bg-transparent'],
           append: [this.brief(locator.description)]
         })
         const createdAt = tags.generateElement('td', {
