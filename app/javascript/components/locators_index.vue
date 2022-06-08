@@ -116,21 +116,12 @@ export default {
       location.href = `/rooms/${this.roomId}`
     },
     styleThumbnail() {
-      // const field = tags.field('show-field')
-      const field = tags.field('_', document.getElementsByClassName('thumbnail-field')[0])
+      const field = tags.field(null, document.getElementsByClassName('thumbnail-field')[0])
       const images = document.getElementsByClassName('thumbnail-image')
-      console.log(this.locators)
       JSON.parse(this.locators).forEach((locator, index) => {
-        console.log(locator.trimming)
-        console.log(field)
         const trimmingRate = params.parseOrInit(locator.trimming)
-        console.log(trimmingRate)
         const trimming = params.toPx(field, trimmingRate)
-        console.log(trimming)
-        // tags.styleLeftTop('show-image', trimming)
-        console.log(images[index])
-        images[index].style.left = trimming.x + 'px'
-        images[index].style.top = trimming.y + 'px'
+        tags.styleLeftTop(null, trimming, images[index])
       })
     }
   },
