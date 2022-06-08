@@ -2,7 +2,7 @@
   <section id="locators-index">
     <div class="py-4 flex flex-col items-center">
       <div id="locators-table" class="w-field">
-        <table class="table table-compact">
+        <table class="table table-compac w-full">
           <thead>
           <tr>
             <th></th>
@@ -123,15 +123,21 @@ export default {
         const trimming = params.toPx(field, trimmingRate)
         tags.styleLeftTop(null, trimming, images[index])
       })
+    },
+    handleResize() {
+      this.styleThumbnail()
     }
   },
   mounted() {
     this.generateTbody()
     this.styleThumbnail()
+    window.addEventListener('resize', this.handleResize)
+
     const as = document.getElementsByClassName('delete-locators')
     Array.prototype.forEach.call(as, a => {
       a.addEventListener('click', this.deleteLocators)
     })
+
     const table = document.getElementById('locators-table')
     const trs = table.getElementsByTagName('tr')
     Array.prototype.forEach.call(trs, tr => {
@@ -139,10 +145,13 @@ export default {
     })
   },
   beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize)
+
     const as = document.getElementsByClassName('delete-locators')
     Array.prototype.forEach.call(as, a => {
       a.removeEventListener('click', this.deleteLocators)
     })
+
     const table = document.getElementById('locators-table')
     const trs = table.getElementsByTagName('tr')
     Array.prototype.forEach.call(trs, tr => {
