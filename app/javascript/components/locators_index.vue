@@ -78,7 +78,7 @@ export default {
     },
     brief(description) {
       if (!description || description.length === 0) {
-        return '説明なし'
+        return '-'
       } else if (description.length > 10) {
         return `${description.substr(0, 10)}…`
       } else {
