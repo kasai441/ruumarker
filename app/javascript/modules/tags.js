@@ -10,26 +10,45 @@ const generateLocators = (locators, id, options) => {
   locators.forEach((locator, index) => {
     if (options && options.except == locator.id) return
 
-    const img = document.createElement('img')
-    img.src = '/locators.png'
-    img.classList.add('absolute', 'w-5', 'pointer-events-none')
+    const img = generateElement('img', {
+      class: ['absolute', 'w-5', 'pointer-events-none'],
+      src: '/locators.png'
+    })
+    const number = generateElement('a', {
+      class: ['relative', 'text-white', 'text-sm', 'pointer-events-none'],
+      append: [index + 1]
+    })
 
-    const number = document.createElement('a')
-    number.append(index + 1)
-    number.classList.add('relative', 'text-white', 'text-sm', 'pointer-events-none')
+    let classA = ['absolute', 'w-5', 'flex', 'justify-center', 'items-center']
+    if (options && options.class) classA = classA.concat(options.class)
 
-    const a = document.createElement('a')
-    a.append(img)
-    a.append(number)
-    a.classList.add('absolute', 'w-5', 'flex', 'justify-center', 'items-center')
-    a.id = `locator-${locator.id}`
-
-    if (options && options.class) {
-      options.class.forEach(c => a.classList.add(c))
-    }
+    const a = generateElement('a',{
+      id: `locator-${locator.id}`,
+      class: classA,
+      append: [img, number]
+    })
 
     document.getElementById(id).append(a)
   })
+}
+
+const generateElement = (tagName, options) => {
+  const element = document.createElement(tagName)
+  if (!options) return element
+
+  if (options.id) {
+    element.id = options.id
+  }
+  if (options.class) {
+    options.class.forEach(cl => element.classList.add(cl))
+  }
+  if (options.append) {
+    options.append.forEach(ap => element.append(ap))
+  }
+  if (options.src) {
+    element.src = options.src
+  }
+  return element
 }
 
 const transferLocators = (locators, fieldLocation, field) => {
@@ -66,6 +85,7 @@ export default {
   namespaced: true,
   parent,
   generateLocators,
+  generateElement,
   transferLocators,
   field,
   styleLeftTop

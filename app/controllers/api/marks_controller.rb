@@ -26,6 +26,15 @@ module Api
       end
     end
 
+    def destroy
+      @mark = Mark.find(params[:id])
+      if @mark.destroy
+        render json: @mark
+      else
+        render json: @mark.errors, status: 422
+      end
+    end
+
     private
 
     def mark_params

@@ -20,6 +20,9 @@ module.exports = {
         '144': '36rem',
         '168': '42rem'
       },
+      minWidth: {
+        '72': '18rem',
+      },
       maxWidth: {
         '144': '36rem',
       },
@@ -27,16 +30,17 @@ module.exports = {
         '83vw2/3': 'calc(83vw * 2/3)',
         '92vw2/3': 'calc(92vw * 2/3)',
       },
+      zIndex: {
+        '60': '60'
+      },
+      inset: {
+        '78vh': 'calc(78vh)',
+        '82vw': 'calc(82vw)'
+      },
       outlineWidth: {
         32: '32px',
         112: '112px',
         240: '240px'
-      },
-      zIndex: {
-        '60': '60'
-      },
-      minWidth: {
-        '72': '18rem',
       },
       animation: {
         fadeout: 'fadeout 2.5s ease 1',

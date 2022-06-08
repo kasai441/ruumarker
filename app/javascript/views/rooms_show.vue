@@ -1,19 +1,26 @@
 <template>
   <section>
-      <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
-                  locators-model="mark" :locators-json="marks"
-                  @emit-form-data="getFormData"></image-show>
-      <div class="flex flex-col items-center">
-        <div class="absolute w-field h-48 flex flex-row-reverse items-end">
-          <img src="/new_mark.png" @click='newMark' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
-             id="create-mark" class="absolute z-10" width="50">
-        </div>
-      </div>
+    <div class="flex flex-col items-center. pt-1">
+      <h2 class="w-field font-h2">キズ点検表</h2>
+    </div>
+    <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
+                locators-model="mark" :locators-json="marks"
+                @emit-form-data="getFormData"></image-show>
+    <div v-if="marksPresent">
+      <locators-index :room-id="roomId" :locators="marks" locators-model="mark"></locators-index>
+    </div>
+    <div v-else class="w-field h-28 rounded-lg bg-slate-100 flex justify-center items-center">
+      キズを追加できます
+    </div>
+    <img src="/new_mark.png" @click='newMark' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
+       id="create-mark" class="absolute z-10 new-mark" width="50">
+    <div class="h-20"></div>
   </section>
 </template>
 
 <script>
 import ImageShow from '../components/image_show.vue'
+import LocatorsIndex from '../components/locators_index.vue'
 import tags from '../modules/tags'
 
 export default {
@@ -28,10 +35,12 @@ export default {
       mapId: null,
       mapImageUrl: null,
       mapTrimming: null,
-      formData: null
+      formData: null,
+      marksPresent: this.areMarks()
     }
   },
   components: {
+    LocatorsIndex,
     ImageShow
   },
   methods: {
@@ -47,9 +56,12 @@ export default {
     unbindHalfvanish(e) {
       tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
+    areMarks() {
+      return JSON.parse(this.marks).length > 0
+    },
     print() {
       window.print()
-    }
+    },
   },
   created() {
     const map = JSON.parse(this.map)

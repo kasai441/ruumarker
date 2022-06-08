@@ -18,14 +18,6 @@ const actions = {
       console.error(e)
     }
   },
-  async show(url) {
-    try {
-      const response = await axios.get(url)
-      return response.data
-    } catch (e) {
-      console.error(e)
-    }
-  },
   async update(url, formData) {
     try {
       const response = await axios.put(url, formData, headers)
@@ -34,9 +26,10 @@ const actions = {
       console.error(e)
     }
   },
-  async delete(url, id) {
+  async delete(url) {
     try {
-      axios.delete(`${url}/${id}`)
+      const response = await axios.delete(url, headers)
+      return response.data
     } catch (e) {
       console.error(e)
     }
