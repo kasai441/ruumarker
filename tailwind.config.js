@@ -16,7 +16,7 @@ module.exports = {
       },
       width: {
         '24vw': '24vw',
-        '83vw': '83vw',
+        '82vw': '82vw',
         '92vw': '92vw',
         '144': '36rem',
         '168': '42rem'
@@ -30,7 +30,7 @@ module.exports = {
       },
       height: {
         '24vw2/3': 'calc(24vw * 2/3)',
-        '83vw2/3': 'calc(83vw * 2/3)',
+        '82vw2/3': 'calc(82vw * 2/3)',
         '92vw2/3': 'calc(92vw * 2/3)'
       },
       zIndex: {
