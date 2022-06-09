@@ -1,6 +1,6 @@
 <template>
   <section id="locators-index">
-    <div class="py-4 flex flex-col items-center">
+    <div class="py-4">
       <div id="locators-table" class="w-field">
         <table class="table table-compact w-full">
           <thead>

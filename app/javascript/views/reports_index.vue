@@ -1,8 +1,9 @@
 <template>
   <section>
-    <div class="flex flex-col items-center pt-1">
-      <h2 class="w-field font-h2">キズ点検表（印刷用）</h2>
+    <div class="border-b border-slate-900/10 p-6 print:hidden">
+      <h2 class="text-xl print:hidden">印刷用レイアウト</h2>
     </div>
+    <div class="font-bold text-lg p-6">キズ点検表</div>
     <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
                 locators-model="mark" :locators-json="marks"
                 @emit-form-data="getFormData"></image-show>
@@ -15,7 +16,6 @@
 <script>
 import ImageShow from '../components/image_show.vue'
 import LocatorsIndex from '../components/locators_index.vue'
-import tags from '../modules/tags'
 
 export default {
   name: 'RoomsShow',

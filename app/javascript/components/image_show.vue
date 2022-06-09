@@ -1,14 +1,12 @@
 <template>
   <section id="image-show">
-    <div class="flex flex-col items-center">
-      <div id="show-field" @pointerdown="scrollTable($event)" @pointerup="unbindFadeout($event)"
-           class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
-        <img :src="imageUrl" id="show-image"
-             class="rounded-lg absolute w-field h-field
-             object-contain">
-        <img src="/camera.png" @click='imageEdit' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
-             id="image-edit" class="absolute z-10" width="40">
-      </div>
+    <div id="show-field" @pointerdown="scrollTable($event)" @pointerup="unbindFadeout($event)"
+         class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
+      <img :src="imageUrl" id="show-image"
+           class="rounded-lg absolute w-field h-field
+           object-contain">
+      <img src="/camera.png" @click='imageEdit' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
+           id="image-edit" class="absolute z-10" width="40">
     </div>
   </section>
 </template>

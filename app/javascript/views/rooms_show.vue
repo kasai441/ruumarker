@@ -2,18 +2,18 @@
   <section>
     <div class="flex flex-col items-center pt-1">
       <h2 class="w-field font-h2">キズ点検表</h2>
-    </div>
-    <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
-                locators-model="mark" :locators-json="marks"
-                @emit-form-data="getFormData"></image-show>
-    <div v-if="marksPresent">
-      <locators-index :room-id="roomId" :locators="marks" locators-model="mark"></locators-index>
-    </div>
-    <div v-else class="w-field h-28 rounded-lg bg-slate-100 flex justify-center items-center">
-      キズを追加できます
+      <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
+                  locators-model="mark" :locators-json="marks"
+                  @emit-form-data="getFormData"></image-show>
+      <div v-if="marksPresent">
+        <locators-index :room-id="roomId" :locators="marks" locators-model="mark"></locators-index>
+      </div>
+      <div v-else class="w-field h-28 rounded-lg bg-slate-100 flex justify-center items-center">
+        キズを追加できます
+      </div>
     </div>
     <img src="/new_mark.png" @click='newMark' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
-       id="create-mark" class="fixed z-10 new-mark" width="50">
+         id="create-mark" class="fixed z-10 new-mark" width="50">
     <div class="h-20"></div>
   </section>
 </template>
