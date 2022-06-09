@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="flex flex-col items-center pt-1">
+    <div class="flex flex-col items-center">
       <h2 class="w-field font-h2">キズ点検表</h2>
       <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
                   locators-model="mark" :locators-json="marks"
