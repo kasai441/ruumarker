@@ -1,12 +1,13 @@
-div.flex.flex-col.items-center.pt-1
-  h2.w-field.font-h2
-    |キズ点検表(印刷用)
-- marks_keys = %w[id location created_at]
-- marks = @room.map.marks.order(:created_at).map {|mark| mark.attributes.filter {|k,_| marks_keys.include?(k)}}
+- marks_keys = %w[id description trimming location created_at]
+- marks = @room.map.marks.order(:created_at).map do |mark| \
+    hash = mark.attributes.filter { |k, _| marks_keys.include?(k) }; \
+    hash[:image_url] = url_for mark.image if mark.image.present?; \
+    hash \
+  end
 - map_keys = %w[id trimming]
 - map = @room.map.attributes.filter {|k,_| map_keys.include?(k)}
 - map[:image_url] = url_for @room.map.image if @room.map.image.present?
-#rooms-show(
+#reports-index(
 room_id="#{@room.id}"
 marks="#{marks.to_json}"
 map="#{map.to_json}"
