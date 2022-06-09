@@ -14,7 +14,8 @@
       <div class="w-field font-bold text-lg p-6">キズ点検表</div>
       <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
                   locators-model="mark" :locators-json="marks"
-                  @emit-form-data="getFormData"></image-show>
+                  @emit-form-data="getFormData"
+                  :print-mode="true"></image-show>
       <div v-if="marksPresent">
         <locators-index :room-id="roomId" :locators="marks" locators-model="mark"></locators-index>
       </div>
