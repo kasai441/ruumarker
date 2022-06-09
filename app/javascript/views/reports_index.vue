@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="flex flex-col items-center pt-1">
-      <h2 class="w-field font-h2">キズ点検表print</h2>
+      <h2 class="w-field font-h2">キズ点検表（印刷用）</h2>
     </div>
     <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
                 locators-model="mark" :locators-json="marks"
@@ -9,12 +9,6 @@
     <div v-if="marksPresent">
       <locators-index :room-id="roomId" :locators="marks" locators-model="mark"></locators-index>
     </div>
-    <div v-else class="w-field h-28 rounded-lg bg-slate-100 flex justify-center items-center">
-      キズを追加できます
-    </div>
-    <img src="/new_mark.png" @click='newMark' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
-       id="create-mark" class="fixed z-10 new-mark" width="50">
-    <div class="h-20"></div>
   </section>
 </template>
 
@@ -47,21 +41,12 @@ export default {
     getFormData(formData) {
       this.formData = formData
     },
-    newMark() {
-      location.href = `/rooms/${this.roomId}/marks/new`
-    },
-    halfvanish(e) {
-      tags.parent('IMG', e.target).classList.add('animate-halfvanish')
-    },
-    unbindHalfvanish(e) {
-      tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
-    },
     areMarks() {
       return JSON.parse(this.marks).length > 0
     },
-    print() {
-      location.href = `/rooms/${this.roomId}/reports`
-    },
+    // print() {
+    //   location.href = `/rooms/${this.roomId}/reports`
+    // },
   },
   created() {
     const map = JSON.parse(this.map)
@@ -70,13 +55,13 @@ export default {
     this.mapTrimming = map['trimming']
   },
   mounted() {
-    const download = document.getElementById('download')
-    download.classList.remove('hidden')
-    download.addEventListener('click', this.print)
+    const titleBar = document.getElementById('title-bar')
+    titleBar.classList.add('hidden')
+    // titleBar.addEventListener('click', this.print)
   },
   beforeDestroy() {
-    const download = document.getElementById('download')
-    download.removeEventListener('click', this.print)
+    // const download = document.getElementById('download')
+    // download.removeEventListener('click', this.print)
   }
 }
 </script>
