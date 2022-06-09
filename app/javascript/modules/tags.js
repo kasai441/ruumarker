@@ -65,18 +65,18 @@ const transferLocators = (locators, fieldLocation, field) => {
   })
 }
 
-const field = id => {
-  const field = document.getElementById(id)
-  const left = params.toF(field.getBoundingClientRect().left, 1)
-  const top = params.toF(field.getBoundingClientRect().top, 1)
+const field = (id, element) => {
+  element ||= document.getElementById(id)
+  const left = params.toF(element.getBoundingClientRect().left, 1)
+  const top = params.toF(element.getBoundingClientRect().top, 1)
   return {
-    w: params.toF(field.getBoundingClientRect().right, 1) - left,
-    h: params.toF(field.getBoundingClientRect().bottom, 1) - top
+    w: params.toF(element.getBoundingClientRect().right, 1) - left,
+    h: params.toF(element.getBoundingClientRect().bottom, 1) - top
   }
 }
 
-const styleLeftTop = (id, value) => {
-  const element = document.getElementById(id)
+const styleLeftTop = (id, value, element) => {
+  element ||= document.getElementById(id)
   element.style.left = value.x + 'px'
   element.style.top = value.y + 'px'
 }

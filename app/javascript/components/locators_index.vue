@@ -1,12 +1,13 @@
 <template>
   <section id="locators-index">
     <div class="py-4 flex flex-col items-center">
-      <div id="locators-table" class="h-28">
-        <table class="table table-compact">
+      <div id="locators-table" class="w-field">
+        <table class="table table-compact w-full">
           <thead>
           <tr>
             <th></th>
             <th>キズ</th>
+            <th>説明</th>
             <th>作成日</th>
             <th></th>
           </tr>
@@ -19,8 +20,9 @@
 </template>
 
 <script>
-import tags from '../modules/tags'
 import api from '../modules/api'
+import params from '../modules/params'
+import tags from '../modules/tags'
 
 export default {
   name: 'LocatorsIndex',
@@ -41,8 +43,19 @@ export default {
           class: ['bg-transparent'],
           append: [index + 1]
         })
+        locator.image_url ||= '/sample.png'
+        const image = tags.generateElement('td', {
+          class: ['bg-transparent'],
+          append: [tags.generateElement('div', {
+            class: ['thumbnail-field', 'w-thumbnail', 'h-thumbnail', 'border', 'border-slate-200', 'rounded-lg', 'relative', 'overflow-hidden'],
+            append: [tags.generateElement('img', {
+              class: ['thumbnail-image', 'w-thumbnail', 'h-thumbnail', 'rounded-lg', 'absolute', 'object-contain'],
+              src: locator.image_url
+            })]
+          })]
+        })
         const description = tags.generateElement('td', {
-          class: ['description', 'bg-transparent'],
+          class: ['whitespace-normal', 'description', 'bg-transparent'],
           append: [this.brief(locator.description)]
         })
         const createdAt = tags.generateElement('td', {
@@ -59,14 +72,14 @@ export default {
         const tr = tags.generateElement('tr', {
           id: `${this.locatorsModel}-${locator.id}`,
           class: ['hover'],
-          append: [number, description, createdAt, deleteBtn]
+          append: [number, image, description, createdAt, deleteBtn]
         })
         tbody.append(tr)
       })
     },
     brief(description) {
       if (!description || description.length === 0) {
-        return '説明なし'
+        return '-'
       } else if (description.length > 10) {
         return `${description.substr(0, 10)}…`
       } else {
@@ -96,21 +109,36 @@ export default {
       const regex = `${this.locatorsModel}-`
       if (!tr || !tr.id.match(regex)) return
 
-      console.log(tr)
       const description = tr.getElementsByClassName('description')[0].innerHTML
       if (!confirm(`「${this.brief(description)}」を削除します。よろしいですか？`)) return
 
       const id = tr.id.replace(regex, '')
       await api.actions.delete(`/api/rooms/${this.roomId}/${this.locatorsModel}s/${id}`)
       location.href = `/rooms/${this.roomId}`
+    },
+    styleThumbnail() {
+      const field = tags.field(null, document.getElementsByClassName('thumbnail-field')[0])
+      const images = document.getElementsByClassName('thumbnail-image')
+      JSON.parse(this.locators).forEach((locator, index) => {
+        const trimmingRate = params.parseOrInit(locator.trimming)
+        const trimming = params.toPx(field, trimmingRate)
+        tags.styleLeftTop(null, trimming, images[index])
+      })
+    },
+    handleResize() {
+      this.styleThumbnail()
     }
   },
   mounted() {
     this.generateTbody()
+    this.styleThumbnail()
+    window.addEventListener('resize', this.handleResize)
+
     const as = document.getElementsByClassName('delete-locators')
     Array.prototype.forEach.call(as, a => {
       a.addEventListener('click', this.deleteLocators)
     })
+
     const table = document.getElementById('locators-table')
     const trs = table.getElementsByTagName('tr')
     Array.prototype.forEach.call(trs, tr => {
@@ -118,10 +146,13 @@ export default {
     })
   },
   beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize)
+
     const as = document.getElementsByClassName('delete-locators')
     Array.prototype.forEach.call(as, a => {
       a.removeEventListener('click', this.deleteLocators)
     })
+
     const table = document.getElementById('locators-table')
     const trs = table.getElementsByTagName('tr')
     Array.prototype.forEach.call(trs, tr => {
