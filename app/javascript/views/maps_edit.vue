@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="w-full flex flex-col items-center overflow-hidden">
+    <div class="w-full mt-6 flex flex-col items-center overflow-hidden">
       <image-edit :form-data="formData" target-model="map" :locators-json="marks"
                   @emit-form-data="getFormData"></image-edit>
     </div>
@@ -37,10 +37,14 @@ export default {
       this.formData = formData
     }
   },
-  async created() {
+  created() {
     if (this.formData) return
 
     this.formData = params.initFormData(this.map, 'map')
+  },
+  mounted() {
+    const div = document.getElementById('screen-scroll')
+    div.classList.add('overflow-scroll', 'h-screen')
   }
 }
 </script>

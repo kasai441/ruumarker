@@ -68,7 +68,7 @@ export default {
       location.href = `/rooms/${this.roomId}`
     }
   },
-  async created() {
+  created() {
     if (this.formData) return
 
     this.formData = params.initFormData(this.mark, 'mark')
@@ -83,6 +83,10 @@ export default {
     })
 
     this.mapFormData = params.initFormData(this.map, 'map')
+  },
+  mounted() {
+    const div = document.getElementById('screen-scroll')
+    div.classList.add('overflow-scroll', 'h-screen')
   }
 }
 </script>
