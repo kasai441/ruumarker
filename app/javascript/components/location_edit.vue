@@ -153,7 +153,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
     this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
     const locatorId = this.locatorFormData.get(`${this.locatorModel}[id]`)
-    tags.generateLocators(this.locators, 'edit-location-field', { except: locatorId, class: ['pointer-events-none'] })
+    tags.generateLocators(this.locators, 'edit-location-field', { except: locatorId, class: ['pointer-events-none'], editMode: true })
     this.getFieldSize()
   },
   beforeDestroy: () => {
