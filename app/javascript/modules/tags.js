@@ -10,12 +10,16 @@ const generateLocators = (locators, id, options) => {
   locators.forEach((locator, index) => {
     if (options && options.except == locator.id) return
 
+
     const img = generateElement('img', {
       class: ['absolute', 'w-5', 'pointer-events-none'],
-      src: '/locators.png'
+      src: options && options.printMode ? '/locators_white.png' : '/locators.png'
     })
+
     const number = generateElement('a', {
-      class: ['relative', 'text-white', 'text-sm', 'pointer-events-none'],
+      class: options && options.printMode ?
+        ['relative', 'text-sm', 'pointer-events-none'] :
+        ['relative', 'text-white', 'text-sm', 'pointer-events-none'],
       append: [index + 1]
     })
 

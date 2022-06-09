@@ -94,7 +94,7 @@ export default {
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
-    tags.generateLocators(this.locators, 'show-field')
+    tags.generateLocators(this.locators, 'show-field', { printMode: this.printMode })
     this.getFieldSize()
   },
   beforeDestroy() {
