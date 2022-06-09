@@ -57,6 +57,8 @@ export default {
       })
     },
     scrollTable(e) {
+      if (this.printMode) return
+
       const a = tags.parent('A', e.target)
       const regex = /locator/g
       if (a && a.id.match(regex)) {
@@ -76,6 +78,8 @@ export default {
       }
     },
     unbindFadeout(e) {
+      if (this.printMode) return
+
       const a = tags.parent('A', e.target)
       const regex = /locator/g
       if (a && a.id.match(regex)) {
