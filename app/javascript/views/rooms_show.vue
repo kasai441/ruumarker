@@ -13,7 +13,7 @@
       キズを追加できます
     </div>
     <img src="/new_mark.png" @click='newMark' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
-       id="create-mark" class="absolute z-10 new-mark" width="50">
+       id="create-mark" class="fixed z-10 new-mark" width="50">
     <div class="h-20"></div>
   </section>
 </template>
