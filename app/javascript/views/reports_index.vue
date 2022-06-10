@@ -17,7 +17,7 @@
         <p class="text-slate-500">
           「PRINT」から印刷ダイアログを表示してPDF出力を選択できます
         </p>
-        <p class="text-slate-500">
+        <p class="text-sm text-slate-500">
           ※ ダイアログが出ない場合、手動でブラウザの印刷画面を開いてください
           <span class="text-lime-600">各ブラウザのPDF出力方法</span>
         </p>
