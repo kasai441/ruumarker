@@ -63,7 +63,7 @@ export default {
         })
         const tr = tags.generateElement('tr', {
           id: `${this.locatorsModel}-${locator.id}`,
-          class: this.printMode ? [] : ['hover'],
+          class: this.printMode ? ['break-after-page'] : ['hover'],
           append: this.printMode ?
             [number, image, description, createdAt]:
             [number, image, description, createdAt, deleteBtn]
