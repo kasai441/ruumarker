@@ -1,6 +1,5 @@
 <template>
   <section>
-    <div class="break-after-page">page-break-after</div>
     <div class="fixed w-full z-10
     p-4 bg-black
     flex flex-col items-center print:hidden">
@@ -23,7 +22,6 @@
       </p>
     </div>
     <div class="w-field font-bold text-lg p-6">キズ点検表</div>
-    <div class="break-after-page">page-break-after</div>
     <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
                 locators-model="mark" :locators-json="marks"
                 @emit-form-data="getFormData"

@@ -1,11 +1,7 @@
 <template>
   <section id="locators-index">
     <div class="py-4">
-      <div id="locators-table" class="w-field">
-        <table class="table table-compact w-full">
-          <tbody id="locators-tbody"></tbody>
-        </table>
-      </div>
+      <div id="locators-table" class="w-field"></div>
     </div>
   </section>
 </template>
@@ -29,7 +25,8 @@ export default {
   },
   methods: {
     generateTbody() {
-      const tbody = document.getElementById('locators-tbody')
+      const tableContainer = document.getElementById('locators-table')
+      let trs = []
       JSON.parse(this.locators).forEach((locator, index) => {
         const number = tags.generateElement('td', {
           class: ['bg-transparent'],
@@ -68,7 +65,37 @@ export default {
             [number, image, description, createdAt]:
             [number, image, description, createdAt, deleteBtn]
         })
-        tbody.append(tr)
+
+        trs.push(tr)
+
+        if (index % 4 === 1 || index === JSON.parse(this.locators).length - 1) {
+          const ths = [tags.generateElement('th', {
+            append: ['番号']
+          }), tags.generateElement('th', {
+            append: ['画像']
+          }), tags.generateElement('th', {
+            append: ['説明']
+          }), tags.generateElement('th', {
+            append: ['作成日']
+          })]
+          if (!this.printMode) ths.push(tags.generateElement('th', {
+            append: ['削除']
+          }))
+
+          const table = tags.generateElement('table', {
+            class: ['table', 'table-compact', 'w-full', 'break-after-page'],
+            append: [tags.generateElement('thead', {
+              append: [tags.generateElement('tr', {
+                append: ths
+              })]
+            }), tags.generateElement('tbody', {
+              append: trs
+            })]
+          })
+
+          tableContainer.append(table)
+          trs = []
+        }
       })
     },
     brief(description) {
