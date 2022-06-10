@@ -2,15 +2,15 @@
   <section>
     <div class="flex flex-col items-center">
       <div class="fixed w-full z-10
-      border-b border-slate-900/10 p-4 bg-white
-      flex justify-center  print:hidden">
+      border-b border-slate-900/10 p-4 bg-black
+      flex justify-center print:hidden">
         <div class="w-field flex items-center">
           <a @click="room" class="w-1/6 text-xl text-slate-400 btn btn btn-ghost">＜</a>
-          <h2 class="w-2/3 text-xl text-center">印刷用レイアウト</h2>
-          <div class="w-1/6"></div>
+          <h2 class="w-2/3 text-xl text-white text-center">PDF用レイアウト</h2>
+          <a @click="print" class="w-1/6 btn btn-lime">プリント</a>
         </div>
       </div>
-      <div class="relative h-20"></div>
+      <div class="relative h-20 print:hidden"></div>
       <div class="w-field font-bold text-lg p-6">キズ点検表</div>
       <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
                   locators-model="mark" :locators-json="marks"
@@ -56,10 +56,10 @@ export default {
     },
     room() {
       location.href = `/rooms/${this.roomId}`
-    }
-    // print() {
-    //   location.href = `/rooms/${this.roomId}/reports`
-    // },
+    },
+    print() {
+      window.print()
+    },
   },
   created() {
     const map = JSON.parse(this.map)
