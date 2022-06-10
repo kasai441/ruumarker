@@ -28,7 +28,8 @@
                   @emit-form-data="getFormData"
                   :print-mode="true"></image-show>
       <div v-if="marksPresent">
-        <locators-index :room-id="roomId" :locators="marks" locators-model="mark"></locators-index>
+        <locators-index :room-id="roomId" :locators="marks" locators-model="mark"
+                        :print-mode="true"></locators-index>
       </div>
     </div>
   </section>

@@ -20,7 +20,8 @@ export default {
   props: [
     'roomId',
     'locators',
-    'locatorsModel'
+    'locatorsModel',
+    'printMode'
   ],
   data() {
     return {
@@ -62,8 +63,10 @@ export default {
         })
         const tr = tags.generateElement('tr', {
           id: `${this.locatorsModel}-${locator.id}`,
-          class: ['hover'],
-          append: [number, image, description, createdAt, deleteBtn]
+          class: this.printMode ? [] : ['hover'],
+          append: this.printMode ?
+            [number, image, description, createdAt]:
+            [number, image, description, createdAt, deleteBtn]
         })
         tbody.append(tr)
       })
@@ -124,6 +127,7 @@ export default {
     this.generateTbody()
     this.styleThumbnail()
     window.addEventListener('resize', this.handleResize)
+    if (this.printMode) return
 
     const as = document.getElementsByClassName('delete-locators')
     Array.prototype.forEach.call(as, a => {
@@ -138,6 +142,7 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)
+    if (this.printMode) return
 
     const as = document.getElementsByClassName('delete-locators')
     Array.prototype.forEach.call(as, a => {
