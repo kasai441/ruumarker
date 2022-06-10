@@ -3,15 +3,6 @@
     <div class="py-4">
       <div id="locators-table" class="w-field">
         <table class="table table-compact w-full">
-          <thead>
-          <tr>
-            <th></th>
-            <th>キズ</th>
-            <th>説明</th>
-            <th>作成日</th>
-            <th></th>
-          </tr>
-          </thead>
           <tbody id="locators-tbody"></tbody>
         </table>
       </div>
