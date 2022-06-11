@@ -60,7 +60,7 @@ export default {
         })
         const tr = tags.generateElement('tr', {
           id: `${this.locatorsModel}-${locator.id}`,
-          class: this.printMode ? ['break-after-page'] : ['hover'],
+          class: this.printMode ? [] : ['hover'],
           append: this.printMode ?
             [number, image, description, createdAt]:
             [number, image, description, createdAt, deleteBtn]
@@ -68,34 +68,40 @@ export default {
 
         trs.push(tr)
 
-        if (index % 4 === 1 || index === JSON.parse(this.locators).length - 1) {
-          const ths = [tags.generateElement('th', {
-            append: ['番号']
-          }), tags.generateElement('th', {
-            append: ['画像']
-          }), tags.generateElement('th', {
-            append: ['説明']
-          }), tags.generateElement('th', {
-            append: ['作成日']
-          })]
-          if (!this.printMode) ths.push(tags.generateElement('th', {
-            append: ['削除']
-          }))
-
-          const table = tags.generateElement('table', {
-            class: ['table', 'table-compact', 'w-full', 'break-after-page'],
-            append: [tags.generateElement('thead', {
-              append: [tags.generateElement('tr', {
-                append: ths
-              })]
-            }), tags.generateElement('tbody', {
-              append: trs
-            })]
-          })
-
-          tableContainer.append(table)
+        if (index === JSON.parse(this.locators).length - 1) {
+          tableContainer.append(this.generateTable(trs, { lastPage: true }))
+          trs = []
+        } else if (this.printMode && index % 4 === 1) {
+          tableContainer.append(this.generateTable(trs))
           trs = []
         }
+      })
+    },
+    generateTable(trs, options) {
+      const ths = [tags.generateElement('th', {
+        append: ['番号']
+      }), tags.generateElement('th', {
+        append: ['画像']
+      }), tags.generateElement('th', {
+        append: ['説明']
+      }), tags.generateElement('th', {
+        append: ['作成日']
+      })]
+      if (!this.printMode) ths.push(tags.generateElement('th', {
+        append: ['削除']
+      }))
+
+      return tags.generateElement('table', {
+        class: options && options.lastPage ?
+          ['table', 'table-compact', 'w-full'] :
+          ['table', 'table-compact', 'w-full', 'break-after-page'],
+        append: [tags.generateElement('thead', {
+          append: [tags.generateElement('tr', {
+            append: ths
+          })]
+        }), tags.generateElement('tbody', {
+          append: trs
+        })]
       })
     },
     brief(description) {
