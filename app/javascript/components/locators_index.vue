@@ -78,16 +78,16 @@ export default {
       })
     },
     generateTable(trs, options) {
-      const ths = [tags.generateElement('th', {
+      const tds = [tags.generateElement('td', {
         append: ['番号']
-      }), tags.generateElement('th', {
+      }), tags.generateElement('td', {
         append: ['画像']
-      }), tags.generateElement('th', {
+      }), tags.generateElement('td', {
         append: ['説明']
-      }), tags.generateElement('th', {
+      }), tags.generateElement('td', {
         append: ['作成日']
       })]
-      if (!this.printMode) ths.push(tags.generateElement('th', {
+      if (!this.printMode) tds.push(tags.generateElement('td', {
         append: ['削除']
       }))
 
@@ -97,7 +97,7 @@ export default {
           ['table', 'table-compact', 'w-full', 'break-after-page'],
         append: [tags.generateElement('thead', {
           append: [tags.generateElement('tr', {
-            append: ths
+            append: tds
           })]
         }), tags.generateElement('tbody', {
           append: trs
