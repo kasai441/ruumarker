@@ -13,10 +13,8 @@ module.exports = {
     extend: {
       spacing: {
         '72': '18rem',
-        '104': '26rem',
         '112': '28rem',
         '144': '36rem',
-        '156': '39rem',
         '168': '42rem'
       },
       width: {
@@ -28,7 +26,7 @@ module.exports = {
         '72': '18rem'
       },
       maxWidth: {
-        '72': '18rem',
+        '48': '12rem',
         '144': '36rem'
       },
       height: {

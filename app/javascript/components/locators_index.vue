@@ -71,7 +71,7 @@ export default {
         if (index === JSON.parse(this.locators).length - 1) {
           tableContainer.append(this.generateTable(trs, { lastPage: true }))
           trs = []
-        } else if (this.printMode && index % 4 === 1) {
+        } else if (this.printMode && index % 5 === 1) {
           tableContainer.append(this.generateTable(trs))
           trs = []
         }
