@@ -81,11 +81,8 @@ export default {
   mounted() {
     const titleBar = document.getElementById('title-bar')
     titleBar.classList.add('hidden')
-    // titleBar.addEventListener('click', this.print)
-  },
-  beforeDestroy() {
-    // const download = document.getElementById('download')
-    // download.removeEventListener('click', this.print)
+    const footerBar = document.getElementById('footer-bar')
+    footerBar.classList.add('hidden')
   }
 }
 </script>
