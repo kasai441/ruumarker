@@ -11,6 +11,8 @@ class RoomsController < ApplicationController
   end
 
   def show
+    Room.where.not(created_at: 10.days.ago.beginning_of_day..Float::INFINITY).destroy_all
+
     @room = Room.find(params[:id])
     unless @room.map.present?
       @room.destroy
