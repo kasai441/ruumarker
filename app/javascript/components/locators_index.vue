@@ -69,15 +69,19 @@ export default {
         trs.push(tr)
 
         if (index === JSON.parse(this.locators).length - 1) {
-          tableContainer.append(this.generateTable(trs, { lastPage: true }))
+          tableContainer.append(this.generateTable(trs))
+          if (this.printMode) {
+            tableContainer.append(this.generateFooter(index, { lastPage: true }))
+          }
           trs = []
         } else if (this.printMode && index % 5 === 1) {
           tableContainer.append(this.generateTable(trs))
+          tableContainer.append(this.generateFooter(index))
           trs = []
         }
       })
     },
-    generateTable(trs, options) {
+    generateTable(trs) {
       const tds = [tags.generateElement('td', {
         append: ['番号']
       }), tags.generateElement('td', {
@@ -92,9 +96,7 @@ export default {
       }))
 
       return tags.generateElement('table', {
-        class: options && options.lastPage ?
-          ['table', 'table-compact', 'w-full'] :
-          ['table', 'table-compact', 'w-full', 'break-after-page'],
+        class: ['table', 'table-compact', 'w-full'],
         append: [tags.generateElement('thead', {
           append: [tags.generateElement('tr', {
             append: tds
@@ -102,6 +104,17 @@ export default {
         }), tags.generateElement('tbody', {
           append: trs
         })]
+      })
+    },
+    generateFooter(index, options) {
+      const maxPage = Math.ceil((JSON.parse(this.locators).length - 2) / 5) + 1
+      const nowPage = Math.ceil((index - 1) / 5) + 1
+
+      return tags.generateElement('div', {
+        class: options && options.lastPage ?
+          ['p-4', 'w-full', 'text-right'] :
+          ['p-4', 'w-full', 'text-right', 'break-after-page'],
+        append: [`${nowPage} / ${maxPage}`]
       })
     },
     brief(description) {
