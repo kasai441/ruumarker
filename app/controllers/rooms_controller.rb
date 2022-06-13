@@ -11,10 +11,14 @@ class RoomsController < ApplicationController
   end
 
   def show
+    # モデルに追加して、HOMEでも同じ処理をする
     Room.where.not(created_at: 10.days.ago.beginning_of_day..Float::INFINITY).destroy_all
+    @room = Room.find_by(id: params[:id])
 
-    @room = Room.find(params[:id])
-    unless @room.map.present?
+    if @room.nil?
+      redirect_to root_path
+      return
+    elsif @room.map.nil?
       @room.destroy
       redirect_to root_path
       return
