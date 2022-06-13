@@ -1,7 +1,7 @@
 <template>
   <section id="image-edit">
     <div id="edit-field" @pointermove="touchmove($event)" @pointerup="touchend($event)" @pointerleave="touchend($event)"
-         class="my-16 w-field h-field relative">
+         class="my-6 w-field h-field relative">
       <img :src="imageUrl" id="edit-image" draggable="false"
            @pointerdown="touchstart($event)" @touchmove.prevent
            class="absolute w-field h-field

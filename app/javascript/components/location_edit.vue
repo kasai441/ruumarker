@@ -2,7 +2,7 @@
   <section id="location-edit">
     <div id="edit-location-field" @pointermove="touchmove($event)"
          @pointerup="touchend($event)" @pointerleave="touchend($event)"
-         class="my-16 w-field h-field relative">
+         class="my-6 w-field h-field relative">
       <img :src="imageUrl" id="edit-location-image" draggable="false"
            @pointerdown="touchstart($event)" @touchmove.prevent
            class="absolute w-field h-field object-contain">
@@ -153,7 +153,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
     this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
     const locatorId = this.locatorFormData.get(`${this.locatorModel}[id]`)
-    tags.generateLocators(this.locators, 'edit-location-field', { except: locatorId, class: ['pointer-events-none'] })
+    tags.generateLocators(this.locators, 'edit-location-field', { except: locatorId, class: ['pointer-events-none'], editMode: true })
     this.getFieldSize()
   },
   beforeDestroy: () => {

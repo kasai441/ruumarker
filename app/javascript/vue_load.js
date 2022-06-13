@@ -3,13 +3,15 @@ import RoomsShow from './views/rooms_show.vue'
 import MapsNew from './views/maps_new.vue'
 import MapsEdit from './views/maps_edit.vue'
 import MarksEdit from './views/marks_edit.vue'
+import ReportsIndex from './views/reports_index.vue'
 
 document.addEventListener('turbo:load', () => {
   const selectors = [
     '#rooms-show',
     '#maps-new',
     '#maps-edit',
-    '#marks-edit'
+    '#marks-edit',
+    '#reports-index'
   ]
   selectors.forEach((selector) => {
     let app
@@ -27,6 +29,9 @@ document.addEventListener('turbo:load', () => {
         break
       case 'marks-edit':
         app = createApp(MarksEdit)
+        break
+      case 'reports-index':
+        app = createApp(ReportsIndex)
         break
       }
       app.provide('roomId', element.getAttribute('room_id'))

@@ -9,8 +9,8 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true, nonce: true
   body
-    div#screen-scroll.overflow-scroll.h-screen
-      div.w-full.py-1.px-4.border-b.border-slate-900/10.flex.justify-between.items-center.bg-white
+    div#screen-scroll
+      div#title-bar.w-full.py-1.px-4.border-b.border-slate-900/10.flex.justify-between.items-center.bg-white
         = link_to root_path, id: "title-logo", class: "flex items-center", data: { turbo: false }
           = image_tag 'logo.png', size: '40x20', alt: 'logo.png'
           div.px-1.text-2xl
@@ -20,7 +20,5 @@ html
           = image_tag 'help.png', size: '30x30', alt: 'help.png', id: 'help', class: 'mx-2 opacity-40'
       - if flash.notice.present?
         .alert.alert-success= flash.notice
-      div.flex.justify-center
-        div.flex.flex-col.main-screen
-          = yield
-      div.w-full.h-24.border-t.border-slate-900/10.bg-white
+      = yield
+      div#footer-bar.w-full.h-24.border-t.border-slate-900/10.bg-white

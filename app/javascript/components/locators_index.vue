@@ -1,20 +1,7 @@
 <template>
   <section id="locators-index">
-    <div class="py-4 flex flex-col items-center">
-      <div id="locators-table" class="w-field">
-        <table class="table table-compact w-full">
-          <thead>
-          <tr>
-            <th></th>
-            <th>キズ</th>
-            <th>説明</th>
-            <th>作成日</th>
-            <th></th>
-          </tr>
-          </thead>
-          <tbody id="locators-tbody"></tbody>
-        </table>
-      </div>
+    <div class="py-4">
+      <div id="locators-table" class="w-field"></div>
     </div>
   </section>
 </template>
@@ -29,7 +16,8 @@ export default {
   props: [
     'roomId',
     'locators',
-    'locatorsModel'
+    'locatorsModel',
+    'printMode'
   ],
   data() {
     return {
@@ -37,7 +25,8 @@ export default {
   },
   methods: {
     generateTbody() {
-      const tbody = document.getElementById('locators-tbody')
+      const tableContainer = document.getElementById('locators-table')
+      let trs = []
       JSON.parse(this.locators).forEach((locator, index) => {
         const number = tags.generateElement('td', {
           class: ['bg-transparent'],
@@ -71,10 +60,61 @@ export default {
         })
         const tr = tags.generateElement('tr', {
           id: `${this.locatorsModel}-${locator.id}`,
-          class: ['hover'],
-          append: [number, image, description, createdAt, deleteBtn]
+          class: this.printMode ? [] : ['hover'],
+          append: this.printMode ?
+            [number, image, description, createdAt]:
+            [number, image, description, createdAt, deleteBtn]
         })
-        tbody.append(tr)
+
+        trs.push(tr)
+
+        if (index === JSON.parse(this.locators).length - 1) {
+          tableContainer.append(this.generateTable(trs))
+          if (this.printMode) {
+            tableContainer.append(this.generateFooter(index, { lastPage: true }))
+          }
+          trs = []
+        } else if (this.printMode && index % 5 === 1) {
+          tableContainer.append(this.generateTable(trs))
+          tableContainer.append(this.generateFooter(index))
+          trs = []
+        }
+      })
+    },
+    generateTable(trs) {
+      const tds = [tags.generateElement('td', {
+        append: ['番号']
+      }), tags.generateElement('td', {
+        append: ['画像']
+      }), tags.generateElement('td', {
+        append: ['説明']
+      }), tags.generateElement('td', {
+        append: ['作成日']
+      })]
+      if (!this.printMode) tds.push(tags.generateElement('td', {
+        append: ['削除']
+      }))
+
+      return tags.generateElement('table', {
+        class: ['table', 'table-compact', 'w-full'],
+        append: [tags.generateElement('thead', {
+          append: [tags.generateElement('tr', {
+            append: tds
+          })]
+        }), tags.generateElement('tbody', {
+          append: trs
+        })]
+      })
+    },
+    generateFooter(index, options) {
+      const maxPage = Math.ceil((JSON.parse(this.locators).length - 2) / 5) + 1
+      const nowPage = Math.ceil((index - 1) / 5) + 1
+
+      return tags.generateElement('div', {
+        class: options && options.lastPage ?
+          ['p-4', 'w-full', 'text-right'] :
+          ['p-4', 'w-full', 'text-right', 'break-after-page'],
+        append: [`${nowPage} / ${maxPage}`]
       })
     },
     brief(description) {
@@ -88,7 +128,7 @@ export default {
     },
     formatDate(str) {
       const d = new Date(str)
-      const date = `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`.replace(/\\s/g, '')
+      const date = `${d.getFullYear()} ${d.getMonth()+1}/${d.getDate()}`.replace(/\\s/g, '')
       let minutes = String(d.getMinutes())
       if (minutes.length === 1) minutes = `0${minutes}`
       const time = `${d.getHours()}:${minutes}`.replace(/\s/g, '')
@@ -133,6 +173,7 @@ export default {
     this.generateTbody()
     this.styleThumbnail()
     window.addEventListener('resize', this.handleResize)
+    if (this.printMode) return
 
     const as = document.getElementsByClassName('delete-locators')
     Array.prototype.forEach.call(as, a => {
@@ -147,6 +188,7 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)
+    if (this.printMode) return
 
     const as = document.getElementsByClassName('delete-locators')
     Array.prototype.forEach.call(as, a => {

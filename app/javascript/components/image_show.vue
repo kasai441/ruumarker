@@ -1,14 +1,12 @@
 <template>
   <section id="image-show">
-    <div class="flex flex-col items-center">
-      <div id="show-field" @pointerdown="scrollTable($event)" @pointerup="unbindFadeout($event)"
-           class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
-        <img :src="imageUrl" id="show-image"
-             class="rounded-lg absolute w-field h-field
-             object-contain">
-        <img src="/camera.png" @click='imageEdit' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
-             id="image-edit" class="absolute z-10" width="40">
-      </div>
+    <div id="show-field" @pointerdown="scrollTable($event)" @pointerup="unbindFadeout($event)"
+         class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
+      <img :src="imageUrl" id="show-image"
+           class="rounded-lg absolute w-field h-field
+           object-contain">
+      <img v-if="!printMode" src="/camera.png" @click='imageEdit' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
+           id="image-edit" class="absolute z-10" width="40">
     </div>
   </section>
 </template>
@@ -26,7 +24,8 @@ export default {
     'trimming',
     'fieldEditName',
     'locatorsModel',
-    'locatorsJson'
+    'locatorsJson',
+    'printMode'
   ],
   data() {
     return {
@@ -52,12 +51,14 @@ export default {
       tags.styleLeftTop('show-image', trimming)
       tags.transferLocators(this.locators, trimming, field)
 
-      tags.styleLeftTop('image-edit', {
+      if (!this.printMode) tags.styleLeftTop('image-edit', {
         x: field.w - 45,
         y: field.h - 45
       })
     },
     scrollTable(e) {
+      if (this.printMode) return
+
       const a = tags.parent('A', e.target)
       const regex = /locator/g
       if (a && a.id.match(regex)) {
@@ -69,14 +70,16 @@ export default {
 
         const tr = document.getElementById(a.id.replace(regex, this.locatorsModel))
         tr.classList.add('active')
-        table.scrollTo({
-          behavior: 'smooth',
-          left: 0,
-          top: tr.offsetTop
-        })
+        // table.scrollTo({
+        //   behavior: 'smooth',
+        //   left: 0,
+        //   top: tr.offsetTop
+        // })
       }
     },
     unbindFadeout(e) {
+      if (this.printMode) return
+
       const a = tags.parent('A', e.target)
       const regex = /locator/g
       if (a && a.id.match(regex)) {
@@ -91,7 +94,7 @@ export default {
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
-    tags.generateLocators(this.locators, 'show-field')
+    tags.generateLocators(this.locators, 'show-field', { printMode: this.printMode })
     this.getFieldSize()
   },
   beforeDestroy() {

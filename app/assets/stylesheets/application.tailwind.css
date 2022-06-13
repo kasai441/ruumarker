@@ -4,19 +4,19 @@
 
 @layer components {
     .main-screen {
-        @apply md:w-168 min-w-72;
+        @apply min-w-72 w-92vw md:w-168;
     }
     .w-field {
-        @apply w-92vw sm:w-83vw md:w-144 max-w-144;
+        @apply w-82vw md:w-144 sm:max-w-144 print:w-144;
     }
     .h-field {
-        @apply h-92vw2/3 sm:h-83vw2/3 md:h-96 max-h-96;
+        @apply h-82vw2/3 md:h-96 sm:max-h-96 print:h-96;
     }
     .w-thumbnail {
-        @apply w-24vw md:w-48 max-w-48;
+        @apply w-24vw md:w-48 sm:max-w-48 print:w-48;
     }
     .h-thumbnail {
-        @apply h-24vw2/3 md:h-32 max-h-32;
+        @apply h-24vw2/3 md:h-32 sm:max-h-32 print:h-32;
     }
     .font-h2 {
         @apply py-4 font-bold text-lime-600;
