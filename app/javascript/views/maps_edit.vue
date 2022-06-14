@@ -7,6 +7,7 @@
                       @emit-form-data="getFormData"></image-edit>
         </div>
         <image-upload :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-upload>
+        <image-rotate :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-rotate>
         <image-update :room-id="roomId" :form-data="formData" target-model="map"></image-update>
       </div>
     </div>
@@ -16,6 +17,7 @@
 <script>
 import ImageEdit from '../components/image_edit.vue'
 import ImageUpload from '../components/image_upload.vue'
+import ImageRotate from '../components/image_rotate.vue'
 import ImageUpdate from '../components/image_update.vue'
 import params from '../modules/params'
 
@@ -34,6 +36,7 @@ export default {
   components: {
     ImageEdit,
     ImageUpload,
+    ImageRotate,
     ImageUpdate
   },
   methods: {
