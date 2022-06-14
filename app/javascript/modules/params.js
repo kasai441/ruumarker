@@ -85,16 +85,17 @@ const rotateImage = (imageUrl, imageFile) => {
     img.onload = () => {
       const canvas = document.createElement('canvas')
       console.log(img.width)
+      console.log(img.height)
 
-      canvas.width = img.width
-      canvas.height = img.height
+      canvas.width = img.height
+      canvas.height = img.width
       let ctx = canvas.getContext('2d')
-      ctx.save()
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      // ctx.save()
+      // ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.translate(canvas.width / 2, canvas.height / 2)
       ctx.rotate(90 * Math.PI / 180)
-      ctx.drawImage(img, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height)
-      ctx.restore()
+      ctx.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height)
+      // ctx.restore()
       ctx.canvas.toBlob((blob) => {
         const f = new File([blob], imageFile.name, {
           type: imageFile.type,
