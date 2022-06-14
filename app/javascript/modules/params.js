@@ -1,5 +1,3 @@
-import log from "tailwindcss/lib/util/log"
-
 const toPx = (field, rate) => {
   return {
     x: toF(field.w * rate.x, 1),
@@ -76,26 +74,17 @@ const reduceLargeImage = (imageUrl, imageFile) => {
 }
 
 const rotateImage = (imageUrl, imageFile) => {
-  console.log(imageUrl.type)
-  console.log(imageUrl.name)
-  console.log(imageFile.type)
-  console.log(imageFile.name)
+  if (!imageFile) imageFile = getTypeName(imageUrl)
   return new Promise((resolve, reject) => {
     const img = new Image()
     img.onload = () => {
       const canvas = document.createElement('canvas')
-      console.log(img.width)
-      console.log(img.height)
-
       canvas.width = img.height
       canvas.height = img.width
       let ctx = canvas.getContext('2d')
-      // ctx.save()
-      // ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.translate(canvas.width / 2, canvas.height / 2)
       ctx.rotate(90 * Math.PI / 180)
       ctx.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height)
-      // ctx.restore()
       ctx.canvas.toBlob((blob) => {
         const f = new File([blob], imageFile.name, {
           type: imageFile.type,
@@ -107,6 +96,14 @@ const rotateImage = (imageUrl, imageFile) => {
     img.onerror = (e) => reject(e)
     img.src = imageUrl
   })
+}
+
+// private
+
+const getTypeName = imageUrl => {
+  const name = imageUrl.split('/').reverse()[0]
+  const type = `image/${name.split('.').reverse()[0]}`
+  return { name, type }
 }
 
 export default {
