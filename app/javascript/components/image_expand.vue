@@ -2,7 +2,8 @@
   <section id="image-expand">
     <div class="p-4">
       {{ this.expansion }}
-      <input type="range" v-model="expansion" min="50" max="150" class="range range-sm">
+      <input type="range" v-model="expansion" @pointerup="expand"
+             min="50" max="150" class="range range-sm">
     </div>
   </section>
 </template>
@@ -36,12 +37,17 @@ export default {
       // this.$emit('emitFormData', formData)
     },
     expand() {
-
+      console.log('oooo')
+      const formData = this.formData ? params.renewFormData(this.formData, this.targetModel) : new FormData()
+      formData.set(`${this.targetModel}[expansion]`, this.expansion)
+      this.$emit('emitFormData', formData)
     }
   },
   created() {
     if (this.formData) {
-      this.expantion = this.formData.get(`${this.targetModel}[expansion]`)
+      console.log('aaaaa')
+      console.log(this.formData.get(`${this.targetModel}[expansion]`))
+      this.expansion = this.formData.get(`${this.targetModel}[expansion]`)
     }
   }
 }
