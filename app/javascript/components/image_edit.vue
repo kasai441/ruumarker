@@ -27,6 +27,7 @@ export default {
       isMovable: false,
       imageUrl: null,
       trimming: null,
+      expansion: 100,
       pointer: null,
       locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
     }
@@ -81,7 +82,12 @@ export default {
       const field = tags.field('edit-field')
       const trimmingRate = params.fromJson(this.formData, this.targetModel, 'trimming')
       this.trimming = params.toPx(field, trimmingRate)
-      tags.styleLeftTop('edit-image', this.trimming)
+      this.expansion = this.formData.get(`${this.targetModel}[expansion]`)
+      const element = document.getElementById('edit-image')
+      element.style.width = field.w * this.expansion / 100 + 'px'
+      element.style.height = field.h * this.expansion / 100 + 'px'
+      element.style.left = field.w * (trimmingRate.x - (this.expansion / 100 - 1) / 2) + 'px'
+      element.style.top = field.h * (trimmingRate.y - (this.expansion / 100 - 1) / 2) + 'px'
       tags.transferLocators(this.locators, this.trimming, field)
     },
     updateTrimming() {
