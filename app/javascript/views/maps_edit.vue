@@ -8,6 +8,7 @@
         </div>
         <image-upload :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-upload>
         <image-rotate :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-rotate>
+        <image-expand :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-expand>
         <image-update :room-id="roomId" :form-data="formData" target-model="map"></image-update>
       </div>
     </div>
@@ -18,6 +19,7 @@
 import ImageEdit from '../components/image_edit.vue'
 import ImageUpload from '../components/image_upload.vue'
 import ImageRotate from '../components/image_rotate.vue'
+import ImageExpand from '../components/image_expand.vue'
 import ImageUpdate from '../components/image_update.vue'
 import params from '../modules/params'
 
@@ -37,6 +39,7 @@ export default {
     ImageEdit,
     ImageUpload,
     ImageRotate,
+    ImageExpand,
     ImageUpdate
   },
   methods: {
