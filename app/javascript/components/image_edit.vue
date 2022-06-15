@@ -61,7 +61,12 @@ export default {
       if (this.trimming.y > limitY) this.trimming.y = limitY
       if (this.trimming.y < -limitY) this.trimming.y = -limitY
 
-      tags.styleLeftTop('edit-image', this.trimming)
+      const element = document.getElementById('edit-image')
+      let expansion = this.formData.get(`${this.targetModel}[expansion]`)
+      expansion ||= 100
+      element.style.left = this.trimming.x - field.w * (expansion / 100 - 1) / 2 + 'px'
+      element.style.top = this.trimming.y - field.h * (expansion / 100 - 1) / 2 + 'px'
+
       tags.transferLocators(this.locators, this.trimming, field)
     },
     touchend() {
@@ -82,12 +87,13 @@ export default {
       const field = tags.field('edit-field')
       const trimmingRate = params.fromJson(this.formData, this.targetModel, 'trimming')
       this.trimming = params.toPx(field, trimmingRate)
-      this.expansion = this.formData.get(`${this.targetModel}[expansion]`)
+      let expansion = this.formData.get(`${this.targetModel}[expansion]`)
+      expansion ||= 100
       const element = document.getElementById('edit-image')
-      element.style.width = field.w * this.expansion / 100 + 'px'
-      element.style.height = field.h * this.expansion / 100 + 'px'
-      element.style.left = field.w * (trimmingRate.x - (this.expansion / 100 - 1) / 2) + 'px'
-      element.style.top = field.h * (trimmingRate.y - (this.expansion / 100 - 1) / 2) + 'px'
+      element.style.width = field.w * expansion / 100 + 'px'
+      element.style.height = field.h * expansion / 100 + 'px'
+      element.style.left = this.trimming.x - field.w * (expansion / 100 - 1) / 2 + 'px'
+      element.style.top = this.trimming.y - field.h * (expansion / 100 - 1) / 2 + 'px'
       tags.transferLocators(this.locators, this.trimming, field)
     },
     updateTrimming() {

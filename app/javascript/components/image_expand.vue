@@ -42,11 +42,12 @@ export default {
 
       const field = tags.field('edit-field')
       const trimmingRate = params.fromJson(this.formData, this.targetModel, 'trimming')
+      const trimming = params.toPx(field, trimmingRate)
       const element = document.getElementById('edit-image')
       element.style.width = field.w * this.expansion / 100 + 'px'
       element.style.height = field.h * this.expansion / 100 + 'px'
-      element.style.left = field.w * (trimmingRate.x - (this.expansion / 100 - 1) / 2) + 'px'
-      element.style.top = field.h * (trimmingRate.y - (this.expansion / 100 - 1) / 2) + 'px'
+      element.style.left = trimming.x - field.w * (this.expansion / 100 - 1) / 2 + 'px'
+      element.style.top = trimming.y - field.h * (this.expansion / 100 - 1) / 2 + 'px'
 
       const formData = this.formData ? params.renewFormData(this.formData, this.targetModel) : new FormData()
       formData.set(`${this.targetModel}[expansion]`, this.expansion)
