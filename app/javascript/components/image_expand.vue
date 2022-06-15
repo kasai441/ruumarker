@@ -41,7 +41,7 @@ export default {
   },
   created() {
     if (this.formData) {
-      // this.expantion = this.formData.get(`${this.targetModel}[expansion]`)
+      this.expantion = this.formData.get(`${this.targetModel}[expansion]`)
     }
   }
 }
