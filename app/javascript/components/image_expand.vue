@@ -2,7 +2,7 @@
   <section id="image-expand">
     <div class="p-4">
       {{ this.expansion }}
-      <input type="range" min="50" max="150" :value="expansion" class="range range-sm">
+      <input type="range" v-model="expansion" min="50" max="150" class="range range-sm">
     </div>
   </section>
 </template>
