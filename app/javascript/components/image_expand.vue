@@ -2,7 +2,7 @@
   <section id="image-expand">
     <div class="p-4">
       {{ this.expansion }}
-      <input type="range" v-model="expansion" @pointerup="expand"
+      <input type="range" v-model="expansion" @pointermove="expand"
              min="50" max="150" class="range range-sm">
     </div>
   </section>
@@ -10,6 +10,7 @@
 
 <script>
 import params from '../modules/params'
+import tags from '../modules/tags'
 
 export default {
   name: 'ImageExpand',
@@ -38,6 +39,16 @@ export default {
     },
     expand() {
       console.log('oooo')
+
+      const field = tags.field('edit-field')
+      field.w *= this.expansion / 100
+      field.h *= this.expansion / 100
+      const elements = [document.getElementById('edit-image')]
+      Array.prototype.forEach.call(elements, element => {
+        element.style.width = field.w + 'px'
+        element.style.height = field.h + 'px'
+      })
+
       const formData = this.formData ? params.renewFormData(this.formData, this.targetModel) : new FormData()
       formData.set(`${this.targetModel}[expansion]`, this.expansion)
       this.$emit('emitFormData', formData)

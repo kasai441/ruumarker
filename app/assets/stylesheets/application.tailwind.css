@@ -7,10 +7,10 @@
         @apply min-w-72 w-92vw md:w-168;
     }
     .w-field {
-        @apply w-82vw md:w-144 sm:max-w-144 print:w-144;
+        @apply w-82vw md:w-144 print:w-144;
     }
     .h-field {
-        @apply h-82vw2/3 md:h-96 sm:max-h-96 print:h-96;
+        @apply h-82vw2/3 md:h-96 print:h-96;
     }
     .w-thumbnail {
         @apply w-24vw md:w-48 sm:max-w-48 print:w-48;
