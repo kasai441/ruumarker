@@ -3,7 +3,7 @@
     <div class="p-4">
       {{ this.expansion }}
       <input type="range" v-model="expansion" @pointermove="expand"
-             min="50" max="150" class="range range-sm">
+             min="66" max="150" class="range range-sm">
     </div>
   </section>
 </template>
@@ -41,12 +41,17 @@ export default {
       console.log('oooo')
 
       const field = tags.field('edit-field')
-      field.w *= this.expansion / 100
-      field.h *= this.expansion / 100
+      const w = field.w * this.expansion / 100
+      const h = field.h * this.expansion / 100
+      const trimmingRate = params.fromJson(this.formData, this.targetModel, 'trimming')
+      const left = field.w * (Number(trimmingRate.x) - (this.expansion / 100 - 1) / 2)
+      const top = field.h * (Number(trimmingRate.y) - (this.expansion / 100 - 1) / 2)
       const elements = [document.getElementById('edit-image')]
       Array.prototype.forEach.call(elements, element => {
-        element.style.width = field.w + 'px'
-        element.style.height = field.h + 'px'
+        element.style.width = w + 'px'
+        element.style.height = h + 'px'
+        element.style.left = left + 'px'
+        element.style.top = top + 'px'
       })
 
       const formData = this.formData ? params.renewFormData(this.formData, this.targetModel) : new FormData()
