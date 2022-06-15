@@ -1,8 +1,7 @@
 <template>
   <section id="image-rotate">
     <div class="p-4">
-      <img id="rotate-image" src="/rotation.png" width="30" @pointerdown="rotate"
-      />
+      <img id="rotate-image" src="/rotation.png" width="30" @pointerdown="rotate">
     </div>
   </section>
 </template>
@@ -21,8 +20,6 @@ export default {
       let imageFile = this.formData.get(`${this.targetModel}[image]`)
       let imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
       if (imageFile) imageUrl = await params.getImageUrl(imageFile)
-      console.log('imageFile: ', imageFile)
-      console.log('imageUrl: ', imageUrl)
       imageFile = await params.rotateImage(imageUrl, imageFile).catch(e => {
         console.log('onload error', e)
         throw new Error('onload error')
