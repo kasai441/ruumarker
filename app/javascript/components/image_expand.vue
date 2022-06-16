@@ -16,11 +16,13 @@ export default {
   name: 'ImageExpand',
   props: [
     'formData',
-    'targetModel'
+    'targetModel',
+    'locatorsJson'
   ],
   data() {
     return {
-      expansion: 100
+      expansion: 100,
+      locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
     }
   },
   methods: {
@@ -38,8 +40,13 @@ export default {
       // this.$emit('emitFormData', formData)
     },
     expand() {
-      console.log('oooo')
+      this.getFieldSize()
 
+      const formData = this.formData ? params.renewFormData(this.formData, this.targetModel) : new FormData()
+      formData.set(`${this.targetModel}[expansion]`, this.expansion)
+      this.$emit('emitFormData', formData)
+    },
+    getFieldSize() {
       const field = tags.field('edit-field')
       const trimmingRate = params.fromJson(this.formData, this.targetModel, 'trimming')
       const trimming = params.toPx(field, trimmingRate)
@@ -48,10 +55,7 @@ export default {
       element.style.height = field.h * this.expansion / 100 + 'px'
       element.style.left = trimming.x - field.w * (this.expansion / 100 - 1) / 2 + 'px'
       element.style.top = trimming.y - field.h * (this.expansion / 100 - 1) / 2 + 'px'
-
-      const formData = this.formData ? params.renewFormData(this.formData, this.targetModel) : new FormData()
-      formData.set(`${this.targetModel}[expansion]`, this.expansion)
-      this.$emit('emitFormData', formData)
+      tags.transferLocators(this.locators, trimming, 'edit-image')
     }
   },
   created() {

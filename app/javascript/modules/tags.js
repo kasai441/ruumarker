@@ -57,15 +57,22 @@ const generateElement = (tagName, options) => {
   return element
 }
 
-const transferLocators = (locators, fieldLocation, field) => {
+const transferLocators = (locators, fieldLocation, id) => {
+  const element = document.getElementById(id)
+  const image = {
+    w: element.style.width.replace('px', ''),
+    h: element.style.height.replace('px', '')
+  }
   locators.forEach(locator => {
     const a = document.getElementById(`locator-${locator.id}`)
     if (!a) return
 
     const locationRate = params.parseOrInit(locator.location)
-    const locatorLocationX = params.toF(field.w * (0.5 - locationRate.x), 1)
-    const locatorLocationY = params.toF(field.h * (0.5 - locationRate.y), 1)
+    const locatorLocationX = params.toF(image.w * (0.5 - locationRate.x), 1)
+    const locatorLocationY = params.toF(image.h * (0.5 - locationRate.y), 1)
     const radius = 10
+    console.log('fieldLocation.x + locatorLocationX')
+    console.log(fieldLocation.x, locatorLocationX)
     a.style.left = fieldLocation.x + locatorLocationX - radius + 'px'
     a.style.top = fieldLocation.y + locatorLocationY - radius + 'px'
   })

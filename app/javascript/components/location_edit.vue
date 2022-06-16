@@ -98,7 +98,7 @@ export default {
       tags.styleLeftTop('edit-location-frame', this.frameOffset)
       tags.styleLeftTop('edit-location-shade', this.frameOffset)
       tags.styleLeftTop('edit-location-image', this.location)
-      tags.transferLocators(this.locators, this.location, field)
+      tags.transferLocators(this.locators, this.location, 'edit-location-image')
     },
     touchend() {
       this.isMovable = false
@@ -129,7 +129,7 @@ export default {
       }
       tags.styleLeftTop('edit-location-frame', this.frameOffset)
       tags.styleLeftTop('edit-location-shade', this.frameOffset)
-      tags.transferLocators(this.locators, this.location, field)
+      tags.transferLocators(this.locators, this.location, 'edit-location-image')
 
       const locatorRadius = 10
       tags.styleLeftTop('locator-image', {

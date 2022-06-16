@@ -49,7 +49,7 @@ export default {
       const trimmingRate = params.parseOrInit(this.trimming)
       const trimming = params.toPx(field, trimmingRate)
       tags.styleLeftTop('show-image', trimming)
-      tags.transferLocators(this.locators, trimming, field)
+      tags.transferLocators(this.locators, trimming, 'show-image')
 
       if (!this.printMode) tags.styleLeftTop('image-edit', {
         x: field.w - 45,
