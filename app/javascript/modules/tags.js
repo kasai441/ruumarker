@@ -61,7 +61,9 @@ const transferLocators = (locators, fieldLocation, id) => {
   const element = document.getElementById(id)
   const image = {
     w: element.style.width.replace('px', ''),
-    h: element.style.height.replace('px', '')
+    h: element.style.height.replace('px', ''),
+    left: Number(element.style.left.replace('px', '')),
+    top: Number(element.style.top.replace('px', ''))
   }
   locators.forEach(locator => {
     const a = document.getElementById(`locator-${locator.id}`)
@@ -71,10 +73,10 @@ const transferLocators = (locators, fieldLocation, id) => {
     const locatorLocationX = params.toF(image.w * (0.5 - locationRate.x), 1)
     const locatorLocationY = params.toF(image.h * (0.5 - locationRate.y), 1)
     const radius = 10
-    console.log('fieldLocation.x + locatorLocationX')
-    console.log(fieldLocation.x, locatorLocationX)
-    a.style.left = fieldLocation.x + locatorLocationX - radius + 'px'
-    a.style.top = fieldLocation.y + locatorLocationY - radius + 'px'
+    // console.log('fieldLocation.x + locatorLocationX')
+    // console.log(fieldLocation.x, locatorLocationX)
+    a.style.left = image.left + locatorLocationX - radius + 'px'
+    a.style.top = image.top + locatorLocationY - radius + 'px'
   })
 }
 
