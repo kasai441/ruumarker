@@ -5,6 +5,7 @@ FactoryBot.define do
     description { 'リビング、フローリングに削れ' }
     location { '' }
     trimming { '' }
+    expansion { 100 }
     after(:build) do |item|
       file_name = 'test_image.jpg'
       file_path = Rails.root.join('spec', 'fixtures', 'files', file_name)
