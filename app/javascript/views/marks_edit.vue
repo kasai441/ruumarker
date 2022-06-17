@@ -20,6 +20,7 @@
         </div>
         <image-upload :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-upload>
         <image-rotate :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-rotate>
+        <image-expand :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-expand>
         <h2 class="w-full font-h2">キズの位置</h2>
         <div class="bg-slate-300 w-full flex flex-col items-center overflow-hidden">
           <location-edit :locator-form-data="formData" locator-model="mark" locator-image="/locator.png"
@@ -37,6 +38,7 @@
 import ImageEdit from '../components/image_edit.vue'
 import ImageUpload from '../components/image_upload.vue'
 import ImageRotate from '../components/image_rotate.vue'
+import ImageExpand from '../components/image_expand.vue'
 import DescriptionEdit from '../components/description_edit.vue'
 import LocationEdit from '../components/location_edit.vue'
 import ImageUpdate from '../components/image_update.vue'
@@ -61,6 +63,7 @@ export default {
     ImageEdit,
     ImageUpload,
     ImageRotate,
+    ImageExpand,
     DescriptionEdit,
     LocationEdit,
     ImageUpdate
