@@ -59,7 +59,7 @@ export default {
       element.style.height = field.h * expansion / 100 + 'px'
       element.style.left = trimming.x - field.w * (expansion / 100 - 1) / 2 + 'px'
       element.style.top = trimming.y - field.h * (expansion / 100 - 1) / 2 + 'px'
-      tags.transferLocators(this.locators, 'show-image')
+      tags.layoutLocators(this.locators, 'show-image')
 
       if (!this.printMode) tags.styleLeftTop('image-edit', {
         x: field.w - 45,

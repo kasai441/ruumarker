@@ -98,7 +98,7 @@ export default {
       tags.styleLeftTop('edit-location-frame', this.frameOffset)
       tags.styleLeftTop('edit-location-shade', this.frameOffset)
       tags.styleLeftTop('edit-location-image', this.location)
-      tags.transferLocators(this.locators, 'edit-location-image')
+      tags.layoutLocators(this.locators, 'edit-location-image')
     },
     touchend() {
       this.isMovable = false
@@ -133,7 +133,7 @@ export default {
 
       element.style.left = this.location.x  + 'px'
       element.style.top = this.location.y + 'px'
-      tags.transferLocators(this.locators, 'edit-image')
+      tags.layoutLocators(this.locators, 'edit-image')
 
       // 目隠しフレームの位置
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
@@ -150,7 +150,7 @@ export default {
       // shade.style.height = field.h * expansion / 100 + 'px'
       tags.styleLeftTop('edit-location-frame', this.frameOffset)
       tags.styleLeftTop('edit-location-shade', this.frameOffset)
-      tags.transferLocators(this.locators, 'edit-location-image')
+      tags.layoutLocators(this.locators, 'edit-location-image')
 
       const locatorRadius = 10
       tags.styleLeftTop('locator-image', {

@@ -57,7 +57,7 @@ const generateElement = (tagName, options) => {
   return element
 }
 
-const transferLocators = (locators, id) => {
+const layoutLocators = (locators, id) => {
   const element = document.getElementById(id)
   const image = {
     w: element.style.width.replace('px', ''),
@@ -99,7 +99,7 @@ export default {
   parent,
   generateLocators,
   generateElement,
-  transferLocators,
+  layoutLocators,
   field,
   styleLeftTop
 }
