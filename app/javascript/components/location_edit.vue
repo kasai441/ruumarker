@@ -120,33 +120,16 @@ export default {
 
       let expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`)
       expansion ||= 100
-      console.log('expansion')
-      console.log(expansion)
       element.style.width = field.w * expansion / 100 + 'px'
       element.style.height = field.h * expansion / 100 + 'px'
-
-      console.log('element.style.width')
-      console.log(element.style.width)
 
       const image = tags.field('edit-location-image')
 
       const locationRate = params.parseOrInit(this.locatorFormData.get(`${this.locatorModel}[location]`))
-      console.log('locationRate')
-      console.log(locationRate)
-
       this.location = params.toPx(image, locationRate)
-      console.log('this.location.x')
-      console.log(this.location.x)
-
-      console.log('field.w')
-      console.log(field.w)
       const expansionShiftRate = (expansion / 100 - 1) / 2
-      console.log('field.w * (expansion / 100 - 1) / 2')
-      console.log(field.w * (expansion / 100 - 1) / 2)
       this.location.x -= field.w * expansionShiftRate
       this.location.y -= field.h * expansionShiftRate
-      console.log('this.location.x')
-      console.log(this.location.x)
 
       element.style.left = this.location.x  + 'px'
       element.style.top = this.location.y + 'px'
@@ -156,9 +139,15 @@ export default {
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
       const trimming = params.toPx(field, trimmingRate)
       this.frameOffset = {
-        x: this.location.x - trimming.x,
-        y: this.location.y - trimming.y
+        x: this.location.x + field.w * expansionShiftRate - trimming.x,
+        y: this.location.y + field.h * expansionShiftRate - trimming.y
       }
+      // const frame = document.getElementById('edit-location-frame')
+      // frame.style.width = field.w * expansion / 100 + 'px'
+      // frame.style.height = field.h * expansion / 100 + 'px'
+      // const shade = document.getElementById('edit-location-shade')
+      // shade.style.width = field.w * expansion / 100 + 'px'
+      // shade.style.height = field.h * expansion / 100 + 'px'
       tags.styleLeftTop('edit-location-frame', this.frameOffset)
       tags.styleLeftTop('edit-location-shade', this.frameOffset)
       tags.transferLocators(this.locators, 'edit-location-image')
