@@ -157,7 +157,7 @@ export default {
       location.href = `/rooms/${this.roomId}`
     },
     styleThumbnail() {
-      const field = tags.field(null, document.getElementsByClassName('thumbnail-field')[0])
+      const field = tags.readSize(null, document.getElementsByClassName('thumbnail-field')[0])
       const images = document.getElementsByClassName('thumbnail-image')
       JSON.parse(this.locators).forEach((locator, index) => {
         const trimmingRate = params.parseOrInit(locator.trimming)

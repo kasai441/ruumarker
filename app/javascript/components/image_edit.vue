@@ -53,7 +53,7 @@ export default {
       this.trimming.y += params.toF(e.offsetY, 1) - this.pointer.y
 
       // 外側に出ないように画像の移動を抑制する
-      const field = tags.field('edit-field')
+      const field = tags.readSize('edit-field')
       const limitX = params.toF(field.w / 4, 1)
       const limitY = params.toF(field.h / 4, 1)
       if (this.trimming.x > limitX) this.trimming.x = limitX
@@ -84,7 +84,7 @@ export default {
     },
     layout() {
       // 画像の位置
-      const field = tags.field('edit-field')
+      const field = tags.readSize('edit-field')
       const trimmingRate = params.parseOrInit(this.formData.get(`${this.targetModel}[trimming]`))
       this.trimming = params.toPixel(field, trimmingRate)
       let expansion = this.formData.get(`${this.targetModel}[expansion]`)
@@ -97,7 +97,7 @@ export default {
       tags.layoutLocators(this.locators, 'edit-image')
     },
     updateTrimming() {
-      const field = tags.field('edit-field')
+      const field = tags.readSize('edit-field')
       const trimmingRate = {
         x: (this.trimming.x / field.w).toFixed(3),
         y: (this.trimming.y / field.h).toFixed(3)

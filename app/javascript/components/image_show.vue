@@ -45,7 +45,7 @@ export default {
       tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
     layout() {
-      const field = tags.field('show-field')
+      const field = tags.readSize('show-field')
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
       const trimming = params.toPixel(field, trimmingRate)
       console.log('trimming')

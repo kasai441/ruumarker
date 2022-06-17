@@ -47,7 +47,7 @@ export default {
       this.$emit('emitFormData', formData)
     },
     layout() {
-      const field = tags.field('edit-field')
+      const field = tags.readSize('edit-field')
       const trimmingRate = params.parseOrInit(this.formData.get(`${this.targetModel}[trimming]`))
       const trimming = params.toPixel(field, trimmingRate)
       const element = document.getElementById('edit-image')

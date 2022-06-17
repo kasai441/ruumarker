@@ -78,7 +78,7 @@ const layoutLocators = (locators, id) => {
   })
 }
 
-const field = (id, element) => {
+const readSize = (id, element) => {
   element ||= document.getElementById(id)
   const left = params.toF(element.getBoundingClientRect().left, 1)
   const top = params.toF(element.getBoundingClientRect().top, 1)
@@ -100,6 +100,6 @@ export default {
   generateLocators,
   generateElement,
   layoutLocators,
-  field,
+  readSize,
   styleLeftTop
 }
