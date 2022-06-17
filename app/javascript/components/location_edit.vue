@@ -116,12 +116,12 @@ export default {
     getFieldSize() {
       // 画像の位置
       const field = tags.field('edit-location-field')
-      const locationRate = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
+      const locationRate = params.parseOrInit(this.locatorFormData.get(`${this.locatorModel}[location]`))
       this.location = params.toPx(field, locationRate)
       tags.styleLeftTop('edit-location-image', this.location)
 
       // 目隠しフレームの位置
-      const trimmingRate = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
+      const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
       const trimming = params.toPx(field, trimmingRate)
       this.frameOffset = {
         x: this.location.x - trimming.x,

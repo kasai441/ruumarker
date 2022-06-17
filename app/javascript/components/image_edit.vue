@@ -85,7 +85,7 @@ export default {
     getFieldSize() {
       // 画像の位置
       const field = tags.field('edit-field')
-      const trimmingRate = params.fromJson(this.formData, this.targetModel, 'trimming')
+      const trimmingRate = params.parseOrInit(this.formData.get(`${this.targetModel}[trimming]`))
       this.trimming = params.toPx(field, trimmingRate)
       let expansion = this.formData.get(`${this.targetModel}[expansion]`)
       expansion ||= 100

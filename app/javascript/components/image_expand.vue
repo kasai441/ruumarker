@@ -48,7 +48,7 @@ export default {
     },
     getFieldSize() {
       const field = tags.field('edit-field')
-      const trimmingRate = params.fromJson(this.formData, this.targetModel, 'trimming')
+      const trimmingRate = params.parseOrInit(this.formData.get(`${this.targetModel}[trimming]`))
       const trimming = params.toPx(field, trimmingRate)
       const element = document.getElementById('edit-image')
       element.style.width = field.w * this.expansion / 100 + 'px'

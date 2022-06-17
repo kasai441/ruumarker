@@ -9,10 +9,6 @@ const toF = (number, fractionDigits) => {
   return Math.floor(number * 10**fractionDigits) / 10**fractionDigits
 }
 
-const fromJson = (formData, targetModel, param) => {
-  return parseOrInit(formData.get(`${targetModel}[${param}]`))
-}
-
 const parseOrInit = param => {
   if (param) {
     return JSON.parse(param)
@@ -110,7 +106,6 @@ export default {
   namespaced: true,
   toPx,
   toF,
-  fromJson,
   parseOrInit,
   initFormData,
   renewFormData,
