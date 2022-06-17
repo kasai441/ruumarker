@@ -5,7 +5,7 @@
          class="my-6 w-field h-field relative">
       <img :src="imageUrl" id="edit-location-image" draggable="false"
            @pointerdown="touchstart($event)" @touchmove.prevent
-           class="absolute w-field h-field object-contain">
+           class="absolute w-field h-field max-w-none object-contain">
       <div id="edit-location-frame"
            class="absolute z-10 w-field h-field
              pointer-events-none bg-transparent bg-transparent
@@ -116,9 +116,41 @@ export default {
     getFieldSize() {
       // 画像の位置
       const field = tags.field('edit-location-field')
+      const element = document.getElementById('edit-location-image')
+
+      let expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`)
+      expansion ||= 100
+      console.log('expansion')
+      console.log(expansion)
+      element.style.width = field.w * expansion / 100 + 'px'
+      element.style.height = field.h * expansion / 100 + 'px'
+
+      console.log('element.style.width')
+      console.log(element.style.width)
+
+      const image = tags.field('edit-location-image')
+
       const locationRate = params.parseOrInit(this.locatorFormData.get(`${this.locatorModel}[location]`))
-      this.location = params.toPx(field, locationRate)
-      tags.styleLeftTop('edit-location-image', this.location)
+      console.log('locationRate')
+      console.log(locationRate)
+
+      this.location = params.toPx(image, locationRate)
+      console.log('this.location.x')
+      console.log(this.location.x)
+
+      console.log('field.w')
+      console.log(field.w)
+      const expansionShiftRate = (expansion / 100 - 1) / 2
+      console.log('field.w * (expansion / 100 - 1) / 2')
+      console.log(field.w * (expansion / 100 - 1) / 2)
+      this.location.x -= field.w * expansionShiftRate
+      this.location.y -= field.h * expansionShiftRate
+      console.log('this.location.x')
+      console.log(this.location.x)
+
+      element.style.left = this.location.x  + 'px'
+      element.style.top = this.location.y + 'px'
+      tags.transferLocators(this.locators, 'edit-image')
 
       // 目隠しフレームの位置
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
@@ -138,11 +170,17 @@ export default {
       })
     },
     updateLocation() {
+      const image = tags.field('edit-location-image')
+      let expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`)
+      expansion ||= 100
       const field = tags.field('edit-location-field')
+      const expansionShiftRate = (expansion / 100 - 1) / 2
       const locationRate = {
-        x: (this.location.x / field.w).toFixed(3),
-        y: (this.location.y / field.h).toFixed(3)
+        x: ((this.location.x + field.w * expansionShiftRate) / image.w).toFixed(3),
+        y: ((this.location.y + field.h * expansionShiftRate) / image.h).toFixed(3)
       }
+      console.log('locationRate: update')
+      console.log(locationRate)
       const locatorFormData = params.renewFormData(this.locatorFormData)
       locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(locationRate))
       this.$emit('emitFormData', locatorFormData)

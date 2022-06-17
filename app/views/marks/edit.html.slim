@@ -3,7 +3,7 @@
 - mark_keys = %w[id trimming expansion description location]
 - mark = @mark.attributes.filter {|k,_| mark_keys.include?(k)}
 - mark[:image_url] = url_for @mark.image if @mark.image.present?
-- map_keys = %w[id trimming]
+- map_keys = %w[id trimming expansion]
 - map = @mark.map.attributes.filter {|k,_| map_keys.include?(k)}
 - map[:image_url] = url_for @mark.map.image if @mark.map.image.present?
 #marks-edit(
