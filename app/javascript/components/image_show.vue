@@ -3,7 +3,7 @@
     <div id="show-field" @pointerdown="scrollTable($event)" @pointerup="unbindFadeout($event)"
          class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
       <img :src="imageUrl" id="show-image"
-           class="rounded-lg absolute w-field h-field
+           class="rounded-lg absolute w-field h-field max-w-none
            object-contain">
       <img v-if="!printMode" src="/camera.png" @click='imageEdit' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
            id="image-edit" class="absolute z-10" width="40">
@@ -18,10 +18,8 @@ export default {
   name: 'ImageShow',
   props: [
     'roomId',
-    'id',
     'fieldModel',
-    'imageUrl',
-    'trimming',
+    'fieldFormData',
     'fieldEditName',
     'locatorsModel',
     'locatorsJson',
@@ -29,6 +27,7 @@ export default {
   ],
   data() {
     return {
+      imageUrl: null,
       showFieldWidth: 0,
       showFieldHeight: 0,
       locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
@@ -36,7 +35,8 @@ export default {
   },
   methods: {
     imageEdit() {
-      location.href = `/rooms/${this.roomId}/${this.fieldModel}s/${this.id}/edit`
+      const id = this.fieldFormData.get(`${this.fieldModel}[id]`)
+      location.href = `/rooms/${this.roomId}/${this.fieldModel}s/${id}/edit`
     },
     halfvanish(e) {
       tags.parent('IMG', e.target).classList.add('animate-halfvanish')
@@ -46,9 +46,19 @@ export default {
     },
     getFieldSize() {
       const field = tags.field('show-field')
-      const trimmingRate = params.parseOrInit(this.trimming)
+      const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
       const trimming = params.toPx(field, trimmingRate)
-      tags.styleLeftTop('show-image', trimming)
+      console.log('trimming')
+      console.log(trimming)
+      let expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`)
+      expansion ||= 100
+      console.log('expansion')
+      console.log(expansion)
+      const element = document.getElementById('show-image')
+      element.style.width = field.w * expansion / 100 + 'px'
+      element.style.height = field.h * expansion / 100 + 'px'
+      element.style.left = trimming.x - field.w * (expansion / 100 - 1) / 2 + 'px'
+      element.style.top = trimming.y - field.h * (expansion / 100 - 1) / 2 + 'px'
       tags.transferLocators(this.locators, trimming, 'show-image')
 
       if (!this.printMode) tags.styleLeftTop('image-edit', {
@@ -94,6 +104,7 @@ export default {
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
+    this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
     tags.generateLocators(this.locators, 'show-field', { printMode: this.printMode })
     this.getFieldSize()
   },
