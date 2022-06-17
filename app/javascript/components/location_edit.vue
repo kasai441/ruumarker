@@ -126,7 +126,7 @@ export default {
       const image = tags.field('edit-location-image')
 
       const locationRate = params.parseOrInit(this.locatorFormData.get(`${this.locatorModel}[location]`))
-      this.location = params.toPx(image, locationRate)
+      this.location = params.toPixel(image, locationRate)
       const expansionShiftRate = (expansion / 100 - 1) / 2
       this.location.x -= field.w * expansionShiftRate
       this.location.y -= field.h * expansionShiftRate
@@ -136,7 +136,7 @@ export default {
 
       // 目隠しフレームの位置
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
-      const trimming = params.toPx(field, trimmingRate)
+      const trimming = params.toPixel(field, trimmingRate)
       this.frameOffset = {
         x: this.location.x + field.w * expansionShiftRate - trimming.x,
         y: this.location.y + field.h * expansionShiftRate - trimming.y

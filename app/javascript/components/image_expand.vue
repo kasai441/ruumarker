@@ -49,7 +49,7 @@ export default {
     layout() {
       const field = tags.field('edit-field')
       const trimmingRate = params.parseOrInit(this.formData.get(`${this.targetModel}[trimming]`))
-      const trimming = params.toPx(field, trimmingRate)
+      const trimming = params.toPixel(field, trimmingRate)
       const element = document.getElementById('edit-image')
       element.style.width = field.w * this.expansion / 100 + 'px'
       element.style.height = field.h * this.expansion / 100 + 'px'

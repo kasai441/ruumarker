@@ -1,4 +1,4 @@
-const toPx = (field, rate) => {
+const toPixel = (field, rate) => {
   return {
     x: toF(field.w * rate.x, 1),
     y: toF(field.h * rate.y, 1)
@@ -104,7 +104,7 @@ const getTypeName = imageUrl => {
 
 export default {
   namespaced: true,
-  toPx,
+  toPixel,
   toF,
   parseOrInit,
   initFormData,

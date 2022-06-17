@@ -86,7 +86,7 @@ export default {
       // 画像の位置
       const field = tags.field('edit-field')
       const trimmingRate = params.parseOrInit(this.formData.get(`${this.targetModel}[trimming]`))
-      this.trimming = params.toPx(field, trimmingRate)
+      this.trimming = params.toPixel(field, trimmingRate)
       let expansion = this.formData.get(`${this.targetModel}[expansion]`)
       expansion ||= 100
       const element = document.getElementById('edit-image')

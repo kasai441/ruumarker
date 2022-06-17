@@ -161,7 +161,7 @@ export default {
       const images = document.getElementsByClassName('thumbnail-image')
       JSON.parse(this.locators).forEach((locator, index) => {
         const trimmingRate = params.parseOrInit(locator.trimming)
-        const trimming = params.toPx(field, trimmingRate)
+        const trimming = params.toPixel(field, trimmingRate)
         tags.styleLeftTop(null, trimming, images[index])
       })
     },

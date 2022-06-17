@@ -47,7 +47,7 @@ export default {
     layout() {
       const field = tags.field('show-field')
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
-      const trimming = params.toPx(field, trimmingRate)
+      const trimming = params.toPixel(field, trimmingRate)
       console.log('trimming')
       console.log(trimming)
       let expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`)
