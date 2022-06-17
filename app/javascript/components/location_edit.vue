@@ -133,7 +133,6 @@ export default {
 
       element.style.left = this.location.x  + 'px'
       element.style.top = this.location.y + 'px'
-      tags.layoutLocators(this.locators, 'edit-image')
 
       // 目隠しフレームの位置
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
@@ -142,12 +141,6 @@ export default {
         x: this.location.x + field.w * expansionShiftRate - trimming.x,
         y: this.location.y + field.h * expansionShiftRate - trimming.y
       }
-      // const frame = document.getElementById('edit-location-frame')
-      // frame.style.width = field.w * expansion / 100 + 'px'
-      // frame.style.height = field.h * expansion / 100 + 'px'
-      // const shade = document.getElementById('edit-location-shade')
-      // shade.style.width = field.w * expansion / 100 + 'px'
-      // shade.style.height = field.h * expansion / 100 + 'px'
       tags.styleLeftTop('edit-location-frame', this.frameOffset)
       tags.styleLeftTop('edit-location-shade', this.frameOffset)
       tags.layoutLocators(this.locators, 'edit-location-image')
