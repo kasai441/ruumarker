@@ -76,13 +76,13 @@ export default {
       this.updateTrimming()
     },
     handleResize() {
-      this.getFieldSize()
+      this.layout()
       this.updateTrimming()
     },
     handleScroll() {
-      this.getFieldSize()
+      this.layout()
     },
-    getFieldSize() {
+    layout() {
       // 画像の位置
       const field = tags.field('edit-field')
       const trimmingRate = params.parseOrInit(this.formData.get(`${this.targetModel}[trimming]`))
@@ -112,7 +112,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
     this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
     tags.generateLocators(this.locators, 'edit-field', { class: ['pointer-events-none'] })
-    this.getFieldSize()
+    this.layout()
   },
   async updated() {
     const imageFile = this.formData.get(`${this.targetModel}[image]`)

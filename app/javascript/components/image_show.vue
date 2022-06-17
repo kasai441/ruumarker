@@ -44,7 +44,7 @@ export default {
     unbindHalfvanish(e) {
       tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
-    getFieldSize() {
+    layout() {
       const field = tags.field('show-field')
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
       const trimming = params.toPx(field, trimmingRate)
@@ -99,14 +99,14 @@ export default {
       }
     },
     handleResize() {
-      this.getFieldSize()
+      this.layout()
     }
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
     this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
     tags.generateLocators(this.locators, 'show-field', { printMode: this.printMode })
-    this.getFieldSize()
+    this.layout()
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)

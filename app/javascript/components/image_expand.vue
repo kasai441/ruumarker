@@ -40,13 +40,13 @@ export default {
       // this.$emit('emitFormData', formData)
     },
     expand() {
-      this.getFieldSize()
+      this.layout()
 
       const formData = this.formData ? params.renewFormData(this.formData, this.targetModel) : new FormData()
       formData.set(`${this.targetModel}[expansion]`, this.expansion)
       this.$emit('emitFormData', formData)
     },
-    getFieldSize() {
+    layout() {
       const field = tags.field('edit-field')
       const trimmingRate = params.parseOrInit(this.formData.get(`${this.targetModel}[trimming]`))
       const trimming = params.toPx(field, trimmingRate)

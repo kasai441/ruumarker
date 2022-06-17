@@ -107,13 +107,13 @@ export default {
       this.updateLocation()
     },
     handleResize() {
-      this.getFieldSize()
+      this.layout()
       this.updateLocation()
     },
     handleScroll() {
-      this.getFieldSize()
+      this.layout()
     },
-    getFieldSize() {
+    layout() {
       // 画像の位置
       const field = tags.field('edit-location-field')
       const element = document.getElementById('edit-location-image')
@@ -181,7 +181,7 @@ export default {
     this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
     const locatorId = this.locatorFormData.get(`${this.locatorModel}[id]`)
     tags.generateLocators(this.locators, 'edit-location-field', { except: locatorId, class: ['pointer-events-none'], editMode: true })
-    this.getFieldSize()
+    this.layout()
   },
   beforeDestroy: () => {
     window.removeEventListener('resize', this.handleResize)
