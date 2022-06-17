@@ -57,7 +57,7 @@ export default {
       element.style.top = trimming.y - field.h * (this.expansion / 100 - 1) / 2 + 'px'
 
       console.log(document.getElementById('edit-image').style.width)
-      tags.transferLocators(this.locators, trimming, 'edit-image')
+      tags.transferLocators(this.locators, 'edit-image')
     }
   },
   created() {

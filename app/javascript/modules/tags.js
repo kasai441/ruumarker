@@ -57,7 +57,7 @@ const generateElement = (tagName, options) => {
   return element
 }
 
-const transferLocators = (locators, fieldLocation, id) => {
+const transferLocators = (locators, id) => {
   const element = document.getElementById(id)
   const image = {
     w: element.style.width.replace('px', ''),

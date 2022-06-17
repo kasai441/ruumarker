@@ -67,7 +67,7 @@ export default {
       element.style.left = this.trimming.x - field.w * (expansion / 100 - 1) / 2 + 'px'
       element.style.top = this.trimming.y - field.h * (expansion / 100 - 1) / 2 + 'px'
 
-      tags.transferLocators(this.locators, this.trimming, 'edit-image')
+      tags.transferLocators(this.locators, 'edit-image')
     },
     touchend() {
       this.isMovable = false
@@ -94,7 +94,7 @@ export default {
       element.style.height = field.h * expansion / 100 + 'px'
       element.style.left = this.trimming.x - field.w * (expansion / 100 - 1) / 2 + 'px'
       element.style.top = this.trimming.y - field.h * (expansion / 100 - 1) / 2 + 'px'
-      tags.transferLocators(this.locators, this.trimming, 'edit-image')
+      tags.transferLocators(this.locators, 'edit-image')
     },
     updateTrimming() {
       const field = tags.field('edit-field')
