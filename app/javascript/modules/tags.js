@@ -97,6 +97,17 @@ const trim = (fieldSize, formData, model, imageId) => {
   return trimming
 }
 
+const locate = (fieldSize, locatorFormData, locatorModel, fieldFormData, fieldModel, imageId) => {
+  const expansion = fieldFormData.get(`${fieldModel}[expansion]`) || 100
+  const locationRate = params.parseOrInit(locatorFormData.get(`${locatorModel}[location]`))
+  const imageSize = readSize(imageId)
+  let location = params.toPixel(imageSize, locationRate)
+  location.x -= fieldSize.w * (expansion / 100 - 1) / 2
+  location.y -= fieldSize.h * (expansion / 100 - 1) / 2
+  writePosition(imageId, location)
+  return location
+}
+
 const readSize = (id, element) => {
   element ||= document.getElementById(id)
   const left = params.toF(element.getBoundingClientRect().left, 1)
@@ -127,6 +138,7 @@ export default {
   layoutLocators,
   expand,
   trim,
+  locate,
   readSize,
   writeSize,
   writePosition

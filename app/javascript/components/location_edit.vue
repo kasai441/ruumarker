@@ -116,18 +116,21 @@ export default {
     layout() {
       // 画像の拡大縮小と配置
       const fieldSize = tags.readSize('edit-location-field')
+      tags.expand(fieldSize, this.fieldFormData, this.fieldModel, 'edit-location-image')
       const expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`) || 100
-      tags.writeSize('edit-location-image', {
-        w: fieldSize.w * expansion / 100,
-        h: fieldSize.h * expansion / 100
-      })
-      const imageSize = tags.readSize('edit-location-image')
-      const locationRate = params.parseOrInit(this.locatorFormData.get(`${this.locatorModel}[location]`))
-      this.location = params.toPixel(imageSize, locationRate)
+      // tags.writeSize('edit-location-image', {
+      //   w: fieldSize.w * expansion / 100,
+      //   h: fieldSize.h * expansion / 100
+      // })
+      this.location = tags.locate(fieldSize, this.locatorFormData, this.locatorModel,
+        this.fieldFormData, this.fieldModel, 'edit-location-image')
+      // const imageSize = tags.readSize('edit-location-image')
+      // const locationRate = params.parseOrInit(this.locatorFormData.get(`${this.locatorModel}[location]`))
+      // this.location = params.toPixel(imageSize, locationRate)
       const expansionShiftRate = (expansion / 100 - 1) / 2
-      this.location.x -= fieldSize.w * expansionShiftRate
-      this.location.y -= fieldSize.h * expansionShiftRate
-      tags.writePosition('edit-location-image', this.location)
+      // this.location.x -= fieldSize.w * expansionShiftRate
+      // this.location.y -= fieldSize.h * expansionShiftRate
+      // tags.writePosition('edit-location-image', this.location)
 
       // 目隠しフレームの拡大縮小と配置
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
