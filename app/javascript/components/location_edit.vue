@@ -115,20 +115,18 @@ export default {
     },
     layout() {
       // 画像の拡大縮小と配置
-      const fieldSize = tags.readSize('edit-location-field')
       const image = document.getElementById('edit-location-image')
-
+      const fieldSize = tags.readSize('edit-location-field')
       const expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`) || 100
       image.style.width = fieldSize.w * expansion / 100 + 'px'
       image.style.height = fieldSize.h * expansion / 100 + 'px'
 
-      const locationRate = params.parseOrInit(this.locatorFormData.get(`${this.locatorModel}[location]`))
       const imageSize = tags.readSize('edit-location-image')
+      const locationRate = params.parseOrInit(this.locatorFormData.get(`${this.locatorModel}[location]`))
       this.location = params.toPixel(imageSize, locationRate)
       const expansionShiftRate = (expansion / 100 - 1) / 2
       this.location.x -= fieldSize.w * expansionShiftRate
       this.location.y -= fieldSize.h * expansionShiftRate
-
       image.style.left = this.location.x  + 'px'
       image.style.top = this.location.y + 'px'
 

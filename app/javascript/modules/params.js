@@ -106,6 +106,7 @@ export default {
   namespaced: true,
   toPixel,
   toF,
+
   parseOrInit,
   initFormData,
   renewFormData,
