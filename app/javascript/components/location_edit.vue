@@ -95,9 +95,9 @@ export default {
         this.frameOffset.y = -limitY
       }
 
-      tags.styleLeftTop('edit-location-frame', this.frameOffset)
-      tags.styleLeftTop('edit-location-shade', this.frameOffset)
-      tags.styleLeftTop('edit-location-image', this.location)
+      tags.writePosition('edit-location-frame', this.frameOffset)
+      tags.writePosition('edit-location-shade', this.frameOffset)
+      tags.writePosition('edit-location-image', this.location)
       tags.layoutLocators(this.locators, 'edit-location-image')
     },
     touchend() {
@@ -115,20 +115,19 @@ export default {
     },
     layout() {
       // 画像の拡大縮小と配置
-      const image = document.getElementById('edit-location-image')
       const fieldSize = tags.readSize('edit-location-field')
       const expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`) || 100
-      image.style.width = fieldSize.w * expansion / 100 + 'px'
-      image.style.height = fieldSize.h * expansion / 100 + 'px'
-
+      tags.writeSize('edit-location-image', {
+        w: fieldSize.w * expansion / 100,
+        h: fieldSize.h * expansion / 100
+      })
       const imageSize = tags.readSize('edit-location-image')
       const locationRate = params.parseOrInit(this.locatorFormData.get(`${this.locatorModel}[location]`))
       this.location = params.toPixel(imageSize, locationRate)
       const expansionShiftRate = (expansion / 100 - 1) / 2
       this.location.x -= fieldSize.w * expansionShiftRate
       this.location.y -= fieldSize.h * expansionShiftRate
-      image.style.left = this.location.x  + 'px'
-      image.style.top = this.location.y + 'px'
+      tags.writePosition('edit-location-image', this.location)
 
       // 目隠しフレームの拡大縮小と配置
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
@@ -137,12 +136,12 @@ export default {
         x: this.location.x + fieldSize.w * expansionShiftRate - trimming.x,
         y: this.location.y + fieldSize.h * expansionShiftRate - trimming.y
       }
-      tags.styleLeftTop('edit-location-frame', this.frameOffset)
-      tags.styleLeftTop('edit-location-shade', this.frameOffset)
+      tags.writePosition('edit-location-frame', this.frameOffset)
+      tags.writePosition('edit-location-shade', this.frameOffset)
       tags.layoutLocators(this.locators, 'edit-location-image')
 
       const locatorRadius = 10
-      tags.styleLeftTop('locator-image', {
+      tags.writePosition('locator-image', {
         x: fieldSize.w / 2 - locatorRadius,
         y: fieldSize.h / 2 - locatorRadius
       })

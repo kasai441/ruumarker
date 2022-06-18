@@ -46,18 +46,19 @@ export default {
     },
     layout() {
       const fieldSize = tags.readSize('show-field')
+      const expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`) || 100
+      tags.writeSize('show-image', {
+        w: fieldSize.w * expansion / 100,
+        h: fieldSize.h * expansion / 100
+      })
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
       const trimming = params.toPixel(fieldSize, trimmingRate)
-      const expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`) || 100
-
-      const image = document.getElementById('show-image')
-      image.style.width = fieldSize.w * expansion / 100 + 'px'
-      image.style.height = fieldSize.h * expansion / 100 + 'px'
-      image.style.left = trimming.x - fieldSize.w * (expansion / 100 - 1) / 2 + 'px'
-      image.style.top = trimming.y - fieldSize.h * (expansion / 100 - 1) / 2 + 'px'
+      tags.writePosition('show-image', {
+        x: trimming.x - fieldSize.w * (expansion / 100 - 1) / 2,
+        y: trimming.y - fieldSize.h * (expansion / 100 - 1) / 2
+      })
       tags.layoutLocators(this.locators, 'show-image')
-
-      if (!this.printMode) tags.styleLeftTop('image-edit', {
+      if (!this.printMode) tags.writePosition('image-edit', {
         x: fieldSize.w - 45,
         y: fieldSize.h - 45
       })

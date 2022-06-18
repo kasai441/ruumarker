@@ -162,7 +162,7 @@ export default {
       JSON.parse(this.locators).forEach((locator, index) => {
         const trimmingRate = params.parseOrInit(locator.trimming)
         const trimming = params.toPixel(fieldSize, trimmingRate)
-        tags.styleLeftTop(null, trimming, images[index])
+        tags.writePosition(null, trimming, images[index])
       })
     },
     handleResize() {

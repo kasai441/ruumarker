@@ -88,7 +88,13 @@ const readSize = (id, element) => {
   }
 }
 
-const styleLeftTop = (id, value, element) => {
+const writeSize = (id, value, element) => {
+  element ||= document.getElementById(id)
+  element.style.width = value.w + 'px'
+  element.style.height =value.h + 'px'
+}
+
+const writePosition = (id, value, element) => {
   element ||= document.getElementById(id)
   element.style.left = value.x + 'px'
   element.style.top = value.y + 'px'
@@ -101,5 +107,6 @@ export default {
   generateElement,
   layoutLocators,
   readSize,
-  styleLeftTop
+  writeSize,
+  writePosition
 }
