@@ -78,6 +78,24 @@ const layoutLocators = (locators, id) => {
   })
 }
 
+const expand = (fieldSize, formData, model, imageId) => {
+  const expansion = formData.get(`${model}[expansion]`) || 100
+  writeSize(imageId, {
+    w: fieldSize.w * expansion / 100,
+    h: fieldSize.h * expansion / 100
+  })
+}
+
+const trim = (fieldSize, formData, model, imageId) => {
+  const expansion = formData.get(`${model}[expansion]`) || 100
+  const trimmingRate = params.parseOrInit(formData.get(`${model}[trimming]`))
+  const trimming = params.toPixel(fieldSize, trimmingRate)
+  writePosition(imageId, {
+    x: trimming.x - fieldSize.w * (expansion / 100 - 1) / 2,
+    y: trimming.y - fieldSize.h * (expansion / 100 - 1) / 2
+  })
+}
+
 const readSize = (id, element) => {
   element ||= document.getElementById(id)
   const left = params.toF(element.getBoundingClientRect().left, 1)
@@ -106,6 +124,8 @@ export default {
   generateLocators,
   generateElement,
   layoutLocators,
+  expand,
+  trim,
   readSize,
   writeSize,
   writePosition
