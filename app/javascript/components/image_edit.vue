@@ -84,21 +84,7 @@ export default {
     layout() {
       const fieldSize = tags.readSize('edit-field')
       tags.expand(fieldSize, this.formData, this.targetModel, 'edit-image')
-
-      // const expansion = this.formData.get(`${this.targetModel}[expansion]`) || 100
-      // tags.writeSize('edit-image', {
-      //   w: fieldSize.w * expansion / 100,
-      //   h: fieldSize.h * expansion / 100
-      // })
-
       this.trimming = tags.trim(fieldSize, this.formData, this.targetModel, 'edit-image')
-
-      // const trimmingRate = params.parseOrInit(this.formData.get(`${this.targetModel}[trimming]`))
-      // this.trimming = params.toPixel(fieldSize, trimmingRate)
-      // tags.writePosition('edit-image', {
-      //   x: this.trimming.x - fieldSize.w * (expansion / 100 - 1) / 2,
-      //   y: this.trimming.y - fieldSize.h * (expansion / 100 - 1) / 2
-      // })
       tags.layoutLocators(this.locators, 'edit-image')
     },
     updateTrimming() {
