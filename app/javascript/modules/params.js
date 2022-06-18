@@ -1,7 +1,7 @@
-const toPixel = (field, rate) => {
+const toPixel = (fieldSize, rate) => {
   return {
-    x: toF(field.w * rate.x, 1),
-    y: toF(field.h * rate.y, 1)
+    x: toF(fieldSize.w * rate.x, 1),
+    y: toF(fieldSize.h * rate.y, 1)
   }
 }
 

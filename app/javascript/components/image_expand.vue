@@ -47,14 +47,14 @@ export default {
       this.$emit('emitFormData', formData)
     },
     layout() {
-      const field = tags.readSize('edit-field')
+      const fieldSize = tags.readSize('edit-field')
       const trimmingRate = params.parseOrInit(this.formData.get(`${this.targetModel}[trimming]`))
-      const trimming = params.toPixel(field, trimmingRate)
+      const trimming = params.toPixel(fieldSize, trimmingRate)
       const element = document.getElementById('edit-image')
-      element.style.width = field.w * this.expansion / 100 + 'px'
-      element.style.height = field.h * this.expansion / 100 + 'px'
-      element.style.left = trimming.x - field.w * (this.expansion / 100 - 1) / 2 + 'px'
-      element.style.top = trimming.y - field.h * (this.expansion / 100 - 1) / 2 + 'px'
+      element.style.width = fieldSize.w * this.expansion / 100 + 'px'
+      element.style.height = fieldSize.h * this.expansion / 100 + 'px'
+      element.style.left = trimming.x - fieldSize.w * (this.expansion / 100 - 1) / 2 + 'px'
+      element.style.top = trimming.y - fieldSize.h * (this.expansion / 100 - 1) / 2 + 'px'
 
       console.log(document.getElementById('edit-image').style.width)
       tags.layoutLocators(this.locators, 'edit-image')

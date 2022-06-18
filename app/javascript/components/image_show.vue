@@ -45,9 +45,9 @@ export default {
       tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
     layout() {
-      const field = tags.readSize('show-field')
+      const fieldSize = tags.readSize('show-field')
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
-      const trimming = params.toPixel(field, trimmingRate)
+      const trimming = params.toPixel(fieldSize, trimmingRate)
       console.log('trimming')
       console.log(trimming)
       let expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`)
@@ -55,15 +55,15 @@ export default {
       console.log('expansion')
       console.log(expansion)
       const element = document.getElementById('show-image')
-      element.style.width = field.w * expansion / 100 + 'px'
-      element.style.height = field.h * expansion / 100 + 'px'
-      element.style.left = trimming.x - field.w * (expansion / 100 - 1) / 2 + 'px'
-      element.style.top = trimming.y - field.h * (expansion / 100 - 1) / 2 + 'px'
+      element.style.width = fieldSize.w * expansion / 100 + 'px'
+      element.style.height = fieldSize.h * expansion / 100 + 'px'
+      element.style.left = trimming.x - fieldSize.w * (expansion / 100 - 1) / 2 + 'px'
+      element.style.top = trimming.y - fieldSize.h * (expansion / 100 - 1) / 2 + 'px'
       tags.layoutLocators(this.locators, 'show-image')
 
       if (!this.printMode) tags.styleLeftTop('image-edit', {
-        x: field.w - 45,
-        y: field.h - 45
+        x: fieldSize.w - 45,
+        y: fieldSize.h - 45
       })
     },
     scrollTable(e) {

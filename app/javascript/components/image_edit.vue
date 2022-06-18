@@ -53,9 +53,9 @@ export default {
       this.trimming.y += params.toF(e.offsetY, 1) - this.pointer.y
 
       // 外側に出ないように画像の移動を抑制する
-      const field = tags.readSize('edit-field')
-      const limitX = params.toF(field.w / 4, 1)
-      const limitY = params.toF(field.h / 4, 1)
+      const fieldSize = tags.readSize('edit-field')
+      const limitX = params.toF(fieldSize.w / 4, 1)
+      const limitY = params.toF(fieldSize.h / 4, 1)
       if (this.trimming.x > limitX) this.trimming.x = limitX
       if (this.trimming.x < -limitX) this.trimming.x = -limitX
       if (this.trimming.y > limitY) this.trimming.y = limitY
@@ -64,8 +64,8 @@ export default {
       const element = document.getElementById('edit-image')
       let expansion = this.formData.get(`${this.targetModel}[expansion]`)
       expansion ||= 100
-      element.style.left = this.trimming.x - field.w * (expansion / 100 - 1) / 2 + 'px'
-      element.style.top = this.trimming.y - field.h * (expansion / 100 - 1) / 2 + 'px'
+      element.style.left = this.trimming.x - fieldSize.w * (expansion / 100 - 1) / 2 + 'px'
+      element.style.top = this.trimming.y - fieldSize.h * (expansion / 100 - 1) / 2 + 'px'
 
       tags.layoutLocators(this.locators, 'edit-image')
     },
@@ -84,23 +84,23 @@ export default {
     },
     layout() {
       // 画像の位置
-      const field = tags.readSize('edit-field')
+      const fieldSize = tags.readSize('edit-field')
       const trimmingRate = params.parseOrInit(this.formData.get(`${this.targetModel}[trimming]`))
-      this.trimming = params.toPixel(field, trimmingRate)
+      this.trimming = params.toPixel(fieldSize, trimmingRate)
       let expansion = this.formData.get(`${this.targetModel}[expansion]`)
       expansion ||= 100
       const element = document.getElementById('edit-image')
-      element.style.width = field.w * expansion / 100 + 'px'
-      element.style.height = field.h * expansion / 100 + 'px'
-      element.style.left = this.trimming.x - field.w * (expansion / 100 - 1) / 2 + 'px'
-      element.style.top = this.trimming.y - field.h * (expansion / 100 - 1) / 2 + 'px'
+      element.style.width = fieldSize.w * expansion / 100 + 'px'
+      element.style.height = fieldSize.h * expansion / 100 + 'px'
+      element.style.left = this.trimming.x - fieldSize.w * (expansion / 100 - 1) / 2 + 'px'
+      element.style.top = this.trimming.y - fieldSize.h * (expansion / 100 - 1) / 2 + 'px'
       tags.layoutLocators(this.locators, 'edit-image')
     },
     updateTrimming() {
-      const field = tags.readSize('edit-field')
+      const fieldSize = tags.readSize('edit-field')
       const trimmingRate = {
-        x: (this.trimming.x / field.w).toFixed(3),
-        y: (this.trimming.y / field.h).toFixed(3)
+        x: (this.trimming.x / fieldSize.w).toFixed(3),
+        y: (this.trimming.y / fieldSize.h).toFixed(3)
       }
       const formData = params.renewFormData(this.formData)
       formData.set(`${this.targetModel}[trimming]`, JSON.stringify(trimmingRate))

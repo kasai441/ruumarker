@@ -74,10 +74,10 @@ export default {
       this.frameOffset.y += shiftY
 
       // 外側に出ないように画像の移動を抑制する
-      const field = tags.readSize('edit-location-field')
+      const fieldSize = tags.readSize('edit-location-field')
       const safe_blank = 2
-      const limitX = params.toF(field.w / 2, 1) - safe_blank
-      const limitY = params.toF(field.h / 2, 1) - safe_blank
+      const limitX = params.toF(fieldSize.w / 2, 1) - safe_blank
+      const limitY = params.toF(fieldSize.h / 2, 1) - safe_blank
       if (this.frameOffset.x >= limitX) {
         this.location.x += limitX - this.frameOffset.x
         this.frameOffset.x = limitX
@@ -115,31 +115,30 @@ export default {
     },
     layout() {
       // 画像の位置
-      const field = tags.readSize('edit-location-field')
+      const fieldSize = tags.readSize('edit-location-field')
       const element = document.getElementById('edit-location-image')
 
       let expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`)
       expansion ||= 100
-      element.style.width = field.w * expansion / 100 + 'px'
-      element.style.height = field.h * expansion / 100 + 'px'
-
-      const image = tags.readSize('edit-location-image')
+      element.style.width = fieldSize.w * expansion / 100 + 'px'
+      element.style.height = fieldSize.h * expansion / 100 + 'px'
 
       const locationRate = params.parseOrInit(this.locatorFormData.get(`${this.locatorModel}[location]`))
-      this.location = params.toPixel(image, locationRate)
+      const imageSize = tags.readSize('edit-location-image')
+      this.location = params.toPixel(imageSize, locationRate)
       const expansionShiftRate = (expansion / 100 - 1) / 2
-      this.location.x -= field.w * expansionShiftRate
-      this.location.y -= field.h * expansionShiftRate
+      this.location.x -= fieldSize.w * expansionShiftRate
+      this.location.y -= fieldSize.h * expansionShiftRate
 
       element.style.left = this.location.x  + 'px'
       element.style.top = this.location.y + 'px'
 
       // 目隠しフレームの位置
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
-      const trimming = params.toPixel(field, trimmingRate)
+      const trimming = params.toPixel(fieldSize, trimmingRate)
       this.frameOffset = {
-        x: this.location.x + field.w * expansionShiftRate - trimming.x,
-        y: this.location.y + field.h * expansionShiftRate - trimming.y
+        x: this.location.x + fieldSize.w * expansionShiftRate - trimming.x,
+        y: this.location.y + fieldSize.h * expansionShiftRate - trimming.y
       }
       tags.styleLeftTop('edit-location-frame', this.frameOffset)
       tags.styleLeftTop('edit-location-shade', this.frameOffset)
@@ -147,19 +146,19 @@ export default {
 
       const locatorRadius = 10
       tags.styleLeftTop('locator-image', {
-        x: field.w / 2 - locatorRadius,
-        y: field.h / 2 - locatorRadius
+        x: fieldSize.w / 2 - locatorRadius,
+        y: fieldSize.h / 2 - locatorRadius
       })
     },
     updateLocation() {
-      const image = tags.readSize('edit-location-image')
+      const imageSize = tags.readSize('edit-location-image')
       let expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`)
       expansion ||= 100
-      const field = tags.readSize('edit-location-field')
+      const fieldSize = tags.readSize('edit-location-field')
       const expansionShiftRate = (expansion / 100 - 1) / 2
       const locationRate = {
-        x: ((this.location.x + field.w * expansionShiftRate) / image.w).toFixed(3),
-        y: ((this.location.y + field.h * expansionShiftRate) / image.h).toFixed(3)
+        x: ((this.location.x + fieldSize.w * expansionShiftRate) / imageSize.w).toFixed(3),
+        y: ((this.location.y + fieldSize.h * expansionShiftRate) / imageSize.h).toFixed(3)
       }
       console.log('locationRate: update')
       console.log(locationRate)
