@@ -94,6 +94,7 @@ const trim = (fieldSize, formData, model, imageId) => {
     x: trimming.x - fieldSize.w * (expansion / 100 - 1) / 2,
     y: trimming.y - fieldSize.h * (expansion / 100 - 1) / 2
   })
+  return trimming
 }
 
 const readSize = (id, element) => {
