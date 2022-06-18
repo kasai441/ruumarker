@@ -83,17 +83,17 @@ export default {
       this.layout()
     },
     layout() {
-      // 画像の位置
+      // 画像の拡大縮小と配置
       const fieldSize = tags.readSize('edit-field')
       const trimmingRate = params.parseOrInit(this.formData.get(`${this.targetModel}[trimming]`))
       this.trimming = params.toPixel(fieldSize, trimmingRate)
       let expansion = this.formData.get(`${this.targetModel}[expansion]`)
       expansion ||= 100
-      const element = document.getElementById('edit-image')
-      element.style.width = fieldSize.w * expansion / 100 + 'px'
-      element.style.height = fieldSize.h * expansion / 100 + 'px'
-      element.style.left = this.trimming.x - fieldSize.w * (expansion / 100 - 1) / 2 + 'px'
-      element.style.top = this.trimming.y - fieldSize.h * (expansion / 100 - 1) / 2 + 'px'
+      const image = document.getElementById('edit-image')
+      image.style.width = fieldSize.w * expansion / 100 + 'px'
+      image.style.height = fieldSize.h * expansion / 100 + 'px'
+      image.style.left = this.trimming.x - fieldSize.w * (expansion / 100 - 1) / 2 + 'px'
+      image.style.top = this.trimming.y - fieldSize.h * (expansion / 100 - 1) / 2 + 'px'
       tags.layoutLocators(this.locators, 'edit-image')
     },
     updateTrimming() {

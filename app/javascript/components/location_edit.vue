@@ -114,14 +114,14 @@ export default {
       this.layout()
     },
     layout() {
-      // 画像の位置
+      // 画像の拡大縮小と配置
       const fieldSize = tags.readSize('edit-location-field')
-      const element = document.getElementById('edit-location-image')
+      const image = document.getElementById('edit-location-image')
 
       let expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`)
       expansion ||= 100
-      element.style.width = fieldSize.w * expansion / 100 + 'px'
-      element.style.height = fieldSize.h * expansion / 100 + 'px'
+      image.style.width = fieldSize.w * expansion / 100 + 'px'
+      image.style.height = fieldSize.h * expansion / 100 + 'px'
 
       const locationRate = params.parseOrInit(this.locatorFormData.get(`${this.locatorModel}[location]`))
       const imageSize = tags.readSize('edit-location-image')
@@ -130,10 +130,10 @@ export default {
       this.location.x -= fieldSize.w * expansionShiftRate
       this.location.y -= fieldSize.h * expansionShiftRate
 
-      element.style.left = this.location.x  + 'px'
-      element.style.top = this.location.y + 'px'
+      image.style.left = this.location.x  + 'px'
+      image.style.top = this.location.y + 'px'
 
-      // 目隠しフレームの位置
+      // 目隠しフレームの拡大縮小と配置
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
       const trimming = params.toPixel(fieldSize, trimmingRate)
       this.frameOffset = {

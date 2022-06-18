@@ -62,8 +62,6 @@ export default {
   },
   created() {
     if (this.formData) {
-      console.log('aaaaa')
-      console.log(this.formData.get(`${this.targetModel}[expansion]`))
       this.expansion = this.formData.get(`${this.targetModel}[expansion]`)
     }
   }
