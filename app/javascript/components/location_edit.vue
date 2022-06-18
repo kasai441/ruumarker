@@ -118,8 +118,7 @@ export default {
       const fieldSize = tags.readSize('edit-location-field')
       const image = document.getElementById('edit-location-image')
 
-      let expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`)
-      expansion ||= 100
+      const expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`) || 100
       image.style.width = fieldSize.w * expansion / 100 + 'px'
       image.style.height = fieldSize.h * expansion / 100 + 'px'
 
@@ -152,8 +151,7 @@ export default {
     },
     updateLocation() {
       const imageSize = tags.readSize('edit-location-image')
-      let expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`)
-      expansion ||= 100
+      const expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`) || 100
       const fieldSize = tags.readSize('edit-location-field')
       const expansionShiftRate = (expansion / 100 - 1) / 2
       const locationRate = {

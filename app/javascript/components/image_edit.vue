@@ -62,8 +62,7 @@ export default {
       if (this.trimming.y < -limitY) this.trimming.y = -limitY
 
       const element = document.getElementById('edit-image')
-      let expansion = this.formData.get(`${this.targetModel}[expansion]`)
-      expansion ||= 100
+      const expansion = this.formData.get(`${this.targetModel}[expansion]`) || 100
       element.style.left = this.trimming.x - fieldSize.w * (expansion / 100 - 1) / 2 + 'px'
       element.style.top = this.trimming.y - fieldSize.h * (expansion / 100 - 1) / 2 + 'px'
 
@@ -87,8 +86,7 @@ export default {
       const fieldSize = tags.readSize('edit-field')
       const trimmingRate = params.parseOrInit(this.formData.get(`${this.targetModel}[trimming]`))
       this.trimming = params.toPixel(fieldSize, trimmingRate)
-      let expansion = this.formData.get(`${this.targetModel}[expansion]`)
-      expansion ||= 100
+      const expansion = this.formData.get(`${this.targetModel}[expansion]`) || 100
       const image = document.getElementById('edit-image')
       image.style.width = fieldSize.w * expansion / 100 + 'px'
       image.style.height = fieldSize.h * expansion / 100 + 'px'

@@ -48,8 +48,7 @@ export default {
       const fieldSize = tags.readSize('show-field')
       const trimmingRate = params.parseOrInit(this.fieldFormData.get(`${this.fieldModel}[trimming]`))
       const trimming = params.toPixel(fieldSize, trimmingRate)
-      let expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`)
-      expansion ||= 100
+      const expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`) || 100
 
       const image = document.getElementById('show-image')
       image.style.width = fieldSize.w * expansion / 100 + 'px'
