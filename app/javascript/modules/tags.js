@@ -88,8 +88,8 @@ const readSize = (id, element) => {
   }
 }
 
-const writeSize = (id, value, element) => {
-  element ||= document.getElementById(id)
+const writeSize = (id, value) => {
+  const element = document.getElementById(id)
   element.style.width = value.w + 'px'
   element.style.height =value.h + 'px'
 }
