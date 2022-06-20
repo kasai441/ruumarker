@@ -49,7 +49,7 @@ export default {
   created() {
     if (this.formData) {
       const target = this.formData.get('target')
-      this.expansion = this.formData.get(`${target}[expansion]`)
+      this.expansion = this.formData.get(`${target}[expansion]`) || 100
     }
   }
 }
