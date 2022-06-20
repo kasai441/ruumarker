@@ -1,8 +1,8 @@
 <template>
   <section id="image-expand">
-    <div class="p-2">
-      <p class="font-btn">ズーム</p>
-      <div class="h-10 flex items-center">
+    <div class="p-2 flex flex-col items-center">
+      <p class="font-btn">縮小｜拡大</p>
+      <div class="w-full h-10 flex items-center">
         <input type="range" v-model="expansion" @pointermove="expand"
                min="50" max="150" class="range range-sm">
       </div>

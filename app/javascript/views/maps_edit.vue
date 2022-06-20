@@ -15,7 +15,7 @@
                         class="w-1/2"></image-expand>
           <image-rotate :form-data="formData"
                         @emit-form-data="getFormData"
-                        class="w-2/12"></image-rotate>
+                        class="w-1/6"></image-rotate>
         </div>
         <image-update :room-id="roomId" :form-data="formData"></image-update>
       </div>
