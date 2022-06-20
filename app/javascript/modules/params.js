@@ -17,8 +17,8 @@ const parseOrInit = param => {
   }
 }
 
-const initFormData = (modelJson) => {
-  const model = JSON.parse(modelJson)
+const initFormData = (data) => {
+  const model = isJson(data) ? JSON.parse(data) : data
   const target = model.target
   const formData = new FormData()
   Object.keys(model).forEach(key => {
@@ -102,6 +102,15 @@ const getTypeName = imageUrl => {
   const name = imageUrl.split('/').reverse()[0]
   const type = `image/${name.split('.').reverse()[0]}`
   return { name, type }
+}
+
+const isJson = data => {
+  try {
+    JSON.parse(data)
+  } catch (error) {
+    return false
+  }
+  return true
 }
 
 export default {

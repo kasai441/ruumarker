@@ -78,16 +78,16 @@ const layoutLocators = (locators, id) => {
   })
 }
 
-const expand = (fieldSize, formData, imageId) => {
+const expand = (fieldSize, formData, imageId, element) => {
   const target = formData.get('target')
   const expansion = formData.get(`${target}[expansion]`) || 100
   writeSize(imageId, {
     w: fieldSize.w * expansion / 100,
     h: fieldSize.h * expansion / 100
-  })
+  }, element)
 }
 
-const trim = (fieldSize, formData, imageId) => {
+const trim = (fieldSize, formData, imageId, element) => {
   const target = formData.get('target')
   const trimmingRate = params.parseOrInit(formData.get(`${target}[trimming]`))
   const trimming = params.toPixel(fieldSize, trimmingRate)
@@ -95,7 +95,7 @@ const trim = (fieldSize, formData, imageId) => {
   writePosition(imageId, {
     x: trimming.x - fieldSize.w * (expansion / 100 - 1) / 2,
     y: trimming.y - fieldSize.h * (expansion / 100 - 1) / 2
-  })
+  }, element)
   return trimming
 }
 
@@ -133,10 +133,10 @@ const readSize = (id, element) => {
   }
 }
 
-const writeSize = (id, value) => {
-  const element = document.getElementById(id)
+const writeSize = (id, value, element) => {
+  element ||= document.getElementById(id)
   element.style.width = value.w + 'px'
-  element.style.height =value.h + 'px'
+  element.style.height = value.h + 'px'
 }
 
 const writePosition = (id, value, element) => {
