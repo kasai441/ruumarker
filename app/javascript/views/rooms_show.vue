@@ -65,7 +65,7 @@ export default {
     },
   },
   created() {
-    this.formData = params.initFormData(this.map, 'map')
+    this.formData = params.initFormData(this.map)
   },
   mounted() {
     const download = document.getElementById('download')

@@ -79,7 +79,7 @@ export default {
   created() {
     if (this.formData) return
 
-    this.formData = params.initFormData(this.mark, 'mark')
+    this.formData = params.initFormData(this.mark)
 
     const imageUrl = this.formData.get('mark[image_url]')
     if (!imageUrl) this.formData.append('mark[image_url]', '/sample.png')
@@ -90,7 +90,7 @@ export default {
       if (mark.id == markId) this.markNumber = index + 1
     })
 
-    this.mapFormData = params.initFormData(this.map, 'map')
+    this.mapFormData = params.initFormData(this.map)
   },
   mounted() {
     const div = document.getElementById('screen-scroll')

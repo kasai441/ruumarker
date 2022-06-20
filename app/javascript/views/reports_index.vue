@@ -74,7 +74,7 @@ export default {
     },
   },
   created() {
-    this.formData = params.initFormData(this.map, 'map')
+    this.formData = params.initFormData(this.map)
   },
   mounted() {
     const titleBar = document.getElementById('title-bar')

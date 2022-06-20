@@ -17,11 +17,12 @@ const parseOrInit = param => {
   }
 }
 
-const initFormData = (modelJson, targetModel) => {
+const initFormData = (modelJson) => {
   const model = JSON.parse(modelJson)
+  const target = model.target
   const formData = new FormData()
   Object.keys(model).forEach(key => {
-    if (model[key]) formData.append(`${targetModel}[${key}]`, model[key])
+    if (model[key]) formData.append(`${target}[${key}]`, model[key])
   })
   return formData
 }

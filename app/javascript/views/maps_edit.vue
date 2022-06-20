@@ -51,7 +51,7 @@ export default {
   created() {
     if (this.formData) return
 
-    this.formData = params.initFormData(this.map, 'map')
+    this.formData = params.initFormData(this.map)
   },
   mounted() {
     const div = document.getElementById('screen-scroll')
