@@ -115,9 +115,9 @@ export default {
     },
     layout() {
       const fieldSize = tags.readSize('edit-location-field')
-      tags.expand(fieldSize, this.fieldFormData, this.fieldModel, 'edit-location-image')
-      this.location = tags.locate(fieldSize, this.locatorFormData, this.locatorModel, this.fieldFormData, this.fieldModel, 'edit-location-image')
-      this.frameOffset = tags.offset(fieldSize, this.fieldFormData, this.fieldModel, this.location)
+      tags.expand(fieldSize, this.fieldFormData, 'edit-location-image')
+      this.location = tags.locate(fieldSize, this.locatorFormData, this.fieldFormData, 'edit-location-image')
+      this.frameOffset = tags.offset(fieldSize, this.fieldFormData, this.location)
       tags.writePosition('edit-location-frame', this.frameOffset)
       tags.writePosition('edit-location-shade', this.frameOffset)
       tags.layoutLocators(this.locators, 'edit-location-image')

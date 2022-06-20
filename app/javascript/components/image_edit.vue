@@ -83,8 +83,8 @@ export default {
     },
     layout() {
       const fieldSize = tags.readSize('edit-field')
-      tags.expand(fieldSize, this.formData, this.targetModel, 'edit-image')
-      this.trimming = tags.trim(fieldSize, this.formData, this.targetModel, 'edit-image')
+      tags.expand(fieldSize, this.formData, 'edit-image')
+      this.trimming = tags.trim(fieldSize, this.formData, 'edit-image')
       tags.layoutLocators(this.locators, 'edit-image')
     },
     updateTrimming() {

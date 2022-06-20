@@ -78,18 +78,20 @@ const layoutLocators = (locators, id) => {
   })
 }
 
-const expand = (fieldSize, formData, model, imageId) => {
-  const expansion = formData.get(`${model}[expansion]`) || 100
+const expand = (fieldSize, formData, imageId) => {
+  const target = formData.get('target')
+  const expansion = formData.get(`${target}[expansion]`) || 100
   writeSize(imageId, {
     w: fieldSize.w * expansion / 100,
     h: fieldSize.h * expansion / 100
   })
 }
 
-const trim = (fieldSize, formData, model, imageId) => {
-  const trimmingRate = params.parseOrInit(formData.get(`${model}[trimming]`))
+const trim = (fieldSize, formData, imageId) => {
+  const target = formData.get('target')
+  const trimmingRate = params.parseOrInit(formData.get(`${target}[trimming]`))
   const trimming = params.toPixel(fieldSize, trimmingRate)
-  const expansion = formData.get(`${model}[expansion]`) || 100
+  const expansion = formData.get(`${target}[expansion]`) || 100
   writePosition(imageId, {
     x: trimming.x - fieldSize.w * (expansion / 100 - 1) / 2,
     y: trimming.y - fieldSize.h * (expansion / 100 - 1) / 2
@@ -97,10 +99,12 @@ const trim = (fieldSize, formData, model, imageId) => {
   return trimming
 }
 
-const locate = (fieldSize, locatorFormData, locatorModel, fieldFormData, fieldModel, imageId) => {
-  const locationRate = params.parseOrInit(locatorFormData.get(`${locatorModel}[location]`))
+const locate = (fieldSize, locatorFormData, fieldFormData, imageId) => {
+  const locatorTarget = locatorFormData.get('target')
+  const locationRate = params.parseOrInit(locatorFormData.get(`${locatorTarget}[location]`))
   const imageSize = readSize(imageId)
-  const expansion = fieldFormData.get(`${fieldModel}[expansion]`) || 100
+  const fieldTarget = fieldFormData.get('target')
+  const expansion = fieldFormData.get(`${fieldTarget}[expansion]`) || 100
   let location = params.toPixel(imageSize, locationRate)
   location.x -= fieldSize.w * (expansion / 100 - 1) / 2
   location.y -= fieldSize.h * (expansion / 100 - 1) / 2
@@ -108,10 +112,11 @@ const locate = (fieldSize, locatorFormData, locatorModel, fieldFormData, fieldMo
   return location
 }
 
-const offset = (fieldSize, formData, model, location) => {
-  const trimmingRate = params.parseOrInit(formData.get(`${model}[trimming]`))
+const offset = (fieldSize, formData, location) => {
+  const target = formData.get('target')
+  const trimmingRate = params.parseOrInit(formData.get(`${target}[trimming]`))
   const trimming = params.toPixel(fieldSize, trimmingRate)
-  const expansion = formData.get(`${model}[expansion]`) || 100
+  const expansion = formData.get(`${target}[expansion]`) || 100
   return {
     x: location.x + fieldSize.w * (expansion / 100 - 1) / 2 - trimming.x,
     y: location.y + fieldSize.h * (expansion / 100 - 1) / 2 - trimming.y

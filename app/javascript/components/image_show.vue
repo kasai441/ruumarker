@@ -45,8 +45,8 @@ export default {
     },
     layout() {
       const fieldSize = tags.readSize('show-field')
-      tags.expand(fieldSize, this.fieldFormData, this.fieldModel, 'show-image')
-      tags.trim(fieldSize, this.fieldFormData, this.fieldModel, 'show-image')
+      tags.expand(fieldSize, this.fieldFormData, 'show-image')
+      tags.trim(fieldSize, this.fieldFormData,'show-image')
       tags.layoutLocators(this.locators, 'show-image')
       if (!this.printMode) tags.writePosition('image-edit', {
         x: fieldSize.w - 45,
@@ -91,7 +91,8 @@ export default {
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
-    this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
+    const target = this.fieldFormData.get('target')
+    this.imageUrl = this.fieldFormData.get(`${target}[image_url]`)
     tags.generateLocators(this.locators, 'show-field', { printMode: this.printMode })
     this.layout()
   },

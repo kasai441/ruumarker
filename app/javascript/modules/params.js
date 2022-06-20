@@ -24,6 +24,7 @@ const initFormData = (modelJson) => {
   Object.keys(model).forEach(key => {
     if (model[key]) formData.append(`${target}[${key}]`, model[key])
   })
+  formData.append('target', target)
   return formData
 }
 
