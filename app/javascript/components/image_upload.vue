@@ -31,7 +31,6 @@ export default {
 
       const formData = this.formData ? params.renewFormData(this.formData, this.targetModel) : new FormData()
       if (imageFile) formData.set(`${this.targetModel}[image]`, imageFile)
-      formData.set(`${this.targetModel}[target]`, this.targetModel)
       this.$emit('emitFormData', formData)
     }
   }
