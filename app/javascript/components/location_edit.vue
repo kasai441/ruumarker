@@ -26,18 +26,16 @@
   </section>
 </template>
 <script>
-import params from '../modules/params'
 import tags from '../modules/tags'
+import params from '../modules/params'
 
 export default {
   name: 'LocationEdit',
   props: [
-    'locatorsJson',
-    'locatorFormData',
-    'locatorModel',
-    'locatorImage',
     'fieldFormData',
-    'fieldModel'
+    'locatorFormData',
+    'locatorImage',
+    'locatorsJson'
   ],
   data() {
     return {
@@ -130,7 +128,8 @@ export default {
     },
     updateLocation() {
       const imageSize = tags.readSize('edit-location-image')
-      const expansion = this.fieldFormData.get(`${this.fieldModel}[expansion]`) || 100
+      const fieldTarget = this.fieldFormData.get('target')
+      const expansion = this.fieldFormData.get(`${fieldTarget}[expansion]`) || 100
       const fieldSize = tags.readSize('edit-location-field')
       const expansionShiftRate = (expansion / 100 - 1) / 2
       const locationRate = {
@@ -138,15 +137,18 @@ export default {
         y: ((this.location.y + fieldSize.h * expansionShiftRate) / imageSize.h).toFixed(3)
       }
       const locatorFormData = params.renewFormData(this.locatorFormData)
-      locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(locationRate))
+      const locatorTarget = locatorFormData.get('target')
+      locatorFormData.set(`${locatorTarget}[location]`, JSON.stringify(locationRate))
       this.$emit('emitFormData', locatorFormData)
     },
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
-    this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
-    const locatorId = this.locatorFormData.get(`${this.locatorModel}[id]`)
+    const fieldTarget = this.fieldFormData.get('target')
+    this.imageUrl = this.fieldFormData.get(`${fieldTarget}[image_url]`)
+    const locatorTarget = this.locatorFormData.get('target')
+    const locatorId = this.locatorFormData.get(`${locatorTarget}[id]`)
     tags.generateLocators(this.locators, 'edit-location-field', { except: locatorId, class: ['pointer-events-none'], editMode: true })
     this.layout()
   },
