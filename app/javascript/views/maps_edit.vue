@@ -1,15 +1,22 @@
 <template>
   <section>
     <div class="flex justify-center">
-      <div class="main-screen">
+      <div class="main-screen flex flex-col items-center">
         <div class="w-full mt-6 flex flex-col items-center overflow-hidden">
           <image-edit :form-data="formData" :locators-json="marks"
                       @emit-form-data="getFormData"></image-edit>
         </div>
-        <image-upload :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-upload>
-        <image-rotate :form-data="formData" @emit-form-data="getFormData"></image-rotate>
-        <image-expand :form-data="formData" :locators-json="marks"
-                      @emit-form-data="getFormData"></image-expand>
+        <div class="w-field flex flex-row items-center">
+          <image-upload :form-data="formData" target-model="map"
+                        @emit-form-data="getFormData"
+                        class="w-4/12"></image-upload>
+          <image-expand :form-data="formData" :locators-json="marks"
+                        @emit-form-data="getFormData"
+                        class="w-1/2"></image-expand>
+          <image-rotate :form-data="formData"
+                        @emit-form-data="getFormData"
+                        class="w-2/12"></image-rotate>
+        </div>
         <image-update :room-id="roomId" :form-data="formData"></image-update>
       </div>
     </div>

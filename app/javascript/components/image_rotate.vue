@@ -1,7 +1,10 @@
 <template>
   <section id="image-rotate">
-    <div class="p-4">
-      <img id="rotate-image" src="/rotation.png" width="30" @pointerdown="rotate">
+    <div class="">
+      <div class="flex flex-col items-center">
+        <p class="font-btn">回転</p>
+        <img id="rotate-image" src="/rotation.png" width="40" @pointerdown="rotate">
+      </div>
     </div>
   </section>
 </template>

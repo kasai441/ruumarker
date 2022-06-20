@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="flex flex-col items-center">
+    <div class="w-full flex flex-col items-center">
       <div class="w-field">
         <h2 class="font-h2">間取り画像のアップロード</h2>
         <p class="font-p">お部屋の間取り画像をアップロードします。画像は端末に保存されてるものを選択するか、スマホの場合はカメラで画像として取り込んで、アップロードできます。</p>
@@ -8,7 +8,9 @@
       <div id="preview-field" class="w-field h-field rounded-lg bg-white outline outline-3 outline-slate-200">
         <img id="preview-image" src="/sample.png" class="object-contain w-field h-field rounded-lg">
       </div>
-      <image-upload target-model="map" @emit-form-data="getFormData"></image-upload>
+      <div class="flex justify-center p-8">
+        <image-upload target-model="map" @emit-form-data="getFormData"></image-upload>
+      </div>
     </div>
   </section>
 </template>

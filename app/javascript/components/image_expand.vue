@@ -1,9 +1,11 @@
 <template>
   <section id="image-expand">
-    <div class="p-4">
-      {{ this.expansion }}
-      <input type="range" v-model="expansion" @pointermove="expand"
-             min="66" max="150" class="range range-sm">
+    <div class="p-2">
+      <p class="font-btn">ズーム</p>
+      <div class="h-10 flex items-center">
+        <input type="range" v-model="expansion" @pointermove="expand"
+               min="50" max="150" class="range range-sm">
+      </div>
     </div>
   </section>
 </template>

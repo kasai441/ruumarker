@@ -1,12 +1,15 @@
 <template>
   <section id="image-upload">
-    <div class="flex justify-center p-4">
-      <label for="file" class="btn btn-outline">ファイルを選択</label>
-      <input type="file" id="file" name="upload-image"
-             accept="image/png,image/jpeg" @change="upload"
-             class="hidden"
-      />
-    </div>
+    <label for="file" class="">
+      <div class="w-full flex flex-col items-center">
+        <p class="font-btn">アップロード</p>
+        <img src="/upload.png" width="40">
+      </div>
+    </label>
+    <input type="file" id="file" name="upload-image"
+           accept="image/png,image/jpeg" @change="upload"
+           class="hidden"
+    />
   </section>
 </template>
 
