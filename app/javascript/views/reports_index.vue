@@ -22,10 +22,10 @@
     </div>
     <div class="w-full px-8">
       <div class="w-field font-bold text-lg p-6">キズ点検表</div>
-      <image-show :room-id="roomId" field-model="map" :field-form-data="formData"
+      <image-show :room-id="roomId" :form-data="formData"
                   locators-model="mark" :locators-json="marks"
-                  @emit-form-data="getFormData"
-                  :print-mode="true"></image-show>
+                  :print-mode="true"
+                  @emit-form-data="getFormData"></image-show>
       <div v-if="marksPresent">
         <locators-index :room-id="roomId" :locators="marks" locators-model="mark"
                         :print-mode="true"></locators-index>

@@ -17,9 +17,7 @@ export default {
   name: 'ImageShow',
   props: [
     'roomId',
-    'fieldModel',
-    'fieldFormData',
-    'fieldEditName',
+    'formData',
     'locatorsModel',
     'locatorsJson',
     'printMode'
@@ -34,8 +32,9 @@ export default {
   },
   methods: {
     imageEdit() {
-      const id = this.fieldFormData.get(`${this.fieldModel}[id]`)
-      location.href = `/rooms/${this.roomId}/${this.fieldModel}s/${id}/edit`
+      const target = this.formData.get('target')
+      const id = this.formData.get(`${target}[id]`)
+      location.href = `/rooms/${this.roomId}/${target}s/${id}/edit`
     },
     halfvanish(e) {
       tags.parent('IMG', e.target).classList.add('animate-halfvanish')
@@ -45,8 +44,8 @@ export default {
     },
     layout() {
       const fieldSize = tags.readSize('show-field')
-      tags.expand(fieldSize, this.fieldFormData, 'show-image')
-      tags.trim(fieldSize, this.fieldFormData,'show-image')
+      tags.expand(fieldSize, this.formData, 'show-image')
+      tags.trim(fieldSize, this.formData,'show-image')
       tags.layoutLocators(this.locators, 'show-image')
       if (!this.printMode) tags.writePosition('image-edit', {
         x: fieldSize.w - 45,
@@ -91,8 +90,8 @@ export default {
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
-    const target = this.fieldFormData.get('target')
-    this.imageUrl = this.fieldFormData.get(`${target}[image_url]`)
+    const target = this.formData.get('target')
+    this.imageUrl = this.formData.get(`${target}[image_url]`)
     tags.generateLocators(this.locators, 'show-field', { printMode: this.printMode })
     this.layout()
   },

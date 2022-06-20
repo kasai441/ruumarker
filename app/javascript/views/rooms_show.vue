@@ -2,7 +2,7 @@
   <section>
     <div class="flex flex-col items-center">
       <h2 class="w-field font-h2">キズ点検表</h2>
-      <image-show :room-id="roomId" field-model="map" :field-form-data="formData"
+      <image-show :room-id="roomId" :form-data="formData"
                   locators-model="mark" :locators-json="marks"
                   @emit-form-data="getFormData"></image-show>
       <div v-if="marksPresent">
