@@ -15,8 +15,7 @@
           <description-edit :form-data.="formData" target-model="mark" @emit-form-data="getFormData"></description-edit>
         </div>
         <div class="w-full flex flex-col items-center overflow-hidden">
-          <image-edit :form-data="formData" target-model="mark"
-                      @emit-form-data="getFormData"></image-edit>
+          <image-edit :form-data="formData" @emit-form-data="getFormData"></image-edit>
         </div>
         <image-upload :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-upload>
         <image-rotate :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-rotate>

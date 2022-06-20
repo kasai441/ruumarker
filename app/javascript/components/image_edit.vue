@@ -19,7 +19,6 @@ export default {
   name: 'ImageEdit',
   props: [
     'formData',
-    'targetModel',
     'locatorsJson'
   ],
   data() {
@@ -62,7 +61,8 @@ export default {
       if (this.trimming.y < -limitY) this.trimming.y = -limitY
 
       const element = document.getElementById('edit-image')
-      const expansion = this.formData.get(`${this.targetModel}[expansion]`) || 100
+      const target = this.formData.get('target')
+      const expansion = this.formData.get(`${target}[expansion]`) || 100
       element.style.left = this.trimming.x - fieldSize.w * (expansion / 100 - 1) / 2 + 'px'
       element.style.top = this.trimming.y - fieldSize.h * (expansion / 100 - 1) / 2 + 'px'
 
@@ -94,19 +94,22 @@ export default {
         y: (this.trimming.y / fieldSize.h).toFixed(3)
       }
       const formData = params.renewFormData(this.formData)
-      formData.set(`${this.targetModel}[trimming]`, JSON.stringify(trimmingRate))
+      const target = formData.get('target')
+      formData.set(`${target}[trimming]`, JSON.stringify(trimmingRate))
       this.$emit('emitFormData', formData)
     },
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
-    this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
+    const target = this.formData.get('target')
+    this.imageUrl = this.formData.get(`${target}[image_url]`)
     tags.generateLocators(this.locators, 'edit-field', { class: ['pointer-events-none'] })
     this.layout()
   },
   async updated() {
-    const imageFile = this.formData.get(`${this.targetModel}[image]`)
+    const target = this.formData.get('target')
+    const imageFile = this.formData.get(`${target}[image]`)
     if (!imageFile) return
 
     const image = document.getElementById( 'edit-image' )
