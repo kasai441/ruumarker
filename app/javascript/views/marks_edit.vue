@@ -18,7 +18,7 @@
           <image-edit :form-data="formData" @emit-form-data="getFormData"></image-edit>
         </div>
         <image-upload :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-upload>
-        <image-rotate :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-rotate>
+        <image-rotate :form-data="formData" @emit-form-data="getFormData"></image-rotate>
         <image-expand :form-data="formData" target-model="mark" @emit-form-data="getFormData"></image-expand>
         <h2 class="w-full font-h2">キズの位置</h2>
         <div class="bg-slate-300 w-full flex flex-col items-center overflow-hidden">
