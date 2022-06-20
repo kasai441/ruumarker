@@ -16,7 +16,6 @@ export default {
   name: 'ImageExpand',
   props: [
     'formData',
-    'targetModel',
     'locatorsJson'
   ],
   data() {
@@ -26,29 +25,17 @@ export default {
     }
   },
   methods: {
-    async rotate() {
-      // let imageFile = this.formData.get(`${this.targetModel}[image]`)
-      // let imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
-      // if (imageFile) imageUrl = await params.getImageUrl(imageFile)
-      // imageFile = await params.rotateImage(imageUrl, imageFile).catch(e => {
-      //   console.log('onload error', e)
-      //   throw new Error('onload error')
-      // })
-      //
-      // const formData = this.formData ? params.renewFormData(this.formData, this.targetModel) : new FormData()
-      // if (imageFile) formData.set(`${this.targetModel}[image]`, imageFile)
-      // this.$emit('emitFormData', formData)
-    },
     expand() {
       this.layout()
-
-      const formData = this.formData ? params.renewFormData(this.formData, this.targetModel) : new FormData()
-      formData.set(`${this.targetModel}[expansion]`, this.expansion)
+      const formData = this.formData ? params.renewFormData(this.formData) : new FormData()
+      const target = formData.get('target')
+      formData.set(`${target}[expansion]`, this.expansion)
       this.$emit('emitFormData', formData)
     },
     layout() {
       const fieldSize = tags.readSize('edit-field')
-      const trimmingRate = params.parseOrInit(this.formData.get(`${this.targetModel}[trimming]`))
+      const target = this.formData.get('target')
+      const trimmingRate = params.parseOrInit(this.formData.get(`${target}[trimming]`))
       const trimming = params.toPixel(fieldSize, trimmingRate)
       const element = document.getElementById('edit-image')
       element.style.width = fieldSize.w * this.expansion / 100 + 'px'
@@ -61,7 +48,8 @@ export default {
   },
   created() {
     if (this.formData) {
-      this.expansion = this.formData.get(`${this.targetModel}[expansion]`)
+      const target = this.formData.get('target')
+      this.expansion = this.formData.get(`${target}[expansion]`)
     }
   }
 }

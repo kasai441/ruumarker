@@ -8,9 +8,9 @@
         </div>
         <image-upload :form-data="formData" target-model="map" @emit-form-data="getFormData"></image-upload>
         <image-rotate :form-data="formData" @emit-form-data="getFormData"></image-rotate>
-        <image-expand :form-data="formData" target-model="map" :locators-json="marks"
+        <image-expand :form-data="formData" :locators-json="marks"
                       @emit-form-data="getFormData"></image-expand>
-        <image-update :room-id="roomId" :form-data="formData" target-model="map"></image-update>
+        <image-update :room-id="roomId" :form-data="formData"></image-update>
       </div>
     </div>
   </section>
