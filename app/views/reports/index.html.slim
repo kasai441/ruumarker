@@ -2,11 +2,13 @@
 - marks = @room.map.marks.order(:created_at).map do |mark| \
     hash = mark.attributes.filter { |k, _| marks_keys.include?(k) }; \
     hash[:image_url] = url_for mark.image if mark.image.present?; \
+    hash[:target] = 'mark'; \
     hash \
   end
 - map_keys = %w[id trimming expansion]
 - map = @room.map.attributes.filter {|k,_| map_keys.include?(k)}
 - map[:image_url] = url_for @room.map.image if @room.map.image.present?
+- map[:target] = 'map'
 #reports-index(
 room_id="#{@room.id}"
 marks="#{marks.to_json}"
