@@ -22,7 +22,7 @@
     </div>
     <div class="w-full px-8">
       <div class="w-field font-bold text-lg p-6">キズ点検表</div>
-      <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
+      <image-show :room-id="roomId" field-model="map" :field-form-data="formData"
                   locators-model="mark" :locators-json="marks"
                   @emit-form-data="getFormData"
                   :print-mode="true"></image-show>
@@ -37,6 +37,7 @@
 <script>
 import ImageShow from '../components/image_show.vue'
 import LocatorsIndex from '../components/locators_index.vue'
+import params from '../modules/params'
 
 export default {
   name: 'RoomsShow',
@@ -73,10 +74,7 @@ export default {
     },
   },
   created() {
-    const map = JSON.parse(this.map)
-    this.mapId = map['id']
-    this.mapImageUrl = map['image_url']
-    this.mapTrimming = map['trimming']
+    this.formData = params.initFormData(this.map, 'map')
   },
   mounted() {
     const titleBar = document.getElementById('title-bar')

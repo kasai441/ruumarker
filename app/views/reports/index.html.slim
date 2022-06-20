@@ -4,7 +4,7 @@
     hash[:image_url] = url_for mark.image if mark.image.present?; \
     hash \
   end
-- map_keys = %w[id trimming]
+- map_keys = %w[id trimming expansion]
 - map = @room.map.attributes.filter {|k,_| map_keys.include?(k)}
 - map[:image_url] = url_for @room.map.image if @room.map.image.present?
 #reports-index(

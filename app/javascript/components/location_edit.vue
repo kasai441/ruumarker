@@ -137,8 +137,6 @@ export default {
         x: ((this.location.x + fieldSize.w * expansionShiftRate) / imageSize.w).toFixed(3),
         y: ((this.location.y + fieldSize.h * expansionShiftRate) / imageSize.h).toFixed(3)
       }
-      console.log('locationRate: update')
-      console.log(locationRate)
       const locatorFormData = params.renewFormData(this.locatorFormData)
       locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(locationRate))
       this.$emit('emitFormData', locatorFormData)

@@ -56,7 +56,6 @@ export default {
       element.style.left = trimming.x - fieldSize.w * (this.expansion / 100 - 1) / 2 + 'px'
       element.style.top = trimming.y - fieldSize.h * (this.expansion / 100 - 1) / 2 + 'px'
 
-      console.log(document.getElementById('edit-image').style.width)
       tags.layoutLocators(this.locators, 'edit-image')
     }
   },
