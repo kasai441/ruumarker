@@ -2,7 +2,7 @@
   <section>
     <div class="flex flex-col items-center">
       <h2 class="w-field font-h2">キズ点検表</h2>
-      <image-show :room-id="roomId" :id="mapId" field-model="map" :image-url="mapImageUrl" :trimming="mapTrimming"
+      <image-show :room-id="roomId" :form-data="formData"
                   locators-model="mark" :locators-json="marks"
                   @emit-form-data="getFormData"></image-show>
       <div v-if="marksPresent">
@@ -22,6 +22,7 @@
 import ImageShow from '../components/image_show.vue'
 import LocatorsIndex from '../components/locators_index.vue'
 import tags from '../modules/tags'
+import params from '../modules/params'
 
 export default {
   name: 'RoomsShow',
@@ -64,10 +65,7 @@ export default {
     },
   },
   created() {
-    const map = JSON.parse(this.map)
-    this.mapId = map['id']
-    this.mapImageUrl = map['image_url']
-    this.mapTrimming = map['trimming']
+    this.formData = params.initFormData(this.map)
   },
   mounted() {
     const download = document.getElementById('download')

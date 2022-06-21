@@ -1,11 +1,17 @@
 - marks_keys = %w[id location created_at]
-- marks = @mark.map.marks.order(:created_at).map {|mark| mark.attributes.filter {|k,_| marks_keys.include?(k)}}
-- mark_keys = %w[id trimming description location]
+- marks = @mark.map.marks.order(:created_at).map do |mark| \
+    hash = mark.attributes.filter { |k,_| marks_keys.include?(k) }; \
+    hash[:target] = 'mark'; \
+    hash \
+  end
+- mark_keys = %w[id trimming expansion description location]
 - mark = @mark.attributes.filter {|k,_| mark_keys.include?(k)}
 - mark[:image_url] = url_for @mark.image if @mark.image.present?
-- map_keys = %w[id trimming]
+- mark[:target] = 'mark'
+- map_keys = %w[id trimming expansion]
 - map = @mark.map.attributes.filter {|k,_| map_keys.include?(k)}
 - map[:image_url] = url_for @mark.map.image if @mark.map.image.present?
+- map[:target] = 'map'
 #marks-edit(
 room_id="#{@mark.map.room.id}"
 marks="#{marks.to_json}"

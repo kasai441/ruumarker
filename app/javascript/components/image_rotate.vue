@@ -1,7 +1,10 @@
 <template>
   <section id="image-rotate">
-    <div class="p-4">
-      <img id="rotate-image" src="/rotation.png" width="30" @pointerdown="rotate">
+    <div class="">
+      <div class="flex flex-col items-center">
+        <p class="font-btn">回転</p>
+        <img id="rotate-image" src="/rotation.png" width="40" @pointerdown="rotate">
+      </div>
     </div>
   </section>
 </template>
@@ -12,21 +15,21 @@ import params from '../modules/params'
 export default {
   name: 'ImageRotate',
   props: [
-    'formData',
-    'targetModel'
+    'formData'
   ],
   methods: {
     async rotate() {
-      let imageFile = this.formData.get(`${this.targetModel}[image]`)
-      let imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
+      const target = this.formData.get('target')
+      let imageFile = this.formData.get(`${target}[image]`)
+      let imageUrl = this.formData.get(`${target}[image_url]`)
       if (imageFile) imageUrl = await params.getImageUrl(imageFile)
       imageFile = await params.rotateImage(imageUrl, imageFile).catch(e => {
         console.log('onload error', e)
         throw new Error('onload error')
       })
 
-      const formData = this.formData ? params.renewFormData(this.formData, this.targetModel) : new FormData()
-      if (imageFile) formData.set(`${this.targetModel}[image]`, imageFile)
+      const formData = this.formData ? params.renewFormData(this.formData) : new FormData()
+      if (imageFile) formData.set(`${target}[image]`, imageFile)
       this.$emit('emitFormData', formData)
     }
   }

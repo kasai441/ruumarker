@@ -1,16 +1,12 @@
-const toPx = (field, rate) => {
+const toPixel = (fieldSize, rate) => {
   return {
-    x: toF(field.w * rate.x, 1),
-    y: toF(field.h * rate.y, 1)
+    x: toF(fieldSize.w * rate.x, 1),
+    y: toF(fieldSize.h * rate.y, 1)
   }
 }
 
 const toF = (number, fractionDigits) => {
   return Math.floor(number * 10**fractionDigits) / 10**fractionDigits
-}
-
-const fromJson = (formData, targetModel, param) => {
-  return parseOrInit(formData.get(`${targetModel}[${param}]`))
 }
 
 const parseOrInit = param => {
@@ -21,12 +17,14 @@ const parseOrInit = param => {
   }
 }
 
-const initFormData = (modelJson, targetModel) => {
-  const model = JSON.parse(modelJson)
+const initFormData = (data) => {
+  const model = isJson(data) ? JSON.parse(data) : data
+  const target = model.target
   const formData = new FormData()
   Object.keys(model).forEach(key => {
-    if (model[key]) formData.append(`${targetModel}[${key}]`, model[key])
+    if (model[key]) formData.append(`${target}[${key}]`, model[key])
   })
+  formData.append('target', target)
   return formData
 }
 
@@ -106,11 +104,20 @@ const getTypeName = imageUrl => {
   return { name, type }
 }
 
+const isJson = data => {
+  try {
+    JSON.parse(data)
+  } catch (error) {
+    return false
+  }
+  return true
+}
+
 export default {
   namespaced: true,
-  toPx,
+  toPixel,
   toF,
-  fromJson,
+
   parseOrInit,
   initFormData,
   renewFormData,

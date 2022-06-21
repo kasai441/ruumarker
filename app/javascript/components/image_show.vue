@@ -3,7 +3,7 @@
     <div id="show-field" @pointerdown="scrollTable($event)" @pointerup="unbindFadeout($event)"
          class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
       <img :src="imageUrl" id="show-image"
-           class="rounded-lg absolute w-field h-field
+           class="rounded-lg absolute w-field h-field max-w-none
            object-contain">
       <img v-if="!printMode" src="/camera.png" @click='imageEdit' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
            id="image-edit" class="absolute z-10" width="40">
@@ -11,24 +11,20 @@
   </section>
 </template>
 <script>
-import params from '../modules/params'
 import tags from '../modules/tags'
 
 export default {
   name: 'ImageShow',
   props: [
     'roomId',
-    'id',
-    'fieldModel',
-    'imageUrl',
-    'trimming',
-    'fieldEditName',
+    'formData',
     'locatorsModel',
     'locatorsJson',
     'printMode'
   ],
   data() {
     return {
+      imageUrl: null,
       showFieldWidth: 0,
       showFieldHeight: 0,
       locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
@@ -36,7 +32,9 @@ export default {
   },
   methods: {
     imageEdit() {
-      location.href = `/rooms/${this.roomId}/${this.fieldModel}s/${this.id}/edit`
+      const target = this.formData.get('target')
+      const id = this.formData.get(`${target}[id]`)
+      location.href = `/rooms/${this.roomId}/${target}s/${id}/edit`
     },
     halfvanish(e) {
       tags.parent('IMG', e.target).classList.add('animate-halfvanish')
@@ -44,16 +42,14 @@ export default {
     unbindHalfvanish(e) {
       tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
-    getFieldSize() {
-      const field = tags.field('show-field')
-      const trimmingRate = params.parseOrInit(this.trimming)
-      const trimming = params.toPx(field, trimmingRate)
-      tags.styleLeftTop('show-image', trimming)
-      tags.transferLocators(this.locators, trimming, field)
-
-      if (!this.printMode) tags.styleLeftTop('image-edit', {
-        x: field.w - 45,
-        y: field.h - 45
+    layout() {
+      const fieldSize = tags.readSize('show-field')
+      tags.expand(fieldSize, this.formData, 'show-image')
+      tags.trim(fieldSize, this.formData,'show-image')
+      tags.layoutLocators(this.locators, 'show-image')
+      if (!this.printMode) tags.writePosition('image-edit', {
+        x: fieldSize.w - 45,
+        y: fieldSize.h - 45
       })
     },
     scrollTable(e) {
@@ -89,13 +85,15 @@ export default {
       }
     },
     handleResize() {
-      this.getFieldSize()
+      this.layout()
     }
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
+    const target = this.formData.get('target')
+    this.imageUrl = this.formData.get(`${target}[image_url]`)
     tags.generateLocators(this.locators, 'show-field', { printMode: this.printMode })
-    this.getFieldSize()
+    this.layout()
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)

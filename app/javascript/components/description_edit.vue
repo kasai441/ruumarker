@@ -17,8 +17,7 @@ import params from '../modules/params'
 export default {
   name: 'DescriptionEdit',
   props: [
-    'formData',
-    'targetModel'
+    'formData'
   ],
   data() {
     return {
@@ -30,12 +29,14 @@ export default {
   methods: {
     emitData() {
       const formData = params.renewFormData(this.formData)
-      formData.set(`${this.targetModel}[description]`, this.description)
+      const target = formData.get('target')
+      formData.set(`${target}[description]`, this.description)
       this.$emit('emitFormData', formData)
     }
   },
   mounted() {
-    this.description = this.formData.get(`${this.targetModel}[description]`)
+    const target = this.formData.get('target')
+    this.description = this.formData.get(`${target}[description]`)
   },
   updated() {
     this.descriptionLength = this.description ? this.description.length : 0

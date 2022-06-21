@@ -3,8 +3,8 @@
 FactoryBot.define do
   factory :map do
     trimming { '{"x":0,"y":0}' }
-    expansion { '5' }
-    rotation { '6' }
+    expansion { 100 }
+    rotation { 0 }
     after(:build) do |item|
       file_name = 'test_image.jpg'
       file_path = Rails.root.join('spec', 'fixtures', 'files', file_name)

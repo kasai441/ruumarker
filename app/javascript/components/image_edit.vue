@@ -4,7 +4,7 @@
          class="my-6 w-field h-field relative">
       <img :src="imageUrl" id="edit-image" draggable="false"
            @pointerdown="touchstart($event)" @touchmove.prevent
-           class="absolute w-field h-field
+           class="absolute w-field h-field max-w-none
          outline outline-slate-200 object-contain">
       <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
       <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
@@ -19,7 +19,6 @@ export default {
   name: 'ImageEdit',
   props: [
     'formData',
-    'targetModel',
     'locatorsJson'
   ],
   data() {
@@ -27,6 +26,7 @@ export default {
       isMovable: false,
       imageUrl: null,
       trimming: null,
+      expansion: 100,
       pointer: null,
       locators: this.locatorsJson ? JSON.parse(this.locatorsJson) : []
     }
@@ -52,16 +52,21 @@ export default {
       this.trimming.y += params.toF(e.offsetY, 1) - this.pointer.y
 
       // 外側に出ないように画像の移動を抑制する
-      const field = tags.field('edit-field')
-      const limitX = params.toF(field.w / 4, 1)
-      const limitY = params.toF(field.h / 4, 1)
+      const fieldSize = tags.readSize('edit-field')
+      const limitX = params.toF(fieldSize.w / 4, 1)
+      const limitY = params.toF(fieldSize.h / 4, 1)
       if (this.trimming.x > limitX) this.trimming.x = limitX
       if (this.trimming.x < -limitX) this.trimming.x = -limitX
       if (this.trimming.y > limitY) this.trimming.y = limitY
       if (this.trimming.y < -limitY) this.trimming.y = -limitY
 
-      tags.styleLeftTop('edit-image', this.trimming)
-      tags.transferLocators(this.locators, this.trimming, field)
+      const element = document.getElementById('edit-image')
+      const target = this.formData.get('target')
+      const expansion = this.formData.get(`${target}[expansion]`) || 100
+      element.style.left = this.trimming.x - fieldSize.w * (expansion / 100 - 1) / 2 + 'px'
+      element.style.top = this.trimming.y - fieldSize.h * (expansion / 100 - 1) / 2 + 'px'
+
+      tags.layoutLocators(this.locators, 'edit-image')
     },
     touchend() {
       this.isMovable = false
@@ -70,40 +75,41 @@ export default {
       this.updateTrimming()
     },
     handleResize() {
-      this.getFieldSize()
+      this.layout()
       this.updateTrimming()
     },
     handleScroll() {
-      this.getFieldSize()
+      this.layout()
     },
-    getFieldSize() {
-      // 画像の位置
-      const field = tags.field('edit-field')
-      const trimmingRate = params.fromJson(this.formData, this.targetModel, 'trimming')
-      this.trimming = params.toPx(field, trimmingRate)
-      tags.styleLeftTop('edit-image', this.trimming)
-      tags.transferLocators(this.locators, this.trimming, field)
+    layout() {
+      const fieldSize = tags.readSize('edit-field')
+      tags.expand(fieldSize, this.formData, 'edit-image')
+      this.trimming = tags.trim(fieldSize, this.formData, 'edit-image')
+      tags.layoutLocators(this.locators, 'edit-image')
     },
     updateTrimming() {
-      const field = tags.field('edit-field')
+      const fieldSize = tags.readSize('edit-field')
       const trimmingRate = {
-        x: (this.trimming.x / field.w).toFixed(3),
-        y: (this.trimming.y / field.h).toFixed(3)
+        x: (this.trimming.x / fieldSize.w).toFixed(3),
+        y: (this.trimming.y / fieldSize.h).toFixed(3)
       }
       const formData = params.renewFormData(this.formData)
-      formData.set(`${this.targetModel}[trimming]`, JSON.stringify(trimmingRate))
+      const target = formData.get('target')
+      formData.set(`${target}[trimming]`, JSON.stringify(trimmingRate))
       this.$emit('emitFormData', formData)
     },
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
-    this.imageUrl = this.formData.get(`${this.targetModel}[image_url]`)
+    const target = this.formData.get('target')
+    this.imageUrl = this.formData.get(`${target}[image_url]`)
     tags.generateLocators(this.locators, 'edit-field', { class: ['pointer-events-none'] })
-    this.getFieldSize()
+    this.layout()
   },
   async updated() {
-    const imageFile = this.formData.get(`${this.targetModel}[image]`)
+    const target = this.formData.get('target')
+    const imageFile = this.formData.get(`${target}[image]`)
     if (!imageFile) return
 
     const image = document.getElementById( 'edit-image' )

@@ -156,22 +156,22 @@ export default {
       await api.actions.delete(`/api/rooms/${this.roomId}/${this.locatorsModel}s/${id}`)
       location.href = `/rooms/${this.roomId}`
     },
-    styleThumbnail() {
-      const field = tags.field(null, document.getElementsByClassName('thumbnail-field')[0])
+    layoutThumbnail() {
+      const fieldSize = tags.readSize(null, document.getElementsByClassName('thumbnail-field')[0])
       const images = document.getElementsByClassName('thumbnail-image')
       JSON.parse(this.locators).forEach((locator, index) => {
-        const trimmingRate = params.parseOrInit(locator.trimming)
-        const trimming = params.toPx(field, trimmingRate)
-        tags.styleLeftTop(null, trimming, images[index])
+        const formData = params.initFormData(locator)
+        tags.expand(fieldSize, formData, null, images[index])
+        tags.trim(fieldSize, formData,null, images[index])
       })
     },
     handleResize() {
-      this.styleThumbnail()
+      this.layoutThumbnail()
     }
   },
   mounted() {
     this.generateTbody()
-    this.styleThumbnail()
+    this.layoutThumbnail()
     window.addEventListener('resize', this.handleResize)
     if (this.printMode) return
 

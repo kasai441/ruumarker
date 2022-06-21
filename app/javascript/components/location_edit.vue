@@ -5,7 +5,7 @@
          class="my-6 w-field h-field relative">
       <img :src="imageUrl" id="edit-location-image" draggable="false"
            @pointerdown="touchstart($event)" @touchmove.prevent
-           class="absolute w-field h-field object-contain">
+           class="absolute w-field h-field max-w-none object-contain">
       <div id="edit-location-frame"
            class="absolute z-10 w-field h-field
              pointer-events-none bg-transparent bg-transparent
@@ -26,18 +26,16 @@
   </section>
 </template>
 <script>
-import params from '../modules/params'
 import tags from '../modules/tags'
+import params from '../modules/params'
 
 export default {
   name: 'LocationEdit',
   props: [
-    'locatorsJson',
-    'locatorFormData',
-    'locatorModel',
-    'locatorImage',
     'fieldFormData',
-    'fieldModel'
+    'locatorFormData',
+    'locatorImage',
+    'locatorsJson'
   ],
   data() {
     return {
@@ -74,10 +72,10 @@ export default {
       this.frameOffset.y += shiftY
 
       // 外側に出ないように画像の移動を抑制する
-      const field = tags.field('edit-location-field')
+      const fieldSize = tags.readSize('edit-location-field')
       const safe_blank = 2
-      const limitX = params.toF(field.w / 2, 1) - safe_blank
-      const limitY = params.toF(field.h / 2, 1) - safe_blank
+      const limitX = params.toF(fieldSize.w / 2, 1) - safe_blank
+      const limitY = params.toF(fieldSize.h / 2, 1) - safe_blank
       if (this.frameOffset.x >= limitX) {
         this.location.x += limitX - this.frameOffset.x
         this.frameOffset.x = limitX
@@ -95,10 +93,10 @@ export default {
         this.frameOffset.y = -limitY
       }
 
-      tags.styleLeftTop('edit-location-frame', this.frameOffset)
-      tags.styleLeftTop('edit-location-shade', this.frameOffset)
-      tags.styleLeftTop('edit-location-image', this.location)
-      tags.transferLocators(this.locators, this.location, field)
+      tags.writePosition('edit-location-frame', this.frameOffset)
+      tags.writePosition('edit-location-shade', this.frameOffset)
+      tags.writePosition('edit-location-image', this.location)
+      tags.layoutLocators(this.locators, 'edit-location-image')
     },
     touchend() {
       this.isMovable = false
@@ -107,54 +105,52 @@ export default {
       this.updateLocation()
     },
     handleResize() {
-      this.getFieldSize()
+      this.layout()
       this.updateLocation()
     },
     handleScroll() {
-      this.getFieldSize()
+      this.layout()
     },
-    getFieldSize() {
-      // 画像の位置
-      const field = tags.field('edit-location-field')
-      const locationRate = params.fromJson(this.locatorFormData, this.locatorModel, 'location')
-      this.location = params.toPx(field, locationRate)
-      tags.styleLeftTop('edit-location-image', this.location)
-
-      // 目隠しフレームの位置
-      const trimmingRate = params.fromJson(this.fieldFormData, this.fieldModel, 'trimming')
-      const trimming = params.toPx(field, trimmingRate)
-      this.frameOffset = {
-        x: this.location.x - trimming.x,
-        y: this.location.y - trimming.y
-      }
-      tags.styleLeftTop('edit-location-frame', this.frameOffset)
-      tags.styleLeftTop('edit-location-shade', this.frameOffset)
-      tags.transferLocators(this.locators, this.location, field)
+    layout() {
+      const fieldSize = tags.readSize('edit-location-field')
+      tags.expand(fieldSize, this.fieldFormData, 'edit-location-image')
+      this.location = tags.locate(fieldSize, this.locatorFormData, this.fieldFormData, 'edit-location-image')
+      this.frameOffset = tags.offset(fieldSize, this.fieldFormData, this.location)
+      tags.writePosition('edit-location-frame', this.frameOffset)
+      tags.writePosition('edit-location-shade', this.frameOffset)
+      tags.layoutLocators(this.locators, 'edit-location-image')
 
       const locatorRadius = 10
-      tags.styleLeftTop('locator-image', {
-        x: field.w / 2 - locatorRadius,
-        y: field.h / 2 - locatorRadius
+      tags.writePosition('locator-image', {
+        x: fieldSize.w / 2 - locatorRadius,
+        y: fieldSize.h / 2 - locatorRadius
       })
     },
     updateLocation() {
-      const field = tags.field('edit-location-field')
+      const imageSize = tags.readSize('edit-location-image')
+      const fieldTarget = this.fieldFormData.get('target')
+      const expansion = this.fieldFormData.get(`${fieldTarget}[expansion]`) || 100
+      const fieldSize = tags.readSize('edit-location-field')
+      const expansionShiftRate = (expansion / 100 - 1) / 2
       const locationRate = {
-        x: (this.location.x / field.w).toFixed(3),
-        y: (this.location.y / field.h).toFixed(3)
+        x: ((this.location.x + fieldSize.w * expansionShiftRate) / imageSize.w).toFixed(3),
+        y: ((this.location.y + fieldSize.h * expansionShiftRate) / imageSize.h).toFixed(3)
       }
       const locatorFormData = params.renewFormData(this.locatorFormData)
-      locatorFormData.set(`${this.locatorModel}[location]`, JSON.stringify(locationRate))
+      const locatorTarget = locatorFormData.get('target')
+      locatorFormData.set(`${locatorTarget}[location]`, JSON.stringify(locationRate))
       this.$emit('emitFormData', locatorFormData)
     },
   },
   mounted() {
     window.addEventListener('resize', this.handleResize)
     window.addEventListener('scroll', this.handleScroll)
-    this.imageUrl = this.fieldFormData.get(`${this.fieldModel}[image_url]`)
-    const locatorId = this.locatorFormData.get(`${this.locatorModel}[id]`)
+    const fieldTarget = this.fieldFormData.get('target')
+    this.imageUrl = this.fieldFormData.get(`${fieldTarget}[image_url]`)
+    const locatorTarget = this.locatorFormData.get('target')
+    const locatorId = this.locatorFormData.get(`${locatorTarget}[id]`)
     tags.generateLocators(this.locators, 'edit-location-field', { except: locatorId, class: ['pointer-events-none'], editMode: true })
-    this.getFieldSize()
+    this.layout()
   },
   beforeDestroy: () => {
     window.removeEventListener('resize', this.handleResize)

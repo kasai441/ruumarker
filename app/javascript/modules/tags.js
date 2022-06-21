@@ -57,21 +57,73 @@ const generateElement = (tagName, options) => {
   return element
 }
 
-const transferLocators = (locators, fieldLocation, field) => {
+const layoutLocators = (locators, id) => {
+  const element = document.getElementById(id)
+  const image = {
+    w: element.style.width.replace('px', ''),
+    h: element.style.height.replace('px', ''),
+    left: Number(element.style.left.replace('px', '')),
+    top: Number(element.style.top.replace('px', ''))
+  }
   locators.forEach(locator => {
     const a = document.getElementById(`locator-${locator.id}`)
     if (!a) return
 
     const locationRate = params.parseOrInit(locator.location)
-    const locatorLocationX = params.toF(field.w * (0.5 - locationRate.x), 1)
-    const locatorLocationY = params.toF(field.h * (0.5 - locationRate.y), 1)
+    const locatorLocationX = params.toF(image.w * (0.5 - locationRate.x), 1)
+    const locatorLocationY = params.toF(image.h * (0.5 - locationRate.y), 1)
     const radius = 10
-    a.style.left = fieldLocation.x + locatorLocationX - radius + 'px'
-    a.style.top = fieldLocation.y + locatorLocationY - radius + 'px'
+    a.style.left = image.left + locatorLocationX - radius + 'px'
+    a.style.top = image.top + locatorLocationY - radius + 'px'
   })
 }
 
-const field = (id, element) => {
+const expand = (fieldSize, formData, imageId, element) => {
+  const target = formData.get('target')
+  const expansion = formData.get(`${target}[expansion]`) || 100
+  writeSize(imageId, {
+    w: fieldSize.w * expansion / 100,
+    h: fieldSize.h * expansion / 100
+  }, element)
+}
+
+const trim = (fieldSize, formData, imageId, element) => {
+  const target = formData.get('target')
+  const trimmingRate = params.parseOrInit(formData.get(`${target}[trimming]`))
+  const trimming = params.toPixel(fieldSize, trimmingRate)
+  const expansion = formData.get(`${target}[expansion]`) || 100
+  writePosition(imageId, {
+    x: trimming.x - fieldSize.w * (expansion / 100 - 1) / 2,
+    y: trimming.y - fieldSize.h * (expansion / 100 - 1) / 2
+  }, element)
+  return trimming
+}
+
+const locate = (fieldSize, locatorFormData, fieldFormData, imageId) => {
+  const locatorTarget = locatorFormData.get('target')
+  const locationRate = params.parseOrInit(locatorFormData.get(`${locatorTarget}[location]`))
+  const imageSize = readSize(imageId)
+  const fieldTarget = fieldFormData.get('target')
+  const expansion = fieldFormData.get(`${fieldTarget}[expansion]`) || 100
+  let location = params.toPixel(imageSize, locationRate)
+  location.x -= fieldSize.w * (expansion / 100 - 1) / 2
+  location.y -= fieldSize.h * (expansion / 100 - 1) / 2
+  writePosition(imageId, location)
+  return location
+}
+
+const offset = (fieldSize, formData, location) => {
+  const target = formData.get('target')
+  const trimmingRate = params.parseOrInit(formData.get(`${target}[trimming]`))
+  const trimming = params.toPixel(fieldSize, trimmingRate)
+  const expansion = formData.get(`${target}[expansion]`) || 100
+  return {
+    x: location.x + fieldSize.w * (expansion / 100 - 1) / 2 - trimming.x,
+    y: location.y + fieldSize.h * (expansion / 100 - 1) / 2 - trimming.y
+  }
+}
+
+const readSize = (id, element) => {
   element ||= document.getElementById(id)
   const left = params.toF(element.getBoundingClientRect().left, 1)
   const top = params.toF(element.getBoundingClientRect().top, 1)
@@ -81,7 +133,13 @@ const field = (id, element) => {
   }
 }
 
-const styleLeftTop = (id, value, element) => {
+const writeSize = (id, value, element) => {
+  element ||= document.getElementById(id)
+  element.style.width = value.w + 'px'
+  element.style.height = value.h + 'px'
+}
+
+const writePosition = (id, value, element) => {
   element ||= document.getElementById(id)
   element.style.left = value.x + 'px'
   element.style.top = value.y + 'px'
@@ -92,7 +150,12 @@ export default {
   parent,
   generateLocators,
   generateElement,
-  transferLocators,
-  field,
-  styleLeftTop
+  layoutLocators,
+  expand,
+  trim,
+  locate,
+  offset,
+  readSize,
+  writeSize,
+  writePosition
 }
