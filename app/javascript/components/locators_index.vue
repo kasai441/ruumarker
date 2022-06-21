@@ -24,9 +24,9 @@ export default {
     }
   },
   methods: {
-    generateTbody() {
+    generateIndex() {
       const tableContainer = document.getElementById('locators-table')
-      let trs = []
+      let rows = []
       const src = this.printMode ? '/locators_white.png' : '/locators.png'
       JSON.parse(this.locators).forEach((locator, index) => {
         const numberImg = tags.generateElement('img', {
@@ -47,13 +47,13 @@ export default {
           append: [numberImg, numberValue]
         })
 
-        const number = tags.generateElement('td', {
+        const number = tags.generateElement('div', {
           class: ['bg-transparent'],
           append: [a]
         })
 
         locator.image_url ||= '/sample.png'
-        const image = tags.generateElement('td', {
+        const image = tags.generateElement('div', {
           class: ['bg-transparent'],
           append: [tags.generateElement('div', {
             class: ['thumbnail-field', 'w-thumbnail', 'h-thumbnail', 'border', 'border-slate-200', 'rounded-lg', 'relative', 'overflow-hidden'],
@@ -63,66 +63,51 @@ export default {
             })]
           })]
         })
-        const description = tags.generateElement('td', {
+        const description = tags.generateElement('div', {
           class: ['whitespace-normal', 'description', 'bg-transparent'],
           append: [this.brief(locator.description)]
         })
-        const createdAt = tags.generateElement('td', {
+        const createdAt = tags.generateElement('div', {
           class: ['whitespace-normal', 'bg-transparent'],
           append: [this.formatDate(locator.created_at)]
         })
-        const deleteBtn = tags.generateElement('td', {
+        const deleteBtn = tags.generateElement('div', {
           class: ['bg-transparent'],
           append: [tags.generateElement('a', {
             class: ['delete-locators', 'btn', 'btn-circle', 'btn-outline', 'btn-sm'],
             append: ['×']
           })]
         })
-        const tr = tags.generateElement('tr', {
+        const row = tags.generateElement('div', {
           id: `${this.locatorsModel}-${locator.id}`,
-          class: this.printMode ? [] : ['hover'],
+          class: this.printMode ?
+            ['flex'] :
+            ['flex', 'hover'],
           append: this.printMode ?
             [number, image, description, createdAt]:
             [number, image, description, createdAt, deleteBtn]
         })
 
-        trs.push(tr)
+        rows.push(row)
 
         if (index === JSON.parse(this.locators).length - 1) {
-          tableContainer.append(this.generateTable(trs))
+          tableContainer.append(this.generateTable(rows))
           if (this.printMode) {
             tableContainer.append(this.generateFooter(index, { lastPage: true }))
           }
-          trs = []
+          rows = []
         } else if (this.printMode && index % 5 === 1) {
-          tableContainer.append(this.generateTable(trs))
+          tableContainer.append(this.generateTable(rows))
           tableContainer.append(this.generateFooter(index))
-          trs = []
+          rows = []
         }
       })
     },
-    generateTable(trs) {
-      const tds = [tags.generateElement('td', {
-        append: ['番号']
-      }), tags.generateElement('td', {
-        append: ['画像']
-      }), tags.generateElement('td', {
-        append: ['説明']
-      }), tags.generateElement('td', {
-        append: ['作成日']
-      })]
-      if (!this.printMode) tds.push(tags.generateElement('td', {
-        append: ['削除']
-      }))
-
-      return tags.generateElement('table', {
-        class: ['table', 'table-compact', 'w-full'],
-        append: [tags.generateElement('thead', {
-          append: [tags.generateElement('tr', {
-            append: tds
-          })]
-        }), tags.generateElement('tbody', {
-          append: trs
+    generateTable(rows) {
+      return tags.generateElement('div', {
+        class: ['w-full'],
+        append: [tags.generateElement('div', {
+          append: rows
         })]
       })
     },
@@ -190,7 +175,7 @@ export default {
     }
   },
   mounted() {
-    this.generateTbody()
+    this.generateIndex()
     this.layoutThumbnail()
     window.addEventListener('resize', this.handleResize)
     if (this.printMode) return
