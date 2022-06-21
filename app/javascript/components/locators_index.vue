@@ -27,11 +27,31 @@ export default {
     generateTbody() {
       const tableContainer = document.getElementById('locators-table')
       let trs = []
+      const src = this.printMode ? '/locators_white.png' : '/locators.png'
       JSON.parse(this.locators).forEach((locator, index) => {
-        const number = tags.generateElement('td', {
-          class: ['bg-transparent'],
+        const numberImg = tags.generateElement('img', {
+          class: ['absolute', 'w-5', 'pointer-events-none'],
+          src: src
+        })
+
+        const numberValue = tags.generateElement('a', {
+          class: ['relative', 'w-5', 'text-sm', 'text-center', 'pointer-events-none'],
           append: [index + 1]
         })
+        numberValue.classList.add('text-white')
+
+        const classA = ['absolute', 'w-5']
+
+        const a = tags.generateElement('a', {
+          class: classA,
+          append: [numberImg, numberValue]
+        })
+
+        const number = tags.generateElement('td', {
+          class: ['bg-transparent'],
+          append: [a]
+        })
+
         locator.image_url ||= '/sample.png'
         const image = tags.generateElement('td', {
           class: ['bg-transparent'],
