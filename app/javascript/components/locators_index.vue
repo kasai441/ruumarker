@@ -101,24 +101,16 @@ export default {
         rows.push(row)
 
         if (index === JSON.parse(this.locators).length - 1) {
-          tableContainer.append(this.generateRows(rows))
+          tableContainer.append(tags.generateElement('div', {append: rows}))
           if (this.printMode) {
             tableContainer.append(this.generateFooter(index, { lastPage: true }))
           }
           rows = []
         } else if (this.printMode && index % 5 === 1) {
-          tableContainer.append(this.generateRows(rows))
+          tableContainer.append(tags.generateElement('div', {append: rows}))
           tableContainer.append(this.generateFooter(index))
           rows = []
         }
-      })
-    },
-    generateRows(rows) {
-      return tags.generateElement('div', {
-        class: ['w-full'],
-        append: [tags.generateElement('div', {
-          append: rows
-        })]
       })
     },
     generateFooter(index, options) {
