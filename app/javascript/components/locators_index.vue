@@ -54,7 +54,7 @@ export default {
 
         locator.image_url ||= '/sample.png'
         const image = tags.generateElement('div', {
-          class: ['bg-transparent', 'w-5/12', 'flex', 'justify-center'],
+          class: ['bg-transparent', 'w-5/12', 'flex', 'justify-center', 'items-center'],
           append: [tags.generateElement('div', {
             class: ['thumbnail-field', 'w-thumbnail', 'h-thumbnail', 'border', 'border-slate-200', 'rounded-lg', 'relative', 'overflow-hidden'],
             append: [tags.generateElement('img', {
@@ -68,27 +68,27 @@ export default {
           append: [this.formatDate(locator.created_at)]
         })
 
+        const max = this.printMode ? 60 : 29
         const description = tags.generateElement('div', {
           class: ['description'],
-          append: this.printMode ? [locator.description] :
-            [this.brief(locator.description, 29)]
+          append: [this.brief(locator.description, max)]
         })
 
         const text = tags.generateElement('div', {
-          class: ['whitespace-normal', 'bg-transparent', 'w-5/12', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between'],
+          class: ['whitespace-normal', 'bg-transparent', 'w-5/12', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', 'p-1'],
           append: [description, createdAt]
         })
 
         const deleteBtn = tags.generateElement('a', {
-          class: ['bg-transparent'],
+          class: ['bg-transparent', 'w-1/12', 'flex', 'justify-end'],
           append: [tags.generateElement('a', {
-            class: ['delete-locators', 'btn', 'btn-circle', 'btn-outline', 'btn-sm', 'w-1/12'],
+            class: ['delete-locators', 'btn', 'btn-ghost', 'btn-xs', 'sm:btn-sm'],
             append: ['×']
           })]
         })
         const row = tags.generateElement('div', {
           id: `${this.locatorsModel}-${locator.id}`,
-          class: ['locators-row', 'flex', 'b-slate-400', 'mb-2', 'p-2'],
+          class: ['locators-row', 'flex', 'b-slate-400', 'mb-2', 'p-1', 'sm:p-2'],
           append: [number, image, text]
         })
         if (this.printMode) {
@@ -160,7 +160,7 @@ export default {
       }
     },
     async deleteLocators(e) {
-      const row = tags.parent('DIV', e.target)
+      const row = tags.parent(null, e.target, 'locators-row')
       const regex = `${this.locatorsModel}-`
       if (!row || !row.id.match(regex)) return
 
