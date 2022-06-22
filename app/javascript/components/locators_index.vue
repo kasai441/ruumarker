@@ -68,12 +68,17 @@ export default {
           append: [this.formatDate(locator.created_at)]
         })
 
-        const description = this.printMode ? locator.description : this.brief(locator.description, 29)
+        const description = tags.generateElement('div', {
+          class: ['description'],
+          append: this.printMode ? [locator.description] :
+            [this.brief(locator.description, 29)]
+        })
+
         const text = tags.generateElement('div', {
-          class: ['whitespace-normal', 'description', 'bg-transparent', 'w-5/12', 'text-sm', 'sm:text-base'],
+          class: ['whitespace-normal', 'bg-transparent', 'w-5/12', 'text-sm', 'sm:text-base'],
           append: [description, createdAt]
         })
-        const deleteBtn = tags.generateElement('div', {
+        const deleteBtn = tags.generateElement('a', {
           class: ['bg-transparent'],
           append: [tags.generateElement('a', {
             class: ['delete-locators', 'btn', 'btn-circle', 'btn-outline', 'btn-sm', 'w-1/12'],
@@ -146,22 +151,24 @@ export default {
     visitLocators(e) {
       if (e.target.classList.value.includes('btn')) return
 
-      const tr = tags.parent('TR', e.target)
+      const row = tags.parent('DIV', e.target)
+      console.log(row)
       const regex = `${this.locatorsModel}-`
-      if (tr && tr.id.match(regex)) {
-        const id = tr.id.replace(regex, '')
+      if (row && row.id.match(regex)) {
+        const id = row.id.replace(regex, '')
         location.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${id}/edit`
       }
     },
     async deleteLocators(e) {
-      const tr = tags.parent('TR', e.target)
+      const row = tags.parent('DIV', e.target)
       const regex = `${this.locatorsModel}-`
-      if (!tr || !tr.id.match(regex)) return
+      if (!row || !row.id.match(regex)) return
 
-      const description = tr.getElementsByClassName('description')[0].innerHTML
+      const description = row.getElementsByClassName('description')[0].innerText
+      console.log(row.getElementsByClassName('description')[0].innerText)
       if (!confirm(`「${this.brief(description, 10)}」を削除します。よろしいですか？`)) return
 
-      const id = tr.id.replace(regex, '')
+      const id = row.id.replace(regex, '')
       await api.actions.delete(`/api/rooms/${this.roomId}/${this.locatorsModel}s/${id}`)
       location.href = `/rooms/${this.roomId}`
     },
