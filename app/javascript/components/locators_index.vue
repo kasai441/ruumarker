@@ -40,7 +40,7 @@ export default {
         })
         if (!this.printMode) numberValue.classList.add('text-white')
 
-        const classA = ['absolute', 'w-5']
+        const classA = ['absolute', 'w-5', 'flex', 'items-center']
 
         const a = tags.generateElement('a', {
           class: classA,
@@ -48,7 +48,7 @@ export default {
         })
 
         const number = tags.generateElement('div', {
-          class: ['w-1/12'],
+          class: ['w-1/12', 'flex', 'justify-center', 'items-center'],
           append: [a]
         })
 
@@ -64,7 +64,7 @@ export default {
           })]
         })
         const createdAt = tags.generateElement('div', {
-          class: ['whitespace-normal', 'bg-transparent', 'w-full', 'text-slate-600', 'text-xs', 'sm:text-sm'],
+          class: ['whitespace-normal', 'bg-transparent', 'w-full', 'text-slate-600', 'text-xs', 'sm:text-sm', 'p-1', 'border-t', 'b-slate-400'],
           append: [this.formatDate(locator.created_at)]
         })
 
@@ -75,7 +75,7 @@ export default {
         })
 
         const text = tags.generateElement('div', {
-          class: ['whitespace-normal', 'bg-transparent', 'w-5/12', 'text-sm', 'sm:text-base'],
+          class: ['whitespace-normal', 'bg-transparent', 'w-5/12', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between'],
           append: [description, createdAt]
         })
 
