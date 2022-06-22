@@ -56,7 +56,7 @@ export default {
         const image = tags.generateElement('div', {
           class: ['bg-transparent', 'w-5/12', 'flex', 'justify-center', 'items-center'],
           append: [tags.generateElement('div', {
-            class: ['thumbnail-field', 'w-thumbnail', 'h-thumbnail', 'border', 'border-slate-200', 'rounded-lg', 'relative', 'overflow-hidden'],
+            class: ['thumbnail-field', 'w-thumbnail', 'h-thumbnail', 'border', 'border-slate-200', 'relative', 'overflow-hidden'],
             append: [tags.generateElement('img', {
               class: ['thumbnail-image', 'w-thumbnail', 'h-thumbnail', 'rounded-lg', 'absolute', 'object-contain'],
               src: locator.image_url
