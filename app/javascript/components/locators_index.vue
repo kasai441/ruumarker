@@ -1,7 +1,7 @@
 <template>
   <section id="locators-index">
     <div class="py-4">
-      <div id="locators-table" class="w-field"></div>
+      <div id="locators-rows" class="w-field"></div>
     </div>
   </section>
 </template>
@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     generateIndex() {
-      const tableContainer = document.getElementById('locators-table')
+      const tableContainer = document.getElementById('locators-rows')
       let rows = []
       const src = this.printMode ? '/locators_white.png' : '/locators.png'
       JSON.parse(this.locators).forEach((locator, index) => {
@@ -78,6 +78,7 @@ export default {
           class: ['whitespace-normal', 'bg-transparent', 'w-5/12', 'text-sm', 'sm:text-base'],
           append: [description, createdAt]
         })
+
         const deleteBtn = tags.generateElement('a', {
           class: ['bg-transparent'],
           append: [tags.generateElement('a', {
@@ -87,7 +88,7 @@ export default {
         })
         const row = tags.generateElement('div', {
           id: `${this.locatorsModel}-${locator.id}`,
-          class: ['flex', 'b-slate-400', 'mb-2', 'p-2'],
+          class: ['locators-row', 'flex', 'b-slate-400', 'mb-2', 'p-2'],
           append: [number, image, text]
         })
         if (this.printMode) {
@@ -100,19 +101,19 @@ export default {
         rows.push(row)
 
         if (index === JSON.parse(this.locators).length - 1) {
-          tableContainer.append(this.generateTable(rows))
+          tableContainer.append(this.generateRows(rows))
           if (this.printMode) {
             tableContainer.append(this.generateFooter(index, { lastPage: true }))
           }
           rows = []
         } else if (this.printMode && index % 5 === 1) {
-          tableContainer.append(this.generateTable(rows))
+          tableContainer.append(this.generateRows(rows))
           tableContainer.append(this.generateFooter(index))
           rows = []
         }
       })
     },
-    generateTable(rows) {
+    generateRows(rows) {
       return tags.generateElement('div', {
         class: ['w-full'],
         append: [tags.generateElement('div', {
@@ -151,8 +152,7 @@ export default {
     visitLocators(e) {
       if (e.target.classList.value.includes('btn')) return
 
-      const row = tags.parent('DIV', e.target)
-      console.log(row)
+      const row = tags.parent(null, e.target, 'locators-row')
       const regex = `${this.locatorsModel}-`
       if (row && row.id.match(regex)) {
         const id = row.id.replace(regex, '')
@@ -196,10 +196,9 @@ export default {
       a.addEventListener('click', this.deleteLocators)
     })
 
-    const table = document.getElementById('locators-table')
-    const trs = table.getElementsByTagName('tr')
-    Array.prototype.forEach.call(trs, tr => {
-      tr.addEventListener('click', this.visitLocators)
+    const rows = document.getElementsByClassName('locators-row')
+    Array.prototype.forEach.call(rows, row => {
+      row.addEventListener('click', this.visitLocators)
     })
   },
   beforeDestroy() {
@@ -211,10 +210,9 @@ export default {
       a.removeEventListener('click', this.deleteLocators)
     })
 
-    const table = document.getElementById('locators-table')
-    const trs = table.getElementsByTagName('tr')
-    Array.prototype.forEach.call(trs, tr => {
-      tr.removeEventListener('click', this.visitLocators)
+    const rows = document.getElementsByClassName('locators-row')
+    Array.prototype.forEach.call(rows, row => {
+      row.removeEventListener('click', this.visitLocators)
     })
   }
 }
