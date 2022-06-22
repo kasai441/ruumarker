@@ -38,7 +38,7 @@ export default {
           class: ['relative', 'w-5', 'text-sm', 'text-center', 'pointer-events-none'],
           append: [index + 1]
         })
-        numberValue.classList.add('text-white')
+        if (!this.printMode) numberValue.classList.add('text-white')
 
         const classA = ['absolute', 'w-5']
 
@@ -48,13 +48,13 @@ export default {
         })
 
         const number = tags.generateElement('div', {
-          class: ['bg-transparent'],
+          class: ['w-1/12'],
           append: [a]
         })
 
         locator.image_url ||= '/sample.png'
         const image = tags.generateElement('div', {
-          class: ['bg-transparent'],
+          class: ['bg-transparent', 'w-5/12', 'flex', 'justify-center'],
           append: [tags.generateElement('div', {
             class: ['thumbnail-field', 'w-thumbnail', 'h-thumbnail', 'border', 'border-slate-200', 'rounded-lg', 'relative', 'overflow-hidden'],
             append: [tags.generateElement('img', {
@@ -63,30 +63,30 @@ export default {
             })]
           })]
         })
-        const description = tags.generateElement('div', {
-          class: ['whitespace-normal', 'description', 'bg-transparent'],
-          append: [this.brief(locator.description)]
-        })
         const createdAt = tags.generateElement('div', {
-          class: ['whitespace-normal', 'bg-transparent'],
+          class: ['whitespace-normal', 'bg-transparent', 'w-full', 'text-slate-600', 'text-xs', 'sm:text-sm'],
           append: [this.formatDate(locator.created_at)]
+        })
+
+        const description = this.printMode ? locator.description : this.brief(locator.description, 29)
+        const text = tags.generateElement('div', {
+          class: ['whitespace-normal', 'description', 'bg-transparent', 'w-5/12', 'text-sm', 'sm:text-base'],
+          append: [description, createdAt]
         })
         const deleteBtn = tags.generateElement('div', {
           class: ['bg-transparent'],
           append: [tags.generateElement('a', {
-            class: ['delete-locators', 'btn', 'btn-circle', 'btn-outline', 'btn-sm'],
+            class: ['delete-locators', 'btn', 'btn-circle', 'btn-outline', 'btn-sm', 'w-1/12'],
             append: ['×']
           })]
         })
         const row = tags.generateElement('div', {
           id: `${this.locatorsModel}-${locator.id}`,
-          class: this.printMode ?
-            ['flex'] :
-            ['flex', 'hover'],
-          append: this.printMode ?
-            [number, image, description, createdAt]:
-            [number, image, description, createdAt, deleteBtn]
+          class: ['flex', 'border', 'b-slate-300', 'mb-2', 'p-2'],
+          append: [number, image, text]
         })
+
+        if (!this.printMode) row.append(deleteBtn)
 
         rows.push(row)
 
@@ -122,11 +122,11 @@ export default {
         append: [`${nowPage} / ${maxPage}`]
       })
     },
-    brief(description) {
+    brief(description, max) {
       if (!description || description.length === 0) {
         return '-'
-      } else if (description.length > 10) {
-        return `${description.substr(0, 10)}…`
+      } else if (description.length > max) {
+        return `${description.substr(0, max)}…`
       } else {
         return description
       }
@@ -155,7 +155,7 @@ export default {
       if (!tr || !tr.id.match(regex)) return
 
       const description = tr.getElementsByClassName('description')[0].innerHTML
-      if (!confirm(`「${this.brief(description)}」を削除します。よろしいですか？`)) return
+      if (!confirm(`「${this.brief(description, 10)}」を削除します。よろしいですか？`)) return
 
       const id = tr.id.replace(regex, '')
       await api.actions.delete(`/api/rooms/${this.roomId}/${this.locatorsModel}s/${id}`)
