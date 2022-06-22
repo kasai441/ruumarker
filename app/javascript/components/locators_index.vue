@@ -82,11 +82,15 @@ export default {
         })
         const row = tags.generateElement('div', {
           id: `${this.locatorsModel}-${locator.id}`,
-          class: ['flex', 'border', 'b-slate-300', 'mb-2', 'p-2'],
+          class: ['flex', 'b-slate-400', 'mb-2', 'p-2'],
           append: [number, image, text]
         })
-
-        if (!this.printMode) row.append(deleteBtn)
+        if (this.printMode) {
+          row.classList.add('border-b')
+        } else {
+          row.append(deleteBtn)
+          row.classList.add('border', 'rounded-lg')
+        }
 
         rows.push(row)
 
