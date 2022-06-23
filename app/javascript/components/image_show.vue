@@ -2,9 +2,10 @@
   <section id="image-show">
     <div id="show-field" @pointerdown="scrollTable($event)" @pointerup="unbindFadeout($event)"
          class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
-      <img :src="imageUrl" id="show-image"
-           class="rounded-lg absolute w-field h-field max-w-none
-           object-contain">
+      <img id="show-image"
+           class="rounded-lg absolute w-field h-field max-w-none object-contain">
+      <img :src="imageUrl"
+           class="">
       <img v-if="!printMode" src="/camera.png" @click='imageEdit' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
            id="image-edit" class="absolute z-10" width="40">
     </div>
@@ -42,9 +43,11 @@ export default {
     unbindHalfvanish(e) {
       tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
     },
-    layout() {
+    async layout() {
       const fieldSize = tags.readSize('show-field')
-      tags.expand(fieldSize, this.formData, 'show-image')
+      // tags.expand(fieldSize, this.formData, 'show-image')
+      this.imageUrl = await tags.expandCanvas(fieldSize, this.formData, this.imageUrl)
+      console.log(this.imageUrl)
       tags.trim(fieldSize, this.formData,'show-image')
       tags.layoutLocators(this.locators, 'show-image')
       if (!this.printMode) tags.writePosition('image-edit', {
@@ -87,12 +90,12 @@ export default {
       this.layout()
     }
   },
-  mounted() {
+  async mounted() {
     window.addEventListener('resize', this.handleResize)
     const target = this.formData.get('target')
     this.imageUrl = this.formData.get(`${target}[image_url]`)
     tags.generateLocators(this.locators, 'show-field', { printMode: this.printMode })
-    this.layout()
+    await this.layout()
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)

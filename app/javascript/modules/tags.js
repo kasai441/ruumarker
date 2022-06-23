@@ -89,6 +89,18 @@ const expand = (fieldSize, formData, imageId, element) => {
   }, element)
 }
 
+const expandCanvas = async (fieldSize, formData, imageUrl) => {
+  const target = formData.get('target')
+  const expansion = formData.get(`${target}[expansion]`) || 100
+  const imageSize = {
+    w: fieldSize.w * expansion / 100,
+    h: fieldSize.h * expansion / 100
+  }
+  console.log(imageSize)
+  const imageFile = await params.showImage(imageUrl, null, imageSize)
+  return await params.getImageUrl(imageFile)
+}
+
 const trim = (fieldSize, formData, imageId, element) => {
   const target = formData.get('target')
   const trimmingRate = params.parseOrInit(formData.get(`${target}[trimming]`))
@@ -137,14 +149,14 @@ const readSize = (id, element) => {
 
 const writeSize = (id, value, element) => {
   element ||= document.getElementById(id)
-  element.style.width = value.w + 'px'
-  element.style.height = value.h + 'px'
+  element.style.width = Math.floor(value.w) + 'px'
+  element.style.height = Math.floor(value.h) + 'px'
 }
 
 const writePosition = (id, value, element) => {
   element ||= document.getElementById(id)
-  element.style.left = value.x + 'px'
-  element.style.top = value.y + 'px'
+  element.style.left = Math.floor(value.x) + 'px'
+  element.style.top = Math.floor(value.y) + 'px'
 }
 
 export default {
@@ -154,6 +166,7 @@ export default {
   generateElement,
   layoutLocators,
   expand,
+  expandCanvas,
   trim,
   locate,
   offset,

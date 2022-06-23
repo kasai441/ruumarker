@@ -96,6 +96,29 @@ const rotateImage = (imageUrl, imageFile) => {
   })
 }
 
+const showImage = (imageUrl, imageFile, imageSize) => {
+  if (!imageFile) imageFile = getTypeName(imageUrl)
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    img.onload = () => {
+      const canvas = document.createElement('canvas')
+      canvas.width = imageSize.w
+      canvas.height = imageSize.h
+      let ctx = canvas.getContext('2d')
+      ctx.drawImage(img, 0, 0, imageSize.w, imageSize.h)
+      ctx.canvas.toBlob((blob) => {
+        const f = new File([blob], imageFile.name, {
+          type: imageFile.type,
+          lastModified: Date.now()
+        })
+        resolve(f)
+      }, imageFile.type, 1)
+    }
+    img.onerror = (e) => reject(e)
+    img.src = imageUrl
+  })
+}
+
 // private
 
 const getTypeName = imageUrl => {
@@ -123,5 +146,6 @@ export default {
   renewFormData,
   getImageUrl,
   reduceLargeImage,
-  rotateImage
+  rotateImage,
+  showImage
 }
