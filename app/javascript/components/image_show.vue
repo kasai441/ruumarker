@@ -58,14 +58,13 @@ export default {
       const a = tags.parent('A', e.target)
       const regex = /locator/g
       if (a && a.id.match(regex)) {
-        const table = document.getElementById('locators-table')
-        const trs = table.getElementsByTagName('tr')
-        Array.prototype.forEach.call(trs, tr => {
-          tr.classList.remove('active', 'animate-fadeout')
+        const rows = document.getElementsByTagName('locators-row')
+        Array.prototype.forEach.call(rows, row => {
+          row.classList.remove('active', 'animate-fadeout')
         })
 
-        const tr = document.getElementById(a.id.replace(regex, this.locatorsModel))
-        tr.classList.add('active')
+        const row = document.getElementById(a.id.replace(regex, this.locatorsModel))
+        row.classList.add('active')
         // table.scrollTo({
         //   behavior: 'smooth',
         //   left: 0,

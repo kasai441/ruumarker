@@ -18,7 +18,7 @@ module.exports = {
         '168': '42rem'
       },
       width: {
-        '24vw': '24vw',
+        '30vw': '30vw',
         '82vw': '82vw',
         '92vw': '92vw',
       },
@@ -30,7 +30,7 @@ module.exports = {
         '144': '36rem'
       },
       height: {
-        '24vw2/3': 'calc(24vw * 2/3)',
+        '30vw2/3': 'calc(30vw * 2/3)',
         '82vw2/3': 'calc(82vw * 2/3)',
         '92vw2/3': 'calc(92vw * 2/3)'
       },

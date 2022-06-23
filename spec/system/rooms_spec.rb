@@ -47,7 +47,7 @@ describe 'ルーム管理機能', type: :system do
       it 'ルーム詳細画面に遷移し、マップ画像が表示され、キズの説明が表示される' do
         expect(page).to have_selector 'h2', text: 'キズ点検表'
         expect(show_image[:src]).to include 'test_image.jpg'
-        expect(page).to have_content 'リビング、フローリン…'
+        expect(page).to have_content 'リビング、フローリングに削れ'
       end
     end
 

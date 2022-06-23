@@ -158,7 +158,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '変更が反映される' do
-          expect(page).to have_content '壁紙はがれかけ、50…'
+          expect(page).to have_content '壁紙はがれかけ、50cm'
         end
       end
 
@@ -171,7 +171,7 @@ describe 'キズ管理機能', type: :system do
         it '変更が反映される' do
           tr = find_by_id("mark-#{mark1.id}")
           within(tr) do
-            expect(page).to have_content '滲み　（２個所）⁉️…'
+            expect(page).to have_content '滲み　（２個所）⁉️？ ( 100cm )'
           end
           tr.click
           expect(find_by_id('edit-description').value).to eq '滲み　（２個所）⁉️？ ( 100cm )️'

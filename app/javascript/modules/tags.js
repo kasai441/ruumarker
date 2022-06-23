@@ -1,9 +1,11 @@
 import params from './params'
 
-const parent = (name, elem) => {
-  if (elem.nodeName === 'BODY') return
-
-  return elem.nodeName === name ? elem : parent(name, elem.parentElement)
+const parent = (tagName, element, className) => {
+  if (element.nodeName === 'BODY') return
+  const conditions =
+    element.nodeName === tagName ||
+    element.classList.value.includes(className)
+  return conditions ? element : parent(tagName, element.parentElement, className)
 }
 
 const generateLocators = (locators, id, options) => {

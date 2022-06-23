@@ -1,7 +1,7 @@
 <template>
   <section id="locators-index">
     <div class="py-4">
-      <div id="locators-table" class="w-field"></div>
+      <div id="locators-rows" class="w-field"></div>
     </div>
   </section>
 </template>
@@ -24,86 +24,93 @@ export default {
     }
   },
   methods: {
-    generateTbody() {
-      const tableContainer = document.getElementById('locators-table')
-      let trs = []
+    generateIndex() {
+      const tableContainer = document.getElementById('locators-rows')
+      let rows = []
+      const src = this.printMode ? '/locators_white.png' : '/locators.png'
       JSON.parse(this.locators).forEach((locator, index) => {
-        const number = tags.generateElement('td', {
-          class: ['bg-transparent'],
+        const numberImg = tags.generateElement('img', {
+          class: ['absolute', 'w-5', 'pointer-events-none'],
+          src: src
+        })
+
+        const numberValue = tags.generateElement('a', {
+          class: ['relative', 'w-5', 'text-sm', 'text-center', 'pointer-events-none'],
           append: [index + 1]
         })
+        if (!this.printMode) numberValue.classList.add('text-white')
+
+        const classA = ['absolute', 'w-5', 'flex', 'items-center']
+
+        const a = tags.generateElement('a', {
+          class: classA,
+          append: [numberImg, numberValue]
+        })
+
+        const number = tags.generateElement('div', {
+          class: ['w-1/12', 'flex', 'justify-center', 'items-center'],
+          append: [a]
+        })
+
         locator.image_url ||= '/sample.png'
-        const image = tags.generateElement('td', {
-          class: ['bg-transparent'],
+        const image = tags.generateElement('div', {
+          class: ['bg-transparent', 'w-5/12', 'flex', 'justify-center', 'items-center'],
           append: [tags.generateElement('div', {
-            class: ['thumbnail-field', 'w-thumbnail', 'h-thumbnail', 'border', 'border-slate-200', 'rounded-lg', 'relative', 'overflow-hidden'],
+            class: ['thumbnail-field', 'w-thumbnail', 'h-thumbnail', 'border', 'border-slate-200', 'relative', 'overflow-hidden'],
             append: [tags.generateElement('img', {
               class: ['thumbnail-image', 'w-thumbnail', 'h-thumbnail', 'rounded-lg', 'absolute', 'object-contain'],
               src: locator.image_url
             })]
           })]
         })
-        const description = tags.generateElement('td', {
-          class: ['whitespace-normal', 'description', 'bg-transparent'],
-          append: [this.brief(locator.description)]
-        })
-        const createdAt = tags.generateElement('td', {
-          class: ['whitespace-normal', 'bg-transparent'],
+        const createdAt = tags.generateElement('div', {
+          class: ['whitespace-normal', 'bg-transparent', 'w-full', 'text-slate-600', 'text-xs', 'sm:text-sm', 'p-1', 'border-t', 'b-slate-400'],
           append: [this.formatDate(locator.created_at)]
         })
-        const deleteBtn = tags.generateElement('td', {
-          class: ['bg-transparent'],
+
+        const max = this.printMode ? 60 : 29
+        const description = tags.generateElement('div', {
+          class: ['description'],
+          append: [this.brief(locator.description, max)]
+        })
+
+        const text = tags.generateElement('div', {
+          class: ['whitespace-normal', 'bg-transparent', 'w-5/12', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', 'p-1'],
+          append: [description, createdAt]
+        })
+
+        const deleteBtn = tags.generateElement('a', {
+          class: ['bg-transparent', 'w-1/12', 'flex', 'justify-end'],
           append: [tags.generateElement('a', {
-            class: ['delete-locators', 'btn', 'btn-circle', 'btn-outline', 'btn-sm'],
+            class: ['delete-locators', 'btn', 'btn-ghost', 'btn-xs', 'sm:btn-sm'],
             append: ['×']
           })]
         })
-        const tr = tags.generateElement('tr', {
+        const row = tags.generateElement('div', {
           id: `${this.locatorsModel}-${locator.id}`,
-          class: this.printMode ? [] : ['hover'],
-          append: this.printMode ?
-            [number, image, description, createdAt]:
-            [number, image, description, createdAt, deleteBtn]
+          class: ['locators-row', 'flex', 'b-slate-400', 'mb-2', 'p-1', 'sm:p-2'],
+          append: [number, image, text]
         })
+        if (this.printMode) {
+          row.classList.add('border-b')
+        } else {
+          row.append(deleteBtn)
+          row.classList.add('border', 'rounded-lg')
+        }
 
-        trs.push(tr)
+        rows.push(row)
 
         if (index === JSON.parse(this.locators).length - 1) {
-          tableContainer.append(this.generateTable(trs))
+          tableContainer.append(tags.generateElement('div', {append: rows}))
           if (this.printMode) {
             tableContainer.append(this.generateFooter(index, { lastPage: true }))
           }
-          trs = []
+          rows = []
         } else if (this.printMode && index % 5 === 1) {
-          tableContainer.append(this.generateTable(trs))
+          tableContainer.append(tags.generateElement('div', {append: rows}))
           tableContainer.append(this.generateFooter(index))
-          trs = []
+          rows = []
         }
-      })
-    },
-    generateTable(trs) {
-      const tds = [tags.generateElement('td', {
-        append: ['番号']
-      }), tags.generateElement('td', {
-        append: ['画像']
-      }), tags.generateElement('td', {
-        append: ['説明']
-      }), tags.generateElement('td', {
-        append: ['作成日']
-      })]
-      if (!this.printMode) tds.push(tags.generateElement('td', {
-        append: ['削除']
-      }))
-
-      return tags.generateElement('table', {
-        class: ['table', 'table-compact', 'w-full'],
-        append: [tags.generateElement('thead', {
-          append: [tags.generateElement('tr', {
-            append: tds
-          })]
-        }), tags.generateElement('tbody', {
-          append: trs
-        })]
       })
     },
     generateFooter(index, options) {
@@ -117,11 +124,11 @@ export default {
         append: [`${nowPage} / ${maxPage}`]
       })
     },
-    brief(description) {
+    brief(description, max) {
       if (!description || description.length === 0) {
         return '-'
-      } else if (description.length > 10) {
-        return `${description.substr(0, 10)}…`
+      } else if (description.length > max) {
+        return `${description.substr(0, max)}…`
       } else {
         return description
       }
@@ -137,22 +144,23 @@ export default {
     visitLocators(e) {
       if (e.target.classList.value.includes('btn')) return
 
-      const tr = tags.parent('TR', e.target)
+      const row = tags.parent(null, e.target, 'locators-row')
       const regex = `${this.locatorsModel}-`
-      if (tr && tr.id.match(regex)) {
-        const id = tr.id.replace(regex, '')
+      if (row && row.id.match(regex)) {
+        const id = row.id.replace(regex, '')
         location.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${id}/edit`
       }
     },
     async deleteLocators(e) {
-      const tr = tags.parent('TR', e.target)
+      const row = tags.parent(null, e.target, 'locators-row')
       const regex = `${this.locatorsModel}-`
-      if (!tr || !tr.id.match(regex)) return
+      if (!row || !row.id.match(regex)) return
 
-      const description = tr.getElementsByClassName('description')[0].innerHTML
-      if (!confirm(`「${this.brief(description)}」を削除します。よろしいですか？`)) return
+      const description = row.getElementsByClassName('description')[0].innerText
+      console.log(row.getElementsByClassName('description')[0].innerText)
+      if (!confirm(`「${this.brief(description, 10)}」を削除します。よろしいですか？`)) return
 
-      const id = tr.id.replace(regex, '')
+      const id = row.id.replace(regex, '')
       await api.actions.delete(`/api/rooms/${this.roomId}/${this.locatorsModel}s/${id}`)
       location.href = `/rooms/${this.roomId}`
     },
@@ -170,7 +178,7 @@ export default {
     }
   },
   mounted() {
-    this.generateTbody()
+    this.generateIndex()
     this.layoutThumbnail()
     window.addEventListener('resize', this.handleResize)
     if (this.printMode) return
@@ -180,10 +188,9 @@ export default {
       a.addEventListener('click', this.deleteLocators)
     })
 
-    const table = document.getElementById('locators-table')
-    const trs = table.getElementsByTagName('tr')
-    Array.prototype.forEach.call(trs, tr => {
-      tr.addEventListener('click', this.visitLocators)
+    const rows = document.getElementsByClassName('locators-row')
+    Array.prototype.forEach.call(rows, row => {
+      row.addEventListener('click', this.visitLocators)
     })
   },
   beforeDestroy() {
@@ -195,10 +202,9 @@ export default {
       a.removeEventListener('click', this.deleteLocators)
     })
 
-    const table = document.getElementById('locators-table')
-    const trs = table.getElementsByTagName('tr')
-    Array.prototype.forEach.call(trs, tr => {
-      tr.removeEventListener('click', this.visitLocators)
+    const rows = document.getElementsByClassName('locators-row')
+    Array.prototype.forEach.call(rows, row => {
+      row.removeEventListener('click', this.visitLocators)
     })
   }
 }
