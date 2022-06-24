@@ -24,6 +24,12 @@
     .h-print-field {
         @apply h-96;
     }
+    .w-print-thumbnail {
+        @apply w-48;
+    }
+    .h-print-thumbnail {
+        @apply h-32;
+    }
     .font-h2 {
         @apply py-4 font-bold text-lime-600;
     }
