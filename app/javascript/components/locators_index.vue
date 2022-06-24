@@ -178,6 +178,12 @@ export default {
     }
   },
   mounted() {
+    if (this.printMode) {
+      const locators_rows = document.getElementById('locators-rows')
+      locators_rows.classList.remove('w-field')
+      locators_rows.classList.add('w-print-field')
+    }
+
     this.generateIndex()
     this.layoutThumbnail()
     window.addEventListener('resize', this.handleResize)
