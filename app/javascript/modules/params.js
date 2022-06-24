@@ -96,16 +96,16 @@ const rotateImage = (imageUrl, imageFile) => {
   })
 }
 
-const showImage = (imageUrl, imageFile, imageSize) => {
+const showImage = (imageUrl, imageFile, expansion) => {
   if (!imageFile) imageFile = getTypeName(imageUrl)
   return new Promise((resolve, reject) => {
     const img = new Image()
     img.onload = () => {
       const canvas = document.createElement('canvas')
-      canvas.width = imageSize.w
-      canvas.height = imageSize.h
+      canvas.width = img.width * expansion / 100
+      canvas.height = img.height * expansion / 100
       let ctx = canvas.getContext('2d')
-      ctx.drawImage(img, 0, 0, imageSize.w, imageSize.h)
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
       ctx.canvas.toBlob((blob) => {
         const f = new File([blob], imageFile.name, {
           type: imageFile.type,

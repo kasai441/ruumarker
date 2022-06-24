@@ -89,15 +89,19 @@ const expand = (fieldSize, formData, imageId, element) => {
   }, element)
 }
 
-const expandCanvas = async (fieldSize, formData, imageUrl) => {
+const expandCanvas = async (fieldSize, formData, imageIds, imageUrl) => {
   const target = formData.get('target')
   const expansion = formData.get(`${target}[expansion]`) || 100
-  const imageSize = {
-    w: fieldSize.w * expansion / 100,
-    h: fieldSize.h * expansion / 100
-  }
-  console.log(imageSize)
-  const imageFile = await params.showImage(imageUrl, null, imageSize)
+  // console.log(imageUrl)
+  // console.log(formData.get(`${target}[image_url]`))
+  imageUrl = formData.get(`${target}[image_url]`) || params.getImageUrl(imageUrl)
+  imageIds.forEach( imageId => {
+    writeSize(imageId, {
+      w: fieldSize.w * expansion / 100,
+      h: fieldSize.h * expansion / 100
+    })
+  })
+  const imageFile = await params.showImage(imageUrl, null, expansion)
   return await params.getImageUrl(imageFile)
 }
 

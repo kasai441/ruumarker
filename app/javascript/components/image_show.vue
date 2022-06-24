@@ -2,10 +2,11 @@
   <section id="image-show">
     <div id="show-field" @pointerdown="scrollTable($event)" @pointerup="unbindFadeout($event)"
          class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
-      <img id="show-image"
-           class="rounded-lg absolute w-field h-field max-w-none object-contain">
-      <img :src="imageUrl"
-           class="">
+      <div id="show-frame"
+           class="rounded-lg absolute w-field h-field max-w-none">
+        <img id="show-image" :src="imageUrl"
+             class="w-field h-field object-contain">
+      </div>
       <img v-if="!printMode" src="/camera.png" @click='imageEdit' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
            id="image-edit" class="absolute z-10" width="40">
     </div>
@@ -46,10 +47,9 @@ export default {
     async layout() {
       const fieldSize = tags.readSize('show-field')
       // tags.expand(fieldSize, this.formData, 'show-image')
-      this.imageUrl = await tags.expandCanvas(fieldSize, this.formData, this.imageUrl)
-      console.log(this.imageUrl)
-      tags.trim(fieldSize, this.formData,'show-image')
-      tags.layoutLocators(this.locators, 'show-image')
+      this.imageUrl = await tags.expandCanvas(fieldSize, this.formData, ['show-image', 'show-frame'], this.imageUrl)
+      tags.trim(fieldSize, this.formData,'show-frame')
+      tags.layoutLocators(this.locators, 'show-frame')
       if (!this.printMode) tags.writePosition('image-edit', {
         x: fieldSize.w - 45,
         y: fieldSize.h - 45
