@@ -18,6 +18,12 @@
     .h-thumbnail {
         @apply h-30vw2/3 md:h-32 sm:max-h-32;
     }
+    .w-print-field {
+        @apply w-144;
+    }
+    .h-print-field {
+        @apply h-96;
+    }
     .font-h2 {
         @apply py-4 font-bold text-lime-600;
     }
