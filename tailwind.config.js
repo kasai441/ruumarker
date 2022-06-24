@@ -57,6 +57,9 @@ module.exports = {
           '0%': { 'opacity': 0.7 },
           '100%': { 'opacity': 0.4}
         }
+      },
+      screens: {
+        'print': {'raw': 'print'}
       }
     }
   }
