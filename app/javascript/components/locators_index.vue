@@ -53,12 +53,15 @@ export default {
         })
 
         locator.image_url ||= '/sample.png'
+        const sizeClass = this.printMode ?
+          ['w-print-thumbnail', 'h-print-thumbnail'] :
+          ['w-thumbnail', 'h-thumbnail']
         const image = tags.generateElement('div', {
           class: ['bg-transparent', 'w-5/12', 'flex', 'justify-center', 'items-center'],
           append: [tags.generateElement('div', {
-            class: ['thumbnail-field', 'w-thumbnail', 'h-thumbnail', 'border', 'border-slate-200', 'relative', 'overflow-hidden'],
+            class: ['thumbnail-field', 'border', 'border-slate-200', 'relative', 'overflow-hidden'].concat(sizeClass),
             append: [tags.generateElement('img', {
-              class: ['thumbnail-image', 'w-thumbnail', 'h-thumbnail', 'rounded-lg', 'absolute', 'object-contain'],
+              class: ['thumbnail-image', 'rounded-lg', 'absolute', 'object-contain'].concat(sizeClass),
               src: locator.image_url
             })]
           })]
@@ -178,6 +181,12 @@ export default {
     }
   },
   mounted() {
+    if (this.printMode) {
+      const locators_rows = document.getElementById('locators-rows')
+      locators_rows.classList.remove('w-field')
+      locators_rows.classList.add('w-print-field')
+    }
+
     this.generateIndex()
     this.layoutThumbnail()
     window.addEventListener('resize', this.handleResize)

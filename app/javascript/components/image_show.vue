@@ -88,6 +88,14 @@ export default {
     }
   },
   mounted() {
+    if (this.printMode) {
+      const tags = document.getElementsByClassName('h-field')
+      Array.prototype.forEach.call(tags, tag => {
+        tag.classList.remove('w-field', 'h-field')
+        tag.classList.add('w-print-field', 'h-print-field')
+      })
+    }
+
     window.addEventListener('resize', this.handleResize)
     const target = this.formData.get('target')
     this.imageUrl = this.formData.get(`${target}[image_url]`)
