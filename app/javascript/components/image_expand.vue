@@ -2,9 +2,10 @@
   <section id="image-expand">
     <div class="p-2 flex flex-col items-center">
       <p class="font-btn">縮小｜拡大</p>
-      <div class="w-full h-10 flex items-center">
-        <input type="range" v-model="expansion" @pointermove="expand"
-               min="50" max="150" class="range range-sm opacity-90">
+      <div class="w-full h-10 flex items-center"
+        @pointermove="layout" @pointerup="updateExpansion">
+          <input type="range" v-model="expansion"
+            min="50" max="150" class="range range-sm opacity-90 touch-none">
       </div>
     </div>
   </section>
@@ -27,13 +28,6 @@ export default {
     }
   },
   methods: {
-    expand() {
-      this.layout()
-      const formData = this.formData ? params.renewFormData(this.formData) : new FormData()
-      const target = formData.get('target')
-      formData.set(`${target}[expansion]`, this.expansion)
-      this.$emit('emitFormData', formData)
-    },
     layout() {
       const fieldSize = tags.readSize('edit-field')
       const target = this.formData.get('target')
@@ -46,6 +40,12 @@ export default {
       element.style.top = trimming.y - fieldSize.h * (this.expansion / 100 - 1) / 2 + 'px'
 
       tags.layoutLocators(this.locators, 'edit-image')
+    },
+    updateExpansion() {
+      const formData = this.formData ? params.renewFormData(this.formData) : new FormData()
+      const target = formData.get('target')
+      formData.set(`${target}[expansion]`, this.expansion)
+      this.$emit('emitFormData', formData)
     }
   },
   created() {
