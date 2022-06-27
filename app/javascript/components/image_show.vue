@@ -9,9 +9,9 @@
            @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
            class="absolute z-10 flex flex-col items-center">
         <img src="/camera.png" width="40">
-        <svg viewBox="0 0 26 17" width="26" height="17">
-          <text x="0" y="0" dominant-baseline="text-before-edge" class="font-btn font-bg">編集</text>
-          <text x="0" y="0" dominant-baseline="text-before-edge" class="font-btn">編集</text>
+        <svg viewBox="0 0 28 17" width="28" height="17">
+          <text x="1" y="0.3" dominant-baseline="text-before-edge" class="font-btn font-bg">編集</text>
+          <text x="1" y="0" dominant-baseline="text-before-edge" class="font-btn">編集</text>
         </svg>
       </a>
     </div>
