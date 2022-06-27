@@ -43,6 +43,9 @@ module.exports = {
         112: '112px',
         240: '240px'
       },
+      strokeWidth: {
+        '3': '3px',
+      },
       animation: {
         fadeout: 'fadeout 2.5s ease 1',
         halfvanish: 'halfvanish 0.5s ease 1'
