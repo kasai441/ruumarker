@@ -14,7 +14,7 @@
            class="absolute z-10 w-field h-field
              pointer-events-none bg-transparent bg-transparent
              outline outline-slate-100"></div>
-      <img :src="locatorImage" id="locator-image" draggable="false" width="20"
+      <img :src="locatorImage" id="locator-image" draggable="false" width="28"
            class="absolute z-20 pointer-events-none">
       <div class="absolute z-10 w-field h-field
              pointer-events-none bg-transparent

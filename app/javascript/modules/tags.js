@@ -16,7 +16,7 @@ const generateLocators = (locators, id, options) => {
     if (options && options.editMode) src = '/locators_grey.png'
     if (options && options.printMode) src = '/locators_white.png'
     const img = generateElement('img', {
-      class: ['absolute', 'w-5', 'pointer-events-none'],
+      class: ['absolute', 'w-7', 'pointer-events-none'],
       src
     })
 
@@ -27,7 +27,7 @@ const generateLocators = (locators, id, options) => {
       append: [index + 1]
     })
 
-    let classA = ['absolute', 'w-5', 'flex', 'justify-center', 'items-center']
+    let classA = ['absolute', 'w-7', 'flex', 'justify-center', 'items-center']
     if (options && options.class) classA = classA.concat(options.class)
 
     const a = generateElement('a',{
