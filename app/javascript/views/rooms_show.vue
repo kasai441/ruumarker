@@ -16,9 +16,9 @@
         @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
         class="new-mark fixed z-10 flex flex-col items-center">
       <img src="/new_mark.png" width="50">
-      <svg viewBox="0 0 52 17" width="52" height="17">
-        <text x="0" y="0" dominant-baseline="text-before-edge" class="font-btn font-bg">キズ追加</text>
-        <text x="0" y="0" dominant-baseline="text-before-edge" class="font-btn fill-lime-600">キズ追加</text>
+      <svg viewBox="0 0 58 17" width="58" height="17">
+        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn font-bg">キズ追加</text>
+        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn fill-lime-600">キズ追加</text>
       </svg>
     </a>
     <div class="h-20"></div>

@@ -9,9 +9,9 @@
            @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
            class="absolute z-10 flex flex-col items-center">
         <img src="/camera.png" width="40">
-        <svg viewBox="0 0 28 17" width="28" height="17">
-          <text x="1" y="0.3" dominant-baseline="text-before-edge" class="font-btn font-bg">編集</text>
-          <text x="1" y="0" dominant-baseline="text-before-edge" class="font-btn">編集</text>
+        <svg viewBox="0 0 34 17" width="34" height="17">
+          <text x="4" y="0.3" dominant-baseline="text-before-edge" class="font-btn font-bg">編集</text>
+          <text x="4" y="0" dominant-baseline="text-before-edge" class="font-btn">編集</text>
         </svg>
       </a>
     </div>
@@ -55,7 +55,7 @@ export default {
       tags.trim(fieldSize, this.formData,'show-image')
       tags.layoutLocators(this.locators, 'show-image')
       if (!this.printMode) tags.writePosition('image-edit', {
-        x: fieldSize.w - 45,
+        x: fieldSize.w - 50,
         y: fieldSize.h - 65
       })
     },
