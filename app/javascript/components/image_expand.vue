@@ -4,7 +4,7 @@
       <p class="font-btn">縮小｜拡大</p>
       <div class="w-full h-10 flex items-center">
         <input type="range" v-model="expansion" @pointermove="expand"
-               min="50" max="150" class="range range-sm">
+               min="50" max="150" class="range range-sm opacity-90">
       </div>
     </div>
   </section>

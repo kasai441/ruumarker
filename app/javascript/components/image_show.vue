@@ -5,8 +5,15 @@
       <img :src="imageUrl" id="show-image"
            class="rounded-lg absolute w-field h-field max-w-none
            object-contain">
-      <img v-if="!printMode" src="/camera.png" @click='imageEdit' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
-           id="image-edit" class="absolute z-10" width="40">
+      <a v-if="!printMode" id="image-edit" @click='imageEdit'
+           @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
+           class="absolute z-10 flex flex-col items-center">
+        <img src="/camera.png" width="40">
+        <svg viewBox="0 0 34 17" width="34" height="17">
+          <text x="4" y="0.3" dominant-baseline="text-before-edge" class="font-btn font-bg">編集</text>
+          <text x="4" y="0" dominant-baseline="text-before-edge" class="font-btn">編集</text>
+        </svg>
+      </a>
     </div>
   </section>
 </template>
@@ -37,10 +44,10 @@ export default {
       location.href = `/rooms/${this.roomId}/${target}s/${id}/edit`
     },
     halfvanish(e) {
-      tags.parent('IMG', e.target).classList.add('animate-halfvanish')
+      tags.parent('A', e.target).classList.add('animate-halfvanish')
     },
     unbindHalfvanish(e) {
-      tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
+      tags.parent('A', e.target).classList.remove('animate-halfvanish')
     },
     layout() {
       const fieldSize = tags.readSize('show-field')
@@ -48,8 +55,8 @@ export default {
       tags.trim(fieldSize, this.formData,'show-image')
       tags.layoutLocators(this.locators, 'show-image')
       if (!this.printMode) tags.writePosition('image-edit', {
-        x: fieldSize.w - 45,
-        y: fieldSize.h - 45
+        x: fieldSize.w - 50,
+        y: fieldSize.h - 65
       })
     },
     scrollTable(e) {

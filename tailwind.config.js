@@ -35,13 +35,17 @@ module.exports = {
         '92vw2/3': 'calc(92vw * 2/3)'
       },
       inset: {
-        '78vh': 'calc(78vh)',
-        '82vw': 'calc(82vw)'
+        '76vh': 'calc(76vh)',
+        '80vw': 'calc(80vw)',
+        'max': 'calc(50vw + 21rem)'
       },
       outlineWidth: {
         32: '32px',
         112: '112px',
         240: '240px'
+      },
+      strokeWidth: {
+        '3': '3px',
       },
       animation: {
         fadeout: 'fadeout 2.5s ease 1',

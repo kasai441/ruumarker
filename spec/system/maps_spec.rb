@@ -220,7 +220,7 @@ describe 'マップ管理機能', type: :system do
       end
 
       it '移動分がマップ編集画面で反映されている' do
-        mark_radius = 10
+        mark_radius = 14
         w, h = pixel(find_by_id('edit-field'), 'width', 'height')
 
         left, top = pixel(find_by_id("locator-#{mark1.id}"), 'left', 'top')

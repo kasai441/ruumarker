@@ -16,8 +16,14 @@ html
           div.px-1.text-2xl
             |ruumarker
         div.flex
-          = image_tag 'download.png', size: '30x30', alt: 'download.png', id: 'download', class: 'hidden mx-2'
-          = image_tag 'help.png', size: '30x30', alt: 'help.png', id: 'help', class: 'mx-2 opacity-40'
+          a#download.hidden.flex.flex-col.items-center
+            p.font-btn
+              |PDF
+            = image_tag 'download.png', size: '30x30', alt: 'download.png', class: 'mx-2'
+          a#help.flex.flex-col.items-center
+            p.font-btn
+              |HELP
+            = image_tag 'help.png', size: '30x30', alt: 'help.png', class: 'mx-2 opacity-40'
       - if flash.notice.present?
         .alert.alert-success= flash.notice
       = yield

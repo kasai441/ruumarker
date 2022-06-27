@@ -12,8 +12,15 @@
         キズを追加できます
       </div>
     </div>
-    <img src="/new_mark.png" @click='newMark' @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
-         id="create-mark" class="fixed z-10 new-mark" width="50">
+    <a id="create-mark" @click='newMark'
+        @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
+        class="new-mark fixed z-10 flex flex-col items-center">
+      <img src="/new_mark.png" width="50">
+      <svg viewBox="0 0 58 17" width="58" height="17">
+        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn font-bg">キズ追加</text>
+        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn fill-lime-600">キズ追加</text>
+      </svg>
+    </a>
     <div class="h-20"></div>
   </section>
 </template>
@@ -52,10 +59,10 @@ export default {
       location.href = `/rooms/${this.roomId}/marks/new`
     },
     halfvanish(e) {
-      tags.parent('IMG', e.target).classList.add('animate-halfvanish')
+      tags.parent('A', e.target).classList.add('animate-halfvanish')
     },
     unbindHalfvanish(e) {
-      tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
+      tags.parent('A', e.target).classList.remove('animate-halfvanish')
     },
     areMarks() {
       return JSON.parse(this.marks).length > 0

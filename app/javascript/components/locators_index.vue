@@ -30,17 +30,17 @@ export default {
       const src = this.printMode ? '/locators_white.png' : '/locators.png'
       JSON.parse(this.locators).forEach((locator, index) => {
         const numberImg = tags.generateElement('img', {
-          class: ['absolute', 'w-5', 'pointer-events-none'],
+          class: ['absolute', 'w-7', 'h-7', 'pointer-events-none'],
           src: src
         })
 
         const numberValue = tags.generateElement('a', {
-          class: ['relative', 'w-5', 'text-sm', 'text-center', 'pointer-events-none'],
+          class: ['relative', 'w-7', 'text-sm', 'text-center', 'pointer-events-none'],
           append: [index + 1]
         })
         if (!this.printMode) numberValue.classList.add('text-white')
 
-        const classA = ['absolute', 'w-5', 'flex', 'items-center']
+        const classA = ['absolute', 'w-7', 'h-7', 'flex', 'flex-col', 'items-center', 'justify-center']
 
         const a = tags.generateElement('a', {
           class: classA,

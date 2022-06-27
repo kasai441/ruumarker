@@ -317,7 +317,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it 'キズ編集画面で自分のキズは中心になり、他のキズが相対位置に表示される' do
-          mark_radius = 10
+          mark_radius = 14
           w, h = pixel(find_by_id('edit-field'), 'width', 'height')
 
           left, top = pixel(find_by_id('locator-image'), 'left', 'top')

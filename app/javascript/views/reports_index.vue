@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="fixed relative h-20 print:hidden"></div>
-    <div class="fixed w-full z-10 
+    <div class="fixed w-full z-10
     p-2 px-8 bg-white border-b border-slate-900/20 print:hidden">
       <p class="text-slate-500">
         「PRINT」から印刷ダイアログを表示してPDF出力を選択できます
@@ -21,7 +21,7 @@
         <span class="text-lime-600">各ブラウザのPDF出力方法</span>
       </p>
     </div>
-    <div class="fixed relative h-10 print:hidden"></div>
+    <div class="fixed relative h-28 sm:h-10 print:hidden"></div>
     <div class="w-full px-8">
       <div class="w-print-field font-bold text-lg p-6">キズ点検表</div>
       <image-show :room-id="roomId" :form-data="formData"
