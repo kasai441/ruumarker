@@ -59,10 +59,10 @@ export default {
       location.href = `/rooms/${this.roomId}/marks/new`
     },
     halfvanish(e) {
-      tags.parent('IMG', e.target).classList.add('animate-halfvanish')
+      tags.parent('A', e.target).classList.add('animate-halfvanish')
     },
     unbindHalfvanish(e) {
-      tags.parent('IMG', e.target).classList.remove('animate-halfvanish')
+      tags.parent('A', e.target).classList.remove('animate-halfvanish')
     },
     areMarks() {
       return JSON.parse(this.marks).length > 0
