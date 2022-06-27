@@ -120,7 +120,7 @@ export default {
       tags.writePosition('edit-location-shade', this.frameOffset)
       tags.layoutLocators(this.locators, 'edit-location-image')
 
-      const locatorRadius = 10
+      const locatorRadius = 14
       tags.writePosition('locator-image', {
         x: fieldSize.w / 2 - locatorRadius,
         y: fieldSize.h / 2 - locatorRadius

@@ -30,7 +30,7 @@ export default {
       const src = this.printMode ? '/locators_white.png' : '/locators.png'
       JSON.parse(this.locators).forEach((locator, index) => {
         const numberImg = tags.generateElement('img', {
-          class: ['absolute', 'w-7', 'pointer-events-none'],
+          class: ['absolute', 'w-7', 'h-7', 'pointer-events-none'],
           src: src
         })
 
