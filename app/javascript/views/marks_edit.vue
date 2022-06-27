@@ -4,7 +4,7 @@
       <div class="pt-6 flex flex-col items-center main-screen">
         <div class="w-full relative flex flex-row items-center">
           <div class="w-full flex justify-center items-center relative">
-            <img src="/locators.png" style="width: 50px; height: 50px" class="relative">
+            <img src="/locators.png" style="width: 40px; height: 40px" class="relative">
             <h1 class="text-white text-2xl font-bold absolute">{{ markNumber }}</h1>
           </div>
           <div class="absolute">
