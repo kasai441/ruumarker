@@ -47,6 +47,6 @@
         @apply py-3 px-5 bg-lime-600 text-white font-semibold rounded-lg shadow-md hover:bg-lime-500 border-none;
     }
     .new-mark {
-        @apply top-76vh left-80vw
+        @apply top-76vh left-80vw lg:left-max
     }
 }
