@@ -5,7 +5,7 @@
          class="my-6 w-field h-field relative">
       <img :src="imageUrl" id="edit-location-image" draggable="false"
            @pointerdown="touchstart($event)" @touchmove.prevent
-           class="absolute w-field h-field max-w-none object-contain">
+           class="absolute w-field h-field max-w-none object-contain longpress-none">
       <div id="edit-location-frame"
            class="absolute z-10 w-field h-field
              pointer-events-none bg-transparent bg-transparent
