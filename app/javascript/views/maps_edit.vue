@@ -1,5 +1,12 @@
 <template>
   <section>
+    <div v-if="isLoading" class="fixed z-50 w-full h-full flex justify-center items-center bg-white/50">
+      <div class="flex justify-center my-20">
+        <div class="animate-ping h-4 w-4 bg-white rounded-full"></div>
+        <div class="animate-ping h-4 w-4 bg-white rounded-full mx-8"></div>
+        <div class="animate-ping h-4 w-4 bg-white rounded-full"></div>
+      </div>
+    </div>
     <div class="flex justify-center">
       <div class="main-screen flex flex-col items-center">
         <div class="w-full mt-6 flex flex-col items-center overflow-hidden">
@@ -9,6 +16,7 @@
         <div class="w-field flex flex-row items-center">
           <image-upload :form-data="formData" target-model="map"
                         @emit-form-data="getFormData"
+                        @emit-is-loading="getIsLoading"
                         class="w-4/12"></image-upload>
           <image-expand :form-data="formData" :locators-json="marks"
                         @emit-form-data="getFormData"
@@ -17,7 +25,8 @@
                         @emit-form-data="getFormData"
                         class="w-1/6"></image-rotate>
         </div>
-        <image-update :room-id="roomId" :form-data="formData"></image-update>
+        <image-update :room-id="roomId" :form-data="formData"
+                      @emit-is-loading="getIsLoading"></image-update>
       </div>
     </div>
   </section>
@@ -40,7 +49,8 @@ export default {
   ],
   data() {
     return {
-      formData: null
+      formData: null,
+      isLoading: false
     }
   },
   components: {
@@ -53,6 +63,9 @@ export default {
   methods: {
     getFormData(formData) {
       this.formData = formData
+    },
+    getIsLoading(bool) {
+      this.isLoading = bool
     }
   },
   created() {
