@@ -1,12 +1,10 @@
 <template>
   <section>
-    <div v-if="isLoading" class="fixed z-30 w-full h-full bg-white/50">
-    </div>
     <div class="flex justify-center">
       <div class="main-screen flex flex-col items-center">
         <div class="w-full mt-6 flex flex-col items-center overflow-hidden">
-          <image-edit :form-data="formData" :locators-json="marks" :is-loading="isLoading"
-                      @emit-form-data="getFormData"></image-edit>
+          <image-edit :form-data="formData" :locators-json="marks"
+                      :is-loading="isLoading" @emit-form-data="getFormData"></image-edit>
         </div>
         <div class="w-field flex flex-row items-center">
           <image-upload :form-data="formData" target-model="map"
@@ -71,6 +69,14 @@ export default {
   mounted() {
     const div = document.getElementById('screen-scroll')
     div.classList.add('overflow-scroll', 'h-screen')
+  },
+  updated() {
+    const loadingFilter = document.getElementById('loading-filter')
+    if (this.isLoading) {
+      loadingFilter.classList.remove('hidden')
+    } else {
+      loadingFilter.classList.add('hidden')
+    }
   }
 }
 </script>

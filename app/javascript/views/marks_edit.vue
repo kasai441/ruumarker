@@ -15,11 +15,13 @@
           <description-edit :form-data.="formData" @emit-form-data="getFormData"></description-edit>
         </div>
         <div class="w-full flex flex-col items-center overflow-hidden">
-          <image-edit :form-data="formData" @emit-form-data="getFormData"></image-edit>
+          <image-edit :form-data="formData" :is-loading="isLoading"
+                      @emit-form-data="getFormData"></image-edit>
         </div>
         <div class="w-field flex flex-row items-center">
           <image-upload :form-data="formData" target-model="mark"
                         @emit-form-data="getFormData"
+                        @emit-is-loading="getIsLoading"
                         class="w-4/12"></image-upload>
           <image-expand :form-data="formData"
                         @emit-form-data="getFormData"
@@ -63,7 +65,8 @@ export default {
     return {
       formData: null,
       markNumber: 0,
-      mapFormData: null
+      mapFormData: null,
+      isLoading: false
     }
   },
   components: {
@@ -78,6 +81,9 @@ export default {
   methods: {
     getFormData(formData) {
       this.formData = formData
+    },
+    getIsLoading(bool) {
+      this.isLoading = bool
     },
     back() {
       location.href = `/rooms/${this.roomId}`
@@ -102,6 +108,14 @@ export default {
   mounted() {
     const div = document.getElementById('screen-scroll')
     div.classList.add('overflow-scroll', 'h-screen')
+  },
+  updated() {
+    const loadingFilter = document.getElementById('loading-filter')
+    if (this.isLoading) {
+      loadingFilter.classList.remove('hidden')
+    } else {
+      loadingFilter.classList.add('hidden')
+    }
   }
 }
 </script>
