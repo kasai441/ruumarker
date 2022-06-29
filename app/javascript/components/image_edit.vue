@@ -10,6 +10,9 @@
         outline outline-slate-200 object-contain">
       <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-240 outline-slate-200 opacity-40"></div>
       <div class="absolute w-field h-field pointer-events-none bg-transparent outline outline-4 outline-lime-500"></div>
+      <div v-if="isLoading" class="w-field h-field flex justify-center items-center">
+        <div class="animate-ping h-20 w-20 bg-white rounded-full"></div>
+      </div>
     </div>
   </section>
 </template>
@@ -21,7 +24,8 @@ export default {
   name: 'ImageEdit',
   props: [
     'formData',
-    'locatorsJson'
+    'locatorsJson',
+    'isLoading'
   ],
   data() {
     return {

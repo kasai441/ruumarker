@@ -4,11 +4,12 @@
       <div class="main-screen flex flex-col items-center">
         <div class="w-full mt-6 flex flex-col items-center overflow-hidden">
           <image-edit :form-data="formData" :locators-json="marks"
-                      @emit-form-data="getFormData"></image-edit>
+                      :is-loading="isLoading" @emit-form-data="getFormData"></image-edit>
         </div>
         <div class="w-field flex flex-row items-center">
           <image-upload :form-data="formData" target-model="map"
                         @emit-form-data="getFormData"
+                        @emit-is-loading="getIsLoading"
                         class="w-4/12"></image-upload>
           <image-expand :form-data="formData" :locators-json="marks"
                         @emit-form-data="getFormData"
@@ -17,7 +18,8 @@
                         @emit-form-data="getFormData"
                         class="w-1/6"></image-rotate>
         </div>
-        <image-update :room-id="roomId" :form-data="formData"></image-update>
+        <image-update :room-id="roomId" :form-data="formData"
+                      @emit-is-loading="getIsLoading"></image-update>
       </div>
     </div>
   </section>
@@ -30,6 +32,7 @@ import ImageRotate from '../components/image_rotate.vue'
 import ImageExpand from '../components/image_expand.vue'
 import ImageUpdate from '../components/image_update.vue'
 import params from '../modules/params'
+import tags from '../modules/tags'
 
 export default {
   name: 'MapsEdit',
@@ -40,7 +43,8 @@ export default {
   ],
   data() {
     return {
-      formData: null
+      formData: null,
+      isLoading: false
     }
   },
   components: {
@@ -53,6 +57,9 @@ export default {
   methods: {
     getFormData(formData) {
       this.formData = formData
+    },
+    getIsLoading(bool) {
+      this.isLoading = bool
     }
   },
   created() {
@@ -63,6 +70,9 @@ export default {
   mounted() {
     const div = document.getElementById('screen-scroll')
     div.classList.add('overflow-scroll', 'h-screen')
+  },
+  updated() {
+    tags.loadingFilter(this.isLoading)
   }
 }
 </script>

@@ -147,6 +147,15 @@ const writePosition = (id, value, element) => {
   element.style.top = value.y + 'px'
 }
 
+const loadingFilter = isLoading => {
+  const loadingFilter = document.getElementById('loading-filter')
+  if (isLoading) {
+    loadingFilter.classList.remove('hidden')
+  } else {
+    loadingFilter.classList.add('hidden')
+  }
+}
+
 export default {
   namespaced: true,
   parent,
@@ -159,5 +168,6 @@ export default {
   offset,
   readSize,
   writeSize,
-  writePosition
+  writePosition,
+  loadingFilter
 }
