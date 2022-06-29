@@ -1,10 +1,8 @@
 <template>
   <section>
-    <div v-if="isLoading" class="fixed z-50 w-full h-full flex justify-center items-center bg-white/50">
-      <div class="flex justify-center my-20">
-        <div class="animate-ping h-4 w-4 bg-lime-600/50 rounded-full"></div>
-        <div class="animate-ping h-4 w-4 bg-lime-600/50 rounded-full mx-8"></div>
-        <div class="animate-ping h-4 w-4 bg-lime-600/50 rounded-full"></div>
+    <div v-if="isLoading" class="fixed z-50 w-full h-full flex justify-center bg-white/50">
+      <div class="flex justify-center my-40 relative">
+        <div class="absolute animate-ping h-20 w-20 bg-white rounded-full"></div>
       </div>
     </div>
     <div class="flex justify-center">
