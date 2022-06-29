@@ -27,8 +27,6 @@ export default {
     return {
       isLoadable: false,
       isLoading: false,
-      isUploading: false,
-      isUploaded: false
     }
   },
   methods: {
@@ -37,27 +35,28 @@ export default {
     },
     loading() {
       if (this.isLoadable) {
-        const inputTag = document.getElementById('file')
-        inputTag.value = ''
-        this.isUploaded = false
-
-        document.body.onfocus = this.checkFile
+        document.body.onfocus = this.dialogEnding
         this.isLoadable = false
       }
     },
-    checkFile() {
-      const inputTag = document.getElementById('file')
-      console.log(inputTag.value.length)
-      console.log(inputTag.value)
-      console.log(this.isUploaded)
-      // this.isLoading = this.isLoading ? !this.isLoading : this.isLoading
-      // this.$emit('emitIsLoading', true)
+    dialogEnding() {
+      this.$emit('emitIsLoading', true)
+      this.emitIsLoadingFalseLater()
       document.body.onfocus = null
     },
+    emitIsLoadingFalseLater() {
+      setTimeout(() => {
+        if (this.isLoading) {
+          this.emitIsLoadingFalseLater()
+        } else {
+          this.$emit('emitIsLoading', false)
+        }
+      }, 2000)
+    },
     async upload(e) {
-      console.log('aaa')
-      console.log(e)
+      this.isLoading = true
       this.$emit('emitIsLoading', true)
+
       let imageFile = e.target.files[0]
       const imageUrl = await params.getImageUrl(imageFile)
       imageFile = await params.reduceLargeImage(imageUrl, imageFile).catch(e => {
@@ -69,7 +68,7 @@ export default {
       if (imageFile) formData.set(`${this.targetModel}[image]`, imageFile)
       this.$emit('emitFormData', formData)
       this.$emit('emitIsLoading', false)
-      this.isUploaded = true
+      this.isLoading = false
     }
   }
 }
