@@ -51,13 +51,13 @@ export default {
       console.log(inputTag.value)
       console.log(this.isUploaded)
       // this.isLoading = this.isLoading ? !this.isLoading : this.isLoading
-      if (this.isUploading && !this.isUploaded) this.$emit('emitIsLoading', true)
+      // this.$emit('emitIsLoading', true)
       document.body.onfocus = null
     },
     async upload(e) {
       console.log('aaa')
       console.log(e)
-      this.isUploading = true
+      this.$emit('emitIsLoading', true)
       let imageFile = e.target.files[0]
       const imageUrl = await params.getImageUrl(imageFile)
       imageFile = await params.reduceLargeImage(imageUrl, imageFile).catch(e => {
@@ -69,7 +69,6 @@ export default {
       if (imageFile) formData.set(`${this.targetModel}[image]`, imageFile)
       this.$emit('emitFormData', formData)
       this.$emit('emitIsLoading', false)
-      this.isUploading = false
       this.isUploaded = true
     }
   }
