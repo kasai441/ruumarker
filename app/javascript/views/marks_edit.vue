@@ -52,6 +52,7 @@ import DescriptionEdit from '../components/description_edit.vue'
 import LocationEdit from '../components/location_edit.vue'
 import ImageUpdate from '../components/image_update.vue'
 import params from '../modules/params'
+import tags from '../modules/tags'
 
 export default {
   name: 'MarksEdit',
@@ -110,12 +111,7 @@ export default {
     div.classList.add('overflow-scroll', 'h-screen')
   },
   updated() {
-    const loadingFilter = document.getElementById('loading-filter')
-    if (this.isLoading) {
-      loadingFilter.classList.remove('hidden')
-    } else {
-      loadingFilter.classList.add('hidden')
-    }
+    tags.loadingFilter(this.isLoading)
   }
 }
 </script>
