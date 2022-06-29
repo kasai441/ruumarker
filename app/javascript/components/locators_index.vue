@@ -61,7 +61,7 @@ export default {
           append: [tags.generateElement('div', {
             class: ['thumbnail-field', 'border', 'border-slate-200', 'relative', 'overflow-hidden'].concat(sizeClass),
             append: [tags.generateElement('img', {
-              class: ['thumbnail-image', 'rounded-lg', 'absolute', 'object-contain'].concat(sizeClass),
+              class: ['thumbnail-image', 'rounded-lg', 'absolute', 'object-contain', 'max-w-none'].concat(sizeClass),
               src: locator.image_url
             })]
           })]
