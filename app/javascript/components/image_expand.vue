@@ -5,7 +5,7 @@
       <div class="w-full h-10 flex items-center"
         @pointermove="layout" @pointerup="updateExpansion">
           <input type="range" v-model="expansion"
-            min="50" max="150" class="range range-sm opacity-90 touch-none">
+            min="50" max="250" class="range range-sm opacity-90 touch-none">
       </div>
     </div>
   </section>
