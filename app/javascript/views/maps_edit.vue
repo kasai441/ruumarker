@@ -1,14 +1,11 @@
 <template>
   <section>
-    <div v-if="isLoading" class="fixed z-50 w-full h-full flex justify-center bg-white/50">
-      <div class="flex justify-center my-40 relative">
-        <div class="absolute animate-ping h-20 w-20 bg-white rounded-full"></div>
-      </div>
+    <div v-if="isLoading" class="fixed z-30 w-full h-full bg-white/50">
     </div>
     <div class="flex justify-center">
       <div class="main-screen flex flex-col items-center">
         <div class="w-full mt-6 flex flex-col items-center overflow-hidden">
-          <image-edit :form-data="formData" :locators-json="marks"
+          <image-edit :form-data="formData" :locators-json="marks" :is-loading="isLoading"
                       @emit-form-data="getFormData"></image-edit>
         </div>
         <div class="w-field flex flex-row items-center">
