@@ -10,7 +10,7 @@
   </section>
 </template>
 
-<script>
+<script nonce="vq+bDn46ahM/LQ==">
 import params from '../modules/params'
 
 export default {

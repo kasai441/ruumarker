@@ -74,26 +74,28 @@ const reduceLargeImage = (imageUrl, imageFile) => {
 const rotateImage = (imageUrl, imageFile) => {
   if (!imageFile) imageFile = getTypeName(imageUrl)
   return new Promise((resolve, reject) => {
-    const img = new Image()
-    img.crossOrigin = 'anonymous'
-    img.onload = () => {
-      const canvas = document.createElement('canvas')
-      canvas.width = img.height
-      canvas.height = img.width
-      let ctx = canvas.getContext('2d')
-      ctx.translate(canvas.width / 2, canvas.height / 2)
-      ctx.rotate(90 * Math.PI / 180)
-      ctx.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height)
-      ctx.canvas.toBlob((blob) => {
-        const f = new File([blob], imageFile.name, {
-          type: imageFile.type,
-          lastModified: Date.now()
-        })
-        resolve(f)
-      }, imageFile.type, 1)
-    }
-    img.onerror = (e) => reject(e)
-    img.src = imageUrl
+    fetch(imageUrl).then( response => {
+      const img = new Image()
+      img.crossOrigin = 'anonymous'
+      img.onload = () => {
+        const canvas = document.createElement('canvas')
+        canvas.width = img.height
+        canvas.height = img.width
+        let ctx = canvas.getContext('2d')
+        ctx.translate(canvas.width / 2, canvas.height / 2)
+        ctx.rotate(90 * Math.PI / 180)
+        ctx.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height)
+        ctx.canvas.toBlob((blob) => {
+          const f = new File([blob], imageFile.name, {
+            type: imageFile.type,
+            lastModified: Date.now()
+          })
+          resolve(f)
+        }, imageFile.type, 1)
+      }
+      img.onerror = (e) => reject(e)
+      img.src = response.url
+    })
   })
 }
 
