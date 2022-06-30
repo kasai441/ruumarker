@@ -22,12 +22,18 @@ export default {
     async rotate() {
       const target = this.formData.get('target')
       let imageFile = this.formData.get(`${target}[image]`)
+      console.log('imageFile')
+      console.log(imageFile)
       let imageUrl = this.formData.get(`${target}[image_url]`)
+      console.log('imageUrl')
+      console.log(imageUrl)
       if (imageFile) imageUrl = await params.getImageUrl(imageFile)
       imageFile = await params.rotateImage(imageUrl, imageFile).catch(e => {
         console.log('onload error', e)
         throw new Error('onload error')
       })
+      console.log('imageFile after')
+      console.log(imageFile)
 
       const formData = this.formData ? params.renewFormData(this.formData) : new FormData()
       if (imageFile) formData.set(`${target}[image]`, imageFile)
