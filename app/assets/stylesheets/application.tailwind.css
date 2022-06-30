@@ -13,10 +13,10 @@
         @apply h-82vw2/3 md:h-96;
     }
     .w-thumbnail {
-        @apply w-30vw md:w-48 sm:max-w-48;
+        @apply w-30vw md:w-48;
     }
     .h-thumbnail {
-        @apply h-30vw2/3 md:h-32 sm:max-h-32;
+        @apply h-30vw2/3 md:h-32;
     }
     .w-print-field {
         @apply w-144;
