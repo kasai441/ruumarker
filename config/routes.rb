@@ -2,6 +2,8 @@
 
 Rails.application.routes.draw do
   root to: 'home#index'
+  resources :home, only: :index
+  resources :help, only: :index
   resources :rooms, only: %i[new show destroy] do
     resources :maps, only: :edit
     resources :marks, only: %i[new edit]
@@ -13,4 +15,5 @@ Rails.application.routes.draw do
       resources :marks, only: %i[update destroy]
     end
   end
+
 end
