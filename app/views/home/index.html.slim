@@ -18,33 +18,5 @@ div.flex.flex-col.items-center
         |※ 作った点検表のURLは、知っていれば誰でもアクセスできるので、不特定な他人に閲覧されるような場所に公開しないでください。
       p.p-1
         |※ このウェブサイトの点検表作成データは2週間で消えてしまいます。作成後にPDFとしてダウンロードできるので、手元で保存するようにしてください。
-    div.p-4.text-2xl.font-bold
-      |作成手順
-    div.p-4
-      div.text-lg.font-bold
-        |１．間取り画像のアップロード
-      p.py-4.px-9
-        |お部屋の間取り画像をアップロードします。画像は端末に保存されてるものを選択するか、スマホの場合はカメラで画像として取り込んで、アップロードできます。
-      div.rounded-lg.bg-slate-900.flex.justify-center
-        = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
-    div.p-4
-      div.text-lg.font-bold
-        |２．間取り図に、キズ箇所のマーク
-      p.py-4.px-9
-        |お部屋の間取り図に、キズの箇所のマークをつけることができます。
-      div.rounded-lg.bg-slate-900.flex.justify-center
-        = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
-    div.p-4
-      div.text-lg.font-bold
-        |３．キズの写真のアップロード
-      p.py-4.px-9
-        |キズの画像をアップロードできます。
-      div.rounded-lg.bg-slate-900.flex.justify-center
-        = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
-    div.p-4
-      div.text-lg.font-bold
-        |４．PDFのダウンロード
-      p.py-4.px-9
-        |検査表が完成したらPDFをダウンロードすることができます。
-      div.rounded-lg.bg-slate-800.flex.justify-center
-        = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+
+    = render partial: 'help/instruction'

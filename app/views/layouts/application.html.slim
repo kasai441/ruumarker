@@ -13,18 +13,18 @@ html
     div#screen-scroll
       div#title-bar.w-full.py-1.px-4.border-b.border-slate-900/10.flex.justify-between.items-center.bg-white
         = link_to root_path, id: "title-logo", class: "flex items-center", data: { turbo: false }
-          = image_tag 'logo.png', size: '40x20', alt: 'logo.png'
+          = image_tag "logo.png", size: "40x20", alt: "logo.png"
           div.px-1.text-2xl
             |ruumarker
         div.flex
           a#download.hidden.flex.flex-col.items-center
             p.font-btn
-              |PDF
-            = image_tag 'download.png', size: '30x30', alt: 'download.png', class: 'mx-2'
-          a#help.flex.flex-col.items-center
+              |PRINT
+            = image_tag "download.png", size: "30x30", alt: "download.png", class: "mx-2"
+          = link_to help_index_path, id: "help", class: "flex flex-col items-center"
             p.font-btn
               |HELP
-            = image_tag 'help.png', size: '30x30', alt: 'help.png', class: 'mx-2 opacity-40'
+            = image_tag "help.png", size: "30x30", alt: "help.png", class: "mx-2 opacity-40"
       - if flash.notice.present?
         .alert.alert-success= flash.notice
       = yield
