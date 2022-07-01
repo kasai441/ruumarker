@@ -95,6 +95,8 @@ export default {
     },
     updateTrimming() {
       const fieldSize = tags.readSize('edit-field')
+      if (!fieldSize) return
+
       const trimmingRate = {
         x: (this.trimming.x / fieldSize.w).toFixed(3),
         y: (this.trimming.y / fieldSize.h).toFixed(3)
@@ -121,7 +123,7 @@ export default {
     const image = document.getElementById( 'edit-image' )
     image.src = await params.getImageUrl(imageFile)
   },
-  beforeDestroy: () => {
+  beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)
     window.removeEventListener('scroll', this.handleScroll)
   }
