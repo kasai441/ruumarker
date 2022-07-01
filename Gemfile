@@ -33,7 +33,7 @@ group :test do
   gem 'capybara'
   gem 'rspec-debug'
   gem 'rspec-rails'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '4.2.0'
   gem 'webdrivers'
 end
 
