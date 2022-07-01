@@ -52,7 +52,7 @@ export default {
           append: [a]
         })
 
-        locator.image_url ||= '/sample.png'
+        locator.image_url ||= '/sample_locator.png'
         const sizeClass = this.printMode ?
           ['w-print-thumbnail', 'h-print-thumbnail'] :
           ['w-thumbnail', 'h-thumbnail']

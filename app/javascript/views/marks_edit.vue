@@ -96,7 +96,7 @@ export default {
     this.formData = params.initFormData(this.mark)
 
     const imageUrl = this.formData.get('mark[image_url]')
-    if (!imageUrl) this.formData.append('mark[image_url]', '/sample.png')
+    if (!imageUrl) this.formData.append('mark[image_url]', '/sample_locator.png')
 
     const markId = this.formData.get('mark[id]')
     const marks = this.marks ? JSON.parse(this.marks) : []
