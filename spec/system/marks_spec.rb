@@ -24,7 +24,7 @@ describe 'キズ管理機能', type: :system do
       it '登録され、キズ編集画面に遷移し、サンプルのキズ画像が表示される' do
         expect(Mark.all.count).to eq ex_marks_count + 1
         expect(page).to have_selector 'h2', text: 'キズの位置'
-        expect(find_by_id('edit-image')[:src]).to include 'sample.png'
+        expect(find_by_id('edit-image')[:src]).to include 'sample_locator.png'
       end
     end
   end
