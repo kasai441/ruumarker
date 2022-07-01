@@ -13,10 +13,10 @@ div.flex.flex-col.items-center
       div.p-6
         div.flex.flex-auto
           = link_to 'キズ点検表を作る', new_room_path, id: "create-room", class: "btn btn-lime", data: { turbo: false }
-    div.py-4.px-8.text-sm.text-zinc-600
+    div.font-help-sm
       p.p-1
-        |※ 作った点検表のURLは、知っていれば誰でもアクセスできるので、不特定な他人に閲覧されるような場所に公開しないでください。
+        |作った点検表のURLは、知っていれば誰でもアクセスできるので、不特定な他人に閲覧されるような場所に公開しないでください。
       p.p-1
-        |※ このウェブサイトの点検表作成データは2週間で消えてしまいます。作成後にPDFとしてダウンロードできるので、手元で保存するようにしてください。
+        |このウェブサイトの点検表作成データは2週間で消えてしまいます。作成後にPDFとしてダウンロードできるので、手元で保存するようにしてください。
 
     = render partial: 'help/instruction'
