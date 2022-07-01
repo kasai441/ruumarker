@@ -4,9 +4,21 @@ div.px-4
   h3.font-help-h3
     |１．間取り画像のアップロード
   div.px-9
-    p お部屋の間取り画像をアップロードします。画像は端末に保存されてるものを選択するか、スマホの場合はカメラで画像として取り込んで、アップロードできます。
+    p ホーム画面「キズ点検表を作る」をタップしてアップロード画面に移動します。
     div.help-image
-      = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+      = image_tag '/help/start.png', size: '200x200', alt: 'dummy.png'
+    p アップロード画面の「アップロード」をタップして、間取り画像の選択をします。
+    div.help-image
+      = image_tag '/help/upload.png', size: '200x200', alt: 'dummy.png'
+    p.font-bold iPhone
+    p 端末に保存されているものを使うには「写真ライブラリ」を選択、その場でカメラ撮影したものを使うには「写真を撮る」を選択します。
+    div.help-image
+      = image_tag '/help/select.png', size: '200x200', alt: 'dummy.png'
+
+    p.font-bold Android
+    p 端末に保存されているものを使うには「写真ライブラリ」を選択、その場でカメラ撮影したものを使うには「写真を撮る」を選択します。
+    div.help-image
+      = image_tag '/help/select.png', size: '200x200', alt: 'dummy.png'
 
   h3.font-help-h3
     |２．間取り図に、キズ箇所のマーク
