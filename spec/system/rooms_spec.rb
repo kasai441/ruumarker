@@ -26,7 +26,7 @@ describe 'ルーム管理機能', type: :system do
       it 'ルームが作成されてマップアップロード画面に遷移する' do
         expect(Room.all.count).to eq ex_rooms_count + 1
         expect(page).to have_selector '#preview-image'
-        expect(preview[:src]).to include 'sample.png'
+        expect(preview[:src]).to include 'sample_map.png'
         expect(page).to have_selector 'h2', text: '間取り画像のアップロード'
       end
     end

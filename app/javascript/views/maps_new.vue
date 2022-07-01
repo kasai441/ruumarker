@@ -6,8 +6,8 @@
         <p class="font-p">お部屋の間取り画像をアップロードします。画像は端末に保存されてるものを選択するか、スマホの場合はカメラで画像として取り込んで、アップロードできます。</p>
       </div>
       <div id="preview-field" class="relative w-field h-field rounded-lg bg-white outline outline-3 outline-slate-200">
-        <img id="preview-image" src="/sample.png"
-             class="absolute object-contain w-field h-field rounded-lg">
+        <img id="preview-image" src="/sample_map.png"
+             class="absolute object-contain w-field h-field rounded-lg opacity-50">
         <div v-if="isLoading" class="w-field h-field flex justify-center items-center">
           <div class="animate-ping h-20 w-20 bg-white rounded-full"></div>
         </div>

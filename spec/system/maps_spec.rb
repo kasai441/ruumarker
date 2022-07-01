@@ -13,7 +13,7 @@ describe 'マップ管理機能', type: :system do
 
     context '画像をアップロードしたとき' do
       before do
-        expect(find_by_id('preview-image')[:src]).to include 'sample.png'
+        expect(find_by_id('preview-image')[:src]).to include 'sample_map.png'
         attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.jpg'), make_visible: true
       end
 
@@ -43,7 +43,7 @@ describe 'マップ管理機能', type: :system do
 
       it '画像が変化しない' do
         # expect(page).to have_selector '#error_explanation', text: 'マップの画像ファイルは[jpg/jpeg/png/gif]の形式のみ受け付けています'
-        expect(find_by_id('preview-image')[:src]).to include 'sample.png'
+        expect(find_by_id('preview-image')[:src]).to include 'sample_map.png'
       end
     end
 
