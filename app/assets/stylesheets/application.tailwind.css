@@ -4,13 +4,13 @@
 
 @layer components {
     .main-screen {
-        @apply min-w-72 w-92vw md:w-168;
+        @apply min-w-68 w-84vw md:w-168;
     }
     .w-field {
-        @apply w-82vw md:w-144;
+        @apply w-78vw md:w-144;
     }
     .h-field {
-        @apply h-82vw2/3 md:h-96;
+        @apply h-78vw2/3 md:h-96;
     }
     .w-thumbnail {
         @apply w-30vw md:w-48;
