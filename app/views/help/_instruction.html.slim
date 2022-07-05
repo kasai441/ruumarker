@@ -1,42 +1,86 @@
 h2.font-help-h2
   |作成手順
+
 div.px-4
   h3.font-help-h3
     |１．間取り画像のアップロード
+
   div.px-9
     p ホーム画面「キズ点検表を作る」をタップしてアップロード画面に移動します。
     div.help-image
-      = image_tag '/help/start.png', width: '300', alt: 'dummy.png'
+      = image_tag 'help/start.png', width: '300', alt: 'dummy.png'
+
     p アップロード画面の「アップロード」をタップして、間取り画像の選択をします。
     div.help-image
-      = image_tag '/help/upload.png', width: '300', alt: 'dummy.png'
+      = image_tag 'help/upload.png', width: '300', alt: 'dummy.png'
+
     p.font-bold iPhone
     p 端末に保存されているものを使うには「写真ライブラリ」を選択、その場でカメラ撮影したものを使うには「写真を撮る」を選択します。
     div.help-image
-      = image_tag '/help/select.png', width: '300', alt: 'dummy.png'
+      = image_tag 'help/select.png', width: '300', alt: 'dummy.png'
 
     p.font-bold Android
     p 端末に保存されているものを使うには「写真ライブラリ」を選択、その場でカメラ撮影したものを使うには「写真を撮る」を選択します。
     div.help-image
-      = image_tag '/help/select.png', width: '300', alt: 'dummy.png'
+      = image_tag 'help/select.png', width: '300', alt: 'dummy.png'
 
   h3.font-help-h3
-    |２．間取り図に、キズ箇所のマーク
+    |２．間取り図の編集
+
   div.px-9
-    p お部屋の間取り図に、キズの箇所のマークをつけることができます。
+    p 間取り図がアップロードされたら、キズ点検表が表示されます。
     div.help-image
-      = image_tag 'logo.png', width: '300', alt: 'dummy.png'
+      = image_tag 'help/uploaded.png', width: '300', alt: 'dummy.png'
+
+    p 「編集」をタップすると、間取り図を再編集できます。
+    div.help-image
+      = image_tag 'help/edit_map.png', width: '300', alt: 'dummy.png'
+
+    p 編集画面では画像のトリミング、再アップロード、縮小拡大、回転ができます。「更新」をタップすると変更を保存できます。
+    div.help-image
+      = image_tag 'help/map_edit.png', width: '300', alt: 'dummy.png'
+
+    p.font-bold トリミング
+    p 画像をドラッグ&ドロップして、枠内に納める部分を切り抜けます。
+    div.help-image
+      = image_tag 'help/map_trim.png', width: '300', alt: 'dummy.png'
+
+    p.font-bold 縮小拡大
+    p 「縮小拡大」バーをドラッグ&ドロップして、画像を拡大縮小できます。
+    div.help-image
+      = image_tag 'help/map_expansion.png', width: '300', alt: 'dummy.png'
+
+    p.font-bold 回転
+    p 「回転」をタップすると、時計回りに90度ずつ回転できます。
+    div.help-image
+      = image_tag 'help/map_rotation.png', width: '300', alt: 'dummy.png'
 
   h3.font-help-h3
-    |３．キズの写真のアップロード
+    |３．キズ情報の追加
+
   div.px-9
-    p キズの画像をアップロードできます。
+    p 「キズ追加」をタップすると、新たなキズ情報を追加できます。
     div.help-image
-      = image_tag 'logo.png', width: '300', alt: 'dummy.png'
+      = image_tag 'help/new_mark.png', width: '300', alt: 'dummy.png'
+
+    p.font-bold キズ概要
+    p キズの概要をテキスト入力できます。
+    div.help-image
+      = image_tag 'help/description.png', width: '300', alt: 'dummy.png'
+
+    p.font-bold キズ画像
+    p キズの画像をアップロード、トリミング、拡大縮小、回転できます。
+    div.help-image
+      = image_tag 'help/mark_image.png', width: '300', alt: 'dummy.png'
+
+    p.font-bold キズ位置
+    p 間取り図上のキズの位置をドラッグ&ドロップで変更できます。
+    div.help-image
+      = image_tag 'help/mark_location.png', width: '300', alt: 'dummy.png'
 
   h3.font-help-h3
     |４．PDFのダウンロード
   div.px-9
     p 検査表が完成したらPDFをダウンロードすることができます。
     div.help-image
-      = image_tag 'logo.png', width: '300', alt: 'dummy.png'
+      = image_tag 'help/download.png', width: '300', alt: 'dummy.png'
