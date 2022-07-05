@@ -1,24 +1,20 @@
 h2#print.font-help-h2
-  |PDF作成方法
+  |プリント
 div.px-4
   h3.font-help-h3
-    |PDF用レイアウト画面へ
+    |PDF用レイアウト画面
   div.px-9
-    p 1. PRINTボタンからPDF用レイアウト画面に移動します。
+    p 1. PDF用レイアウト画面にて「PRINT」をタップして印刷ダイアログを表示します。
     div.help-image
-      = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
-    p 2. 「PRINT」ボタンを押して印刷ダイアログを表示します。
-    div.help-image
-      = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+      = image_tag 'help/print.png', width: '300', alt: 'help/print.png'
     div.font-help-sm
-      p PRINTボタンが効かない場合、ブラウザの機能を使用してPDFを作成することができます。link
-      p PRINTボタンが一度しか効かない場合、ページをリロードするとまた使えるようになることがあります。
-      p 「ヘッダとフッタをプリント」チェックを外してURLが非表示になるようにします。
-    p 3. 「PDFとして保存」を押して保存場所を選びます。
+      p.p-1 PRINTボタンが効かない場合、ブラウザの機能を使用してPDFを作成することができます。
+      p.p-1 PRINTボタンが一度しか効かない場合、ページをリロードするとまた使えるようになることがあります。
+      p.p-1 「ヘッダとフッタをプリント」チェックを外してURLが非表示になるようにします。
+
+    p 2. プリンタを指定せずにPDFとして保存できます。
     div.help-image
-      = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
-    div.font-help-sm
-      p メールでPDFを送信してプリンタの繋がっているデバイスに送信することもできます。
+      = image_tag 'help/iphone_print.png', width: '300', alt: 'help/iphone_print.png'
 
 h2#pdf.font-help-h2
   |ブラウザ別のPDF作成方法
@@ -26,29 +22,38 @@ div.px-4
   h3.font-help-h3
     |iPhone safari
   div.px-9
-    p 1. 共有ボタンをタップします。
+    p 共有ボタンをタップします。
     div.help-image
-      = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
-    p 2. 並んでいる App のアイコンを左にスワイプして「プリント」をタップします。
+      = image_tag 'help/share.png', width: '300', alt: 'help/share.png'
+    p.font-bold アプリを利用して送信
+    p 並んでいる App のアイコンから「AirDrop」、「メッセージ」、「メール」などをタップするとPDFが添付されるので、他のデバイスに送ることができます。
     div.help-image
-      = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+      = image_tag 'help/iphone_download.png', width: '300', alt: 'help/iphone_download.png'
+    p.font-bold プリント画面で保存する
+    p 1. メニューの「プリント」をタップするとプリントダイアログが表示されます。
+    div.help-image
+      = image_tag 'help/iphone_share.png', width: '300', alt: 'help/iphone_share.png'
+
+    p 2. プリンタを指定せずにPDFとして保存できます。
+    div.help-image
+      = image_tag 'help/iphone_print.png', width: '300', alt: 'help/iphone_print.png'
 
   h3.font-help-h3
     |iPhone chrome
   div.px-9
     p 1.
     div.help-image
-      = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+      = image_tag 'logo.png', width: '300', alt: 'dummy.png'
     p 2.
     div.help-image
-      = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+      = image_tag 'logo.png', width: '300', alt: 'dummy.png'
 
   h3.font-help-h3
     |Android chrome
   div.px-9
     p 1.
     div.help-image
-      = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+      = image_tag 'logo.png', width: '300', alt: 'dummy.png'
     p 2.
     div.help-image
-      = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+      = image_tag 'logo.png', width: '300', alt: 'dummy.png'
