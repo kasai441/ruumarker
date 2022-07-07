@@ -11,7 +11,7 @@ html
   body
     div#loading-filter.fixed.z-30.w-full.h-full.bg-white/50.hidden
     div#screen-scroll
-      div#title-bar.w-full.py-1.px-4.border-b.border-slate-900/10.flex.justify-between.items-center.bg-white
+      div#title-bar.fixed.z-10.w-full.py-1.px-4.border-b.border-slate-900/10.flex.justify-between.items-center.bg-white
         = link_to root_path, id: "title-logo", class: "flex items-center", data: { turbo: false }
           = image_tag "logo.png", size: "40x20", alt: "logo.png"
           div.px-1.text-2xl
@@ -25,6 +25,7 @@ html
             p.font-btn
               |HELP
             = image_tag "help.png", size: "30x30", alt: "help.png", class: "mx-2 opacity-40"
+      div.h-16
       - if flash.notice.present?
         .alert.alert-success= flash.notice
       = yield
