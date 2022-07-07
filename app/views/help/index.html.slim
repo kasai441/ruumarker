@@ -1,3 +1,9 @@
+div.fixed.z-10.w-full.py-1.px-4.border-b.border-slate-900/10.flex.items-center.bg-white
+  = link_to 'home', help_index_path, class: 'font-help-link'
+  = link_to '作成手順', help_index_path + '#instruction', class: 'font-help-link'
+  = link_to 'ブラウザ別のPDF作成方法', help_index_path + '#pdf', class: 'font-help-link'
+div.h-6
+
 = render partial: 'introduction'
 = render partial: 'instruction'
 = render partial: 'print'
