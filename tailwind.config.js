@@ -12,18 +12,17 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
-        '72': '18rem',
         '112': '28rem',
         '144': '36rem',
         '168': '42rem'
       },
       width: {
         '30vw': '30vw',
-        '82vw': '82vw',
-        '92vw': '92vw',
+        '78vw': '78vw',
+        '84vw': '84vw',
       },
       minWidth: {
-        '72': '18rem'
+        '68': '17rem'
       },
       maxWidth: {
         '48': '12rem',
@@ -31,8 +30,7 @@ module.exports = {
       },
       height: {
         '30vw2/3': 'calc(30vw * 2/3)',
-        '82vw2/3': 'calc(82vw * 2/3)',
-        '92vw2/3': 'calc(92vw * 2/3)'
+        '78vw2/3': 'calc(78vw * 2/3)'
       },
       inset: {
         '76vh': 'calc(76vh)',

@@ -61,6 +61,8 @@ const generateElement = (tagName, options) => {
 
 const layoutLocators = (locators, id) => {
   const element = document.getElementById(id)
+  if (!element) return
+
   const image = {
     w: element.style.width.replace('px', ''),
     h: element.style.height.replace('px', ''),
@@ -81,6 +83,8 @@ const layoutLocators = (locators, id) => {
 }
 
 const expand = (fieldSize, formData, imageId, element) => {
+  if (!fieldSize) return
+
   const target = formData.get('target')
   const expansion = formData.get(`${target}[expansion]`) || 100
   writeSize(imageId, {
@@ -90,6 +94,8 @@ const expand = (fieldSize, formData, imageId, element) => {
 }
 
 const trim = (fieldSize, formData, imageId, element) => {
+  if (!fieldSize) return
+
   const target = formData.get('target')
   const trimmingRate = params.parseOrInit(formData.get(`${target}[trimming]`))
   const trimming = params.toPixel(fieldSize, trimmingRate)
@@ -127,6 +133,8 @@ const offset = (fieldSize, formData, location) => {
 
 const readSize = (id, element) => {
   element ||= document.getElementById(id)
+  if (!element) return
+
   const left = params.toF(element.getBoundingClientRect().left, 1)
   const top = params.toF(element.getBoundingClientRect().top, 1)
   return {

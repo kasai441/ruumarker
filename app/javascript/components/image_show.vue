@@ -51,6 +51,8 @@ export default {
     },
     layout() {
       const fieldSize = tags.readSize('show-field')
+      if (!fieldSize) return
+
       tags.expand(fieldSize, this.formData, 'show-image')
       tags.trim(fieldSize, this.formData,'show-image')
       tags.layoutLocators(this.locators, 'show-image')

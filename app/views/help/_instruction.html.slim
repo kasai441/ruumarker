@@ -1,30 +1,130 @@
 h2.font-help-h2
   |作成手順
+
 div.px-4
   h3.font-help-h3
     |１．間取り画像のアップロード
-  div.px-9
-    p お部屋の間取り画像をアップロードします。画像は端末に保存されてるものを選択するか、スマホの場合はカメラで画像として取り込んで、アップロードできます。
+
+  div.px-2.sm:px-9
+    p ホーム画面「キズ点検表を作る」をタップしてアップロード画面に移動します。
     div.help-image
-      = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+      = image_tag 'help/start.png', width: '300', alt: 'help/start.png'
+
+    p アップロード画面の「アップロード」をタップして、間取り画像の選択をします。
+    div.help-image
+      = image_tag 'help/upload.png', width: '300', alt: 'help/upload.png'
+
+    p 端末に保存されているものを使うには「写真ライブラリ」を選択、その場でカメラ撮影したものを使うには「写真を撮る」を選択します。
+    div.help-image
+      = image_tag 'help/select.png', width: '300', alt: 'help/select.png'
 
   h3.font-help-h3
-    |２．間取り図に、キズ箇所のマーク
-  div.px-9
-    p お部屋の間取り図に、キズの箇所のマークをつけることができます。
+    |２．間取り図の編集
+
+  div.px-2.sm:px-9
+    p 間取り図がアップロードされたら、キズ点検表が表示されます。
     div.help-image
-      = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+      = image_tag 'help/uploaded.png', width: '300', alt: 'help/uploaded.png'
+
+    p 「編集」をタップすると、間取り図を再編集できます。
+    div.help-image
+      = image_tag 'help/edit_map.png', width: '300', alt: 'help/edit_map.png'
+
+    p 編集画面では画像のトリミング、再アップロード、縮小拡大、回転ができます。「更新」をタップすると変更を保存できます。
+    div.help-image
+      = image_tag 'help/map_edit.png', width: '300', alt: 'help/map_edit.png'
+
+    p.font-bold トリミング
+    p 画像をドラッグ&ドロップして、表示部分を調節できます。
+    div.help-image
+      = image_tag 'help/map_trim.png', width: '300', alt: 'help/map_trim.png'
+
+    p.font-bold 縮小拡大
+    p 「縮小拡大」バーを左右にスライドして、画像を拡大縮小できます。
+    div.help-image
+      = image_tag 'help/map_expansion.png', width: '300', alt: 'help/map_expansion.png'
+
+    p.font-bold 回転
+    p 「回転」をタップすると、時計回りに90度ずつ回転できます。
+    div.help-image
+      = image_tag 'help/map_rotation.png', width: '300', alt: 'help/map_rotation.png'
 
   h3.font-help-h3
-    |３．キズの写真のアップロード
-  div.px-9
-    p キズの画像をアップロードできます。
+    |３．キズ情報の追加
+
+  div.px-2.sm:px-9
+    p 「キズ追加」をタップすると、新たなキズ情報を追加できます。キズ情報は、概要・画像・位置について編集できます。
     div.help-image
-      = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+      = image_tag 'help/new_mark.png', width: '300', alt: 'help/new_mark.png'
+
+    p.font-bold キズ概要
+    p キズの概要をテキスト入力できます。
+    div.help-image
+      = image_tag 'help/description.png', width: '300', alt: 'help/description.png'
+
+    p.font-bold キズ画像
+    p キズの画像をアップロード、トリミング、拡大縮小、回転できます。
+    div.help-image
+      = image_tag 'help/mark_image.png', width: '300', alt: 'help/mark_image.png'
+
+    p.font-bold キズ位置
+    p 間取り図上のキズの位置をドラッグ&ドロップで変更できます。
+    div.help-image
+      = image_tag 'help/mark_location.png', width: '300', alt: 'help/mark_location.png'
+
+    p.font-bold 変更
+    p 「変更」をタップすると以上の変更が保存できます。変更を取り消す場合は「＜」をタップします。
+    div.help-image
+      = image_tag 'help/update.png', width: '300', alt: 'help/map_rotation.png'
+
+    p 更新したキズ情報が一覧で確認できます。
+    div.help-image
+      = image_tag 'help/updated.png', width: '300', alt: 'help/map_rotation.png'
+
+    p.font-bold キズ情報の削除
+    p 「 x 」 をタップすると、キズを削除できます。
+    div.help-image
+      = image_tag 'help/delete_mark.png', width: '300', alt: 'help/mark_location.png'
 
   h3.font-help-h3
     |４．PDFのダウンロード
-  div.px-9
-    p 検査表が完成したらPDFをダウンロードすることができます。
+  div.px-2.sm:px-9
+    p 検査表が完成したらPDFをダウンロードすることができます。「PRINT」をタップするとPDF用レイアウトが表示されます。
     div.help-image
-      = image_tag 'logo.png', size: '200x200', alt: 'dummy.png'
+      = image_tag 'help/download.png', width: '300', alt: 'help/download.png'
+
+  div.px-2.sm:px-9
+    p PDF用レイアウト画面で「PRINT」をタップして印刷ダイアログを表示します。
+    div.help-image
+      = image_tag 'help/print.png', width: '300', alt: 'help/print.png'
+    div.font-help-sm
+      div.pb-2
+        p ※ PRINTボタンが効かない場合、ブラウザの機能を使用してPDFを作成することができます。
+        p.pl-2 （iPhone, Android）
+        div.pl-8
+          = link_to 'ブラウザ別のPDF作成方法', help_index_path + '#pdf', class: 'text-lime-600'
+        p.pl-2 （PC）
+        p.pl-8 右クリックから印刷を選択します。「ヘッダとフッタをプリント」チェックを外してURLが非表示になるようにします。
+      p.pb-2 ※ PRINTボタンが一度しか効かない場合、ページをリロードするとまた使えるようになることがあります。
+
+  div.px-2.sm:px-9
+    p プリンタを指定せずにPDFとして保存できます。
+    div.help-image
+      = image_tag 'help/iphone_print.png', width: '300', alt: 'help/iphone_print.png'
+
+  h3.font-help-h3
+    |５．継続編集
+  div.px-2.sm:px-9.mb-6
+    p.pb-2 一度編集を中断して、再度開始したい場合、cookieの保存を許可している（デフォルト）設定のブラウザならば、ホーム画面に再度アクセスすることで復帰できます。
+    p 別のブラウザやデバイスにて同じデータを編集したい場合、同URLにアクセスすれば引き続き同じデータを継続編集できます。URLさえ分かればどこからでも誰でも編集できるため、URLを一般公開しないでください。
+
+  h3.font-help-h3
+    |６．データを送る
+  div.px-2.sm:px-9.mb-6
+    p.pb-2 PDFをメールに添付して不動産業者や住宅の管理責任者に送ることができます。あるいは、紙に印刷して郵送・手渡しできます。入居時にキズがあった場合、その旨をとりあえず伝えて、相談の資料として活用してください。
+    p 印刷設定によっては自動でフッターなどにURLが印字されることがあるので、必ず印刷設定でヘッダー・フッターを印字しない設定にしてください。
+
+  h3.font-help-h3
+    |７．データの削除
+  div.px-2.sm:px-9.mb-6
+    p 作成した一切のデータは作成開始から10日経過したあたりで自動削除されます。キズ写真を長期保存したい場合、別途、撮影・保存する必要があります。（作成データのキズ画像をロングタップあるいは右クリックして保存することもできます。）

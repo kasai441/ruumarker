@@ -113,6 +113,8 @@ export default {
     },
     layout() {
       const fieldSize = tags.readSize('edit-location-field')
+      if (!fieldSize) return
+
       tags.expand(fieldSize, this.fieldFormData, 'edit-location-image')
       this.location = tags.locate(fieldSize, this.locatorFormData, this.fieldFormData, 'edit-location-image')
       this.frameOffset = tags.offset(fieldSize, this.fieldFormData, this.location)
@@ -128,6 +130,8 @@ export default {
     },
     updateLocation() {
       const imageSize = tags.readSize('edit-location-image')
+      if (!imageSize) return
+
       const fieldTarget = this.fieldFormData.get('target')
       const expansion = this.fieldFormData.get(`${fieldTarget}[expansion]`) || 100
       const fieldSize = tags.readSize('edit-location-field')
@@ -152,7 +156,7 @@ export default {
     tags.generateLocators(this.locators, 'edit-location-field', { except: locatorId, class: ['pointer-events-none'], editMode: true })
     this.layout()
   },
-  beforeDestroy: () => {
+  beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)
     window.removeEventListener('scroll', this.handleScroll)
   }

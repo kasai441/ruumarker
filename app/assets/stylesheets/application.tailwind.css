@@ -4,13 +4,13 @@
 
 @layer components {
     .main-screen {
-        @apply min-w-72 w-92vw md:w-168;
+        @apply min-w-68 w-84vw md:w-168;
     }
     .w-field {
-        @apply w-82vw md:w-144;
+        @apply w-78vw md:w-144;
     }
     .h-field {
-        @apply h-82vw2/3 md:h-96;
+        @apply h-78vw2/3 md:h-96;
     }
     .w-thumbnail {
         @apply w-30vw md:w-48;
@@ -53,7 +53,7 @@
         @apply pb-4 px-8 text-sm text-zinc-600
     }
     .help-image {
-        @apply mt-4 mb-6 rounded-lg bg-slate-900 flex justify-center
+        @apply mt-4 mb-6 px-4 w-field rounded-lg bg-slate-900 flex justify-center
     }
     .btn-lime {
         @apply py-3 px-5 bg-lime-600 text-white font-semibold rounded-lg shadow-md hover:bg-lime-500 border-none;
