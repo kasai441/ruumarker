@@ -40,7 +40,7 @@ div.px-4
       = image_tag 'help/map_trim.png', width: '300', alt: 'help/map_trim.png'
 
     p.font-bold 縮小拡大
-    p 「縮小拡大」バーをドラッグ&ドロップして、画像を拡大縮小できます。
+    p 「縮小拡大」バーを左右にスライドして、画像を拡大縮小できます。
     div.help-image
       = image_tag 'help/map_expansion.png', width: '300', alt: 'help/map_expansion.png'
 
@@ -72,15 +72,22 @@ div.px-4
     div.help-image
       = image_tag 'help/mark_location.png', width: '300', alt: 'help/mark_location.png'
 
-  h3.font-help-h3
-    |４．キズ情報の削除
-  div.sm:px-9
+    p.font-bold 変更
+    p 「変更」をタップすると以上の変更が保存できます。変更を取り消す場合は「＜」をタップします。
+    div.help-image
+      = image_tag 'help/update.png', width: '300', alt: 'help/map_rotation.png'
+
+    p 更新したキズ情報が一覧で確認できます。
+    div.help-image
+      = image_tag 'help/updated.png', width: '300', alt: 'help/map_rotation.png'
+
+    p.font-bold キズ情報の削除
     p 「 x 」 をタップすると、キズを削除できます。
     div.help-image
       = image_tag 'help/delete_mark.png', width: '300', alt: 'help/mark_location.png'
 
   h3.font-help-h3
-    |５．PDFのダウンロード
+    |４．PDFのダウンロード
   div.sm:px-9
     p 検査表が完成したらPDFをダウンロードすることができます。「PRINT」をタップするとPDF用レイアウトが表示されます。
     div.help-image
@@ -106,6 +113,6 @@ div.px-4
       = image_tag 'help/iphone_print.png', width: '300', alt: 'help/iphone_print.png'
 
   h3.font-help-h3
-    |６．データを送る
+    |５．データを送る
   div.sm:px-9
     p PDFをメールに添付して管理人に送ることができます。あるいは、紙に印刷して郵送することもできます。入居時にキズがあった場合、その旨をとりあえず伝えて、相談の資料として活用してください。
