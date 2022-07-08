@@ -1,8 +1,17 @@
-h2.font-help-h2
+h2#instruction.anchor.font-help-h2
   |作成手順
 
-div.px-4
-  h3.font-help-h3
+div.w-full.px-4.flex.flex-col.bg-white
+  = link_to '１．間取り画像のアップロード', help_index_path + '#upload', class: 'font-help-link'
+  = link_to '２．間取り図の編集', help_index_path + '#map', class: 'font-help-link'
+  = link_to '３．キズ情報の追加', help_index_path + '#mark', class: 'font-help-link'
+  = link_to '４．PDFのダウンロード', help_index_path + '#report', class: 'font-help-link'
+  = link_to '５．継続編集', help_index_path + '#url', class: 'font-help-link'
+  = link_to '６．データを送る', help_index_path + '#send', class: 'font-help-link'
+  = link_to '７．データの削除', help_index_path + '#delete', class: 'font-help-link'
+
+div.px-4.pt-6
+  h3#upload.font-help-h3.anchor
     |１．間取り画像のアップロード
 
   div.px-2.sm:px-9
@@ -18,7 +27,7 @@ div.px-4
     div.help-image
       = image_tag 'help/select.png', width: '300', alt: 'help/select.png'
 
-  h3.font-help-h3
+  h3#map.font-help-h3.anchor
     |２．間取り図の編集
 
   div.px-2.sm:px-9
@@ -49,7 +58,7 @@ div.px-4
     div.help-image
       = image_tag 'help/map_rotation.png', width: '300', alt: 'help/map_rotation.png'
 
-  h3.font-help-h3
+  h3#mark.font-help-h3.anchor
     |３．キズ情報の追加
 
   div.px-2.sm:px-9
@@ -86,7 +95,7 @@ div.px-4
     div.help-image
       = image_tag 'help/delete_mark.png', width: '300', alt: 'help/mark_location.png'
 
-  h3.font-help-h3
+  h3#report.font-help-h3.anchor
     |４．PDFのダウンロード
   div.px-2.sm:px-9
     p 検査表が完成したらPDFをダウンロードすることができます。「PRINT」をタップするとPDF用レイアウトが表示されます。
@@ -112,19 +121,19 @@ div.px-4
     div.help-image
       = image_tag 'help/iphone_print.png', width: '300', alt: 'help/iphone_print.png'
 
-  h3.font-help-h3
+  h3#url.font-help-h3.anchor
     |５．継続編集
   div.px-2.sm:px-9.mb-6
     p.pb-2 一度編集を中断して、再度開始したい場合、cookieの保存を許可している（デフォルト）設定のブラウザならば、ホーム画面に再度アクセスすることで復帰できます。
     p 別のブラウザやデバイスにて同じデータを編集したい場合、同URLにアクセスすれば引き続き同じデータを継続編集できます。URLさえ分かればどこからでも誰でも編集できるため、URLを一般公開しないでください。
 
-  h3.font-help-h3
+  h3#send.font-help-h3.anchor
     |６．データを送る
   div.px-2.sm:px-9.mb-6
     p.pb-2 PDFをメールに添付して不動産業者や住宅の管理責任者に送ることができます。あるいは、紙に印刷して郵送・手渡しできます。入居時にキズがあった場合、その旨をとりあえず伝えて、相談の資料として活用してください。
     p 印刷設定によっては自動でフッターなどにURLが印字されることがあるので、必ず印刷設定でヘッダー・フッターを印字しない設定にしてください。
 
-  h3.font-help-h3
+  h3#delete.font-help-h3.anchor
     |７．データの削除
   div.px-2.sm:px-9.mb-6
     p 作成した一切のデータは作成開始から10日経過したあたりで自動削除されます。キズ写真を長期保存したい場合、別途、撮影・保存する必要があります。（作成データのキズ画像をロングタップあるいは右クリックして保存することもできます。）
