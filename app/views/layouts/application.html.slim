@@ -8,6 +8,7 @@ html
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true, nonce: true
     - set_meta_tags noindex: true if @room || @map || @mark
     = display_meta_tags(default_meta_tags)
+    = render 'application/favicon'
   body
     div#loading-filter.fixed.z-30.w-full.h-full.bg-white/50.hidden
     div#screen-scroll

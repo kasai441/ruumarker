@@ -197,6 +197,10 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
+    rails_real_favicon (0.1.1)
+      json (>= 1.7, < 3)
+      rails
+      rubyzip (~> 2)
     railties (7.0.2.4)
       actionpack (= 7.0.2.4)
       activesupport (= 7.0.2.4)
@@ -311,6 +315,7 @@ DEPENDENCIES
   pg
   puma
   rails (= 7.0.2.4)
+  rails_real_favicon
   rspec-debug
   rspec-rails
   rubocop
