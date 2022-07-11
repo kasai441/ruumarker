@@ -11,22 +11,22 @@ module ApplicationHelper
       keywords: '不動産, 賃貸, 引っ越し, 原状回復義務, 修繕費',
       # canonical: request.original_url,
       separator: '|',
-      icon: [
-        # { href: image_url('favicon.ico') },
-        # { href: image_url('icon.jpg'), rel: 'apple-touch-icon', sizes: '180x180', type: 'image/jpg' },
-      ],
       og: {
         site_name: :site,
         title: :title,
         description: :description,
         type: 'website',
         url: request.original_url,
-        # image: image_url('ogp.png'),
+        image: image_url('logo.png'),
         locale: 'ja_JP'
       },
       twitter: {
         card: 'summary',
-        site: '@kasai441'
+        site: '@kasai441',
+        domain: request.original_url,
+        title: :title,
+        description: :description,
+        image: image_url('logo.png')
       }
     }
   end
