@@ -9,7 +9,7 @@ module ApplicationHelper
       charset: 'utf-8',
       description: '引っ越しをしたらすぐに、壁や床のキズや汚れを入居時チェック表にまとめて、大家さんに提出しましょう。',
       keywords: '不動産, 賃貸, 引っ越し, 原状回復義務, 修繕費',
-      canonical: request.original_url,
+      # canonical: request.original_url,
       separator: '|',
       icon: [
         # { href: image_url('favicon.ico') },
@@ -26,7 +26,7 @@ module ApplicationHelper
       },
       twitter: {
         card: 'summary',
-        site: '@ツイッターのアカウント名',
+        site: '@kasai441',
       }
     }
   end
