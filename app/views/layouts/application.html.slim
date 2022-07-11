@@ -8,6 +8,14 @@ html
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true, nonce: true
     - set_meta_tags noindex: true if @room || @map || @mark
     = display_meta_tags(default_meta_tags)
+
+    link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"
+    link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"
+    link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"
+    link rel="manifest" href="/site.webmanifest"
+    link rel="mask-icon" href="/safari-pinned-tab.svg" color="#81c840"
+    meta name="msapplication-TileColor" content="#ffffff"
+    meta name="theme-color" content="#ffffff"
   body
     div#loading-filter.fixed.z-30.w-full.h-full.bg-white/50.hidden
     div#screen-scroll
