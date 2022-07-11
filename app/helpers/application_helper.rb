@@ -22,11 +22,11 @@ module ApplicationHelper
         type: 'website',
         url: request.original_url,
         # image: image_url('ogp.png'),
-        locale: 'ja_JP',
+        locale: 'ja_JP'
       },
       twitter: {
         card: 'summary',
-        site: '@kasai441',
+        site: '@kasai441'
       }
     }
   end
