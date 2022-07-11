@@ -1,13 +1,13 @@
 doctype html
 html
   head
-    title
-      | Ruumarker
     meta[name="viewport" content="width=device-width,initial-scale=1"]
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true, nonce: true
+    - set_meta_tags noindex: true if @room || @map || @mark
+    = display_meta_tags(default_meta_tags)
   body
     div#loading-filter.fixed.z-30.w-full.h-full.bg-white/50.hidden
     div#screen-scroll

@@ -1,3 +1,6 @@
+html
+  head
+    - set_meta_tags title: 'キズ情報'
 - marks_keys = %w[id location created_at]
 - marks = @mark.map.marks.order(:created_at).map do |mark| \
     hash = mark.attributes.filter { |k,_| marks_keys.include?(k) }; \
