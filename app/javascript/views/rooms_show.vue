@@ -2,6 +2,8 @@
   <section>
     <div class="flex flex-col items-center">
       <h2 class="w-field font-h2">キズ点検表</h2>
+      <div>
+        作成日：{{ createdAt }}）</div>
       <image-show :room-id="roomId" :form-data="formData"
                   locators-model="mark" :locators-json="marks"
                   @emit-form-data="getFormData"></image-show>
@@ -35,6 +37,7 @@ export default {
   name: 'RoomsShow',
   inject: [
     'roomId',
+    'roomCreatedAt',
     'marks',
     'map',
   ],
@@ -44,7 +47,8 @@ export default {
       mapImageUrl: null,
       mapTrimming: null,
       formData: null,
-      marksPresent: this.areMarks()
+      marksPresent: this.areMarks(),
+      createdAt: null
     }
   },
   components: {
@@ -73,6 +77,7 @@ export default {
   },
   created() {
     this.formData = params.initFormData(this.map)
+    this.createdAt = params.formatDate(JSON.parse(this.roomCreatedAt))
   },
   mounted() {
     const download = document.getElementById('download')

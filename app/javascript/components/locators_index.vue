@@ -19,10 +19,6 @@ export default {
     'locatorsModel',
     'printMode'
   ],
-  data() {
-    return {
-    }
-  },
   methods: {
     generateIndex() {
       const tableContainer = document.getElementById('locators-rows')
@@ -68,7 +64,7 @@ export default {
         })
         const createdAt = tags.generateElement('div', {
           class: ['whitespace-normal', 'bg-transparent', 'w-full', 'text-slate-600', 'text-xs', 'sm:text-sm', 'p-1', 'border-t', 'b-slate-400'],
-          append: [this.formatDate(locator.created_at)]
+          append: [params.formatDate(locator.created_at)]
         })
 
         const max = this.printMode ? 60 : 29
@@ -136,14 +132,6 @@ export default {
         return description
       }
     },
-    formatDate(str) {
-      const d = new Date(str)
-      const date = `${d.getFullYear()} ${d.getMonth()+1}/${d.getDate()}`.replace(/\\s/g, '')
-      let minutes = String(d.getMinutes())
-      if (minutes.length === 1) minutes = `0${minutes}`
-      const time = `${d.getHours()}:${minutes}`.replace(/\s/g, '')
-      return `${date} ${time}`
-    },
     visitLocators(e) {
       if (e.target.classList.value.includes('btn')) return
 
@@ -160,7 +148,6 @@ export default {
       if (!row || !row.id.match(regex)) return
 
       const description = row.getElementsByClassName('description')[0].innerText
-      console.log(row.getElementsByClassName('description')[0].innerText)
       if (!confirm(`「${this.brief(description, 10)}」を削除します。よろしいですか？`)) return
 
       const id = row.id.replace(regex, '')
