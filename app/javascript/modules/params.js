@@ -114,15 +114,24 @@ const isJson = data => {
   return true
 }
 
+const formatDate = str => {
+  const d = new Date(str)
+  const date = `${d.getFullYear()} ${d.getMonth()+1}/${d.getDate()}`.replace(/\\s/g, '')
+  let minutes = String(d.getMinutes())
+  if (minutes.length === 1) minutes = `0${minutes}`
+  const time = `${d.getHours()}:${minutes}`.replace(/\s/g, '')
+  return `${date} ${time}`
+}
+
 export default {
   namespaced: true,
   toPixel,
   toF,
-
   parseOrInit,
   initFormData,
   renewFormData,
   getImageUrl,
   reduceLargeImage,
-  rotateImage
+  rotateImage,
+  formatDate
 }

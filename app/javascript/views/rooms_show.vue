@@ -1,7 +1,13 @@
 <template>
   <section>
     <div class="flex flex-col items-center">
-      <h2 class="w-field font-h2">キズ点検表</h2>
+      <div class="w-field flex justify-between items-center">
+        <h2 class="font-h2 pb-2">キズ点検表</h2>
+        <p class="pt-3 text-xs sm:text-sm text-zinc-600 text-right">{{ createdAt }} 作成</p>
+      </div>
+      <p class="w-field pb-2 text-xs sm:text-sm text-zinc-600">作成から約10日で自動削除されます</p>
+      <p class="w-field text-xs sm:text-sm text-zinc-600">URLにアクセスすれば編集閲覧が可能です</p>
+      <p class="w-field pb-2 text-xs sm:text-sm text-zinc-600">URLは公開しないでください</p>
       <image-show :room-id="roomId" :form-data="formData"
                   locators-model="mark" :locators-json="marks"
                   @emit-form-data="getFormData"></image-show>
@@ -35,6 +41,7 @@ export default {
   name: 'RoomsShow',
   inject: [
     'roomId',
+    'roomCreatedAt',
     'marks',
     'map',
   ],
@@ -44,7 +51,8 @@ export default {
       mapImageUrl: null,
       mapTrimming: null,
       formData: null,
-      marksPresent: this.areMarks()
+      marksPresent: this.areMarks(),
+      createdAt: null
     }
   },
   components: {
@@ -73,6 +81,7 @@ export default {
   },
   created() {
     this.formData = params.initFormData(this.map)
+    this.createdAt = params.formatDate(JSON.parse(this.roomCreatedAt))
   },
   mounted() {
     const download = document.getElementById('download')

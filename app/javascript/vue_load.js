@@ -35,6 +35,7 @@ document.addEventListener('turbo:load', () => {
         break
       }
       app.provide('roomId', element.getAttribute('room_id'))
+      app.provide('roomCreatedAt', element.getAttribute('room_created_at'))
       app.provide('map', element.getAttribute('map'))
       app.provide('marks', element.getAttribute('marks'))
       app.provide('mark', element.getAttribute('mark'))

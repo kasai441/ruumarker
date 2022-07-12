@@ -1,6 +1,6 @@
 html
   head
-    - set_meta_tags title: '間取り図'
+    - set_meta_tags title: '間取り図', og: '', twitter: ''
 - marks_keys = %w[id location created_at]
 - marks = @map.marks.order(:created_at).map do |mark| \
     hash = mark.attributes.filter { |k,_| marks_keys.include?(k) }; \
