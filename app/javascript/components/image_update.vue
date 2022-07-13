@@ -27,6 +27,9 @@ export default {
       // this.$emit('emitIsLoading', false)
       const notice = JSON.parse(response.headers['x-flash-messages']).notice
       console.log(decodeURI(notice))
+      const alert = document.getElementById('alert')
+      alert.append(decodeURI(notice))
+      alert.classList.add('alert', 'alert-success', 'mt-2')
 
       // location.href = `/rooms/${this.roomId}`
     },

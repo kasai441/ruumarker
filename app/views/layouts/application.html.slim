@@ -27,7 +27,6 @@ html
               |HELP
             = image_tag "help.png", size: "30x30", alt: "help.png", class: "mx-2 opacity-40"
       div#title-bar-space.h-16
-      - if flash.notice.present?
-        .alert.alert-success= flash.notice
+      div#alert
       = yield
       div#footer-bar.w-full.h-24.border-t.border-slate-900/10.bg-white
