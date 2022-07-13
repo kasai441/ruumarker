@@ -21,6 +21,7 @@ const actions = {
   async update(url, formData) {
     try {
       const response = await axios.put(url, formData, headers)
+      console.log(response)
       return response.data
     } catch (e) {
       console.error(e)
