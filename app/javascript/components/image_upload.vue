@@ -61,7 +61,9 @@ export default {
       const imageUrl = await params.getImageUrl(imageFile)
       imageFile = await params.reduceLargeImage(imageUrl, imageFile).catch(e => {
         console.log('onload error', e)
-        throw new Error('onload error')
+        const alert = document.getElementById('alert')
+        alert.innerText = '指定の画像ファイル[jpg/jpeg/png/gif]以外の可能性があります'
+        alert.classList.add('alert', 'alert-error', 'mt-2')
       })
 
       const formData = this.formData ? params.renewFormData(this.formData, this.targetModel) : new FormData()
