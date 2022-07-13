@@ -23,7 +23,5 @@ class ApplicationController < ActionController::Base
       hash[type] = message
       hash
     end.to_json
-    p 'aaaaaaaa'
-    p flash
   end
 end
