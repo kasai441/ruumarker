@@ -12,16 +12,14 @@ const headers = {
 const actions = {
   async create(url, formData) {
     try {
-      const response = await axios.post(url, formData, headers)
-      return response.data
+      await axios.post(url, formData, headers)
     } catch (e) {
       console.error(e)
     }
   },
   async update(url, formData) {
     try {
-      const response = await axios.put(url, formData, headers)
-      return response.data
+      await axios.put(url, formData, headers)
     } catch (e) {
       console.error(e)
     }

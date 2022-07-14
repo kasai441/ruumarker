@@ -32,6 +32,9 @@ export default {
   methods: {
     loadable() {
       this.isLoadable = true
+      const alert = document.getElementById('alert')
+      alert.innerText = ''
+      alert.classList.remove('alert', 'alert-error', 'mt-2')
     },
     loading() {
       if (this.isLoadable) {
@@ -61,6 +64,11 @@ export default {
       const imageUrl = await params.getImageUrl(imageFile)
       imageFile = await params.reduceLargeImage(imageUrl, imageFile).catch(e => {
         console.log('onload error', e)
+        const alert = document.getElementById('alert')
+        alert.innerText = '指定の画像ファイル[jpg/jpeg/png/gif]以外の可能性があります'
+        alert.classList.add('alert', 'alert-error', 'mt-2')
+        this.$emit('emitIsLoading', false)
+        this.isLoading = false
         throw new Error('onload error')
       })
 

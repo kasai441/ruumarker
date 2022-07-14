@@ -24,7 +24,6 @@ export default {
       const target = this.formData.get('target')
       const id = this.formData.get(`${target}[id]`)
       await api.actions.update(`/api/rooms/${this.roomId}/${target}s/${id}`, this.formData)
-      // this.$emit('emitIsLoading', false)
       location.href = `/rooms/${this.roomId}`
     },
     back() {
