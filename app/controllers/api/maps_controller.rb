@@ -17,10 +17,6 @@ module Api
       @map = Map.find(params[:id])
 
       if @map.update(map_params)
-        flash[:notice]  = '更新しました！'
-        flash[:warning] = '更新しました？'
-        flash[:error]   = '更新できず…orz'
-
         render :update
       else
         render json: @map.errors, status: 422

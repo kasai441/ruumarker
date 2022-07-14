@@ -23,15 +23,8 @@ export default {
     async update() {
       const target = this.formData.get('target')
       const id = this.formData.get(`${target}[id]`)
-      const response = await api.actions.update(`/api/rooms/${this.roomId}/${target}s/${id}`, this.formData)
-      // this.$emit('emitIsLoading', false)
-      const notice = JSON.parse(response.headers['x-flash-messages']).notice
-      console.log(decodeURI(notice))
-      const alert = document.getElementById('alert')
-      alert.append(decodeURI(notice))
-      alert.classList.add('alert', 'alert-success', 'mt-2')
-
-      // location.href = `/rooms/${this.roomId}`
+      await api.actions.update(`/api/rooms/${this.roomId}/${target}s/${id}`, this.formData)
+      location.href = `/rooms/${this.roomId}`
     },
     back() {
       location.href = `/rooms/${this.roomId}`
