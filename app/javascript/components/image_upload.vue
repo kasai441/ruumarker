@@ -32,6 +32,9 @@ export default {
   methods: {
     loadable() {
       this.isLoadable = true
+      const alert = document.getElementById('alert')
+      alert.innerText = ''
+      alert.classList.remove('alert', 'alert-error', 'mt-2')
     },
     loading() {
       if (this.isLoadable) {
