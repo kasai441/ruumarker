@@ -14,7 +14,7 @@
 import api from '../modules/api'
 
 export default {
-  name: 'ImageUpdate',
+  name: 'ModelUpdate',
   props: [
     'roomId',
     'formData'

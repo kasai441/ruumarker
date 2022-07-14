@@ -18,8 +18,8 @@
                         @emit-form-data="getFormData"
                         class="w-1/6"></image-rotate>
         </div>
-        <image-update :room-id="roomId" :form-data="formData"
-                      @emit-is-loading="getIsLoading"></image-update>
+        <model-update :room-id="roomId" :form-data="formData"
+                      @emit-is-loading="getIsLoading"></model-update>
       </div>
     </div>
   </section>
@@ -30,7 +30,7 @@ import ImageEdit from '../components/image_edit.vue'
 import ImageUpload from '../components/image_upload.vue'
 import ImageRotate from '../components/image_rotate.vue'
 import ImageExpand from '../components/image_expand.vue'
-import ImageUpdate from '../components/image_update.vue'
+import ModelUpdate from '../components/model_update.vue'
 import params from '../modules/params'
 import tags from '../modules/tags'
 
@@ -52,7 +52,7 @@ export default {
     ImageUpload,
     ImageRotate,
     ImageExpand,
-    ImageUpdate
+    ModelUpdate
   },
   methods: {
     getFormData(formData) {
