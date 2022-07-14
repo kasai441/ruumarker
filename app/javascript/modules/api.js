@@ -26,8 +26,7 @@ const actions = {
   },
   async delete(url) {
     try {
-      const response = await axios.delete(url, headers)
-      return response.data
+      await axios.delete(url, headers)
     } catch (e) {
       console.error(e)
     }

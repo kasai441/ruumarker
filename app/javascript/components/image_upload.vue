@@ -32,9 +32,7 @@ export default {
   methods: {
     loadable() {
       this.isLoadable = true
-      const alert = document.getElementById('alert')
-      alert.innerText = ''
-      alert.classList.remove('alert', 'alert-error', 'mt-2')
+      this.fadeAlert()
     },
     loading() {
       if (this.isLoadable) {
@@ -55,6 +53,11 @@ export default {
           this.$emit('emitIsLoading', false)
         }
       }, 2000)
+    },
+    fadeAlert() {
+      const alert = document.getElementById('alert')
+      alert.innerText = ''
+      alert.classList.remove('alert', 'alert-error', 'mt-2')
     },
     async upload(e) {
       this.isLoading = true
@@ -78,6 +81,14 @@ export default {
       this.$emit('emitIsLoading', false)
       this.isLoading = false
     }
+  },
+  mounted() {
+    const alert = document.getElementById('alert')
+    alert.addEventListener('click', this.fadeAlert)
+  },
+  beforeDestroy() {
+    const alert = document.getElementById('alert')
+    alert.removeEventListener('click', this.fadeAlert)
   }
 }
 </script>
