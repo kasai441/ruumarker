@@ -64,6 +64,9 @@ export default {
         const alert = document.getElementById('alert')
         alert.innerText = '指定の画像ファイル[jpg/jpeg/png/gif]以外の可能性があります'
         alert.classList.add('alert', 'alert-error', 'mt-2')
+        this.$emit('emitIsLoading', false)
+        this.isLoading = false
+        throw new Error('onload error')
       })
 
       const formData = this.formData ? params.renewFormData(this.formData, this.targetModel) : new FormData()
