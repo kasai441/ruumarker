@@ -37,7 +37,7 @@
                          :locators-json="marks"
                          @emit-form-data="getFormData"></location-edit>
         </div>
-        <image-update :room-id="roomId" :form-data="formData"></image-update>
+        <model-update :room-id="roomId" :form-data="formData"></model-update>
       </div>
     </div>
   </section>
@@ -50,7 +50,7 @@ import ImageRotate from '../components/image_rotate.vue'
 import ImageExpand from '../components/image_expand.vue'
 import DescriptionEdit from '../components/description_edit.vue'
 import LocationEdit from '../components/location_edit.vue'
-import ImageUpdate from '../components/image_update.vue'
+import ModelUpdate from '../components/model_update.vue'
 import params from '../modules/params'
 import tags from '../modules/tags'
 
@@ -77,7 +77,7 @@ export default {
     ImageExpand,
     DescriptionEdit,
     LocationEdit,
-    ImageUpdate
+    ModelUpdate
   },
   methods: {
     getFormData(formData) {
