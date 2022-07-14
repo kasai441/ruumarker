@@ -18,7 +18,6 @@ describe 'マップ管理機能', type: :system do
       end
 
       it '画像が登録されてルームに遷移する' do
-        # expect(page).to have_selector '.alert-success', text: '登録しました'
         expect(find_by_id('show-image')[:src]).to include 'test_image.jpg'
         expect(page).to have_selector 'h2', text: 'キズ点検表'
       end
@@ -92,7 +91,6 @@ describe 'マップ管理機能', type: :system do
       end
 
       it 'トリミングが保存され、詳細画面で反映されている' do
-        # expect(page).to have_selector '.alert-success', text: '変更しました
         left, top = pixel(find_by_id('show-image'), 'left', 'top')
         expect(left).to be_within(1).of(42)
         expect(top).to be_within(1).of(-25)
@@ -106,7 +104,6 @@ describe 'マップ管理機能', type: :system do
       end
 
       it '画像が変更される' do
-        # expect(page).to have_selector '.alert-success', text: '登録しました'
         expect(find_by_id('edit-image')[:src]).not_to include 'test_image.jpg'
         expect(find_by_id('edit-image')[:src]).to include 'data:image/png'
       end
@@ -145,7 +142,6 @@ describe 'マップ管理機能', type: :system do
       end
 
       it '更新内容が反映される' do
-        # expect(page).to have_selector '.alert-success', text: '変更しました
         left, top = pixel(find_by_id('show-image'), 'left', 'top')
         expect(left).to be_within(1).of(-27)
         expect(top).to be_within(1).of(37)

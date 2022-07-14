@@ -49,7 +49,6 @@ describe 'キズ管理機能', type: :system do
         end
 
         it 'トリミングが保存され、もう一度編集画面を開くとトリミングが反映されている' do
-          # expect(page).to have_selector '.alert-success', text: '変更しました
           expect(page).to have_selector 'h2', text: 'キズ点検表'
           find_by_id("mark-#{mark1.id}").click
           left, top = pixel(find_by_id('edit-image'), 'left', 'top')
@@ -65,7 +64,6 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '画像が変更される' do
-          # expect(page).to have_selector '.alert-success', text: '登録しました'
           expect(find_by_id('edit-image')[:src]).not_to include 'test_image.jpg'
           expect(find_by_id('edit-image')[:src]).to include 'data:image/png'
         end
@@ -106,7 +104,6 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '更新内容が反映される' do
-          # expect(page).to have_selector '.alert-success', text: '変更しました
           find_by_id("mark-#{mark1.id}").click
           left, top = pixel(find_by_id('edit-image'), 'left', 'top')
           expect(left).to be_within(1).of(21)
@@ -202,7 +199,6 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '配置が保存され、もう一度編集画面を開くと変更が反映されている' do
-          # expect(page).to have_selector '.alert-success', text: '変更しました
           expect(page).to have_selector 'h2', text: 'キズ点検表'
           find_by_id("mark-#{mark1.id}").click
           left, top = pixel(find_by_id('edit-location-image'), 'left', 'top')
@@ -267,7 +263,6 @@ describe 'キズ管理機能', type: :system do
         end
 
         it 'フレームと画像が配置移動分だけ移動して、フレームはトリミング分だけ反対方向に移動する' do
-          # expect(page).to have_selector '.alert-success', text: '変更しました
           expect(page).to have_selector 'h2', text: 'キズ点検表'
           find_by_id("mark-#{mark1.id}").click
 
@@ -353,7 +348,6 @@ describe 'キズ管理機能', type: :system do
       end
 
       it 'キズが正常に削除される' do
-        # expect(page).to have_selector '.alert-success', text: '削除しました'
         expect(page).not_to have_selector "#mark-#{mark1.id}"
         expect(Mark.all.count).to eq ex_marks_count - 1
       end
