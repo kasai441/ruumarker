@@ -112,7 +112,8 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
     const target = this.formData.get('target')
     this.imageUrl = this.formData.get(`${target}[image_url]`)
-    tags.generateLocators(this.locators, 'edit-field', { class: ['pointer-events-none'] })
+    const elements = tags.generateLocators(this.locators, { class: ['pointer-events-none'] })
+    document.getElementById('edit-field').append(...elements)
     this.layout()
   },
   async updated() {

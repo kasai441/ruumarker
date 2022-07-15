@@ -8,7 +8,8 @@ const parent = (tagName, element, className) => {
   return conditions ? element : parent(tagName, element.parentElement, className)
 }
 
-const generateLocators = (locators, id, options) => {
+const generateLocators = (locators, options) => {
+  const elements = []
   locators.forEach((locator, index) => {
     if (options && options.except == locator.id) return
 
@@ -31,8 +32,9 @@ const generateLocators = (locators, id, options) => {
     if (options && options.class) a.classList.add(...options.class)
     a.append(img, number)
 
-    document.getElementById(id).append(a)
+    elements.push(a)
   })
+  return elements
 }
 
 const layoutLocators = (locators, id) => {

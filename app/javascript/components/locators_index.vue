@@ -30,12 +30,12 @@ export default {
         numberImg.src = src
 
         const numberValue = document.createElement('a')
-        numberValue.classList.add('relative', 'w-7', 'text-sm', 'text-center', 'pointer-events-none')
+        numberValue.classList.add('relative', 'text-sm', 'pointer-events-none')
         if (!this.printMode) numberValue.classList.add('text-white')
         numberValue.append(index + 1)
 
         const a = document.createElement('a')
-        a.classList.add('absolute', 'w-7', 'h-7', 'flex', 'flex-col', 'items-center', 'justify-center')
+        a.classList.add('absolute', 'w-7', 'h-7', 'flex', 'items-center', 'justify-center')
         a.append(numberImg, numberValue)
 
         const number = document.createElement('div')
