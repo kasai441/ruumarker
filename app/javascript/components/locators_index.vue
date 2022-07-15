@@ -30,12 +30,12 @@ export default {
         number.append(elements[index])
 
         const thumbnail = document.createElement('div')
-        const wThumbnail = this.printMode ? 'w-7/12' : 'w-5/12'
+        const wThumbnail = this.printMode ? 'w-8/12' : 'w-5/12'
         thumbnail.classList.add(wThumbnail, 'bg-transparent', 'flex', 'justify-center', 'items-center')
         thumbnail.append(this.generateThumbnail(locator))
 
         const text = document.createElement('div')
-        const wText = this.printMode ? 'w-4/12' : 'w-5/12'
+        const wText = this.printMode ? 'w-3/12' : 'w-5/12'
         text.classList.add(wText, 'bg-transparent', 'whitespace-normal', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', 'p-1')
         text.append(this.generateDescription(locator), this.generateCreatedAt(locator))
 
