@@ -153,7 +153,8 @@ export default {
     this.imageUrl = this.fieldFormData.get(`${fieldTarget}[image_url]`)
     const locatorTarget = this.locatorFormData.get('target')
     const locatorId = this.locatorFormData.get(`${locatorTarget}[id]`)
-    tags.generateLocators(this.locators, 'edit-location-field', { except: locatorId, class: ['pointer-events-none'], editMode: true })
+    const elements = tags.generateLocators(this.locators, { except: locatorId, class: ['pointer-events-none'], editMode: true })
+    document.getElementById('edit-location-field').append(...elements)
     this.layout()
   },
   beforeDestroy() {

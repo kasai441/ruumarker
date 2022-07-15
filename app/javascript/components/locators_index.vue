@@ -23,73 +23,29 @@ export default {
     generateIndex() {
       const tableContainer = document.getElementById('locators-rows')
       let rows = []
-      const src = this.printMode ? '/locators_white.png' : '/locators.png'
+      const elements = tags.generateLocators(JSON.parse(this.locators), { indexMode: true })
       JSON.parse(this.locators).forEach((locator, index) => {
-        const numberImg = tags.generateElement('img', {
-          class: ['absolute', 'w-7', 'h-7', 'pointer-events-none'],
-          src: src
-        })
+        const number = document.createElement('div')
+        number.classList.add('w-1/12', 'flex', 'justify-center', 'items-center')
+        number.append(elements[index])
 
-        const numberValue = tags.generateElement('a', {
-          class: ['relative', 'w-7', 'text-sm', 'text-center', 'pointer-events-none'],
-          append: [index + 1]
-        })
-        if (!this.printMode) numberValue.classList.add('text-white')
+        const thumbnail = document.createElement('div')
+        thumbnail.classList.add('bg-transparent', 'w-5/12', 'flex', 'justify-center', 'items-center')
+        thumbnail.append(this.generateThumbnail(locator))
 
-        const classA = ['absolute', 'w-7', 'h-7', 'flex', 'flex-col', 'items-center', 'justify-center']
+        const text = document.createElement('div')
+        text.classList.add('w-5/12', 'whitespace-normal', 'bg-transparent', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', 'p-1')
+        text.append(this.generateDescription(locator), this.generateCreatedAt(locator))
 
-        const a = tags.generateElement('a', {
-          class: classA,
-          append: [numberImg, numberValue]
-        })
+        const deleteBtn = document.createElement('div')
+        deleteBtn.classList.add('bg-transparent', 'w-1/12', 'flex', 'justify-end')
+        deleteBtn.append(this.generateX())
 
-        const number = tags.generateElement('div', {
-          class: ['w-1/12', 'flex', 'justify-center', 'items-center'],
-          append: [a]
-        })
+        const row = document.createElement('div')
+        row.id = `${this.locatorsModel}-${locator.id}`
+        row.classList.add('locators-row', 'flex', 'b-slate-400', 'mb-2', 'p-1', 'sm:p-2')
+        row.append(number, thumbnail, text)
 
-        locator.image_url ||= '/sample_locator.png'
-        const sizeClass = this.printMode ?
-          ['w-print-thumbnail', 'h-print-thumbnail'] :
-          ['w-thumbnail', 'h-thumbnail']
-        const image = tags.generateElement('div', {
-          class: ['bg-transparent', 'w-5/12', 'flex', 'justify-center', 'items-center'],
-          append: [tags.generateElement('div', {
-            class: ['thumbnail-field', 'border', 'border-slate-200', 'relative', 'overflow-hidden'].concat(sizeClass),
-            append: [tags.generateElement('img', {
-              class: ['thumbnail-image', 'absolute', 'object-contain', 'max-w-none'].concat(sizeClass),
-              src: locator.image_url
-            })]
-          })]
-        })
-        const createdAt = tags.generateElement('div', {
-          class: ['whitespace-normal', 'bg-transparent', 'w-full', 'text-slate-600', 'text-xs', 'sm:text-sm', 'p-1', 'border-t', 'b-slate-400'],
-          append: [params.formatDate(locator.created_at)]
-        })
-
-        const max = this.printMode ? 60 : 29
-        const description = tags.generateElement('div', {
-          class: ['description'],
-          append: [this.brief(locator.description, max)]
-        })
-
-        const text = tags.generateElement('div', {
-          class: ['whitespace-normal', 'bg-transparent', 'w-5/12', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', 'p-1'],
-          append: [description, createdAt]
-        })
-
-        const deleteBtn = tags.generateElement('a', {
-          class: ['bg-transparent', 'w-1/12', 'flex', 'justify-end'],
-          append: [tags.generateElement('a', {
-            class: ['delete-locators', 'btn', 'btn-ghost', 'btn-xs', 'sm:btn-sm'],
-            append: ['×']
-          })]
-        })
-        const row = tags.generateElement('div', {
-          id: `${this.locatorsModel}-${locator.id}`,
-          class: ['locators-row', 'flex', 'b-slate-400', 'mb-2', 'p-1', 'sm:p-2'],
-          append: [number, image, text]
-        })
         if (this.printMode) {
           row.classList.add('border-b')
         } else {
@@ -99,29 +55,68 @@ export default {
 
         rows.push(row)
 
+        const page = document.createElement('div')
+        page.append(...rows)
         if (index === JSON.parse(this.locators).length - 1) {
-          tableContainer.append(tags.generateElement('div', {append: rows}))
+          tableContainer.append(page)
           if (this.printMode) {
             tableContainer.append(this.generateFooter(index, { lastPage: true }))
           }
           rows = []
         } else if (this.printMode && index % 5 === 1) {
-          tableContainer.append(tags.generateElement('div', {append: rows}))
+          tableContainer.append(page)
           tableContainer.append(this.generateFooter(index))
           rows = []
         }
       })
     },
+    generateThumbnail(locator) {
+      const sizeClass = this.printMode ?
+        ['w-print-thumbnail', 'h-print-thumbnail'] :
+        ['w-thumbnail', 'h-thumbnail']
+
+      const image = document.createElement('img')
+      image.classList.add('thumbnail-image', 'absolute', 'object-contain', 'max-w-none')
+      image.classList.add(...sizeClass)
+      locator.image_url ||= '/sample_locator.png'
+      image.src = locator.image_url
+
+      const imageField = document.createElement('div')
+      imageField.classList.add('thumbnail-field', 'border', 'border-slate-200', 'relative', 'overflow-hidden')
+      imageField.classList.add(...sizeClass)
+      imageField.append(image)
+
+      return imageField
+    },
+    generateDescription(locator) {
+      const description = document.createElement('div')
+      description.classList.add('description')
+      const max = this.printMode ? 60 : 29
+      description.append(this.brief(locator.description, max))
+      return description
+    },
+    generateCreatedAt(locator) {
+      const createdAt = document.createElement('div')
+      createdAt.classList.add('whitespace-normal', 'bg-transparent', 'w-full', 'text-slate-600', 'text-xs', 'sm:text-sm', 'p-1', 'border-t', 'b-slate-400')
+      createdAt.append(params.formatDate(locator.created_at))
+      return createdAt
+    },
+    generateX() {
+      const x = document.createElement('a')
+      x.classList.add('delete-locators', 'btn', 'btn-ghost', 'btn-xs', 'sm:btn-sm')
+      x.append('×')
+      return x
+    },
     generateFooter(index, options) {
       const maxPage = Math.ceil((JSON.parse(this.locators).length - 2) / 5) + 1
       const nowPage = Math.ceil((index - 1) / 5) + 1
 
-      return tags.generateElement('div', {
-        class: options && options.lastPage ?
-          ['p-4', 'w-full', 'text-right'] :
-          ['p-4', 'w-full', 'text-right', 'break-after-page'],
-        append: [`${nowPage} / ${maxPage}`]
-      })
+      const pageIndex = document.createElement('div')
+      pageIndex.classList.add('p-4', 'w-full', 'text-right')
+      if (!options || !options.lastPage) pageIndex.classList.add('break-after-page')
+      pageIndex.append(`${nowPage} / ${maxPage}`)
+
+      return pageIndex
     },
     brief(description, max) {
       if (!description || description.length === 0) {

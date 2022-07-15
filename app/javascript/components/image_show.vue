@@ -108,7 +108,8 @@ export default {
     window.addEventListener('resize', this.handleResize)
     const target = this.formData.get('target')
     this.imageUrl = this.formData.get(`${target}[image_url]`)
-    tags.generateLocators(this.locators, 'show-field', { printMode: this.printMode })
+    const elements = tags.generateLocators(this.locators, { printMode: this.printMode })
+    document.getElementById('show-field').append(...elements)
     this.layout()
   },
   beforeDestroy() {
