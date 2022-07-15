@@ -29,36 +29,17 @@ export default {
         number.classList.add('w-1/12', 'flex', 'justify-center', 'items-center')
         number.append(elements[index])
 
-        locator.image_url ||= '/sample_locator.png'
-
-        const sizeClass = this.printMode ?
-          ['w-print-thumbnail', 'h-print-thumbnail'] :
-          ['w-thumbnail', 'h-thumbnail']
-
-        const image = document.createElement('img')
-        image.classList.add('thumbnail-image', 'absolute', 'object-contain', 'max-w-none')
-        image.classList.add(...sizeClass)
-        image.src = locator.image_url
-
-        const imageField = document.createElement('div')
-        imageField.classList.add('thumbnail-field', 'border', 'border-slate-200', 'relative', 'overflow-hidden')
-        imageField.classList.add(...sizeClass)
-        imageField.append(image)
-
-        const imageContainer = document.createElement('div')
-        imageContainer.classList.add('bg-transparent', 'w-5/12', 'flex', 'justify-center', 'items-center')
-        imageContainer.append(imageField)
-
-        const createdAt = document.createElement('div')
-        createdAt.classList.add('whitespace-normal', 'bg-transparent', 'w-full', 'text-slate-600', 'text-xs', 'sm:text-sm', 'p-1', 'border-t', 'b-slate-400')
-        createdAt.append(params.formatDate(locator.created_at))
-
-        const max = this.printMode ? 60 : 29
+        const thumbnail = document.createElement('div')
+        thumbnail.classList.add('bg-transparent', 'w-5/12', 'flex', 'justify-center', 'items-center')
+        thumbnail.append(this.generateThumbnail(locator))
 
         const description = document.createElement('div')
         description.classList.add('description')
+        const max = this.printMode ? 60 : 29
         description.append(this.brief(locator.description, max))
-
+        const createdAt = document.createElement('div')
+        createdAt.classList.add('whitespace-normal', 'bg-transparent', 'w-full', 'text-slate-600', 'text-xs', 'sm:text-sm', 'p-1', 'border-t', 'b-slate-400')
+        createdAt.append(params.formatDate(locator.created_at))
         const text = document.createElement('div')
         text.classList.add('whitespace-normal', 'bg-transparent', 'w-5/12', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', 'p-1')
         text.append(description, createdAt)
@@ -66,7 +47,6 @@ export default {
         const x = document.createElement('a')
         x.classList.add('delete-locators', 'btn', 'btn-ghost', 'btn-xs', 'sm:btn-sm')
         x.append('×')
-
         const deleteBtn = document.createElement('div')
         deleteBtn.classList.add('bg-transparent', 'w-1/12', 'flex', 'justify-end')
         deleteBtn.append(x)
@@ -74,7 +54,7 @@ export default {
         const row = document.createElement('div')
         row.id = `${this.locatorsModel}-${locator.id}`
         row.classList.add('locators-row', 'flex', 'b-slate-400', 'mb-2', 'p-1', 'sm:p-2')
-        row.append(number, imageContainer, text)
+        row.append(number, thumbnail, text)
 
         if (this.printMode) {
           row.classList.add('border-b')
@@ -99,6 +79,24 @@ export default {
           rows = []
         }
       })
+    },
+    generateThumbnail(locator) {
+      const sizeClass = this.printMode ?
+        ['w-print-thumbnail', 'h-print-thumbnail'] :
+        ['w-thumbnail', 'h-thumbnail']
+
+      const image = document.createElement('img')
+      image.classList.add('thumbnail-image', 'absolute', 'object-contain', 'max-w-none')
+      image.classList.add(...sizeClass)
+      locator.image_url ||= '/sample_locator.png'
+      image.src = locator.image_url
+
+      const imageField = document.createElement('div')
+      imageField.classList.add('thumbnail-field', 'border', 'border-slate-200', 'relative', 'overflow-hidden')
+      imageField.classList.add(...sizeClass)
+      imageField.append(image)
+
+      return imageField
     },
     generateFooter(index, options) {
       const maxPage = Math.ceil((JSON.parse(this.locators).length - 2) / 5) + 1
