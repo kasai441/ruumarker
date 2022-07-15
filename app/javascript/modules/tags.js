@@ -35,25 +35,6 @@ const generateLocators = (locators, id, options) => {
   })
 }
 
-const generateElement = (tagName, options) => {
-  const element = document.createElement(tagName)
-  if (!options) return element
-
-  if (options.id) {
-    element.id = options.id
-  }
-  if (options.class) {
-    options.class.forEach(cl => element.classList.add(cl))
-  }
-  if (options.append) {
-    options.append.forEach(ap => element.append(ap))
-  }
-  if (options.src) {
-    element.src = options.src
-  }
-  return element
-}
-
 const layoutLocators = (locators, id) => {
   const element = document.getElementById(id)
   if (!element) return
@@ -163,7 +144,6 @@ export default {
   namespaced: true,
   parent,
   generateLocators,
-  generateElement,
   layoutLocators,
   expand,
   trim,
