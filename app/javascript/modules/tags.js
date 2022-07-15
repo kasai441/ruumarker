@@ -28,7 +28,7 @@ const generateLocators = (locators, id, options) => {
     const a = document.createElement('a')
     a.id = `locator-${locator.id}`
     a.classList.add('absolute', 'w-7', 'h-7', 'flex', 'justify-center', 'items-center')
-    if (options && options.class) a.classList.add(options.class)
+    if (options && options.class) a.classList.add(...options.class)
     a.append(img, number)
 
     document.getElementById(id).append(a)

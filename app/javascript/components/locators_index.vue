@@ -25,28 +25,22 @@ export default {
       let rows = []
       const src = this.printMode ? '/locators_white.png' : '/locators.png'
       JSON.parse(this.locators).forEach((locator, index) => {
-        const numberImg = tags.generateElement('img', {
-          class: ['absolute', 'w-7', 'h-7', 'pointer-events-none'],
-          src: src
-        })
+        const numberImg = document.createElement('img')
+        numberImg.classList.add('absolute', 'w-7', 'h-7', 'pointer-events-none')
+        numberImg.src = src
 
-        const numberValue = tags.generateElement('a', {
-          class: ['relative', 'w-7', 'text-sm', 'text-center', 'pointer-events-none'],
-          append: [index + 1]
-        })
+        const numberValue = document.createElement('a')
+        numberValue.classList.add('relative', 'w-7', 'text-sm', 'text-center', 'pointer-events-none')
         if (!this.printMode) numberValue.classList.add('text-white')
+        numberValue.append(index + 1)
 
-        const classA = ['absolute', 'w-7', 'h-7', 'flex', 'flex-col', 'items-center', 'justify-center']
+        const a = document.createElement('a')
+        a.classList.add('absolute', 'w-7', 'h-7', 'flex', 'flex-col', 'items-center', 'justify-center')
+        a.append(numberImg, numberValue)
 
-        const a = tags.generateElement('a', {
-          class: classA,
-          append: [numberImg, numberValue]
-        })
-
-        const number = tags.generateElement('div', {
-          class: ['w-1/12', 'flex', 'justify-center', 'items-center'],
-          append: [a]
-        })
+        const number = document.createElement('div')
+        number.classList.add('w-1/12', 'flex', 'justify-center', 'items-center')
+        number.append(a)
 
         locator.image_url ||= '/sample_locator.png'
 
@@ -54,46 +48,46 @@ export default {
           ['w-print-thumbnail', 'h-print-thumbnail'] :
           ['w-thumbnail', 'h-thumbnail']
 
-        const image = tags.generateElement('div', {
-          class: ['bg-transparent', 'w-5/12', 'flex', 'justify-center', 'items-center'],
-          append: [tags.generateElement('div', {
-            class: ['thumbnail-field', 'border', 'border-slate-200', 'relative', 'overflow-hidden'].concat(sizeClass),
-            append: [tags.generateElement('img', {
-              class: ['thumbnail-image', 'absolute', 'object-contain', 'max-w-none'].concat(sizeClass),
-              src: locator.image_url
-            })]
-          })]
-        })
+        const image = document.createElement('img')
+        image.classList.add('thumbnail-image', 'absolute', 'object-contain', 'max-w-none')
+        image.classList.add(...sizeClass)
+        image.src = locator.image_url
 
-        const createdAt = tags.generateElement('div', {
-          class: ['whitespace-normal', 'bg-transparent', 'w-full', 'text-slate-600', 'text-xs', 'sm:text-sm', 'p-1', 'border-t', 'b-slate-400'],
-          append: [params.formatDate(locator.created_at)]
-        })
+        const imageField = document.createElement('div')
+        imageField.classList.add('thumbnail-field', 'border', 'border-slate-200', 'relative', 'overflow-hidden')
+        imageField.classList.add(...sizeClass)
+        imageField.append(image)
+
+        const imageContainer = document.createElement('div')
+        imageContainer.classList.add('bg-transparent', 'w-5/12', 'flex', 'justify-center', 'items-center')
+        imageContainer.append(imageField)
+
+        const createdAt = document.createElement('div')
+        createdAt.classList.add('whitespace-normal', 'bg-transparent', 'w-full', 'text-slate-600', 'text-xs', 'sm:text-sm', 'p-1', 'border-t', 'b-slate-400')
+        createdAt.append(params.formatDate(locator.created_at))
 
         const max = this.printMode ? 60 : 29
-        const description = tags.generateElement('div', {
-          class: ['description'],
-          append: [this.brief(locator.description, max)]
-        })
 
-        const text = tags.generateElement('div', {
-          class: ['whitespace-normal', 'bg-transparent', 'w-5/12', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', 'p-1'],
-          append: [description, createdAt]
-        })
+        const description = document.createElement('div')
+        description.classList.add('description')
+        description.append(this.brief(locator.description, max))
 
-        const deleteBtn = tags.generateElement('a', {
-          class: ['bg-transparent', 'w-1/12', 'flex', 'justify-end'],
-          append: [tags.generateElement('a', {
-            class: ['delete-locators', 'btn', 'btn-ghost', 'btn-xs', 'sm:btn-sm'],
-            append: ['×']
-          })]
-        })
+        const text = document.createElement('div')
+        text.classList.add('whitespace-normal', 'bg-transparent', 'w-5/12', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', 'p-1')
+        text.append(description, createdAt)
 
-        const row = tags.generateElement('div', {
-          id: `${this.locatorsModel}-${locator.id}`,
-          class: ['locators-row', 'flex', 'b-slate-400', 'mb-2', 'p-1', 'sm:p-2'],
-          append: [number, image, text]
-        })
+        const x = document.createElement('a')
+        x.classList.add('delete-locators', 'btn', 'btn-ghost', 'btn-xs', 'sm:btn-sm')
+        x.append('×')
+
+        const deleteBtn = document.createElement('div')
+        deleteBtn.classList.add('bg-transparent', 'w-1/12', 'flex', 'justify-end')
+        deleteBtn.append(x)
+
+        const row = document.createElement('div')
+        row.id = `${this.locatorsModel}-${locator.id}`
+        row.classList.add('locators-row', 'flex', 'b-slate-400', 'mb-2', 'p-1', 'sm:p-2')
+        row.append(number, imageContainer, text)
 
         if (this.printMode) {
           row.classList.add('border-b')
@@ -104,14 +98,16 @@ export default {
 
         rows.push(row)
 
+        const page = document.createElement('div')
+        page.append(...rows)
         if (index === JSON.parse(this.locators).length - 1) {
-          tableContainer.append(tags.generateElement('div', {append: rows}))
+          tableContainer.append(page)
           if (this.printMode) {
             tableContainer.append(this.generateFooter(index, { lastPage: true }))
           }
           rows = []
         } else if (this.printMode && index % 5 === 1) {
-          tableContainer.append(tags.generateElement('div', {append: rows}))
+          tableContainer.append(page)
           tableContainer.append(this.generateFooter(index))
           rows = []
         }
@@ -121,12 +117,12 @@ export default {
       const maxPage = Math.ceil((JSON.parse(this.locators).length - 2) / 5) + 1
       const nowPage = Math.ceil((index - 1) / 5) + 1
 
-      return tags.generateElement('div', {
-        class: options && options.lastPage ?
-          ['p-4', 'w-full', 'text-right'] :
-          ['p-4', 'w-full', 'text-right', 'break-after-page'],
-        append: [`${nowPage} / ${maxPage}`]
-      })
+      const pageIndex = document.createElement('div')
+      pageIndex.classList.add('p-4', 'w-full', 'text-right')
+      if (!options || !options.lastPage) pageIndex.classList.add('break-after-page')
+      pageIndex.append(`${nowPage} / ${maxPage}`)
+
+      return pageIndex
     },
     brief(description, max) {
       if (!description || description.length === 0) {
