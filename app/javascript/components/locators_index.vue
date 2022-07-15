@@ -46,11 +46,11 @@ export default {
 
         const row = document.createElement('div')
         row.id = `${this.locatorsModel}-${locator.id}`
-        row.classList.add('locators-row', 'flex', 'border-slate-400', 'mb-2', 'p-1', 'sm:p-2')
+        row.classList.add('locators-row', 'flex', 'border-slate-400', 'p-1', 'sm:p-2')
         if (this.printMode) {
           const content = document.createElement('div')
           content.append(thumbnail, text)
-          content.classList.add('w-11/12', 'p-4', 'flex', 'flex-col')
+          content.classList.add('w-11/12', 'px-3', 'flex', 'flex-col')
           row.append(number, content)
         } else {
           row.append(number, thumbnail, text)
@@ -60,7 +60,7 @@ export default {
           row.classList.add('border-b')
         } else {
           row.append(deleteBtn)
-          row.classList.add('border', 'rounded-lg')
+          row.classList.add('border', 'rounded-lg', 'mb-2')
         }
 
         rows.push(row)
@@ -73,7 +73,7 @@ export default {
             tableContainer.append(this.generateFooter(index, { lastPage: true }))
           }
           rows = []
-        } else if (this.printMode && index % 5 === 1) {
+        } else if (this.printMode && index % 2 === 0) {
           tableContainer.append(page)
           tableContainer.append(this.generateFooter(index))
           rows = []
@@ -118,11 +118,11 @@ export default {
       return x
     },
     generateFooter(index, options) {
-      const maxPage = Math.ceil((JSON.parse(this.locators).length - 2) / 5) + 1
-      const nowPage = Math.ceil((index - 1) / 5) + 1
+      const maxPage = Math.ceil((JSON.parse(this.locators).length - 1) / 2) + 1
+      const nowPage = Math.ceil(index / 2) + 1
 
       const pageIndex = document.createElement('div')
-      pageIndex.classList.add('p-4', 'w-full', 'text-right')
+      pageIndex.classList.add('p-3', 'w-full', 'text-right')
       if (!options || !options.lastPage) pageIndex.classList.add('break-after-page')
       pageIndex.append(`${nowPage} / ${maxPage}`)
 
