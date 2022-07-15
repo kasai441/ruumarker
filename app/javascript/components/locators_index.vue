@@ -49,9 +49,11 @@ export default {
         })
 
         locator.image_url ||= '/sample_locator.png'
+
         const sizeClass = this.printMode ?
           ['w-print-thumbnail', 'h-print-thumbnail'] :
           ['w-thumbnail', 'h-thumbnail']
+
         const image = tags.generateElement('div', {
           class: ['bg-transparent', 'w-5/12', 'flex', 'justify-center', 'items-center'],
           append: [tags.generateElement('div', {
@@ -62,6 +64,7 @@ export default {
             })]
           })]
         })
+
         const createdAt = tags.generateElement('div', {
           class: ['whitespace-normal', 'bg-transparent', 'w-full', 'text-slate-600', 'text-xs', 'sm:text-sm', 'p-1', 'border-t', 'b-slate-400'],
           append: [params.formatDate(locator.created_at)]
@@ -85,11 +88,13 @@ export default {
             append: ['×']
           })]
         })
+
         const row = tags.generateElement('div', {
           id: `${this.locatorsModel}-${locator.id}`,
           class: ['locators-row', 'flex', 'b-slate-400', 'mb-2', 'p-1', 'sm:p-2'],
           append: [number, image, text]
         })
+
         if (this.printMode) {
           row.classList.add('border-b')
         } else {

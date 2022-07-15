@@ -15,26 +15,21 @@ const generateLocators = (locators, id, options) => {
     let src = '/locators.png'
     if (options && options.editMode) src = '/locators_grey.png'
     if (options && options.printMode) src = '/locators_white.png'
-    const img = generateElement('img', {
-      class: ['absolute', 'w-7', 'h-7', 'pointer-events-none'],
-      src
-    })
 
-    const number = generateElement('a', {
-      class: options && options.printMode ?
-        ['relative', 'text-sm', 'pointer-events-none'] :
-        ['relative', 'text-white', 'text-sm', 'pointer-events-none'],
-      append: [index + 1]
-    })
+    const img = document.createElement('img')
+    img.classList.add('absolute', 'w-7', 'h-7', 'pointer-events-none')
+    img.src = src
 
-    let classA = ['absolute', 'w-7', 'h-7', 'flex', 'justify-center', 'items-center']
-    if (options && options.class) classA = classA.concat(options.class)
+    const number = document.createElement('a')
+    number.classList.add('relative', 'text-sm', 'pointer-events-none')
+    if (!options || !options.printMode) number.classList.add('text-white')
+    number.append(index + 1)
 
-    const a = generateElement('a',{
-      id: `locator-${locator.id}`,
-      class: classA,
-      append: [img, number]
-    })
+    const a = document.createElement('a')
+    a.id = `locator-${locator.id}`
+    a.classList.add('absolute', 'w-7', 'h-7', 'flex', 'justify-center', 'items-center')
+    if (options && options.class) a.classList.add(options.class)
+    a.append(img, number)
 
     document.getElementById(id).append(a)
   })
