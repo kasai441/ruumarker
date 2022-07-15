@@ -30,12 +30,12 @@ export default {
         number.append(elements[index])
 
         const thumbnail = document.createElement('div')
-        const wThumbnail = this.printMode ? 'w-8/12' : 'w-5/12'
+        const wThumbnail = this.printMode ? 'w-full' : 'w-5/12'
         thumbnail.classList.add(wThumbnail, 'bg-transparent', 'flex', 'justify-center', 'items-center')
         thumbnail.append(this.generateThumbnail(locator))
 
         const text = document.createElement('div')
-        const wText = this.printMode ? 'w-3/12' : 'w-5/12'
+        const wText = this.printMode ? 'w-full' : 'w-5/12'
         text.classList.add(wText, 'bg-transparent', 'whitespace-normal', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', 'p-1')
         text.append(this.generateDescription(locator), this.generateCreatedAt(locator))
 
@@ -46,8 +46,15 @@ export default {
 
         const row = document.createElement('div')
         row.id = `${this.locatorsModel}-${locator.id}`
-        row.classList.add('locators-row', 'flex', 'b-slate-400', 'mb-2', 'p-1', 'sm:p-2')
-        row.append(number, thumbnail, text)
+        row.classList.add('locators-row', 'flex', 'border-slate-400', 'mb-2', 'p-1', 'sm:p-2')
+        if (this.printMode) {
+          const content = document.createElement('div')
+          content.append(thumbnail, text)
+          content.classList.add('w-11/12', 'p-4', 'flex', 'flex-col')
+          row.append(number, content)
+        } else {
+          row.append(number, thumbnail, text)
+        }
 
         if (this.printMode) {
           row.classList.add('border-b')
@@ -100,7 +107,7 @@ export default {
     },
     generateCreatedAt(locator) {
       const createdAt = document.createElement('div')
-      createdAt.classList.add('whitespace-normal', 'bg-transparent', 'w-full', 'text-slate-600', 'text-xs', 'sm:text-sm', 'p-1', 'border-t', 'b-slate-400')
+      createdAt.classList.add('whitespace-normal', 'bg-transparent', 'w-full', 'text-right', 'text-slate-600', 'text-xs', 'sm:text-sm', 'p-1', 'pr-3', 'border-t', 'border-slate-200')
       createdAt.append(params.formatDate(locator.created_at))
       return createdAt
     },
