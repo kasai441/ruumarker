@@ -23,24 +23,11 @@ export default {
     generateIndex() {
       const tableContainer = document.getElementById('locators-rows')
       let rows = []
-      const src = this.printMode ? '/locators_white.png' : '/locators.png'
+      const elements = tags.generateLocators(JSON.parse(this.locators), { indexMode: true })
       JSON.parse(this.locators).forEach((locator, index) => {
-        const numberImg = document.createElement('img')
-        numberImg.classList.add('absolute', 'w-7', 'h-7', 'pointer-events-none')
-        numberImg.src = src
-
-        const numberValue = document.createElement('a')
-        numberValue.classList.add('relative', 'text-sm', 'pointer-events-none')
-        if (!this.printMode) numberValue.classList.add('text-white')
-        numberValue.append(index + 1)
-
-        const a = document.createElement('a')
-        a.classList.add('absolute', 'w-7', 'h-7', 'flex', 'items-center', 'justify-center')
-        a.append(numberImg, numberValue)
-
         const number = document.createElement('div')
         number.classList.add('w-1/12', 'flex', 'justify-center', 'items-center')
-        number.append(a)
+        number.append(elements[index])
 
         locator.image_url ||= '/sample_locator.png'
 

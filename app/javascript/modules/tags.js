@@ -27,7 +27,7 @@ const generateLocators = (locators, options) => {
     number.append(index + 1)
 
     const a = document.createElement('a')
-    a.id = `locator-${locator.id}`
+    if (!options || !options.indexMode) a.id = `locator-${locator.id}`
     a.classList.add('absolute', 'w-7', 'h-7', 'flex', 'justify-center', 'items-center')
     if (options && options.class) a.classList.add(...options.class)
     a.append(img, number)
