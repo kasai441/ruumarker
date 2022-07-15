@@ -23,22 +23,25 @@ export default {
     generateIndex() {
       const tableContainer = document.getElementById('locators-rows')
       let rows = []
-      const elements = tags.generateLocators(JSON.parse(this.locators), { indexMode: true })
+      const elements = tags.generateLocators(JSON.parse(this.locators), { indexMode: true, printMode: this.printMode })
       JSON.parse(this.locators).forEach((locator, index) => {
         const number = document.createElement('div')
         number.classList.add('w-1/12', 'flex', 'justify-center', 'items-center')
         number.append(elements[index])
 
         const thumbnail = document.createElement('div')
-        thumbnail.classList.add('bg-transparent', 'w-5/12', 'flex', 'justify-center', 'items-center')
+        const wThumbnail = this.printMode ? 'w-7/12' : 'w-5/12'
+        thumbnail.classList.add(wThumbnail, 'bg-transparent', 'flex', 'justify-center', 'items-center')
         thumbnail.append(this.generateThumbnail(locator))
 
         const text = document.createElement('div')
-        text.classList.add('w-5/12', 'whitespace-normal', 'bg-transparent', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', 'p-1')
+        const wText = this.printMode ? 'w-4/12' : 'w-5/12'
+        text.classList.add(wText, 'bg-transparent', 'whitespace-normal', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', 'p-1')
         text.append(this.generateDescription(locator), this.generateCreatedAt(locator))
 
         const deleteBtn = document.createElement('div')
-        deleteBtn.classList.add('bg-transparent', 'w-1/12', 'flex', 'justify-end')
+        const wDeleteBtn = this.printMode ? 'w-0' : 'w-1/12'
+        deleteBtn.classList.add(wDeleteBtn, 'bg-transparent', 'flex', 'justify-end')
         deleteBtn.append(this.generateX())
 
         const row = document.createElement('div')
