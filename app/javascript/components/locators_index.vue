@@ -48,7 +48,7 @@ export default {
 
         const row = document.createElement('div')
         row.id = `${this.locatorsModel}-${locator.id}`
-        row.classList.add('locators-row', 'flex', 'border-slate-400', 'p-1', 'sm:p-2')
+        row.classList.add('locators-row', 'flex', 'border-slate-300', 'p-1', 'sm:p-2')
         if (this.printMode) {
           const content = document.createElement('div')
           content.classList.add('w-11/12', 'px-3', 'flex', 'flex-col')

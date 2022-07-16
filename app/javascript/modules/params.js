@@ -47,7 +47,7 @@ const getImageUrl = (imageFile) => {
 
 const reduceLargeImage = (imageUrl, imageFile) => {
   return new Promise((resolve, reject) => {
-    const maxWidth = 500
+    const maxWidth = 800
     const img = new Image()
     img.onload = () => {
       if (img.width <= maxWidth) return resolve(imageFile)

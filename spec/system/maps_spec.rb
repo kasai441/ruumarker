@@ -65,7 +65,7 @@ describe 'マップ管理機能', type: :system do
       end
 
       it '画像が制約幅になる' do
-        max = 500
+        max = 800
         expect(page).to have_selector '#show-image'
         expect(execute_script('return arguments[0].naturalWidth',
                               find_by_id('show-image'))).to eq max
