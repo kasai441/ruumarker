@@ -75,7 +75,7 @@ export default {
             tableContainer.append(this.generateFooter(index, { lastPage: true }))
           }
           rows = []
-        } else if (this.printMode && index % 2 === 0) {
+        } else if (this.printMode && index % 3 === 0) {
           tableContainer.append(page)
           tableContainer.append(this.generateFooter(index))
           rows = []
@@ -120,8 +120,8 @@ export default {
       return x
     },
     generateFooter(index, options) {
-      const maxPage = Math.ceil((JSON.parse(this.locators).length - 1) / 2) + 1
-      const nowPage = Math.ceil(index / 2) + 1
+      const maxPage = Math.ceil((JSON.parse(this.locators).length - 1) / 3) + 1
+      const nowPage = Math.ceil(index / 3) + 1
 
       const pageIndex = document.createElement('div')
       pageIndex.classList.add('p-3', 'w-full', 'text-right')
