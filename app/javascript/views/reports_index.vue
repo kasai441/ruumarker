@@ -18,7 +18,7 @@
       </p>
       <p class="text-sm text-slate-500">
         ※ ダイアログが出ない場合、手動でブラウザの印刷画面を開いてください
-        <span class="text-lime-600">各ブラウザのPDF出力方法</span>
+        <span class="text-lime-600" @pointerdown="help">各ブラウザのPDF出力方法</span>
       </p>
     </div>
     <div class="fixed relative h-28 sm:h-10 print:hidden"></div>
@@ -77,6 +77,9 @@ export default {
     print() {
       window.print()
     },
+    help() {
+      location.href = '/help'
+    }
   },
   created() {
     this.formData = params.initFormData(this.map)
