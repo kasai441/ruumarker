@@ -24,19 +24,19 @@ export default {
       const elements = tags.generateLocators(JSON.parse(this.locators), { indexMode: true, printMode: this.printMode })
       JSON.parse(this.locators).forEach((locator, index) => {
         const number = document.createElement('div')
-        const alignNumber = this.printMode ? 'items-start' : 'items-center'
-        number.classList.add('w-1/12', 'flex', 'justify-center', alignNumber, 'py-2')
+        const wNumber = this.printMode ? 'w-full' : 'w-1/12'
+        number.classList.add(wNumber, 'flex', 'justify-start', 'items-start', 'py-2')
         number.append(elements[index])
 
         const thumbnail = document.createElement('div')
-        const wThumbnail = this.printMode ? 'w-full' : 'w-5/12'
+        const wThumbnail = this.printMode ? 'w-9/12' : 'w-5/12'
         const justifyThumnail = this.printMode ? 'justify-start' : 'justify-center'
         thumbnail.classList.add(wThumbnail, 'bg-transparent', 'flex', justifyThumnail, 'items-center')
         thumbnail.append(this.generateThumbnail(locator))
 
         const text = document.createElement('div')
         const wText = this.printMode ? 'w-full' : 'w-5/12'
-        const pText = this.printMode ? 'p-0' : 'p-1'
+        const pText = this.printMode ? 'py-6' : 'p-1'
         text.classList.add(wText, 'bg-transparent', 'whitespace-normal', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', pText)
         const createdAt = this.printMode ? '' : this.generateCreatedAt(locator)
         text.append(this.generateDescription(locator), createdAt)
@@ -51,9 +51,9 @@ export default {
         row.classList.add('locators-row', 'flex', 'border-slate-300', 'p-1', 'sm:p-2')
         if (this.printMode) {
           const content = document.createElement('div')
-          content.classList.add('w-11/12', 'px-3', 'flex', 'flex-col')
-          content.append(text, thumbnail)
-          row.append(number, content)
+          content.classList.add('w-3/12', 'flex', 'flex-col')
+          content.append(number, text)
+          row.append(content, thumbnail)
         } else {
           row.append(number, thumbnail, text)
         }
