@@ -36,7 +36,8 @@ module.exports = {
       inset: {
         '76vh': 'calc(76vh)',
         '80vw': 'calc(80vw)',
-        'max': 'calc(50vw + 21rem)'
+        'max': 'calc(50vw + 21rem)',
+        'kana': '17px'
       },
       outlineWidth: {
         32: '32px',
