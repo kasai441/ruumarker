@@ -23,15 +23,16 @@
     </div>
     <div class="fixed relative h-28 sm:h-10 print:hidden"></div>
     <div class="w-full px-8">
-      <div class="w-print-field font-bold text-xl py-6">入居時チェック表</div>
+      <div class="w-print-field font-bold text-xl py-6 pb-2">入居時チェック表</div>
       <p class="font-p pb-2">入居時に以下の箇所に確認事項がありました。</p>
+      <div class="font-bold text-lg pt-2 pb-1">間取り図</div>
       <image-show :room-id="roomId" :form-data="formData"
                   locators-model="mark" :locators-json="marks"
                   :print-mode="true"
                   @emit-form-data="getFormData"></image-show>
       <div v-if="marksPresent">
-        <div class="font-bold text-lg py-2">確認事項</div>
-        <p class="font-p pb-2">間取り図の各番号の詳細は以下の通りです。</p>
+        <div class="font-bold text-lg pt-2 pb-1">詳細情報</div>
+        <p class="font-p pb-2">間取り図の各番号の詳細情報は以下の通りです。</p>
         <locators-index :room-id="roomId" :locators="marks" locators-model="mark"
                         :print-mode="true"></locators-index>
       </div>

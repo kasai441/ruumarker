@@ -19,16 +19,16 @@
         @apply h-30vw2/3 md:h-32;
     }
     .w-print-field {
-        @apply w-144;
+        @apply w-132;
     }
     .h-print-field {
-        @apply h-96;
+        @apply h-88;
     }
     .w-print-thumbnail {
-        @apply w-108;
+        @apply w-96;
     }
     .h-print-thumbnail {
-        @apply h-72;
+        @apply h-64;
     }
     .font-h2 {
         @apply py-4 font-bold text-lime-600;
