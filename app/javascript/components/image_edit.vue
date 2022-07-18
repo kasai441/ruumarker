@@ -45,8 +45,8 @@ export default {
 
       // エレメントの左上からポインターまでの位置
       this.pointer = {
-        x: params.toF(e.offsetX, 1),
-        y: params.toF(e.offsetY, 1)
+        x: e.offsetX,
+        y: e.offsetY
       }
     },
     touchmove(e) {
@@ -54,13 +54,13 @@ export default {
 
       // e.offsetXY = １ドラッグ終了時点の座標
       // pointer.xy = クリックオン時点の座標
-      this.trimming.x += params.toF(e.offsetX, 1) - this.pointer.x
-      this.trimming.y += params.toF(e.offsetY, 1) - this.pointer.y
+      this.trimming.x += e.offsetX - this.pointer.x
+      this.trimming.y += e.offsetY - this.pointer.y
 
       // 外側に出ないように画像の移動を抑制する
       const fieldSize = tags.readSize('edit-field')
-      const limitX = params.toF(fieldSize.w / 4, 1)
-      const limitY = params.toF(fieldSize.h / 4, 1)
+      const limitX = fieldSize.w / 4
+      const limitY = fieldSize.h / 4
       if (this.trimming.x > limitX) this.trimming.x = limitX
       if (this.trimming.x < -limitX) this.trimming.x = -limitX
       if (this.trimming.y > limitY) this.trimming.y = limitY

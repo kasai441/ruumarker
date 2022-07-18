@@ -52,8 +52,8 @@ const layoutLocators = (locators, id) => {
     if (!a) return
 
     const locationRate = params.parseOrInit(locator.location)
-    const locatorLocationX = params.toF(image.w * (0.5 - locationRate.x), 1)
-    const locatorLocationY = params.toF(image.h * (0.5 - locationRate.y), 1)
+    const locatorLocationX = image.w * (0.5 - locationRate.x)
+    const locatorLocationY = image.h * (0.5 - locationRate.y)
     const radius = 14
     a.style.left = image.left + locatorLocationX - radius + 'px'
     a.style.top = image.top + locatorLocationY - radius + 'px'
@@ -113,11 +113,11 @@ const readSize = (id, element) => {
   element ||= document.getElementById(id)
   if (!element) return
 
-  const left = params.toF(element.getBoundingClientRect().left, 1)
-  const top = params.toF(element.getBoundingClientRect().top, 1)
+  const left = element.getBoundingClientRect().left
+  const top = element.getBoundingClientRect().top
   return {
-    w: params.toF(element.getBoundingClientRect().right, 1) - left,
-    h: params.toF(element.getBoundingClientRect().bottom, 1) - top
+    w: element.getBoundingClientRect().right - left,
+    h: element.getBoundingClientRect().bottom - top
   }
 }
 

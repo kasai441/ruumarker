@@ -18,17 +18,20 @@
       </p>
       <p class="text-sm text-slate-500">
         ※ ダイアログが出ない場合、手動でブラウザの印刷画面を開いてください
-        <span class="text-lime-600">各ブラウザのPDF出力方法</span>
+        <span class="text-lime-600" @pointerdown="help">各ブラウザのPDF出力方法</span>
       </p>
     </div>
     <div class="fixed relative h-28 sm:h-10 print:hidden"></div>
     <div class="w-full px-8">
-      <div class="w-print-field font-bold text-lg p-6">キズ点検表</div>
+      <div class="w-print-field font-bold text-xl py-6">入居時チェック表</div>
+      <p class="font-p pb-2">入居時に以下の箇所に確認事項がありました。</p>
       <image-show :room-id="roomId" :form-data="formData"
                   locators-model="mark" :locators-json="marks"
                   :print-mode="true"
                   @emit-form-data="getFormData"></image-show>
       <div v-if="marksPresent">
+        <div class="font-bold text-lg py-2">確認事項</div>
+        <p class="font-p pb-2">間取り図の各番号の詳細は以下の通りです。</p>
         <locators-index :room-id="roomId" :locators="marks" locators-model="mark"
                         :print-mode="true"></locators-index>
       </div>
@@ -74,6 +77,9 @@ export default {
     print() {
       window.print()
     },
+    help() {
+      location.href = '/help'
+    }
   },
   created() {
     this.formData = params.initFormData(this.map)

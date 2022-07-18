@@ -1,12 +1,8 @@
 const toPixel = (fieldSize, rate) => {
   return {
-    x: toF(fieldSize.w * rate.x, 1),
-    y: toF(fieldSize.h * rate.y, 1)
+    x: fieldSize.w * rate.x,
+    y: fieldSize.h * rate.y
   }
-}
-
-const toF = (number, fractionDigits) => {
-  return Math.floor(number * 10**fractionDigits) / 10**fractionDigits
 }
 
 const parseOrInit = param => {
@@ -47,7 +43,7 @@ const getImageUrl = (imageFile) => {
 
 const reduceLargeImage = (imageUrl, imageFile) => {
   return new Promise((resolve, reject) => {
-    const maxWidth = 500
+    const maxWidth = 800
     const img = new Image()
     img.onload = () => {
       if (img.width <= maxWidth) return resolve(imageFile)
@@ -126,7 +122,6 @@ const formatDate = str => {
 export default {
   namespaced: true,
   toPixel,
-  toF,
   parseOrInit,
   initFormData,
   renewFormData,

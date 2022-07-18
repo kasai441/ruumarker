@@ -1,8 +1,6 @@
 <template>
   <section id="locators-index">
-    <div class="py-4">
-      <div id="locators-rows" class="w-field"></div>
-    </div>
+    <div id="locators-rows" class="w-field"></div>
   </section>
 </template>
 
@@ -23,34 +21,48 @@ export default {
     generateIndex() {
       const tableContainer = document.getElementById('locators-rows')
       let rows = []
-      const elements = tags.generateLocators(JSON.parse(this.locators), { indexMode: true })
+      const elements = tags.generateLocators(JSON.parse(this.locators), { indexMode: true, printMode: this.printMode })
       JSON.parse(this.locators).forEach((locator, index) => {
         const number = document.createElement('div')
-        number.classList.add('w-1/12', 'flex', 'justify-center', 'items-center')
+        const alignNumber = this.printMode ? 'items-start' : 'items-center'
+        number.classList.add('w-1/12', 'flex', 'justify-center', alignNumber, 'py-2')
         number.append(elements[index])
 
         const thumbnail = document.createElement('div')
-        thumbnail.classList.add('bg-transparent', 'w-5/12', 'flex', 'justify-center', 'items-center')
+        const wThumbnail = this.printMode ? 'w-full' : 'w-5/12'
+        const justifyThumnail = this.printMode ? 'justify-start' : 'justify-center'
+        thumbnail.classList.add(wThumbnail, 'bg-transparent', 'flex', justifyThumnail, 'items-center')
         thumbnail.append(this.generateThumbnail(locator))
 
         const text = document.createElement('div')
-        text.classList.add('w-5/12', 'whitespace-normal', 'bg-transparent', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', 'p-1')
-        text.append(this.generateDescription(locator), this.generateCreatedAt(locator))
+        const wText = this.printMode ? 'w-full' : 'w-5/12'
+        const pText = this.printMode ? 'p-0' : 'p-1'
+        text.classList.add(wText, 'bg-transparent', 'whitespace-normal', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', pText)
+        const createdAt = this.printMode ? '' : this.generateCreatedAt(locator)
+        text.append(this.generateDescription(locator), createdAt)
 
         const deleteBtn = document.createElement('div')
-        deleteBtn.classList.add('bg-transparent', 'w-1/12', 'flex', 'justify-end')
+        const wDeleteBtn = this.printMode ? 'w-0' : 'w-1/12'
+        deleteBtn.classList.add(wDeleteBtn, 'bg-transparent', 'flex', 'justify-end')
         deleteBtn.append(this.generateX())
 
         const row = document.createElement('div')
         row.id = `${this.locatorsModel}-${locator.id}`
-        row.classList.add('locators-row', 'flex', 'b-slate-400', 'mb-2', 'p-1', 'sm:p-2')
-        row.append(number, thumbnail, text)
+        row.classList.add('locators-row', 'flex', 'border-slate-300', 'p-1', 'sm:p-2')
+        if (this.printMode) {
+          const content = document.createElement('div')
+          content.classList.add('w-11/12', 'px-3', 'flex', 'flex-col')
+          content.append(text, thumbnail)
+          row.append(number, content)
+        } else {
+          row.append(number, thumbnail, text)
+        }
 
         if (this.printMode) {
           row.classList.add('border-b')
         } else {
           row.append(deleteBtn)
-          row.classList.add('border', 'rounded-lg')
+          row.classList.add('border', 'rounded-lg', 'mb-2')
         }
 
         rows.push(row)
@@ -63,7 +75,7 @@ export default {
             tableContainer.append(this.generateFooter(index, { lastPage: true }))
           }
           rows = []
-        } else if (this.printMode && index % 5 === 1) {
+        } else if (this.printMode && index % 2 === 0) {
           tableContainer.append(page)
           tableContainer.append(this.generateFooter(index))
           rows = []
@@ -97,7 +109,7 @@ export default {
     },
     generateCreatedAt(locator) {
       const createdAt = document.createElement('div')
-      createdAt.classList.add('whitespace-normal', 'bg-transparent', 'w-full', 'text-slate-600', 'text-xs', 'sm:text-sm', 'p-1', 'border-t', 'b-slate-400')
+      createdAt.classList.add('whitespace-normal', 'bg-transparent', 'w-full', 'text-right', 'text-slate-600', 'text-xs', 'sm:text-sm', 'p-1', 'pr-3', 'border-t', 'border-slate-200')
       createdAt.append(params.formatDate(locator.created_at))
       return createdAt
     },
@@ -108,11 +120,11 @@ export default {
       return x
     },
     generateFooter(index, options) {
-      const maxPage = Math.ceil((JSON.parse(this.locators).length - 2) / 5) + 1
-      const nowPage = Math.ceil((index - 1) / 5) + 1
+      const maxPage = Math.ceil((JSON.parse(this.locators).length - 1) / 2) + 1
+      const nowPage = Math.ceil(index / 2) + 1
 
       const pageIndex = document.createElement('div')
-      pageIndex.classList.add('p-4', 'w-full', 'text-right')
+      pageIndex.classList.add('p-3', 'w-full', 'text-right')
       if (!options || !options.lastPage) pageIndex.classList.add('break-after-page')
       pageIndex.append(`${nowPage} / ${maxPage}`)
 
