@@ -16,7 +16,7 @@ describe 'ルーム管理機能', type: :system do
       visit root_path
     end
 
-    context '「キズ点検表を作る」ボタンを押したとき' do
+    context '「入居時チェック表を作る」ボタンを押したとき' do
       let!(:ex_rooms_count) { Room.all.count }
 
       before do
@@ -46,7 +46,7 @@ describe 'ルーム管理機能', type: :system do
 
     context 'ルームにアクセスするとき' do
       it 'ルーム詳細画面に遷移し、マップ画像が表示され、キズの説明が表示される' do
-        expect(page).to have_selector 'h2', text: 'キズ点検表'
+        expect(page).to have_selector 'h2', text: '入居時チェック表'
         expect(show_image[:src]).to include 'test_image.jpg'
         expect(page).to have_content 'リビング、フローリングに削れ'
       end
@@ -126,7 +126,7 @@ describe 'ルーム管理機能', type: :system do
       end
 
       it 'ルーム詳細画面に遷移し、マップ画像が表示される' do
-        expect(page).to have_selector 'h2', text: 'キズ点検表'
+        expect(page).to have_selector 'h2', text: '入居時チェック表'
         expect(show_image[:src]).to include 'test_image.jpg'
       end
     end
@@ -139,7 +139,7 @@ describe 'ルーム管理機能', type: :system do
       end
 
       it 'ルーム詳細画面に遷移し、マップ画像が表示される' do
-        expect(page).to have_selector 'h2', text: 'キズ点検表'
+        expect(page).to have_selector 'h2', text: '入居時チェック表'
         expect(show_image[:src]).to include 'test_image.jpg'
       end
     end

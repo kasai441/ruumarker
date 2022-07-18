@@ -10,7 +10,7 @@ describe 'ホーム管理機能', type: :system do
 
     context '1度目にホームページにアクセスしたとき' do
       it 'ホームページが表示される' do
-        expect(page).to have_selector '.btn', text: 'キズ点検表を作る'
+        expect(page).to have_selector '.btn', text: '入居時チェック表を作る'
       end
     end
 
@@ -25,7 +25,7 @@ describe 'ホーム管理機能', type: :system do
       end
 
       it '1度目につくったルームにリダイレクトされる' do
-        expect(page).to have_selector 'h2', text: 'キズ点検表'
+        expect(page).to have_selector 'h2', text: '入居時チェック表'
         expect(show_image[:src]).to include 'test_image.jpg'
       end
     end

@@ -19,7 +19,7 @@ describe 'マップ管理機能', type: :system do
 
       it '画像が登録されてルームに遷移する' do
         expect(find_by_id('show-image')[:src]).to include 'test_image.jpg'
-        expect(page).to have_selector 'h2', text: 'キズ点検表'
+        expect(page).to have_selector 'h2', text: '入居時チェック表'
       end
     end
 
