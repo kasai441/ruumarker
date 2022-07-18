@@ -78,7 +78,7 @@ export default {
       window.print()
     },
     help() {
-      location.href = '/help'
+      location.href = '/help#pdf'
     }
   },
   created() {

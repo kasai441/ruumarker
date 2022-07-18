@@ -2,7 +2,7 @@
   <section>
     <div class="flex flex-col items-center">
       <div class="w-field flex justify-between items-center">
-        <h2 class="font-h2 pb-2">キズ点検表</h2>
+        <h2 class="font-h2 pb-2">入居時チェック表</h2>
         <p class="pt-3 text-xs sm:text-sm text-zinc-600 text-right">{{ createdAt }} 作成</p>
       </div>
       <p class="w-field pb-2 text-xs sm:text-sm text-zinc-600">作成から約10日で自動削除されます</p>

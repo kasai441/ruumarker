@@ -49,7 +49,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it 'トリミングが保存され、もう一度編集画面を開くとトリミングが反映されている' do
-          expect(page).to have_selector 'h2', text: 'キズ点検表'
+          expect(page).to have_selector 'h2', text: '入居時チェック表'
           find_by_id("mark-#{mark1.id}").click
           left, top = pixel(find_by_id('edit-image'), 'left', 'top')
           expect(left).to be_within(1).of(11)
@@ -199,7 +199,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '配置が保存され、もう一度編集画面を開くと変更が反映されている' do
-          expect(page).to have_selector 'h2', text: 'キズ点検表'
+          expect(page).to have_selector 'h2', text: '入居時チェック表'
           find_by_id("mark-#{mark1.id}").click
           left, top = pixel(find_by_id('edit-location-image'), 'left', 'top')
           expect(left).to be_within(1).of(33)
@@ -263,7 +263,7 @@ describe 'キズ管理機能', type: :system do
         end
 
         it 'フレームと画像が配置移動分だけ移動して、フレームはトリミング分だけ反対方向に移動する' do
-          expect(page).to have_selector 'h2', text: 'キズ点検表'
+          expect(page).to have_selector 'h2', text: '入居時チェック表'
           find_by_id("mark-#{mark1.id}").click
 
           frame_left, frame_top = pixel(find_by_id('edit-location-frame'), 'left', 'top')

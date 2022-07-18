@@ -10,14 +10,14 @@ div.flex.flex-col.items-center
         code.text-lime-600.text-bold
           |ruumarker
         code
-          |はキズの報告のための点検表をつくることができます。
+          |はキズの報告のための入居時チェック表をつくることができます。
       div.p-6
         div.flex.flex-auto
-          = link_to 'キズ点検表を作る', new_room_path, id: "create-room", class: "btn btn-lime", data: { turbo: false }
+          = link_to '入居時チェック表を作る', new_room_path, id: "create-room", class: "btn btn-lime", data: { turbo: false }
     div.font-help-sm
       p.p-1
-        |作った点検表のURLは、知っていれば誰でもアクセスできるので、不特定な他人に閲覧されるような場所に公開しないでください。
+        |作った入居時チェック表のURLは、知っていれば誰でもアクセスできるので、不特定な他人に閲覧されるような場所に公開しないでください。
       p.p-1
-        |このウェブサイトの点検表作成データは2週間で消えてしまいます。作成後にPDFとしてダウンロードできるので、手元で保存するようにしてください。
+        |このウェブサイトの入居時チェック表作成データは2週間で消えてしまいます。作成後にPDFとしてダウンロードできるので、手元で保存するようにしてください。
 
     = render partial: 'help/instruction'

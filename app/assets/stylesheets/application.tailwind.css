@@ -53,7 +53,7 @@
         @apply pb-4 px-8 text-sm text-zinc-600;
     }
     .font-help-link {
-        @apply text-lime-600
+        @apply px-2 sm:px-4 text-lime-600
     }
     .help-image {
         @apply mt-4 mb-6 px-4 w-field rounded-lg bg-slate-900 flex justify-center;
