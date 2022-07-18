@@ -93,6 +93,15 @@ const rotateImage = (imageUrl, imageFile) => {
   })
 }
 
+const formatDate = str => {
+  const d = new Date(str)
+  const date = `${d.getFullYear()} ${d.getMonth()+1}/${d.getDate()}`.replace(/\\s/g, '')
+  let minutes = String(d.getMinutes())
+  if (minutes.length === 1) minutes = `0${minutes}`
+  const time = `${d.getHours()}:${minutes}`.replace(/\s/g, '')
+  return `${date} ${time}`
+}
+
 // private
 
 const getTypeName = imageUrl => {
@@ -108,15 +117,6 @@ const isJson = data => {
     return false
   }
   return true
-}
-
-const formatDate = str => {
-  const d = new Date(str)
-  const date = `${d.getFullYear()} ${d.getMonth()+1}/${d.getDate()}`.replace(/\\s/g, '')
-  let minutes = String(d.getMinutes())
-  if (minutes.length === 1) minutes = `0${minutes}`
-  const time = `${d.getHours()}:${minutes}`.replace(/\s/g, '')
-  return `${date} ${time}`
 }
 
 export default {
