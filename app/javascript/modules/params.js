@@ -1,12 +1,8 @@
 const toPixel = (fieldSize, rate) => {
   return {
-    x: toF(fieldSize.w * rate.x, 1),
-    y: toF(fieldSize.h * rate.y, 1)
+    x: fieldSize.w * rate.x,
+    y: fieldSize.h * rate.y
   }
-}
-
-const toF = (number, fractionDigits) => {
-  return Math.floor(number * 10**fractionDigits) / 10**fractionDigits
 }
 
 const parseOrInit = param => {
@@ -126,7 +122,6 @@ const formatDate = str => {
 export default {
   namespaced: true,
   toPixel,
-  toF,
   parseOrInit,
   initFormData,
   renewFormData,
