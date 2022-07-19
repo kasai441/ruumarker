@@ -46,10 +46,12 @@ bundle exec brakeman -q -w2
 bundle exec rspec
 ```
 
-## production環境での実行
-別途AWS S3の認証情報が必要
+## production環境での実行（未検証）
+別途AWS S3の認証情報が必要なので、完全別環境での動作確認はしていませんが、参考のために手順を記載します。
 
 ```shell
+# 本番環境のDBを設定する
+
 # 元プロジェクトの秘密情報を削除
 rm -rf config/credentials.yml.enc
 
@@ -65,6 +67,9 @@ yarn webpack --config webpack.config.js
 
 # アセットプリコンパイルを実行する
 bin/rails assets:precompile
+
+# プリコンパイルしたアセットを読むための設定
+export RAILS_SERVE_STATIC_FILES=true
 
 # Raisのサーバーを起動する
 bin/rails server -p 3001
@@ -84,5 +89,4 @@ export RAILS_ENV=development
 # サーバー起動する
 yarn
 bin/dev
-
 ```
