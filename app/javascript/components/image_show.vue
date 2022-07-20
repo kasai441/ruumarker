@@ -71,11 +71,12 @@ export default {
 
         const row = document.getElementById(a.id.replace(regex, this.locatorsModel))
         row.classList.add('active')
-        // table.scrollTo({
-        //   behavior: 'smooth',
-        //   left: 0,
-        //   top: tr.offsetTop
-        // })
+
+        window.scrollTo({
+          behavior: 'smooth',
+          left: 0,
+          top: row.offsetTop - 100
+        })
       }
     },
     unbindFadeout(e) {
