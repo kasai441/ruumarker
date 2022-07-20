@@ -9,6 +9,22 @@ https://ruumarker.herokuapp.com/
 
 ## 利用方法
 
+#### 手順
+
+１．間取り画像をアップロードします
+
+２．間取り図を編集します
+
+３．キズ情報を追加します
+
+４．PDFとしてダウンロードします
+
+#### 作成イメージ
+
+<img src="./app/assets/images/help/updated.png" width="320px">
+
+#### ヘルプページ
+
 https://ruumarker.herokuapp.com/help
 
 ## サービス概要
