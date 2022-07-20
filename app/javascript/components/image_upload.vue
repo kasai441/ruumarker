@@ -68,7 +68,7 @@ export default {
       imageFile = await params.reduceLargeImage(imageUrl, imageFile).catch(e => {
         console.log('onload error', e)
         const alert = document.getElementById('alert')
-        alert.innerText = '指定の画像ファイル[jpg/jpeg/png/gif]以外の可能性があります'
+        alert.innerText = 'アップロードするのは「 jpg / jpeg / png / gif 」のいずれかの画像ファイルである必要があります'
         alert.classList.add('alert', 'alert-error', 'mt-2')
         this.$emit('emitIsLoading', false)
         this.isLoading = false
