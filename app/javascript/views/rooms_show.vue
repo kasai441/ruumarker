@@ -19,7 +19,6 @@
       </div>
     </div>
     <a id="create-mark" @click='newMark'
-        @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
         class="new-mark fixed z-10 flex flex-col items-center">
       <img src="/new_mark.png" width="50">
       <svg viewBox="0 0 58 17" width="58" height="17">
@@ -63,14 +62,12 @@ export default {
     getFormData(formData) {
       this.formData = formData
     },
-    newMark() {
+    newMark(e) {
+      this.halfvanish(e)
       location.href = `/rooms/${this.roomId}/marks/new`
     },
     halfvanish(e) {
       tags.parent('A', e.target).classList.add('animate-halfvanish')
-    },
-    unbindHalfvanish(e) {
-      tags.parent('A', e.target).classList.remove('animate-halfvanish')
     },
     areMarks() {
       return JSON.parse(this.marks).length > 0
