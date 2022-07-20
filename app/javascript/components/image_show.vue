@@ -1,6 +1,6 @@
 <template>
   <section id="image-show">
-    <div id="show-field" @pointerdown="scrollTable($event)" @pointerup="unbindFadeout($event)"
+    <div id="show-field" @pointerdown="scrollTable($event)"
          class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
       <img :src="imageUrl" id="show-image"
            class="rounded-lg absolute w-field h-field max-w-none
@@ -64,30 +64,21 @@ export default {
       const a = tags.parent('A', e.target)
       const regex = /locator/g
       if (a && a.id.match(regex)) {
-        const rows = document.getElementsByTagName('locators-row')
+        const rows = document.getElementsByClassName('locators-row')
+        console.log(rows)
         Array.prototype.forEach.call(rows, row => {
-          row.classList.remove('active', 'animate-fadeout')
+          console.log(row)
+          row.classList.remove('animate-fadeout')
         })
 
         const row = document.getElementById(a.id.replace(regex, this.locatorsModel))
-        row.classList.add('active')
+        row.classList.add('animate-fadeout')
 
         window.scrollTo({
           behavior: 'smooth',
           left: 0,
           top: row.offsetTop - 100
         })
-      }
-    },
-    unbindFadeout(e) {
-      if (this.printMode) return
-
-      const a = tags.parent('A', e.target)
-      const regex = /locator/g
-      if (a && a.id.match(regex)) {
-        const tr = document.getElementById(a.id.replace(regex, this.locatorsModel))
-        tr.classList.remove('active')
-        tr.classList.add('animate-fadeout')
       }
     },
     handleResize() {
