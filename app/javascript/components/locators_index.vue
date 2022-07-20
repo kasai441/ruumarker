@@ -25,7 +25,8 @@ export default {
       JSON.parse(this.locators).forEach((locator, index) => {
         const number = document.createElement('div')
         const wNumber = this.printMode ? 'w-full' : 'w-1/12'
-        number.classList.add(wNumber, 'flex', 'justify-start', 'items-start', 'py-2')
+        const hNumber = this.printMode ? 'h-7' : 'h-auto'
+        number.classList.add(wNumber, hNumber, 'flex', 'justify-start', 'items-center', 'py-2')
         number.append(elements[index])
 
         const thumbnail = document.createElement('div')
@@ -36,8 +37,7 @@ export default {
 
         const text = document.createElement('div')
         const wText = this.printMode ? 'w-full' : 'w-5/12'
-        const pText = this.printMode ? 'py-6' : 'p-1'
-        text.classList.add(wText, 'bg-transparent', 'whitespace-normal', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', pText)
+        text.classList.add(wText, 'bg-transparent', 'whitespace-normal', 'text-sm', 'sm:text-base', 'flex', 'flex-col', 'justify-between', 'p-1')
         const createdAt = this.printMode ? '' : this.generateCreatedAt(locator)
         text.append(this.generateDescription(locator), createdAt)
 

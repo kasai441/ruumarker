@@ -18,11 +18,12 @@ const generateLocators = (locators, options) => {
     if (options && options.printMode) src = '/locators_white.png'
 
     const img = document.createElement('img')
-    img.classList.add('absolute', 'w-7', 'h-7', 'pointer-events-none')
+    const zIndex = (!options || options.printMode || !options.indexMode) ? 'z-0' : 'z-10'
+    img.classList.add('absolute', zIndex, 'w-7', 'h-7', 'pointer-events-none')
     img.src = src
 
     const number = document.createElement('a')
-    number.classList.add('relative', 'text-sm', 'pointer-events-none')
+    number.classList.add('relative', zIndex, 'text-sm', 'pointer-events-none')
     if (!options || !options.printMode) number.classList.add('text-white')
     number.append(index + 1)
 
