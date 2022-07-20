@@ -6,7 +6,6 @@
            class="rounded-lg absolute w-field h-field max-w-none
            object-contain">
       <a v-if="!printMode" id="image-edit" @click='imageEdit'
-           @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
            class="absolute z-10 flex flex-col items-center">
         <img src="/camera.png" width="40">
         <svg viewBox="0 0 34 17" width="34" height="17">
@@ -38,16 +37,14 @@ export default {
     }
   },
   methods: {
-    imageEdit() {
+    imageEdit(e) {
+      this.halfvanish(e)
       const target = this.formData.get('target')
       const id = this.formData.get(`${target}[id]`)
       location.href = `/rooms/${this.roomId}/${target}s/${id}/edit`
     },
     halfvanish(e) {
       tags.parent('A', e.target).classList.add('animate-halfvanish')
-    },
-    unbindHalfvanish(e) {
-      tags.parent('A', e.target).classList.remove('animate-halfvanish')
     },
     layout() {
       const fieldSize = tags.readSize('show-field')
