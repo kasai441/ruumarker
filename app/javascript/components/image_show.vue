@@ -38,13 +38,10 @@ export default {
   },
   methods: {
     imageEdit(e) {
-      this.halfvanish(e)
+      tags.parent('A', e.target).classList.add('animate-halfvanish')
       const target = this.formData.get('target')
       const id = this.formData.get(`${target}[id]`)
       location.href = `/rooms/${this.roomId}/${target}s/${id}/edit`
-    },
-    halfvanish(e) {
-      tags.parent('A', e.target).classList.add('animate-halfvanish')
     },
     layout() {
       const fieldSize = tags.readSize('show-field')

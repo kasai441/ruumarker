@@ -63,16 +63,15 @@ export default {
       this.formData = formData
     },
     newMark(e) {
-      this.halfvanish(e)
-      location.href = `/rooms/${this.roomId}/marks/new`
-    },
-    halfvanish(e) {
       tags.parent('A', e.target).classList.add('animate-halfvanish')
+      location.href = `/rooms/${this.roomId}/marks/new`
     },
     areMarks() {
       return JSON.parse(this.marks).length > 0
     },
     print() {
+      const download = document.getElementById('download')
+      download.classList.add('animate-halfvanish')
       location.href = `/rooms/${this.roomId}/reports`
     },
   },
