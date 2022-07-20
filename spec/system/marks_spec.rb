@@ -76,7 +76,8 @@ describe 'キズ管理機能', type: :system do
         end
 
         it '更新を失敗して画像が変化しない' do
-          expect(page).to have_selector '.alert-error', text: '指定の画像ファイル[jpg/jpeg/png/gif]以外の可能性があります'
+          expect(page).to have_selector '.alert-error',
+                                        text: 'アップロードするのは「 jpg / jpeg / png / gif 」のいずれかの画像ファイルである必要があります'
           expect(find_by_id('edit-image')[:src]).to include 'test_image.jpg'
         end
       end

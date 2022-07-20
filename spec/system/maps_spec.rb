@@ -41,7 +41,7 @@ describe 'マップ管理機能', type: :system do
       end
 
       it '画像が変化しない' do
-        expect(page).to have_selector '.alert-error', text: '指定の画像ファイル[jpg/jpeg/png/gif]以外の可能性があります'
+        expect(page).to have_selector '.alert-error', text: 'アップロードするのは「 jpg / jpeg / png / gif 」のいずれかの画像ファイルである必要があります'
         expect(page).to have_selector '#preview-image'
         expect(find_by_id('preview-image')[:src]).to include 'sample_map.png'
       end
@@ -115,7 +115,7 @@ describe 'マップ管理機能', type: :system do
       end
 
       it '更新を失敗して画面がそのまま遷移しない' do
-        expect(page).to have_selector '.alert-error', text: '指定の画像ファイル[jpg/jpeg/png/gif]以外の可能性があります'
+        expect(page).to have_selector '.alert-error', text: 'アップロードするのは「 jpg / jpeg / png / gif 」のいずれかの画像ファイルである必要があります'
         expect(page).to have_selector '#edit-image'
       end
     end

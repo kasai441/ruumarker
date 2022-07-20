@@ -13,10 +13,10 @@
     <div class="fixed relative h-20 print:hidden"></div>
     <div class="fixed w-full z-10
     p-2 px-8 bg-white border-b border-slate-900/20 print:hidden">
-      <p class="text-slate-500">
+      <p class="text-slate-700">
         「PRINT」から印刷ダイアログを表示してPDF出力を選択できます
       </p>
-      <p class="text-sm text-slate-500">
+      <p class="text-sm text-slate-500 pl-4">
         ※ ダイアログが出ない場合、手動でブラウザの印刷画面を開いてください
         <span class="text-lime-600" @pointerdown="help">各ブラウザのPDF出力方法</span>
       </p>
