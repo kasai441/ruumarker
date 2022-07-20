@@ -146,6 +146,7 @@ export default {
       const regex = `${this.locatorsModel}-`
       if (row && row.id.match(regex)) {
         const id = row.id.replace(regex, '')
+        row.classList.add('animate-halfvanish')
         location.href = `/rooms/${this.roomId}/${this.locatorsModel}s/${id}/edit`
       }
     },
