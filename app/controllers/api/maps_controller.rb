@@ -5,22 +5,12 @@ module Api
     def create
       room = Room.find(params[:room_id])
       @map = room.build_map(map_params)
-
-      if @map.save
-        render :create
-      else
-        render json: @map.errors, status: 422
-      end
+      render json: @map.errors, status: 422 unless @map.save
     end
 
     def update
       @map = Map.find(params[:id])
-
-      if @map.update(map_params)
-        render :update
-      else
-        render json: @map.errors, status: 422
-      end
+      render json: @map.errors, status: 422 unless @map.update(map_params)
     end
 
     private
