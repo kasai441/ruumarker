@@ -176,10 +176,6 @@ export default {
     },
     browserBack() {
       tags.browserBack()
-      // const rows = document.getElementsByClassName('locators-row')
-      // Array.prototype.forEach.call(rows, row => {
-      //   row.classList.remove('animate-fadeout')
-      // })
     }
   },
   mounted() {

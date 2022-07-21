@@ -89,6 +89,11 @@ export default {
       download.classList.add('animate-fadeout')
       location.href = `/rooms/${this.roomId}/reports`
     },
+    help() {
+      const help = document.getElementById('help')
+      help.classList.add('animate-fadeout')
+      location.href = '/help'
+    },
     scroll() {
       const roomTitle = document.getElementById('room-title')
       if (roomTitle.getBoundingClientRect().top < 64) {
@@ -123,15 +128,22 @@ export default {
     const download = document.getElementById('download')
     download.classList.remove('hidden')
     download.addEventListener('click', this.print)
+
+    const help = document.getElementById('help')
+    help.addEventListener('click', this.help)
+
     window.addEventListener('scroll', this.scroll)
     window.addEventListener('popstate', this.browserBack)
-    tags.vanishingHelp()
   },
   beforeDestroy() {
     const download = document.getElementById('download')
     download.removeEventListener('click', this.print)
 
+    const help = document.getElementById('help')
+    help.removeEventListener('click', this.help)
+
     window.removeEventListener('scroll', this.scroll)
+    window.removeEventListener('popstate', this.browserBack)
   }
 }
 </script>

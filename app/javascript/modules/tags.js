@@ -143,14 +143,6 @@ const loadingFilter = isLoading => {
   }
 }
 
-const vanishingHelp = () => {
-  const help = document.getElementById('help')
-  help.addEventListener('click', () => {
-    help.classList.remove('animate-fadeout')
-    help.classList.add('animate-fadeout')
-  })
-}
-
 const browserBack = () => {
   const fadeouts = document.getElementsByClassName('animate-fadeout')
   Array.prototype.forEach.call(fadeouts, fadeout => {
@@ -176,6 +168,5 @@ export default {
   writeSize,
   writePosition,
   loadingFilter,
-  vanishingHelp,
   browserBack
 }
