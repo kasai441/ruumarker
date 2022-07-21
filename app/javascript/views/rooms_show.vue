@@ -27,11 +27,11 @@
       </svg>
     </a>
     <a id="scroll-above" @click='scrollAbove'
-       class="scroll-above hidden fixed z-10 flex flex-col items-center">
-      <a class="btn btn-sm btn-outline text-2xl pt-1">^</a>
-      <svg viewBox="0 0 28 17" width="28" height="17">
-        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn font-bg">Top</text>
-        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn">Top</text>
+       class="scroll-above hidden fixed z-10 flex flex-col items-center mt-3">
+      <a class="btn btn-sm text-2xl pt-1 opacity-60">^</a>
+      <svg viewBox="0 0 32 17" width="32" height="17">
+        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn font-bg">TOP</text>
+        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn fill-slate-600">TOP</text>
       </svg>
     </a>
     <div class="h-20"></div>
