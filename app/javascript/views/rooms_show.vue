@@ -97,6 +97,15 @@ export default {
         this.slideout()
       }
     },
+    browserBack() {
+      const fadeouts = document.getElementsByClassName('animate-fadeout')
+
+      // const help = document.getElementById('help')
+      console.log(fadeouts)
+      Array.prototype.forEach.call(fadeouts, fadeout => {
+        fadeout.classList.remove('animate-fadeout')
+      })
+    },
     slidein() {
       const scrollAbove = document.getElementById('scroll-above')
       scrollAbove.classList.remove('hidden')
@@ -121,6 +130,7 @@ export default {
     download.classList.remove('hidden')
     download.addEventListener('click', this.print)
     window.addEventListener('scroll', this.scroll)
+    window.addEventListener('popstate', this.browserBack)
     tags.vanishingHelp()
   },
   beforeDestroy() {
