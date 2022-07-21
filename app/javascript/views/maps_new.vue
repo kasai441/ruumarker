@@ -51,9 +51,6 @@ export default {
       await api.actions.create(`/api/rooms/${this.roomId}/maps`, this.formData)
       location.href = `/rooms/${this.roomId}`
     },
-    help() {
-      tags.help()
-    },
     browserBack() {
       tags.browserBack()
     }
@@ -62,15 +59,9 @@ export default {
     tags.loadingFilter(this.isLoading)
   },
   mounted() {
-    const help = document.getElementById('help')
-    help.addEventListener('click', this.help)
-
     window.addEventListener('popstate', this.browserBack)
   },
   beforeDestroy() {
-    const help = document.getElementById('help')
-    help.removeEventListener('click', this.help)
-
     window.removeEventListener('popstate', this.browserBack)
   }
 }
