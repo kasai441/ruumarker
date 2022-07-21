@@ -89,10 +89,8 @@ export default {
       download.classList.add('animate-halfvanish')
       location.href = `/rooms/${this.roomId}/reports`
     },
-    slide() {
+    scroll() {
       const roomTitle = document.getElementById('room-title')
-
-      console.log(roomTitle.getBoundingClientRect().top)
       if (roomTitle.getBoundingClientRect().top < 64) {
         this.slidein()
       } else {
@@ -106,10 +104,12 @@ export default {
       scrollAbove.classList.remove('animate-slideout')
     },
     slideout() {
-      console.log('slideout')
       const scrollAbove = document.getElementById('scroll-above')
-      scrollAbove.classList.add('animate-slideout')
       scrollAbove.classList.remove('animate-slidein')
+      scrollAbove.classList.add('animate-slideout')
+      setTimeout(() => {
+        scrollAbove.classList.add('hidden')
+      }, 500)
     }
   },
   created() {
@@ -121,13 +121,13 @@ export default {
     download.classList.remove('hidden')
     download.addEventListener('click', this.print)
 
-    window.addEventListener('scroll', this.slide)
+    window.addEventListener('scroll', this.scroll)
   },
   beforeDestroy() {
     const download = document.getElementById('download')
     download.removeEventListener('click', this.print)
 
-    window.removeEventListener('scroll', this.slide)
+    window.removeEventListener('scroll', this.scroll)
   }
 }
 </script>
