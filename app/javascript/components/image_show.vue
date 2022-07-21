@@ -1,12 +1,11 @@
 <template>
   <section id="image-show">
-    <div id="show-field" @pointerdown="scrollTable($event)" @pointerup="unbindFadeout($event)"
+    <div id="show-field" @click="scrollTable($event)"
          class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
       <img :src="imageUrl" id="show-image"
            class="rounded-lg absolute w-field h-field max-w-none
            object-contain">
       <a v-if="!printMode" id="image-edit" @click='imageEdit'
-           @pointerdown="unbindHalfvanish" @pointerup="halfvanish"
            class="absolute z-10 flex flex-col items-center">
         <img src="/camera.png" width="40">
         <svg viewBox="0 0 34 17" width="34" height="17">
@@ -38,16 +37,11 @@ export default {
     }
   },
   methods: {
-    imageEdit() {
+    imageEdit(e) {
+      tags.parent('A', e.target).classList.add('animate-fadeout')
       const target = this.formData.get('target')
       const id = this.formData.get(`${target}[id]`)
       location.href = `/rooms/${this.roomId}/${target}s/${id}/edit`
-    },
-    halfvanish(e) {
-      tags.parent('A', e.target).classList.add('animate-halfvanish')
-    },
-    unbindHalfvanish(e) {
-      tags.parent('A', e.target).classList.remove('animate-halfvanish')
     },
     layout() {
       const fieldSize = tags.readSize('show-field')
@@ -67,29 +61,19 @@ export default {
       const a = tags.parent('A', e.target)
       const regex = /locator/g
       if (a && a.id.match(regex)) {
-        const rows = document.getElementsByTagName('locators-row')
+        const rows = document.getElementsByClassName('locators-row')
         Array.prototype.forEach.call(rows, row => {
-          row.classList.remove('active', 'animate-fadeout')
+          row.classList.remove('animate-select')
         })
 
         const row = document.getElementById(a.id.replace(regex, this.locatorsModel))
-        row.classList.add('active')
-        // table.scrollTo({
-        //   behavior: 'smooth',
-        //   left: 0,
-        //   top: tr.offsetTop
-        // })
-      }
-    },
-    unbindFadeout(e) {
-      if (this.printMode) return
+        row.classList.add('animate-select')
 
-      const a = tags.parent('A', e.target)
-      const regex = /locator/g
-      if (a && a.id.match(regex)) {
-        const tr = document.getElementById(a.id.replace(regex, this.locatorsModel))
-        tr.classList.remove('active')
-        tr.classList.add('animate-fadeout')
+        window.scrollTo({
+          behavior: 'smooth',
+          left: 0,
+          top: row.offsetTop - 100
+        })
       }
     },
     handleResize() {

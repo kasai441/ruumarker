@@ -64,6 +64,9 @@
     .new-mark {
         @apply top-76vh left-80vw lg:left-max;
     }
+    .scroll-above {
+        @apply top-76vh left-5vw sm:left-10vw lg:left-min;
+    }
     .longpress-none {
         -webkit-user-select: none;
         -webkit-touch-callout: none;

@@ -20,11 +20,4 @@ class RoomsController < ApplicationController
       cookies.signed[:room_id] = { value: @room.id, expires: 1.month.from_now, httponly: true }
     end
   end
-
-  def destroy
-    room = Room.find(params[:id])
-    cookies.delete :room_id
-    room.destroy
-    redirect_to root_path, status: :see_other, notice: 'ルームを削除しました。'
-  end
 end

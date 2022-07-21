@@ -143,6 +143,26 @@ const loadingFilter = isLoading => {
   }
 }
 
+const help = () => {
+  const help = document.getElementById('help')
+  help.addEventListener('click', () => {
+    help.classList.add('animate-fadeout')
+    location.href = '/help'
+  })
+}
+
+const browserBack = () => {
+  const fadeouts = document.getElementsByClassName('animate-fadeout')
+  Array.prototype.forEach.call(fadeouts, fadeout => {
+    fadeout.classList.remove('animate-fadeout')
+  })
+
+  const selects = document.getElementsByClassName('animate-select')
+  Array.prototype.forEach.call(selects, select => {
+    select.classList.remove('animate-select')
+  })
+}
+
 export default {
   namespaced: true,
   parent,
@@ -155,5 +175,7 @@ export default {
   readSize,
   writeSize,
   writePosition,
-  loadingFilter
+  loadingFilter,
+  help,
+  browserBack
 }
