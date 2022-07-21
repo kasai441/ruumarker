@@ -143,6 +143,14 @@ const loadingFilter = isLoading => {
   }
 }
 
+const vanishingHelp = () => {
+  const help = document.getElementById('help')
+  help.addEventListener('click', () => {
+    help.classList.remove('animate-fadeout')
+    help.classList.add('animate-fadeout')
+  })
+}
+
 export default {
   namespaced: true,
   parent,
@@ -155,5 +163,6 @@ export default {
   readSize,
   writeSize,
   writePosition,
-  loadingFilter
+  loadingFilter,
+  vanishingHelp
 }

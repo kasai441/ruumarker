@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     imageEdit(e) {
-      tags.parent('A', e.target).classList.add('animate-halfvanish')
+      tags.parent('A', e.target).classList.add('animate-fadeout')
       const target = this.formData.get('target')
       const id = this.formData.get(`${target}[id]`)
       location.href = `/rooms/${this.roomId}/${target}s/${id}/edit`
@@ -63,11 +63,11 @@ export default {
       if (a && a.id.match(regex)) {
         const rows = document.getElementsByClassName('locators-row')
         Array.prototype.forEach.call(rows, row => {
-          row.classList.remove('animate-fadeout')
+          row.classList.remove('animate-select')
         })
 
         const row = document.getElementById(a.id.replace(regex, this.locatorsModel))
-        row.classList.add('animate-fadeout')
+        row.classList.add('animate-select')
 
         window.scrollTo({
           behavior: 'smooth',

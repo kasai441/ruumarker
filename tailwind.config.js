@@ -51,18 +51,18 @@ module.exports = {
         '3': '3px',
       },
       animation: {
-        fadeout: 'fadeout 2.5s ease 1',
-        halfvanish: 'halfvanish 0.5s ease 1',
+        select: 'select 2.5s ease 1',
+        fadeout: 'fadeout 0.5s ease 1',
         slidein: 'slidein 0.5s ease 1',
         slideout: 'slideout 0.5s ease 1'
       },
       keyframes: {
-        fadeout: {
+        select: {
           '0%': { 'background': 'rgba(239, 239, 239, 1)' },
           '20%': { 'background': 'rgba(239, 239, 239, 1)' },
           '100%': { 'background': 'rgba(239, 239, 239, 0)' }
         },
-        halfvanish: {
+        fadeout: {
           '0%': { 'opacity': 0.7 },
           '100%': { 'opacity': 0.4}
         },

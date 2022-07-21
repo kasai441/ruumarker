@@ -71,7 +71,7 @@ export default {
       this.formData = formData
     },
     newMark(e) {
-      tags.parent('A', e.target).classList.add('animate-halfvanish')
+      tags.parent('A', e.target).classList.add('animate-fadeout')
       location.href = `/rooms/${this.roomId}/marks/new`
     },
     scrollAbove() {
@@ -86,7 +86,7 @@ export default {
     },
     print() {
       const download = document.getElementById('download')
-      download.classList.add('animate-halfvanish')
+      download.classList.add('animate-fadeout')
       location.href = `/rooms/${this.roomId}/reports`
     },
     scroll() {
@@ -120,8 +120,8 @@ export default {
     const download = document.getElementById('download')
     download.classList.remove('hidden')
     download.addEventListener('click', this.print)
-
     window.addEventListener('scroll', this.scroll)
+    tags.vanishingHelp()
   },
   beforeDestroy() {
     const download = document.getElementById('download')
