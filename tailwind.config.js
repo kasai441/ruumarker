@@ -52,7 +52,9 @@ module.exports = {
       },
       animation: {
         fadeout: 'fadeout 2.5s ease 1',
-        halfvanish: 'halfvanish 0.5s ease 1'
+        halfvanish: 'halfvanish 0.5s ease 1',
+        slidein: 'slidein 0.5s ease 1',
+        slideout: 'slideout 0.5s ease 1'
       },
       keyframes: {
         fadeout: {
@@ -63,6 +65,14 @@ module.exports = {
         halfvanish: {
           '0%': { 'opacity': 0.7 },
           '100%': { 'opacity': 0.4}
+        },
+        slidein: {
+          '0%': { 'top': 'calc(100vh + 10rem)' },
+          '100%': { 'top': 'calc(76vh)' }
+        },
+        slideout: {
+          '0%': { 'top': 'calc(76vh)' },
+          '100%': { 'top': 'calc(100vh + 10rem)', }
         }
       },
       screens: {

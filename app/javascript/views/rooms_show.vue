@@ -2,7 +2,7 @@
   <section>
     <div class="flex flex-col items-center">
       <div class="w-field flex justify-between items-center">
-        <h2 class="font-h2 pb-2">入居時チェック表</h2>
+        <h2 id="room-title" class="font-h2 pb-2">入居時チェック表</h2>
         <p class="pt-3 text-xs sm:text-sm text-zinc-700 text-right">{{ createdAt }} 作成</p>
       </div>
       <p class="w-field text-xs sm:text-sm text-zinc-500">※ URLにアクセスすれば編集閲覧が可能です</p>
@@ -27,7 +27,7 @@
       </svg>
     </a>
     <a id="scroll-above" @click='scrollAbove'
-       class="scroll-above fixed z-10 flex flex-col items-center">
+       class="scroll-above hidden fixed z-10 flex flex-col items-center">
       <img src="/new_mark.png" width="50">
       <svg viewBox="0 0 58 17" width="58" height="17">
         <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn font-bg">間取り図</text>
@@ -89,6 +89,28 @@ export default {
       download.classList.add('animate-halfvanish')
       location.href = `/rooms/${this.roomId}/reports`
     },
+    slide() {
+      const roomTitle = document.getElementById('room-title')
+
+      console.log(roomTitle.getBoundingClientRect().top)
+      if (roomTitle.getBoundingClientRect().top < 64) {
+        this.slidein()
+      } else {
+        this.slideout()
+      }
+    },
+    slidein() {
+      const scrollAbove = document.getElementById('scroll-above')
+      scrollAbove.classList.remove('hidden')
+      scrollAbove.classList.add('animate-slidein')
+      scrollAbove.classList.remove('animate-slideout')
+    },
+    slideout() {
+      console.log('slideout')
+      const scrollAbove = document.getElementById('scroll-above')
+      scrollAbove.classList.add('animate-slideout')
+      scrollAbove.classList.remove('animate-slidein')
+    }
   },
   created() {
     this.formData = params.initFormData(this.map)
@@ -98,10 +120,14 @@ export default {
     const download = document.getElementById('download')
     download.classList.remove('hidden')
     download.addEventListener('click', this.print)
+
+    window.addEventListener('scroll', this.slide)
   },
   beforeDestroy() {
     const download = document.getElementById('download')
     download.removeEventListener('click', this.print)
+
+    window.removeEventListener('scroll', this.slide)
   }
 }
 </script>
