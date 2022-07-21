@@ -62,9 +62,7 @@ export default {
       this.isLoading = bool
     },
     help() {
-      const help = document.getElementById('help')
-      help.classList.add('animate-fadeout')
-      location.href = '/help'
+      tags.help()
     },
     browserBack() {
       tags.browserBack()

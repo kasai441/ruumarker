@@ -90,9 +90,7 @@ export default {
       location.href = `/rooms/${this.roomId}/reports`
     },
     help() {
-      const help = document.getElementById('help')
-      help.classList.add('animate-fadeout')
-      location.href = '/help'
+      tags.help()
     },
     scroll() {
       const roomTitle = document.getElementById('room-title')

@@ -52,9 +52,7 @@ export default {
       location.href = `/rooms/${this.roomId}`
     },
     help() {
-      const help = document.getElementById('help')
-      help.classList.add('animate-fadeout')
-      location.href = '/help'
+      tags.help()
     },
     browserBack() {
       tags.browserBack()
