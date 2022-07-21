@@ -31,7 +31,7 @@
       <img src="/new_mark.png" width="50">
       <svg viewBox="0 0 58 17" width="58" height="17">
         <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn font-bg">間取り図</text>
-        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn fill-lime-600">間取り図</text>
+        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn">間取り図</text>
       </svg>
     </a>
     <div class="h-20"></div>
@@ -73,6 +73,13 @@ export default {
     newMark(e) {
       tags.parent('A', e.target).classList.add('animate-halfvanish')
       location.href = `/rooms/${this.roomId}/marks/new`
+    },
+    scrollAbove() {
+      window.scrollTo({
+        behavior: 'smooth',
+        left: 0,
+        top: 0
+      })
     },
     areMarks() {
       return JSON.parse(this.marks).length > 0
