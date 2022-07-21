@@ -58,9 +58,9 @@ module.exports = {
       },
       keyframes: {
         fadeout: {
-          '0%': { 'background': 'rgba(223, 223, 223, 1)' },
-          '20%': { 'background': 'rgba(223, 223, 223, 1)' },
-          '100%': { 'background': 'rgba(223, 223, 223, 0)' }
+          '0%': { 'background': 'rgba(239, 239, 239, 1)' },
+          '20%': { 'background': 'rgba(239, 239, 239, 1)' },
+          '100%': { 'background': 'rgba(239, 239, 239, 0)' }
         },
         halfvanish: {
           '0%': { 'opacity': 0.7 },
