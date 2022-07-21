@@ -88,6 +88,14 @@ export default {
     },
     back() {
       location.href = `/rooms/${this.roomId}`
+    },
+    help() {
+      const help = document.getElementById('help')
+      help.classList.add('animate-fadeout')
+      location.href = '/help'
+    },
+    browserBack() {
+      tags.browserBack()
     }
   },
   created() {
@@ -109,9 +117,20 @@ export default {
   mounted() {
     const div = document.getElementById('screen-scroll')
     div.classList.add('overflow-scroll', 'h-screen')
+
+    const help = document.getElementById('help')
+    help.addEventListener('click', this.help)
+
+    window.addEventListener('popstate', this.browserBack)
   },
   updated() {
     tags.loadingFilter(this.isLoading)
+  },
+  beforeDestroy() {
+    const help = document.getElementById('help')
+    help.removeEventListener('click', this.help)
+
+    window.removeEventListener('popstate', this.browserBack)
   }
 }
 </script>

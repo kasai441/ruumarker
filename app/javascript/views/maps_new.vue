@@ -50,10 +50,30 @@ export default {
     async create() {
       await api.actions.create(`/api/rooms/${this.roomId}/maps`, this.formData)
       location.href = `/rooms/${this.roomId}`
+    },
+    help() {
+      const help = document.getElementById('help')
+      help.classList.add('animate-fadeout')
+      location.href = '/help'
+    },
+    browserBack() {
+      tags.browserBack()
     }
   },
   updated() {
     tags.loadingFilter(this.isLoading)
+  },
+  mounted() {
+    const help = document.getElementById('help')
+    help.addEventListener('click', this.help)
+
+    window.addEventListener('popstate', this.browserBack)
+  },
+  beforeDestroy() {
+    const help = document.getElementById('help')
+    help.removeEventListener('click', this.help)
+
+    window.removeEventListener('popstate', this.browserBack)
   }
 }
 </script>
