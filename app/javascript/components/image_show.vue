@@ -62,9 +62,7 @@ export default {
       const regex = /locator/g
       if (a && a.id.match(regex)) {
         const rows = document.getElementsByClassName('locators-row')
-        console.log(rows)
         Array.prototype.forEach.call(rows, row => {
-          console.log(row)
           row.classList.remove('animate-fadeout')
         })
 
