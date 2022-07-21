@@ -34,9 +34,12 @@ module.exports = {
         '78vw2/3': 'calc(78vw * 2/3)'
       },
       inset: {
+        '5vw': 'calc(5vw)',
+        '10vw': 'calc(10vw)',
         '76vh': 'calc(76vh)',
         '80vw': 'calc(80vw)',
         'max': 'calc(50vw + 21rem)',
+        'min': 'calc(50vw - 23rem)',
         'kana': '17px'
       },
       outlineWidth: {

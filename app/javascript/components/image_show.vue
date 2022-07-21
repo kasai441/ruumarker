@@ -1,6 +1,6 @@
 <template>
   <section id="image-show">
-    <div id="show-field" @pointerdown="scrollTable($event)"
+    <div id="show-field" @click="scrollTable($event)"
          class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
       <img :src="imageUrl" id="show-image"
            class="rounded-lg absolute w-field h-field max-w-none
