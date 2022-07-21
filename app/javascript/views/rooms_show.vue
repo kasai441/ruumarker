@@ -98,13 +98,7 @@ export default {
       }
     },
     browserBack() {
-      const fadeouts = document.getElementsByClassName('animate-fadeout')
-
-      // const help = document.getElementById('help')
-      console.log(fadeouts)
-      Array.prototype.forEach.call(fadeouts, fadeout => {
-        fadeout.classList.remove('animate-fadeout')
-      })
+      tags.browserBack()
     },
     slidein() {
       const scrollAbove = document.getElementById('scroll-above')

@@ -151,6 +151,18 @@ const vanishingHelp = () => {
   })
 }
 
+const browserBack = () => {
+  const fadeouts = document.getElementsByClassName('animate-fadeout')
+  Array.prototype.forEach.call(fadeouts, fadeout => {
+    fadeout.classList.remove('animate-fadeout')
+  })
+
+  const selects = document.getElementsByClassName('animate-select')
+  Array.prototype.forEach.call(selects, select => {
+    select.classList.remove('animate-select')
+  })
+}
+
 export default {
   namespaced: true,
   parent,
@@ -164,5 +176,6 @@ export default {
   writeSize,
   writePosition,
   loadingFilter,
-  vanishingHelp
+  vanishingHelp,
+  browserBack
 }
