@@ -4,7 +4,7 @@ div.flex.justify-center
     div.pt-12.sm:pt-14.lg:pt-16.flex.flex-col.items-center.text-center
       div.text-3xl.sm:text-4xl.lg:text-5xl.font-extrabold
         |引っ越したらすぐ
-        p キズ点検しよう
+        p チェック表を作ろう
       div.py-1.px-4.sm:px-6.md:px-8.mt-6
         code
           |新居の壁紙にキズがあったらすぐに大家さんに報告しましょう。
@@ -12,11 +12,5 @@ div.flex.justify-center
           |ruumarker
         code
           |はキズの報告のための入居時チェック表をつくることができます。
-      div.p-6
-        div.flex.flex-auto
-          = link_to '入居時チェック表を作る', new_room_path, id: "create-room", class: "btn btn-lime", data: { turbo: false }
-    div.font-help-sm
-      p.p-1
-        |※ 作った入居時チェック表のURLは、知っていれば誰でもアクセスできるので、不特定な他人に閲覧されるような場所に公開しないでください。
-      p.p-1
-        |※ このウェブサイトの入居時チェック表作成データは2週間で消えてしまいます。作成後にPDFとしてダウンロードできるので、手元で保存するようにしてください。
+
+    = render partial: 'help/introduction'
