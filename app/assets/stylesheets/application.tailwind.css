@@ -44,13 +44,13 @@
         stroke-linejoin: round;
     }
     .font-help-h2 {
-        @apply p-4 text-2xl font-bold;
+        @apply py-4 sm:p-4 text-2xl font-bold;
     }
     .font-help-h3 {
         @apply pb-4 text-lg font-bold;
     }
     .font-help-sm {
-        @apply pb-4 px-8 text-sm text-zinc-600;
+        @apply pb-4 sm:px-8 text-sm text-zinc-600;
     }
     .font-help-link {
         @apply px-2 sm:px-4 text-lime-600

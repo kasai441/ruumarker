@@ -12,24 +12,25 @@ html
   body.bg-white
     div#loading-filter.fixed.z-30.w-full.h-full.bg-white/50.hidden
     div#screen-scroll
-      div#title-bar.fixed.z-20.w-full.py-1.px-4.border-b.border-slate-900/10.flex.justify-between.items-center.bg-white
-        = link_to root_path, id: "title-logo", class: "flex items-center", data: { turbo: false }
-          = image_tag "logo.png", size: "40x20", alt: "logo.png"
-          div.flex.flex-col
-            div.h-2
-            div.absolute.top-kana.px-1.pt-0.font-bold.text-xs.text-lime-600/80
-              |ルーマーカー
-            div.px-1.pb-0.text-2xl
-              |ruumarker
-        div.flex
-          a#download.hidden.flex.flex-col.items-center
-            p.font-btn
-              |PRINT
-            = image_tag "download.png", size: "30x30", alt: "download.png", class: "mx-2"
-          a#help.flex.flex-col.items-center
-            p.font-btn
-              |HELP
-            = image_tag "help.png", size: "30x30", alt: "help.png", class: "mx-2 opacity-40"
+      div#title-bar.fixed.z-20.w-full.py-1.px-4.border-b.border-slate-900/10.flex.justify-center.items-center.bg-white
+        div.main-screen.flex.justify-between.items-center
+          = link_to root_path, id: "title-logo", class: "flex items-center", data: { turbo: false }
+            = image_tag "logo.png", size: "40x20", alt: "logo.png"
+            div.flex.flex-col
+              div.h-2
+              div.absolute.top-kana.px-1.pt-0.font-bold.text-xs.text-lime-600/80
+                |ルーマーカー
+              div.px-1.pb-0.text-2xl
+                |ruumarker
+          div.flex
+            a#download.hidden.flex.flex-col.items-center
+              p.font-btn
+                |PRINT
+              = image_tag "download.png", size: "30x30", alt: "download.png", class: "mx-2"
+            a#help.flex.flex-col.items-center
+              p.font-btn
+                |HELP
+              = image_tag "help.png", size: "30x30", alt: "help.png", class: "mx-2 opacity-40"
       div#title-bar-space.h-16
       div#alert.fixed.z-20
       = yield
