@@ -143,11 +143,21 @@ const loadingFilter = isLoading => {
   }
 }
 
+const homeTop = () => {
+  const homeTop = document.getElementById('home-top')
+  homeTop.addEventListener('click', () => {
+    window.scrollTo({
+      behavior: 'smooth',
+      left: 0,
+      top: 0
+    })
+  })
+}
+
 const hideHome = () => {
   const home = document.getElementById('home')
   home.classList.add('hidden')
 }
-
 
 const displayHelp = () => {
   const help = document.getElementById('help')
@@ -183,6 +193,7 @@ export default {
   writeSize,
   writePosition,
   loadingFilter,
+  homeTop,
   hideHome,
   displayHelp,
   browserBack

@@ -9,6 +9,7 @@ import tags from './modules/tags'
 window.addEventListener('popstate', () => {
   tags.browserBack()
 })
+tags.homeTop()
 
 document.addEventListener('turbo:load', () => {
   const selectors = [
