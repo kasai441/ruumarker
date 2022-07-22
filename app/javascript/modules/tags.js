@@ -145,6 +145,8 @@ const loadingFilter = isLoading => {
 
 const homeTop = () => {
   const homeTop = document.getElementById('home-top')
+  if (!homeTop) return
+
   homeTop.addEventListener('click', () => {
     window.scrollTo({
       behavior: 'smooth',
