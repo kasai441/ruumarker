@@ -6,7 +6,6 @@ import MarksEdit from './views/marks_edit.vue'
 import ReportsIndex from './views/reports_index.vue'
 import tags from './modules/tags'
 
-tags.help()
 window.addEventListener('popstate', () => {
   tags.browserBack()
 })
@@ -23,6 +22,8 @@ document.addEventListener('turbo:load', () => {
     let app
     let element = document.querySelector(selector)
     if (element) {
+      tags.hideHome()
+      tags.displayHelp()
       switch (element.id) {
       case 'rooms-show':
         app = createApp(RoomsShow)

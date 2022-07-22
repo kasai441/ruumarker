@@ -27,10 +27,11 @@ html
               p.font-btn
                 |PRINT
               = image_tag "download.png", size: "30x30", alt: "download.png", class: "mx-2"
-            a#help.flex.flex-col.items-center
+            a#help.hidden.flex.flex-col.items-center
               p.font-btn
                 |HELP
               = image_tag "help.png", size: "30x30", alt: "help.png", class: "mx-2 opacity-40"
+            = link_to 'HOME', root_path, id: "home", class: "btn btn-outline", data: { turbo: false }
       div#title-bar-space.h-16
       div#alert.fixed.z-20
       = yield
