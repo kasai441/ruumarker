@@ -2,14 +2,20 @@
   <section id="image-upload">
     <label for="file"
            @pointerdown="loadable" @pointerup="loading">
-      <a class="btn btn-lime py-0 h-16">
-        <div class="flex flex-col items-center">
-          <p class="font-btn text-white">
-            アップロード
-          </p>
-          <img src="/upload.png" width="40" height="40">
-        </div>
-      </a>
+      <div v-if="formData" class="w-full flex flex-col items-center">
+        <p class="font-btn">アップロード</p>
+        <img src="/upload.png" width="40">
+      </div>
+      <div v-else>
+        <a class="btn btn-lime py-0 h-16">
+          <div class="flex flex-col items-center">
+            <p class="font-btn text-white">
+              アップロード
+            </p>
+            <img src="/upload.png" width="40" height="40">
+          </div>
+        </a>
+      </div>
     </label>
     <input type="file" id="file" name="upload-image"
            accept="image/png,image/jpeg" @change="upload"

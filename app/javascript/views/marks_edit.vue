@@ -11,9 +11,11 @@
             <a @pointerdown="back" class="text-xl text-slate-400 btn btn-ghost">＜</a>
           </div>
         </div>
+        <h2 class="w-full font-h2">キズの概要</h2>
         <div class="w-full">
           <description-edit :form-data.="formData" @emit-form-data="getFormData"></description-edit>
         </div>
+        <h2 class="w-full font-h2">キズの写真</h2>
         <div class="w-full flex flex-col items-center overflow-hidden">
           <image-edit :form-data="formData" :is-loading="isLoading"
                       @emit-form-data="getFormData"></image-edit>
@@ -31,6 +33,10 @@
                         class="w-1/6"></image-rotate>
         </div>
         <h2 class="w-full font-h2">キズの位置</h2>
+        <p>間取り図をドラッグ&ドロップで動かしてキズの位置を
+          <img src="/locator.png" width="30" class="inline-block align-middle">
+          に指定します。
+        </p>
         <div class="bg-slate-300 w-full flex flex-col items-center overflow-hidden">
           <location-edit :field-form-data="mapFormData"
                          :locator-form-data="formData" locator-image="/locator.png"
