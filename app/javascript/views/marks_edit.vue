@@ -33,7 +33,7 @@
                         class="w-1/6"></image-rotate>
         </div>
         <h2 class="w-full font-h2">キズの位置</h2>
-        <p>間取り図をドラッグ&ドロップで動かしてキズの位置を
+        <p class="w-full">間取り図をドラッグ&ドロップで動かしてキズの位置を
           <img src="/locator.png" width="30" class="inline-block align-middle">
           に指定します。
         </p>

@@ -120,7 +120,7 @@ describe 'マップ管理機能', type: :system do
       end
     end
 
-    context '画像をアップロードして変更を押したとき' do
+    context '画像をアップロードして保存を押したとき' do
       before do
         expect(find_by_id('edit-image')[:src]).to include 'test_image.jpg'
         attach_file 'file', Rails.root.join('spec', 'fixtures', 'files', 'test_image.png'), make_visible: true
