@@ -1,7 +1,7 @@
 h2#instruction.anchor.font-help-h2
   |作成手順
 
-div.w-full.px-4.flex.flex-col.bg-white
+div.w-full.sm:px-4.flex.flex-col.bg-white
   = link_to '１．間取り画像のアップロード', help_index_path + '#upload', class: 'font-help-link'
   = link_to '２．間取り図の編集', help_index_path + '#map', class: 'font-help-link'
   = link_to '３．キズ情報の追加', help_index_path + '#mark', class: 'font-help-link'
@@ -10,7 +10,7 @@ div.w-full.px-4.flex.flex-col.bg-white
   = link_to '６．データを送る', help_index_path + '#send', class: 'font-help-link'
   = link_to '７．データの削除', help_index_path + '#delete', class: 'font-help-link'
 
-div.px-4.pt-6
+div.sm:px-4.pt-6
   h3#upload.font-help-h3.anchor
     |１．間取り画像のアップロード
 
@@ -109,11 +109,11 @@ div.px-4.pt-6
     div.font-help-sm
       div.pb-2
         p ※ PRINTボタンが効かない場合、ブラウザの機能を使用してPDFを作成することができます。
-        p.pl-2 （iPhone, Android）
-        div.pl-8
+        p.sm:pl-2 （iPhone, Android）
+        div.pl-4.sm:pl-8
           = link_to 'ブラウザ別のPDF作成方法', help_index_path + '#pdf', class: 'text-lime-600'
-        p.pl-2 （PC）
-        p.pl-8 右クリックから印刷を選択します。「ヘッダとフッタをプリント」チェックを外してURLが非表示になるようにします。
+        p.sm:pl-2 （PC）
+        p.pl-4.sm:pl-8 右クリックから印刷を選択します。「ヘッダとフッタをプリント」チェックを外してURLが非表示になるようにします。
       p.pb-2 ※ PRINTボタンが一度しか効かない場合、ページをリロードするとまた使えるようになることがあります。
 
   div.px-2.sm:px-9

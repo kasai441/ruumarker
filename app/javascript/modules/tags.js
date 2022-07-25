@@ -143,8 +143,27 @@ const loadingFilter = isLoading => {
   }
 }
 
-const help = () => {
+const homeTop = () => {
+  const homeTop = document.getElementById('home-top')
+  if (!homeTop) return
+
+  homeTop.addEventListener('click', () => {
+    window.scrollTo({
+      behavior: 'smooth',
+      left: 0,
+      top: 0
+    })
+  })
+}
+
+const hideHome = () => {
+  const home = document.getElementById('home')
+  home.classList.add('hidden')
+}
+
+const displayHelp = () => {
   const help = document.getElementById('help')
+  help.classList.remove('hidden')
   help.addEventListener('click', () => {
     help.classList.add('animate-fadeout')
     location.href = '/help'
@@ -176,6 +195,8 @@ export default {
   writeSize,
   writePosition,
   loadingFilter,
-  help,
+  homeTop,
+  hideHome,
+  displayHelp,
   browserBack
 }
