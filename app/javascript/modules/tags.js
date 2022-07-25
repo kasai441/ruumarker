@@ -156,9 +156,9 @@ const homeTop = () => {
   })
 }
 
-const hideHome = () => {
+const displayHome = () => {
   const home = document.getElementById('home')
-  home.classList.add('hidden')
+  home.classList.remove('hidden')
 }
 
 const displayHelp = () => {
@@ -196,7 +196,7 @@ export default {
   writePosition,
   loadingFilter,
   homeTop,
-  hideHome,
+  displayHome,
   displayHelp,
   browserBack
 }

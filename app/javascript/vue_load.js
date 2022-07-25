@@ -10,6 +10,9 @@ window.addEventListener('popstate', () => {
   tags.browserBack()
 })
 tags.homeTop()
+const homeIndex = document.getElementById('home-index')
+const helpIndex = document.getElementById('help-index')
+if (homeIndex || helpIndex) tags.displayHome()
 
 document.addEventListener('turbo:load', () => {
   const selectors = [
@@ -23,7 +26,6 @@ document.addEventListener('turbo:load', () => {
     let app
     let element = document.querySelector(selector)
     if (element) {
-      tags.hideHome()
       tags.displayHelp()
       switch (element.id) {
       case 'rooms-show':

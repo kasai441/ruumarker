@@ -1,6 +1,6 @@
 div.fixed.z-10.w-full.py-1.px-4.mt-1.border-b.border-slate-900/10.bg-white/90.flex.justify-center
   div.main-screen.flex.justify-between.sm:justify-start
-      = link_to 'チェック表？', help_index_path, class: 'font-help-link'
-      = link_to '作成手順', help_index_path + '#instruction', class: 'font-help-link'
-      = link_to 'PDF作成', help_index_path + '#pdf', class: 'font-help-link'
+      = link_to 'チェック表？', help_index_path, class: 'font-help-link', data: { turbo: false }
+      = link_to '作成手順', help_index_path + '#instruction', class: 'font-help-link', data: { turbo: false }
+      = link_to 'PDF作成', help_index_path + '#pdf', class: 'font-help-link', data: { turbo: false }
 div.h-10
