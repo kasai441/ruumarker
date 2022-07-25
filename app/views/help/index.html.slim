@@ -2,7 +2,7 @@ html
   head
     - set_meta_tags title: 'ヘルプ', og: { title: 'ヘルプ', type: 'article' }
 = render partial: 'contents'
-div.flex.justify-center
+div#help-index.flex.justify-center
   div.main-screen
     = render partial: 'introduction'
     = render partial: 'instruction'
