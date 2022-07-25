@@ -16,6 +16,14 @@
         <image-upload target-model="map" @emit-form-data="getFormData"
                       @emit-is-loading="getIsLoading"></image-upload>
       </div>
+      <div class="main-screen font-help-sm">
+        <p class="p-1">
+          ※ 作った入居時チェック表のURLは、知っていれば誰でもアクセスできるので、不特定な他人に閲覧されるような場所に公開しないでください。
+        </p>
+        <p class="p-1">
+          ※ このウェブサイトの入居時チェック表作成データは約10日で消えてしまいます。作成後にPDFとしてダウンロードできるので、手元で保存するようにしてください。
+        </p>
+      </div>
     </div>
   </section>
 </template>
