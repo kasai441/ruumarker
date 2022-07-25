@@ -23,10 +23,11 @@ html
               div.px-1.pb-0.text-2xl
                 |ruumarker
           div.flex
-            a#download.hidden.flex.flex-col.items-center
-              p.font-btn
-                |PRINT
-              = image_tag "download.png", size: "30x30", alt: "download.png", class: "mx-2"
+            a#download.hidden.btn.btn-lime.py-0
+              div.flex.flex-col.items-center
+                p.font-btn.text-white
+                  |PRINT
+                = image_tag "download.png", width: "30", height: "30", alt: "download.png", class: "mx-2"
             a#help.hidden.flex.flex-col.items-center
               p.font-btn
                 |HELP
