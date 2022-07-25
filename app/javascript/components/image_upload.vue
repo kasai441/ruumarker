@@ -12,7 +12,7 @@
             <p class="font-btn text-white">
               アップロード
             </p>
-            <img src="/upload.png" width="40" height="40">
+            <img src="/upload_trans.png" width="40" height="40">
           </div>
         </a>
       </div>
