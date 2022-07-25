@@ -31,7 +31,7 @@
         @apply h-64;
     }
     .font-h2 {
-        @apply py-4 font-bold text-lime-600;
+        @apply pt-4 pb-1 font-bold text-lime-600;
     }
     .font-p {
         @apply pb-4 text-sm;
