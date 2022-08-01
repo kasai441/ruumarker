@@ -3,7 +3,7 @@ h2#pdf.anchor.font-help-h2
 
 div.px-4
   div.pb-4.sm:px-9
-    p スマートフォンでのブラウザ別のPDF作成方法を紹介します。PCの場合は右クリックのコンテキストメニューから印刷ダイアログを表示できます。
+    p スマートフォンでのブラウザ別のPDF作成方法を紹介します。PCの場合は右クリックのコンテキストメニューから印刷ダイアログを表示してPDF保存を選ぶことで保存できます。
 
 div.w-full.sm:px-4.flex.flex-col.bg-white
   = link_to 'iPhone Safari', help_index_path + '#safari', class: 'font-help-link'
@@ -31,6 +31,8 @@ div.sm:px-4.pt-6
     div.help-image
       = image_tag 'help/iphone_download.png', width: '300', alt: 'help/iphone_download.png'
 
+    p.font-help-sm.pb-6 ※ デバイスの種類やバージョンによっては、ヘルプの内容と異なる動作・表示になることがあります。デバイスごとのPDF出力方法を調べてみてください。また、PCで同URLにアクセスすれば、右クリック・コンテキストメニューから印刷ダイアログが表示されるので、PDF保存を選んで保存できます。
+
     p.font-bold 2. プリント画面で保存する
     p 2-1. メニューの「プリント」をタップするとプリントダイアログが表示されます。
     div.help-image
@@ -39,6 +41,8 @@ div.sm:px-4.pt-6
     p 2-2. 「プリント」をタップするとPDFとして保存先を指定できます。
     div.help-image
       = image_tag 'help/iphone_print.png', width: '300', alt: 'help/iphone_print.png'
+
+    p.font-help-sm.pb-6 ※ デバイスの種類やバージョンによっては、ヘルプの内容と異なる動作・表示になることがあります。デバイスごとのPDF出力方法を調べてみてください。また、PCで同URLにアクセスすれば、右クリック・コンテキストメニューから印刷ダイアログが表示されるので、PDF保存を選んで保存できます。
 
   h3#iphone-chrome.font-help-h3.anchor
     |iPhone Chrome
@@ -54,6 +58,8 @@ div.sm:px-4.pt-6
     p 「プリント」をタップするとPDFとして保存先を指定できます。
     div.help-image
       = image_tag 'help/iphone_print.png', width: '300', alt: 'help/iphone_print.png'
+
+    p.font-help-sm.pb-6 ※ デバイスの種類やバージョンによっては、ヘルプの内容と異なる動作・表示になることがあります。デバイスごとのPDF出力方法を調べてみてください。また、PCで同URLにアクセスすれば、右クリック・コンテキストメニューから印刷ダイアログが表示されるので、PDF保存を選んで保存できます。
 
   h3#android.font-help-h3.anchor
     |Android Chrome
@@ -73,3 +79,5 @@ div.sm:px-4.pt-6
     p PDFとして保存できます。
     div.help-image
       = image_tag 'help/android_print.png', width: '300', alt: 'help/android_print.png'
+
+    p.font-help-sm.pb-6 ※ デバイスの種類やバージョンによっては、ヘルプの内容と異なる動作・表示になることがあります。デバイスごとのPDF出力方法を調べてみてください。また、PCで同URLにアクセスすれば、右クリック・コンテキストメニューから印刷ダイアログが表示されるので、PDF保存を選んで保存できます。
