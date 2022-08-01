@@ -23,13 +23,13 @@ html
               div.px-1.pb-0.text-2xl
                 |ruumarker
           div.flex
-            a#download.hidden.btn.btn-lime.py-0.px-1.sm:px-5
+            a#download.hidden.btn.btn-lime.py-0.px-1.sm:px-5.mx-1.sm:mx-6
               div.flex.flex-col.items-center
-                p.font-btn.text-white
+                p.font-btn.text-xs.sm:text-sm.text-white
                   |PRINT
                 = image_tag "download.png", width: "30", height: "30", alt: "download.png", class: "mx-2"
             a#help.hidden.flex.flex-col.items-center
-              p.font-btn
+              p.font-btn.text-xs.sm:text-sm
                 |HELP
               = image_tag "help.png", size: "30x30", alt: "help.png", class: "mx-2 opacity-40"
             = link_to 'HOME', root_path, id: "home", class: "btn btn-outline hidden", data: { turbo: false }
