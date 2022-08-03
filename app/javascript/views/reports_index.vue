@@ -23,9 +23,12 @@
     </div>
     <div class="fixed relative h-28 sm:h-20 print:hidden"></div>
     <div class="w-full px-8">
-      <div class="w-print-field py-6 pb-2 flex justify-between items-center">
-        <h1 class="font-bold text-xl">入居時チェック表</h1>
-        <p class="pt-3 text-xs sm:text-sm text-zinc-700 text-right">{{ printedAt }}</p>
+      <div class="w-print-field py-6 pb-2 flex justify-between">
+        <div class="flex flex-col">
+          <h1 class="font-bold text-xl">入居時チェック表</h1>
+          <p class="pt-1 text-xs sm:text-sm text-zinc-700 text-right">作成ツール: Ruumarker (https://ruumarker.herokuapp.com)</p>
+        </div>
+        <p class="pt-2 text-xs sm:text-sm text-zinc-700 text-right">{{ printedAt }}</p>
       </div>
       <p class="font-p pb-2">入居時に以下の箇所に確認事項がありました。</p>
       <div class="font-bold text-lg pt-2 pb-1">間取り図</div>
