@@ -18,10 +18,10 @@
       </p>
       <p class="text-sm text-slate-500 pl-4">
         ※ ダイアログが出ない場合、手動でブラウザの印刷画面を開いてください
-        <span class="text-lime-600" @pointerdown="help">各ブラウザのPDF出力方法</span>
       </p>
+      <a class="text-sm text-lime-600 pl-6" @pointerdown="help">各ブラウザのPDF出力方法</a>
     </div>
-    <div class="fixed relative h-28 sm:h-10 print:hidden"></div>
+    <div class="fixed relative h-28 sm:h-20 print:hidden"></div>
     <div class="w-full px-8">
       <div class="w-print-field font-bold text-xl py-6 pb-2">入居時チェック表</div>
       <p class="font-p pb-2">入居時に以下の箇所に確認事項がありました。</p>
