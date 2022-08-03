@@ -72,7 +72,7 @@ const browserBack = () => {
 const alertError = message => {
   const alert = document.getElementById('alert')
   alert.innerText = message
-  alert.classList.add('alert', 'alert-error', 'mt-2')
+  alert.classList.remove('hidden')
 
   alert.addEventListener('click', fadeAlert)
 }
@@ -80,7 +80,7 @@ const alertError = message => {
 const fadeAlert = () => {
   const alert = document.getElementById('alert')
   alert.innerText = ''
-  alert.classList.remove('alert', 'alert-error', 'mt-2')
+  alert.classList.add('hidden')
 }
 
 export default {
