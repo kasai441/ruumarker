@@ -1,15 +1,6 @@
 # frozen_string_literal: true
 
 class RoomsController < ApplicationController
-  def new
-    room = Room.new
-    if room.save
-      @map = room.build_map
-    else
-      redirect_to root_path
-    end
-  end
-
   def show
     Room.destroy_ten_days_old
     @room = Room.find_by(id: params[:id])
