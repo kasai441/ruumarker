@@ -23,7 +23,10 @@
     </div>
     <div class="fixed relative h-28 sm:h-20 print:hidden"></div>
     <div class="w-full px-8">
-      <div class="w-print-field font-bold text-xl py-6 pb-2">入居時チェック表</div>
+      <div class="w-print-field py-6 pb-2 flex justify-between items-center">
+        <h1 class="font-bold text-xl">入居時チェック表</h1>
+        <p class="pt-3 text-xs sm:text-sm text-zinc-700 text-right">{{ printedAt }}</p>
+      </div>
       <p class="font-p pb-2">入居時に以下の箇所に確認事項がありました。</p>
       <div class="font-bold text-lg pt-2 pb-1">間取り図</div>
       <image-show :room-id="roomId" :form-data="formData"
@@ -58,7 +61,8 @@ export default {
       mapImageUrl: null,
       mapTrimming: null,
       formData: null,
-      marksPresent: this.areMarks()
+      marksPresent: this.areMarks(),
+      printedAt: null
     }
   },
   components: {
@@ -84,6 +88,7 @@ export default {
   },
   created() {
     this.formData = params.initFormData(this.map)
+    this.printedAt = params.formatDate()
   },
   mounted() {
     const titleBar = document.getElementById('title-bar')
