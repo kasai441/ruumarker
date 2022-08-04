@@ -5,7 +5,7 @@ module Api
     def create
       room = Room.find(params[:room_id])
       @mark = room.map.marks.create
-      # redirect_to edit_room_mark_path(room, @mark)
+      render :create
     end
 
     def update

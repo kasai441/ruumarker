@@ -12,7 +12,7 @@ const headers = {
 const actions = {
   async create(url, formData) {
     try {
-      await axios.post(url, formData, headers)
+      return await axios.post(url, formData, headers)
     } catch (e) {
       console.error(e)
     }
