@@ -18,7 +18,7 @@
         キズを追加できます
       </div>
     </div>
-    <a id="create-mark" @click='newMark'
+    <a id="create-mark" @click='createMark'
        class="new-mark fixed z-10 flex flex-col items-center">
       <img src="/new_mark.png" width="50">
       <svg viewBox="0 0 58 17" width="58" height="17">
@@ -41,8 +41,9 @@
 <script>
 import ImageShow from '../components/image_show.vue'
 import LocatorsIndex from '../components/locators_index.vue'
-import tags from '../modules/tags'
+import api from '../modules/api'
 import params from '../modules/params'
+import tags from '../modules/tags'
 
 export default {
   name: 'RoomsShow',
@@ -70,9 +71,10 @@ export default {
     getFormData(formData) {
       this.formData = formData
     },
-    newMark(e) {
+    async createMark(e) {
       tags.parent('A', e.target).classList.add('animate-fadeout')
-      location.href = `/rooms/${this.roomId}/marks/new`
+      await api.actions.create(`/api/rooms/${this.roomId}/marks`)
+      // location.href = `/rooms/${this.roomId}/marks`
     },
     scrollAbove() {
       window.scrollTo({
