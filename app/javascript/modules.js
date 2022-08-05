@@ -6,4 +6,8 @@ window.addEventListener('popstate', () => {
 tags.homeTop()
 const homeIndex = document.getElementById('home-index')
 const helpIndex = document.getElementById('help-index')
-if (homeIndex || helpIndex) tags.displayHome()
+if (homeIndex || helpIndex) {
+  tags.displayHome()
+} else {
+  tags.displayHelp()
+}

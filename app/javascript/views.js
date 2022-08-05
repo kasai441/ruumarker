@@ -4,7 +4,6 @@ import MapsNew from './views/maps_new.vue'
 import MapsEdit from './views/maps_edit.vue'
 import MarksEdit from './views/marks_edit.vue'
 import ReportsIndex from './views/reports_index.vue'
-import tags from './modules/tags'
 
 document.addEventListener('turbo:load', () => {
   const selectors = [
@@ -18,7 +17,6 @@ document.addEventListener('turbo:load', () => {
     let app
     let element = document.querySelector(selector)
     if (element) {
-      tags.displayHelp()
       switch (element.id) {
       case 'rooms-show':
         app = createApp(RoomsShow)
