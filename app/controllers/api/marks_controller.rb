@@ -4,8 +4,12 @@ module Api
   class MarksController < ApplicationController
     def create
       room = Room.find(params[:room_id])
-      @mark = room.map.marks.create
-      render :create
+      @mark = room.map.marks.new
+      if @mark.save
+        render :create
+      else
+        render json: @mark.errors, status: :unprocessable_entity
+      end
     end
 
     def update
