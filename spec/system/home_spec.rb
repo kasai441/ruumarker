@@ -30,4 +30,16 @@ describe 'ホーム管理機能', type: :system do
       end
     end
   end
+
+  describe 'HOMEボタン機能' do
+    before do
+      visit root_path
+    end
+
+    context 'HOME画面を表時したとき' do
+      it 'HOMEボタンが表示される' do
+        expect(find_by_id('home')).to have_content 'HOME'
+      end
+    end
+  end
 end
