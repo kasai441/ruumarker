@@ -170,6 +170,15 @@ const displayHelp = () => {
   })
 }
 
+const displayPrint = roomId => {
+  const download = document.getElementById('download')
+  download.classList.remove('hidden')
+  download.addEventListener('click', () => {
+    download.classList.add('animate-fadeout')
+    location.href = `/rooms/${roomId}/reports`
+  })
+}
+
 const browserBack = () => {
   const fadeouts = document.getElementsByClassName('animate-fadeout')
   Array.prototype.forEach.call(fadeouts, fadeout => {
@@ -198,5 +207,6 @@ export default {
   homeTop,
   displayHome,
   displayHelp,
+  displayPrint,
   browserBack
 }

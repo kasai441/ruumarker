@@ -86,11 +86,6 @@ export default {
     areMarks() {
       return JSON.parse(this.marks).length > 0
     },
-    print() {
-      const download = document.getElementById('download')
-      download.classList.add('animate-fadeout')
-      location.href = `/rooms/${this.roomId}/reports`
-    },
     scroll() {
       const roomTitle = document.getElementById('room-title')
       if (roomTitle.getBoundingClientRect().top < 64) {
@@ -122,17 +117,10 @@ export default {
     this.createdAt = params.formatDate(JSON.parse(this.roomCreatedAt))
   },
   mounted() {
-    const download = document.getElementById('download')
-    download.classList.remove('hidden')
-    download.addEventListener('click', this.print)
-
     window.addEventListener('scroll', this.scroll)
     window.addEventListener('popstate', this.browserBack)
   },
   beforeDestroy() {
-    const download = document.getElementById('download')
-    download.removeEventListener('click', this.print)
-
     window.removeEventListener('scroll', this.scroll)
     window.removeEventListener('popstate', this.browserBack)
   }
