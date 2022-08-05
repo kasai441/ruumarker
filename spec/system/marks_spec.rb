@@ -27,6 +27,15 @@ describe 'キズ管理機能', type: :system do
         expect(Mark.all.count).to eq ex_marks_count + 1
       end
     end
+
+    context 'タイトルバーにて' do
+      it 'HOMEボタンが表示されない' do
+        title_bar = find_by_id('title-bar')
+        within(title_bar) do
+          expect(page).not_to have_content 'HOME'
+        end
+      end
+    end
   end
 
   describe '更新機能' do
@@ -37,6 +46,15 @@ describe 'キズ管理機能', type: :system do
     before do
       visit room_path(room1)
       find_by_id("mark-#{mark1.id}").click
+    end
+
+    context 'タイトルバーにて' do
+      it 'HOMEボタンが表示されない' do
+        title_bar = find_by_id('title-bar')
+        within(title_bar) do
+          expect(page).not_to have_content 'HOME'
+        end
+      end
     end
 
     describe 'キズ画像トリミング機能' do

@@ -36,9 +36,12 @@ describe 'ホーム機能', type: :system do
       visit root_path
     end
 
-    context 'HOME画面を表時したとき' do
+    context 'タイトルバーにて' do
       it 'HOMEボタンが表示される' do
-        expect(find_by_id('home')).to have_content 'HOME'
+        title_bar = find_by_id('title-bar')
+        within(title_bar) do
+          expect(page).to have_content 'HOME'
+        end
       end
     end
   end

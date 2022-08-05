@@ -8,9 +8,12 @@ describe 'ヘルプ機能', type: :system do
       visit help_index_path
     end
 
-    context 'ヘルプ画面を表時したとき' do
+    context 'タイトルバーにて' do
       it 'HOMEボタンが表示される' do
-        expect(find_by_id('home')).to have_content 'HOME'
+        title_bar = find_by_id('title-bar')
+        within(title_bar) do
+          expect(page).to have_content 'HOME'
+        end
       end
     end
   end

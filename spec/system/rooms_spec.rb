@@ -111,6 +111,15 @@ describe 'ルーム管理機能', type: :system do
         expect(top).to be_within(1).of(h / 2 - locator_radius - 42 - 22)
       end
     end
+
+    context 'タイトルバーにて' do
+      it 'HOMEボタンが表示されない' do
+        title_bar = find_by_id('title-bar')
+        within(title_bar) do
+          expect(page).not_to have_content 'HOME'
+        end
+      end
+    end
   end
 
   describe 'リンク' do
