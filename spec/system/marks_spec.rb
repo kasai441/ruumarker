@@ -29,10 +29,11 @@ describe 'キズ管理機能', type: :system do
     end
 
     context 'タイトルバーにて' do
-      it 'HOMEボタンが表示されない' do
+      it 'HOMEボタンが表示されずにHELPボタンが表示される' do
         title_bar = find_by_id('title-bar')
         within(title_bar) do
           expect(page).not_to have_content 'HOME'
+          expect(page).to have_content 'HELP'
         end
       end
     end
@@ -49,10 +50,11 @@ describe 'キズ管理機能', type: :system do
     end
 
     context 'タイトルバーにて' do
-      it 'HOMEボタンが表示されない' do
+      it 'HOMEボタンが表示されずにHELPボタンが表示される' do
         title_bar = find_by_id('title-bar')
         within(title_bar) do
           expect(page).not_to have_content 'HOME'
+          expect(page).to have_content 'HELP'
         end
       end
     end
