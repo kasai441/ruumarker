@@ -19,3 +19,9 @@ if (roomsShow) {
   const roomId = roomsShow.getAttribute('room_id')
   tags.displayPrint(roomId)
 }
+
+const mapsEdit = document.getElementById('maps-edit')
+const marksEdit = document.getElementById('marks-edit')
+if (mapsEdit || marksEdit) {
+  tags.preventSafariAddressBarPop()
+}

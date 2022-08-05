@@ -112,10 +112,6 @@ export default {
 
     this.mapFormData = params.initFormData(this.map)
   },
-  mounted() {
-    const div = document.getElementById('screen-scroll')
-    div.classList.add('overflow-scroll', 'h-screen')
-  },
   updated() {
     tags.loadingFilter(this.isLoading)
   }

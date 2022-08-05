@@ -179,6 +179,11 @@ const displayPrint = roomId => {
   })
 }
 
+const preventSafariAddressBarPop = () => {
+  const div = document.getElementById('screen-scroll')
+  div.classList.add('overflow-scroll', 'h-screen')
+}
+
 const browserBack = () => {
   const fadeouts = document.getElementsByClassName('animate-fadeout')
   Array.prototype.forEach.call(fadeouts, fadeout => {
@@ -208,5 +213,6 @@ export default {
   displayHome,
   displayHelp,
   displayPrint,
+  preventSafariAddressBarPop,
   browserBack
 }
