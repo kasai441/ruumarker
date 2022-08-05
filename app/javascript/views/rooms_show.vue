@@ -94,9 +94,6 @@ export default {
         this.slideout()
       }
     },
-    browserBack() {
-      tags.browserBack()
-    },
     slidein() {
       const scrollAbove = document.getElementById('scroll-above')
       scrollAbove.classList.remove('hidden')
@@ -118,11 +115,9 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.scroll)
-    window.addEventListener('popstate', this.browserBack)
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.scroll)
-    window.removeEventListener('popstate', this.browserBack)
   }
 }
 </script>

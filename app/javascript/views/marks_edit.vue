@@ -94,9 +94,6 @@ export default {
     },
     back() {
       location.href = `/rooms/${this.roomId}`
-    },
-    browserBack() {
-      tags.browserBack()
     }
   },
   created() {
@@ -118,14 +115,9 @@ export default {
   mounted() {
     const div = document.getElementById('screen-scroll')
     div.classList.add('overflow-scroll', 'h-screen')
-
-    window.addEventListener('popstate', this.browserBack)
   },
   updated() {
     tags.loadingFilter(this.isLoading)
-  },
-  beforeDestroy() {
-    window.removeEventListener('popstate', this.browserBack)
   }
 }
 </script>
