@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'ホーム管理機能', type: :system do
+describe 'ホーム機能', type: :system do
   describe 'cookieによるルーム記憶機能' do
     before do
       visit root_path
