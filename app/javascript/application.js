@@ -3,4 +3,5 @@ import '@hotwired/turbo-rails'
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 
-import './vue_load.js'
+import './modules.js'
+import './views.js'
