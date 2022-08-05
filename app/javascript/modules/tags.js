@@ -179,6 +179,15 @@ const displayPrint = roomId => {
   })
 }
 
+const hideBars = () => {
+  const titleBar = document.getElementById('title-bar')
+  titleBar.classList.add('hidden')
+  const titleBarSpace = document.getElementById('title-bar-space')
+  titleBarSpace.classList.add('hidden')
+  const footerBar = document.getElementById('footer-bar')
+  footerBar.classList.add('hidden')
+}
+
 const preventSafariAddressBarPop = () => {
   const div = document.getElementById('screen-scroll')
   div.classList.add('overflow-scroll', 'h-screen')
@@ -213,6 +222,7 @@ export default {
   displayHome,
   displayHelp,
   displayPrint,
+  hideBars,
   preventSafariAddressBarPop,
   browserBack
 }

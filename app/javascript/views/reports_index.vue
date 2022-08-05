@@ -50,6 +50,7 @@
 import ImageShow from '../components/image_show.vue'
 import LocatorsIndex from '../components/locators_index.vue'
 import params from '../modules/params'
+import tags from '../modules/tags'
 
 export default {
   name: 'RoomsShow',
@@ -94,12 +95,7 @@ export default {
     this.printedAt = params.formatDate()
   },
   mounted() {
-    const titleBar = document.getElementById('title-bar')
-    titleBar.classList.add('hidden')
-    const titleBarSpace = document.getElementById('title-bar-space')
-    titleBarSpace.classList.add('hidden')
-    const footerBar = document.getElementById('footer-bar')
-    footerBar.classList.add('hidden')
+    tags.hideBars()
   }
 }
 </script>
