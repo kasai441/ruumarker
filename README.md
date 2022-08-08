@@ -71,7 +71,7 @@ bundle exec rspec
 ```
 
 ## AWS S3 設定
-本番環境では、画像の保存先は`AWS S3`のバケットを利用します。
+デプロイはHerokuを利用していますが、Herokuでの本番環境では、画像の保存先は`AWS S3`のバケットを利用します。
 
 S3管理用のIAMユーザーの「access_key_id」「secret_access_key」を`rails credentials:edit`を利用して秘匿情報としてプロジェクトに保持します。
 
@@ -80,11 +80,12 @@ S3管理用のIAMユーザーの「access_key_id」「secret_access_key」を`ra
 EDITOR="vi" bin/rails credentials:edit
 ```
 ```shell
+# credentials.yml.enc
 aws:
   access_key_id: #入力
   secret_access_key: #入力
 ```
-`config/credentials.yml.enc`と`config/master.key`が保存されていることを確認して、これらを公開しないように`.gitignore`などに設定してください。
+この時、`config/credentials.yml.enc`と`config/master.key`が保存されていることを確認できます。`config/master.key`を公開しないように`.gitignore`に設定しています。
 
 config下の秘匿情報は `config/storage.yml`にて読み込めるように設定されています。
 ```shell
