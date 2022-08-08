@@ -2,7 +2,6 @@
 
 class RoomsController < ApplicationController
   def show
-    Room.destroy_ten_days_old
     @room = Room.find_by(id: params[:id])
     if @room.nil? || @room.map.nil?
       @room&.destroy
