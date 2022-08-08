@@ -5,7 +5,7 @@ class Room < ApplicationRecord
   before_save :set_id
 
   def self.destroy_ten_days_old
-    Room.where.not(created_at: 10.days.ago.beginning_of_day..Float::INFINITY).destroy_all
+    Room.where.not(created_at: 10.days.ago.beginning_of_day..).destroy_all
   end
 
   private

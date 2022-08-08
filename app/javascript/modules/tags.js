@@ -170,6 +170,29 @@ const displayHelp = () => {
   })
 }
 
+const displayPrint = roomId => {
+  const download = document.getElementById('download')
+  download.classList.remove('hidden')
+  download.addEventListener('click', () => {
+    download.classList.add('animate-fadeout')
+    location.href = `/rooms/${roomId}/reports`
+  })
+}
+
+const hideBars = () => {
+  const titleBar = document.getElementById('title-bar')
+  titleBar.classList.add('hidden')
+  const titleBarSpace = document.getElementById('title-bar-space')
+  titleBarSpace.classList.add('hidden')
+  const footerBar = document.getElementById('footer-bar')
+  footerBar.classList.add('hidden')
+}
+
+const preventSafariAddressBarPop = () => {
+  const div = document.getElementById('screen-scroll')
+  div.classList.add('overflow-scroll', 'h-screen')
+}
+
 const browserBack = () => {
   const fadeouts = document.getElementsByClassName('animate-fadeout')
   Array.prototype.forEach.call(fadeouts, fadeout => {
@@ -198,5 +221,8 @@ export default {
   homeTop,
   displayHome,
   displayHelp,
+  displayPrint,
+  hideBars,
+  preventSafariAddressBarPop,
   browserBack
 }

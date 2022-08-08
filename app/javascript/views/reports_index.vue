@@ -18,12 +18,18 @@
       </p>
       <p class="text-sm text-slate-500 pl-4">
         ※ ダイアログが出ない場合、手動でブラウザの印刷画面を開いてください
-        <span class="text-lime-600" @pointerdown="help">各ブラウザのPDF出力方法</span>
       </p>
+      <a class="text-sm text-lime-600 pl-6" @pointerdown="help">各ブラウザのPDF出力方法</a>
     </div>
-    <div class="fixed relative h-28 sm:h-10 print:hidden"></div>
+    <div class="fixed relative h-28 sm:h-20 print:hidden"></div>
     <div class="w-full px-8">
-      <div class="w-print-field font-bold text-xl py-6 pb-2">入居時チェック表</div>
+      <div class="w-print-field py-6 pb-2 flex justify-between">
+        <div class="flex flex-col">
+          <h1 class="font-bold text-xl">入居時チェック表</h1>
+          <p class="pt-1 text-xs sm:text-sm text-zinc-700 text-right">作成ツール: Ruumarker (https://ruumarker.herokuapp.com)</p>
+        </div>
+        <p class="pt-2 text-xs sm:text-sm text-zinc-700 text-right">{{ printedAt }}</p>
+      </div>
       <p class="font-p pb-2">入居時に以下の箇所に確認事項がありました。</p>
       <div class="font-bold text-lg pt-2 pb-1">間取り図</div>
       <image-show :room-id="roomId" :form-data="formData"
@@ -44,6 +50,7 @@
 import ImageShow from '../components/image_show.vue'
 import LocatorsIndex from '../components/locators_index.vue'
 import params from '../modules/params'
+import tags from '../modules/tags'
 
 export default {
   name: 'RoomsShow',
@@ -58,7 +65,8 @@ export default {
       mapImageUrl: null,
       mapTrimming: null,
       formData: null,
-      marksPresent: this.areMarks()
+      marksPresent: this.areMarks(),
+      printedAt: null
     }
   },
   components: {
@@ -84,14 +92,10 @@ export default {
   },
   created() {
     this.formData = params.initFormData(this.map)
+    this.printedAt = params.formatDate()
   },
   mounted() {
-    const titleBar = document.getElementById('title-bar')
-    titleBar.classList.add('hidden')
-    const titleBarSpace = document.getElementById('title-bar-space')
-    titleBarSpace.classList.add('hidden')
-    const footerBar = document.getElementById('footer-bar')
-    footerBar.classList.add('hidden')
+    tags.hideBars()
   }
 }
 </script>

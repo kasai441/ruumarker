@@ -8,7 +8,7 @@ describe 'マップ管理機能', type: :system do
 
   describe '新規作成機能' do
     before do
-      visit new_room_path
+      visit new_map_path
     end
 
     context '画像をアップロードしたとき' do
@@ -69,6 +69,23 @@ describe 'マップ管理機能', type: :system do
         expect(page).to have_selector '#show-image'
         expect(execute_script('return arguments[0].naturalWidth',
                               find_by_id('show-image'))).to eq max
+      end
+    end
+
+    context 'タイトルバーにて' do
+      let(:title_bar) { find_by_id('title-bar') }
+
+      it 'HOMEボタンが表示されずにHELPボタンが表示される' do
+        within(title_bar) do
+          expect(page).not_to have_content 'HOME'
+          expect(page).to have_content 'HELP'
+        end
+      end
+
+      it 'PRINTボタンが表示されない' do
+        within(title_bar) do
+          expect(page).not_to have_content 'PRINT'
+        end
       end
     end
   end
@@ -178,6 +195,23 @@ describe 'マップ管理機能', type: :system do
         left, top = pixel(find_by_id('show-image'), 'left', 'top')
         expect(left).to be_within(1).of(-limitX)
         expect(top).to be_within(1).of(-limitY)
+      end
+    end
+
+    context 'タイトルバーにて' do
+      let(:title_bar) { find_by_id('title-bar') }
+
+      it 'HOMEボタンが表示されずにHELPボタンが表示される' do
+        within(title_bar) do
+          expect(page).not_to have_content 'HOME'
+          expect(page).to have_content 'HELP'
+        end
+      end
+
+      it 'PRINTボタンが表示されない' do
+        within(title_bar) do
+          expect(page).not_to have_content 'PRINT'
+        end
       end
     end
   end

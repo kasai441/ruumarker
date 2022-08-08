@@ -58,19 +58,10 @@ export default {
     async create() {
       await api.actions.create(`/api/rooms/${this.roomId}/maps`, this.formData)
       location.href = `/rooms/${this.roomId}`
-    },
-    browserBack() {
-      tags.browserBack()
     }
   },
   updated() {
     tags.loadingFilter(this.isLoading)
-  },
-  mounted() {
-    window.addEventListener('popstate', this.browserBack)
-  },
-  beforeDestroy() {
-    window.removeEventListener('popstate', this.browserBack)
   }
 }
 </script>

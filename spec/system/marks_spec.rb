@@ -22,9 +22,9 @@ describe 'キズ管理機能', type: :system do
       end
 
       it '登録され、キズ編集画面に遷移し、サンプルのキズ画像が表示される' do
-        expect(Mark.all.count).to eq ex_marks_count + 1
         expect(page).to have_selector 'h2', text: 'キズの位置'
         expect(find_by_id('edit-image')[:src]).to include 'sample_locator.png'
+        expect(Mark.all.count).to eq ex_marks_count + 1
       end
     end
   end
@@ -37,6 +37,23 @@ describe 'キズ管理機能', type: :system do
     before do
       visit room_path(room1)
       find_by_id("mark-#{mark1.id}").click
+    end
+
+    context 'タイトルバーにて' do
+      let(:title_bar) { find_by_id('title-bar') }
+
+      it 'HOMEボタンが表示されずにHELPボタンが表示される' do
+        within(title_bar) do
+          expect(page).not_to have_content 'HOME'
+          expect(page).to have_content 'HELP'
+        end
+      end
+
+      it 'PRINTボタンが表示されない' do
+        within(title_bar) do
+          expect(page).not_to have_content 'PRINT'
+        end
+      end
     end
 
     describe 'キズ画像トリミング機能' do

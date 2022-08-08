@@ -2,14 +2,24 @@
 
 module Api
   class MarksController < ApplicationController
+    def create
+      room = Room.find(params[:room_id])
+      @mark = room.map.marks.new
+      if @mark.save
+        render :create
+      else
+        render json: @mark.errors, status: :unprocessable_entity
+      end
+    end
+
     def update
       @mark = Mark.find(params[:id])
-      render json: @mark.errors, status: 422 unless @mark.update(mark_params)
+      render json: @mark.errors, status: :unprocessable_entity unless @mark.update(mark_params)
     end
 
     def destroy
       @mark = Mark.find(params[:id])
-      render json: @mark.errors, status: 422 unless @mark.destroy
+      render json: @mark.errors, status: :unprocessable_entity unless @mark.destroy
     end
 
     private

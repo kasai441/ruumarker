@@ -18,7 +18,7 @@
         キズを追加できます
       </div>
     </div>
-    <a id="create-mark" @click='newMark'
+    <a id="create-mark" @click='createMark'
        class="new-mark fixed z-10 flex flex-col items-center">
       <img src="/new_mark.png" width="50">
       <svg viewBox="0 0 58 17" width="58" height="17">
@@ -41,8 +41,9 @@
 <script>
 import ImageShow from '../components/image_show.vue'
 import LocatorsIndex from '../components/locators_index.vue'
-import tags from '../modules/tags'
+import api from '../modules/api'
 import params from '../modules/params'
+import tags from '../modules/tags'
 
 export default {
   name: 'RoomsShow',
@@ -70,9 +71,10 @@ export default {
     getFormData(formData) {
       this.formData = formData
     },
-    newMark(e) {
+    async createMark(e) {
       tags.parent('A', e.target).classList.add('animate-fadeout')
-      location.href = `/rooms/${this.roomId}/marks/new`
+      const response = await api.actions.create(`/api/rooms/${this.roomId}/marks`)
+      location.href = `/rooms/${this.roomId}/marks/${response.data['id']}/edit`
     },
     scrollAbove() {
       window.scrollTo({
@@ -84,11 +86,6 @@ export default {
     areMarks() {
       return JSON.parse(this.marks).length > 0
     },
-    print() {
-      const download = document.getElementById('download')
-      download.classList.add('animate-fadeout')
-      location.href = `/rooms/${this.roomId}/reports`
-    },
     scroll() {
       const roomTitle = document.getElementById('room-title')
       if (roomTitle.getBoundingClientRect().top < 64) {
@@ -96,9 +93,6 @@ export default {
       } else {
         this.slideout()
       }
-    },
-    browserBack() {
-      tags.browserBack()
     },
     slidein() {
       const scrollAbove = document.getElementById('scroll-above')
@@ -120,19 +114,10 @@ export default {
     this.createdAt = params.formatDate(JSON.parse(this.roomCreatedAt))
   },
   mounted() {
-    const download = document.getElementById('download')
-    download.classList.remove('hidden')
-    download.addEventListener('click', this.print)
-
     window.addEventListener('scroll', this.scroll)
-    window.addEventListener('popstate', this.browserBack)
   },
   beforeDestroy() {
-    const download = document.getElementById('download')
-    download.removeEventListener('click', this.print)
-
     window.removeEventListener('scroll', this.scroll)
-    window.removeEventListener('popstate', this.browserBack)
   }
 }
 </script>

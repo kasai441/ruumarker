@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'ホーム管理機能', type: :system do
+describe 'ホーム機能', type: :system do
   describe 'cookieによるルーム記憶機能' do
     before do
       visit root_path
@@ -27,6 +27,23 @@ describe 'ホーム管理機能', type: :system do
       it '1度目につくったルームにリダイレクトされる' do
         expect(page).to have_selector 'h2', text: '入居時チェック表'
         expect(show_image[:src]).to include 'test_image.jpg'
+      end
+    end
+
+    context 'タイトルバーにて' do
+      let(:title_bar) { find_by_id('title-bar') }
+
+      it 'HOMEボタンが表示されてHELPボタンが表示されない' do
+        within(title_bar) do
+          expect(page).to have_content 'HOME'
+          expect(page).not_to have_content 'HELP'
+        end
+      end
+
+      it 'PRINTボタンが表示されない' do
+        within(title_bar) do
+          expect(page).not_to have_content 'PRINT'
+        end
       end
     end
   end

@@ -4,15 +4,6 @@ import MapsNew from './views/maps_new.vue'
 import MapsEdit from './views/maps_edit.vue'
 import MarksEdit from './views/marks_edit.vue'
 import ReportsIndex from './views/reports_index.vue'
-import tags from './modules/tags'
-
-window.addEventListener('popstate', () => {
-  tags.browserBack()
-})
-tags.homeTop()
-const homeIndex = document.getElementById('home-index')
-const helpIndex = document.getElementById('help-index')
-if (homeIndex || helpIndex) tags.displayHome()
 
 document.addEventListener('turbo:load', () => {
   const selectors = [
@@ -26,7 +17,6 @@ document.addEventListener('turbo:load', () => {
     let app
     let element = document.querySelector(selector)
     if (element) {
-      tags.displayHelp()
       switch (element.id) {
       case 'rooms-show':
         app = createApp(RoomsShow)

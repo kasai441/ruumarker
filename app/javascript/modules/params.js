@@ -94,7 +94,7 @@ const rotateImage = (imageUrl, imageFile) => {
 }
 
 const formatDate = str => {
-  const d = new Date(str)
+  const d = str ? new Date(str) : new Date()
   const date = `${d.getFullYear()} ${d.getMonth()+1}/${d.getDate()}`.replace(/\\s/g, '')
   let minutes = String(d.getMinutes())
   if (minutes.length === 1) minutes = `0${minutes}`

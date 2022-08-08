@@ -173,9 +173,6 @@ export default {
     },
     handleResize() {
       this.layoutThumbnail()
-    },
-    browserBack() {
-      tags.browserBack()
     }
   },
   mounted() {
@@ -199,8 +196,6 @@ export default {
     Array.prototype.forEach.call(rows, row => {
       row.addEventListener('click', this.visitLocators)
     })
-
-    window.addEventListener('popstate', this.browserBack)
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResize)
@@ -215,8 +210,6 @@ export default {
     Array.prototype.forEach.call(rows, row => {
       row.removeEventListener('click', this.visitLocators)
     })
-
-    window.removeEventListener('popstate', this.browserBack)
   }
 }
 </script>

@@ -7,6 +7,7 @@ ruby '3.1.2'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'html2slim'
+gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'meta-tags'
 gem 'pg'
