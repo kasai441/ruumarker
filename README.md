@@ -41,7 +41,7 @@ https://ruumarker.herokuapp.com/help
 - Node.js 16.14
 
 ## サービス構成
-<img src="./app/assets/images/structure.png" width="320px">
+<img src="./app/assets/images/structure.png" width="640px">
 
 ## インストール
 
