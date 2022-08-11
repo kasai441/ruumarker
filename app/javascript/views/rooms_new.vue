@@ -54,7 +54,7 @@ export default {
     },
     async create() {
       const response = await api.actions.create('/api/rooms', this.formData)
-      location.href = `/rooms/${response.data.id}`
+      if (response !== 'error') location.href = `/rooms/${response.data.id}`
     }
   },
   updated() {

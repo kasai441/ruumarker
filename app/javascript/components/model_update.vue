@@ -23,8 +23,8 @@ export default {
     async update() {
       const target = this.formData.get('target')
       const id = this.formData.get(`${target}[id]`)
-      await api.actions.update(`/api/rooms/${this.roomId}/${target}s/${id}`, this.formData)
-      location.href = `/rooms/${this.roomId}`
+      const response = await api.actions.update(`/api/rooms/${this.roomId}/${target}s/${id}`, this.formData)
+      if (response !== 'error') location.href = `/rooms/${this.roomId}`
     },
     back() {
       location.href = `/rooms/${this.roomId}`

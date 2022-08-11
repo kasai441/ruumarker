@@ -17,6 +17,7 @@ const actions = {
     } catch (e) {
       visuals.alertError('登録に失敗しました。お手数ですが再度登録してください。')
       console.error(e)
+      return 'error'
     }
   },
   async update(url, formData) {
@@ -25,6 +26,7 @@ const actions = {
     } catch (e) {
       visuals.alertError('保存に失敗しました。お手数ですが再度保存してください。')
       console.error(e)
+      return 'error'
     }
   },
   async delete(url) {
@@ -33,6 +35,7 @@ const actions = {
     } catch (e) {
       visuals.alertError('削除に失敗しました。お手数ですが再度削除してください。')
       console.error(e)
+      return 'error'
     }
   }
 }

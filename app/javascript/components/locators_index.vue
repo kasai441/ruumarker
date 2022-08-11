@@ -159,8 +159,8 @@ export default {
       if (!confirm(`「${this.brief(description, 10)}」を削除します。よろしいですか？`)) return
 
       const id = row.id.replace(regex, '')
-      await api.actions.delete(`/api/rooms/${this.roomId}/${this.locatorsModel}s/${id}`)
-      location.href = `/rooms/${this.roomId}`
+      const response = await api.actions.delete(`/api/rooms/${this.roomId}/${this.locatorsModel}s/${id}`)
+      if (response !== 'error') location.href = `/rooms/${this.roomId}`
     },
     layoutThumbnail() {
       const fieldSize = tags.readSize(null, document.getElementsByClassName('thumbnail-field')[0])
