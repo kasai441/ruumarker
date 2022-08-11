@@ -26,6 +26,7 @@
 
 <script>
 import params from '../modules/params'
+import visuals from '../modules/visuals'
 
 export default {
   name: 'ImageUpload',
@@ -42,7 +43,7 @@ export default {
   methods: {
     loadable() {
       this.isLoadable = true
-      this.fadeAlert()
+      visuals.fadeAlert()
     },
     loading() {
       if (this.isLoadable) {
@@ -64,11 +65,6 @@ export default {
         }
       }, 2000)
     },
-    fadeAlert() {
-      const alert = document.getElementById('alert')
-      alert.innerText = ''
-      alert.classList.remove('alert', 'alert-error', 'mt-2')
-    },
     async upload(e) {
       this.isLoading = true
       this.$emit('emitIsLoading', true)
@@ -77,9 +73,7 @@ export default {
       const imageUrl = await params.getImageUrl(imageFile)
       imageFile = await params.reduceLargeImage(imageUrl, imageFile).catch(e => {
         console.log('onload error', e)
-        const alert = document.getElementById('alert')
-        alert.innerText = 'アップロードするのは「 jpg / jpeg / png / gif 」のいずれかの画像ファイルである必要があります'
-        alert.classList.add('alert', 'alert-error', 'mt-2')
+        visuals.alertError('アップロードするのは「 jpg / jpeg / png / gif 」のいずれかの画像ファイルである必要があります')
         this.$emit('emitIsLoading', false)
         this.isLoading = false
         throw new Error('onload error')
@@ -91,14 +85,6 @@ export default {
       this.$emit('emitIsLoading', false)
       this.isLoading = false
     }
-  },
-  mounted() {
-    const alert = document.getElementById('alert')
-    alert.addEventListener('click', this.fadeAlert)
-  },
-  beforeDestroy() {
-    const alert = document.getElementById('alert')
-    alert.removeEventListener('click', this.fadeAlert)
   }
 }
 </script>

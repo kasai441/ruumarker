@@ -69,6 +69,20 @@ const browserBack = () => {
   })
 }
 
+const alertError = message => {
+  const alert = document.getElementById('alert')
+  alert.innerText = message
+  alert.classList.add('alert', 'alert-error', 'mt-2')
+
+  alert.addEventListener('click', fadeAlert)
+}
+
+const fadeAlert = () => {
+  const alert = document.getElementById('alert')
+  alert.innerText = ''
+  alert.classList.remove('alert', 'alert-error', 'mt-2')
+}
+
 export default {
   namespaced: true,
   loadingFilter,
@@ -78,5 +92,7 @@ export default {
   displayPrint,
   hideBars,
   preventSafariAddressBarPop,
-  browserBack
+  browserBack,
+  alertError,
+  fadeAlert
 }
