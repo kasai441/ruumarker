@@ -10,7 +10,7 @@ module Api
     private
 
     def map_params
-      params.require(:map).permit(:trimming, :expansion, :rotation, :image)
+      params.require(:map).permit(:image)
     end
   end
 end
