@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import RoomsShow from './views/rooms_show.vue'
-import MapsNew from './views/maps_new.vue'
+import RoomsNew from './views/rooms_new.vue'
 import MapsEdit from './views/maps_edit.vue'
 import MarksEdit from './views/marks_edit.vue'
 import ReportsIndex from './views/reports_index.vue'
@@ -8,7 +8,7 @@ import ReportsIndex from './views/reports_index.vue'
 document.addEventListener('turbo:load', () => {
   const selectors = [
     '#rooms-show',
-    '#maps-new',
+    '#rooms-new',
     '#maps-edit',
     '#marks-edit',
     '#reports-index'
@@ -21,8 +21,8 @@ document.addEventListener('turbo:load', () => {
       case 'rooms-show':
         app = createApp(RoomsShow)
         break
-      case 'maps-new':
-        app = createApp(MapsNew)
+      case 'rooms-new':
+        app = createApp(RoomsNew)
         break
       case 'maps-edit':
         app = createApp(MapsEdit)

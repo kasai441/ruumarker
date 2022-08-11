@@ -34,7 +34,7 @@ import api from '../modules/api'
 import tags from '../modules/tags'
 
 export default {
-  name: 'MapsNew',
+  name: 'RoomsNew',
   data() {
     return {
       formData: null,
