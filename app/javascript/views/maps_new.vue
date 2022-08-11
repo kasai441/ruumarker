@@ -35,9 +35,6 @@ import tags from '../modules/tags'
 
 export default {
   name: 'MapsNew',
-  inject: [
-    'roomId'
-  ],
   data() {
     return {
       formData: null,
@@ -56,8 +53,8 @@ export default {
       this.isLoading = bool
     },
     async create() {
-      await api.actions.create(`/api/rooms/${this.roomId}/maps`, this.formData)
-      location.href = `/rooms/${this.roomId}`
+      const response = await api.actions.create('/api/rooms', this.formData)
+      location.href = `/rooms/${response.data.id}`
     }
   },
   updated() {

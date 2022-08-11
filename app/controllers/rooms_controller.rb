@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class RoomsController < ApplicationController
+  def new; end
+
   def show
     @room = Room.find_by(id: params[:id])
     if @room.nil? || @room.map.nil?
