@@ -31,7 +31,7 @@
 <script>
 import ImageUpload from '../components/image_upload.vue'
 import api from '../modules/api'
-import tags from '../modules/tags'
+import visuals from '../modules/visuals'
 
 export default {
   name: 'RoomsNew',
@@ -58,7 +58,7 @@ export default {
     }
   },
   updated() {
-    tags.loadingFilter(this.isLoading)
+    visuals.loadingFilter(this.isLoading)
   }
 }
 </script>
