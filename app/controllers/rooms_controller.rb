@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
   def new; end
 
   def show
-    @room = Room.find_by(id: params[:id])
+    @room = Room.find(params[:id])
     if @room.nil? || @room.map.nil?
       @room&.destroy
       redirect_to root_path
