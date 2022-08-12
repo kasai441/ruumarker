@@ -32,7 +32,7 @@ import ImageRotate from '../components/image_rotate.vue'
 import ImageExpand from '../components/image_expand.vue'
 import ModelUpdate from '../components/model_update.vue'
 import params from '../modules/params'
-import tags from '../modules/tags'
+import visuals from '../modules/visuals'
 
 export default {
   name: 'MapsEdit',
@@ -68,7 +68,7 @@ export default {
     this.formData = params.initFormData(this.map)
   },
   updated() {
-    tags.loadingFilter(this.isLoading)
+    visuals.loadingFilter(this.isLoading)
   }
 }
 </script>

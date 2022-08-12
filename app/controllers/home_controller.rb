@@ -3,9 +3,8 @@
 class HomeController < ApplicationController
   def index
     room_id = cookies.signed[:room_id]
-    room = Room.find_by(id: room_id)
-    return unless room
+    return unless room_id
 
-    redirect_to room
+    redirect_to room_path room_id
   end
 end

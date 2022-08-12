@@ -31,13 +31,10 @@
 <script>
 import ImageUpload from '../components/image_upload.vue'
 import api from '../modules/api'
-import tags from '../modules/tags'
+import visuals from '../modules/visuals'
 
 export default {
-  name: 'MapsNew',
-  inject: [
-    'roomId'
-  ],
+  name: 'RoomsNew',
   data() {
     return {
       formData: null,
@@ -56,12 +53,12 @@ export default {
       this.isLoading = bool
     },
     async create() {
-      await api.actions.create(`/api/rooms/${this.roomId}/maps`, this.formData)
-      location.href = `/rooms/${this.roomId}`
+      const response = await api.actions.create('/api/rooms', this.formData)
+      if (response !== 'error') location.href = `/rooms/${response.data.id}`
     }
   },
   updated() {
-    tags.loadingFilter(this.isLoading)
+    visuals.loadingFilter(this.isLoading)
   }
 }
 </script>

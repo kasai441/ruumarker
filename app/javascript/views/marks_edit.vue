@@ -58,7 +58,7 @@ import DescriptionEdit from '../components/description_edit.vue'
 import LocationEdit from '../components/location_edit.vue'
 import ModelUpdate from '../components/model_update.vue'
 import params from '../modules/params'
-import tags from '../modules/tags'
+import visuals from '../modules/visuals'
 
 export default {
   name: 'MarksEdit',
@@ -113,7 +113,7 @@ export default {
     this.mapFormData = params.initFormData(this.map)
   },
   updated() {
-    tags.loadingFilter(this.isLoading)
+    visuals.loadingFilter(this.isLoading)
   }
 }
 </script>

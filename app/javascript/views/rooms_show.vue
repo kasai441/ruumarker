@@ -74,7 +74,7 @@ export default {
     async createMark(e) {
       tags.parent('A', e.target).classList.add('animate-fadeout')
       const response = await api.actions.create(`/api/rooms/${this.roomId}/marks`)
-      location.href = `/rooms/${this.roomId}/marks/${response.data['id']}/edit`
+      if (response !== 'error') location.href = `/rooms/${this.roomId}/marks/${response.data['id']}/edit`
     },
     scrollAbove() {
       window.scrollTo({

@@ -3,5 +3,5 @@ import '@hotwired/turbo-rails'
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 
-import './modules.js'
+import './peripherals.js'
 import './views.js'

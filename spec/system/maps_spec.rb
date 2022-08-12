@@ -8,7 +8,7 @@ describe 'マップ管理機能', type: :system do
 
   describe '新規作成機能' do
     before do
-      visit new_map_path
+      visit new_room_path
     end
 
     context '画像をアップロードしたとき' do

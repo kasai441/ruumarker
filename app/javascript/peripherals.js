@@ -1,26 +1,26 @@
-import tags from './modules/tags'
+import visuals from './modules/visuals'
 
 window.addEventListener('popstate', () => {
-  tags.browserBack()
+  visuals.browserBack()
 })
 
 const homeIndex = document.getElementById('home-index')
 const helpIndex = document.getElementById('help-index')
 if (homeIndex || helpIndex) {
-  tags.homeTop()
-  tags.displayHome()
+  visuals.homeTop()
+  visuals.displayHome()
 } else {
-  tags.displayHelp()
+  visuals.displayHelp()
 }
 
 const roomsShow = document.getElementById('rooms-show')
 if (roomsShow) {
   const roomId = roomsShow.getAttribute('room_id')
-  tags.displayPrint(roomId)
+  visuals.displayPrint(roomId)
 }
 
 const mapsEdit = document.getElementById('maps-edit')
 const marksEdit = document.getElementById('marks-edit')
 if (mapsEdit || marksEdit) {
-  tags.preventSafariAddressBarPop()
+  visuals.preventSafariAddressBarPop()
 }

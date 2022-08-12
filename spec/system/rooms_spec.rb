@@ -17,14 +17,11 @@ describe 'ルーム管理機能', type: :system do
     end
 
     context '「入居時チェック表を作る」ボタンを押したとき' do
-      let!(:ex_rooms_count) { Room.all.count }
-
       before do
         find_by_id('create-room').click
       end
 
-      it 'ルームが作成されてマップアップロード画面に遷移する' do
-        expect(Room.all.count).to eq ex_rooms_count + 1
+      it 'マップアップロード画面に遷移する' do
         expect(page).to have_selector '#preview-image'
         expect(preview[:src]).to include 'sample_map.png'
         expect(page).to have_selector 'h2', text: '間取り画像のアップロード'
