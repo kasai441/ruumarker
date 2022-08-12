@@ -5,7 +5,6 @@ class HomeController < ApplicationController
     room_id = cookies.signed[:room_id]
     return unless room_id
 
-    room = Room.find(room_id)
-    redirect_to room
+    redirect_to room_path room_id
   end
 end
