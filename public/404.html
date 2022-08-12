@@ -6,16 +6,16 @@
   <title>ご指定のページが見つかりません</title>
   <style type="text/css">
     * {
-        margin: 0;
-        padding: 0;
+      margin: 0;
+      padding: 0;
     }
 
     html {
-        box-sizing: border-box;
-        color: #333;
-        font-family: arial, sans-serif;
-        line-height: 1;
-        font-size: 100%;
+      box-sizing: border-box;
+      color: #333;
+      font-family: arial, sans-serif;
+      line-height: 1;
+      font-size: 100%;
     }
 
     body {
@@ -41,6 +41,13 @@
       border-bottom: solid 1px #ddd;
       padding: 1em;
       font-size: 1.125rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .error-message__logo {
+      width: 4rem;
     }
 
     .error-message__title {
@@ -76,6 +83,22 @@
     .error-message__body p:last-child {
       margin-bottom: 0;
     }
+
+    .error-message__expired {
+      padding: 1em;
+      margin: 1em;
+      border: solid 2px #65a30d;
+      border-radius: .25rem;
+    }
+
+    .error-message__expired .error-message__expired_title {
+      font-weight: 900;
+    }
+
+    .error-message__expired a {
+      color: #65a30d;
+    }
+
   </style>
 </head>
 
@@ -84,11 +107,17 @@
   <div class="container">
     <div class="error-message">
       <header class="error-message__header">
-          <h1 class="error-message__title">ご指定のページが見つかりません</h1>
+        <img class="error-message__logo" src="logo.png">
+        <h1 class="error-message__title">ご指定のページが見つかりません</h1>
       </header>
       <div class="error-message__body">
         <p class="error-message__number">404: Not Found</p>
         <p>お探しのページは一時的にアクセスができない状況にあるか、移動もしくは削除された可能性があります。また、URL、ファイル名にタイプミスがないか再度ご確認ください。</p>
+      </div>
+      <div class="error-message__body error-message__expired">
+        <p class="error-message__expired_title">データ期限削除</p>
+        <p>期限経過によってデータが削除された可能性があります。新しく別のデータを作成するには、以下のページにアクセスしてください。</p>
+        <a href="https://ruumarker.herokuapp.com/rooms/new">新しくデータを作成</a>
       </div>
     </div>
   </div>
