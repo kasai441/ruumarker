@@ -12,10 +12,10 @@ html
   body.bg-white
     div#loading-filter.fixed.z-30.w-full.h-full.bg-white/50.hidden
     div#screen-scroll
-      div#title-bar.fixed.z-20.w-full.py-1.px-4.border-b.border-slate-900/10.flex.justify-center.items-center.bg-white
+      div#title-bar.fixed.z-20.w-full.px-4.border-b.border-slate-900/10.flex.justify-center.items-center.bg-white
         div.main-screen.flex.justify-between.items-center
-          = link_to root_path, id: "title-logo", class: "flex items-center", data: { turbo: false }
-            = image_tag "ruumarker.png", size: "160", alt: "ruumarker.png", class: "my-2.5"
+          = link_to root_path, id: "title-logo", class: "flex items-center h-16", data: { turbo: false }
+            = image_tag "ruumarker.png", size: "160", alt: "ruumarker.png", class: "my-2.5 w-32 sm:w-40"
           div.flex
             a#download.hidden.btn.btn-lime.py-0.px-1.sm:px-5.mx-1.sm:mx-6
               div.flex.flex-col.items-center
@@ -26,7 +26,7 @@ html
               p.font-btn.text-xs.sm:text-sm
                 |HELP
               = image_tag "help.png", size: "30x30", alt: "help.png", class: "mx-2 opacity-40"
-            = link_to 'HOME', root_path, id: "home", class: "btn btn-outline hidden", data: { turbo: false }
+            = link_to 'チェック表作成', root_path, id: "home", class: "btn btn-outline p-1 sm:p-2 hidden", data: { turbo: false }
       div#title-bar-space.h-16
       div#alert.fixed.z-20.alert.alert-error.mt-2.hidden
       = yield

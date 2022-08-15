@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'ヘルプ機能', type: :system do
-  describe 'HOMEボタン機能' do
+  describe 'チェック表作成ボタン機能' do
     before do
       visit help_index_path
     end
@@ -11,9 +11,9 @@ describe 'ヘルプ機能', type: :system do
     context 'タイトルバーにて' do
       let(:title_bar) { find_by_id('title-bar') }
 
-      it 'HOMEボタンが表示されてHELPボタンが表示されない' do
+      it 'チェック表作成ボタンが表示されてHELPボタンが表示されない' do
         within(title_bar) do
-          expect(page).to have_content 'HOME'
+          expect(page).to have_content 'チェック表作成'
           expect(page).not_to have_content 'HELP'
         end
       end

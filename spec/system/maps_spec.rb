@@ -75,9 +75,9 @@ describe 'マップ管理機能', type: :system do
     context 'タイトルバーにて' do
       let(:title_bar) { find_by_id('title-bar') }
 
-      it 'HOMEボタンが表示されずにHELPボタンが表示される' do
+      it 'チェック表作成ボタンが表示されずにHELPボタンが表示される' do
         within(title_bar) do
-          expect(page).not_to have_content 'HOME'
+          expect(page).not_to have_content 'チェック表作成'
           expect(page).to have_content 'HELP'
         end
       end
@@ -201,9 +201,9 @@ describe 'マップ管理機能', type: :system do
     context 'タイトルバーにて' do
       let(:title_bar) { find_by_id('title-bar') }
 
-      it 'HOMEボタンが表示されずにHELPボタンが表示される' do
+      it 'チェック表作成ボタンが表示されずにHELPボタンが表示される' do
         within(title_bar) do
-          expect(page).not_to have_content 'HOME'
+          expect(page).not_to have_content 'チェック表作成'
           expect(page).to have_content 'HELP'
         end
       end
