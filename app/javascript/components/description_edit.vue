@@ -1,6 +1,6 @@
 <template>
   <section id="description-edit">
-    <div class="form-control w-full px-4">
+    <div class="form-control w-full px-1">
       <input type="text" placeholder="キズ概要" v-model="description"
              @blur="emitData" id="edit-description"
              :maxlength="maxLength"
