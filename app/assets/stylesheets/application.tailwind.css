@@ -50,16 +50,16 @@
         @apply py-4 text-2xl font-bold;
     }
     .font-help-h3 {
-        @apply pb-4 text-lg font-bold;
+        @apply pb-1 text-lg font-bold;
     }
     .font-help-sm {
-        @apply pb-4 sm:px-8 text-sm text-zinc-600;
+        @apply pb-4 sm:px-2 text-sm text-zinc-600;
     }
     .font-help-link {
         @apply sm:pr-8 text-lime-600
     }
     .help-image {
-        @apply mt-4 mb-6 px-4 w-field rounded-lg bg-slate-900 flex justify-center;
+        @apply mt-4 mb-6 px-4 w-full rounded-lg bg-slate-900 flex justify-center;
     }
     .btn-lime {
         @apply py-3 px-5 bg-lime-600 text-white font-semibold rounded-lg shadow-md hover:bg-lime-500 border-none;
