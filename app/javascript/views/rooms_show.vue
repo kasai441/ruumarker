@@ -15,10 +15,10 @@
         <locators-index :room-id="roomId" :locators="marks" locators-model="mark"></locators-index>
       </div>
       <div v-else class="w-field h-28 rounded-lg bg-slate-100 flex justify-center items-center">
-        キズを追加できます
+        <a class="btn btn-lime" @click='createMark'>キズを追加できます</a>
       </div>
     </div>
-    <a id="create-mark" @click='createMark'
+    <a v-if="marksPresent" id="create-mark" @click='createMark'
        class="new-mark fixed z-10 flex flex-col items-center">
       <img src="/new_mark.png" width="50">
       <svg viewBox="0 0 58 17" width="58" height="17">
