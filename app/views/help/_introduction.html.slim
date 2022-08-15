@@ -16,8 +16,8 @@ p.pl-11.pb-2 まずは部屋の間取り図を用意してください。スマ�
 p.pl-7.text-lg ２. チェック表を作成
 p.pl-11.pb-2「入居時チェック表を作成する」からチェック表作成を始めます。作成手順に沿って、間取り図にキズ情報を加えていきます。
 p.pl-7.text-lg ３. 大家さんに提出
-p.pl-11.pb-6 管理人や不動産会社にキズがあった旨を伝えて、チェック表を提出しましょう。
-
-div.px-2.sm:px-9
-  div.flex.justify-center
-    = image_tag 'help/pdf_example.png', width: '300', alt: 'help/pdf_example.png'
+p.pl-11.pb-2 管理人や不動産会社にキズがあった旨を伝えて、チェック表を提出しましょう。
+div.px-2.pb-6.flex.justify-center
+  = link_to '/pdf_example.pdf', data: { turbo: false }, class: 'p-2 ml-8 border border-lime-400 rounded-lg'
+    = image_tag 'help/pdf_example.png', alt: 'help/pdf_example.png', class: 'rounded-lg'
+    div.text-center.text-lime-600 PDF見本
