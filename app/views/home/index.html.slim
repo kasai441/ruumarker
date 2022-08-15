@@ -12,7 +12,8 @@ div#home-index.flex.justify-center
           |新居の壁紙にキズがあったらすぐに大家さんに報告しましょう。
           br Ruumarkerはキズの報告のための入居時チェック表をつくることができます。
       div.p-6
-        div.flex.flex-auto
+        div.flex.flex-col.items-center
+          p.font-help-sm.pb-1 手元に間取り図を用意して
           = link_to '入居時チェック表を作る', new_room_path, id: "create-room", class: "btn btn-lime", data: { turbo: false }
 
     = render partial: 'help/introduction'
