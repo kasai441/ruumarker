@@ -24,7 +24,7 @@ describe 'ホーム機能', type: :system do
         visit root_path
       end
 
-      it '1度目につくったルームにリダイレクトされる' do
+      it '1度目に作ったルームにリダイレクトされる' do
         expect(page).to have_selector 'h2', text: '入居時チェック表'
         expect(show_image[:src]).to include 'test_image.jpg'
       end
