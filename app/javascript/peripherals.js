@@ -5,11 +5,15 @@ window.addEventListener('popstate', () => {
 })
 
 const homeIndex = document.getElementById('home-index')
-const helpIndex = document.getElementById('help-index')
-if (homeIndex || helpIndex) {
+if (homeIndex) {
   visuals.homeTop()
+}
+const helpIndex = document.getElementById('help-index')
+if (helpIndex) {
   visuals.displayHome()
-} else {
+}
+
+if (!homeIndex && !helpIndex) {
   visuals.displayHelp()
 }
 
