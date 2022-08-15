@@ -4,6 +4,9 @@
 
 @layer components {
     .main-screen {
+        @apply min-w-68 w-90vw md:w-168;
+    }
+    .edit-screen {
         @apply min-w-68 w-84vw md:w-168;
     }
     .w-field {

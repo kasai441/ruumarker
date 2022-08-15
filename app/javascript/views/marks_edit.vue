@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="flex justify-center">
-      <div class="pt-6 flex flex-col items-center main-screen">
+      <div class="pt-6 flex flex-col items-center edit-screen">
         <div class="w-full relative flex flex-row items-center">
           <div class="w-full flex justify-center items-center relative">
             <img src="/locators.png" style="width: 40px; height: 40px" class="relative">

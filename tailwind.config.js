@@ -21,6 +21,7 @@ module.exports = {
         '30vw': '30vw',
         '78vw': '78vw',
         '84vw': '84vw',
+        '90vw': '90vw'
       },
       minWidth: {
         '68': '17rem'
