@@ -15,15 +15,15 @@
         <locators-index :room-id="roomId" :locators="marks" locators-model="mark"></locators-index>
       </div>
       <div v-else class="w-field h-28 rounded-lg bg-slate-100 flex justify-center items-center">
-        <a class="btn btn-lime" @click='createMark'>キズを追加できます</a>
+        <a class="btn btn-lime" @click='createMark'>キズを登録できます</a>
       </div>
     </div>
     <a v-if="marksPresent" id="create-mark" @click='createMark'
        class="new-mark fixed z-10 flex flex-col items-center">
       <img src="/new_mark.png" width="50">
       <svg viewBox="0 0 58 17" width="58" height="17">
-        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn font-bg">キズ追加</text>
-        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn fill-lime-600">キズ追加</text>
+        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn font-bg">キズ登録</text>
+        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn fill-lime-600">キズ登録</text>
       </svg>
     </a>
     <a id="scroll-above" @click='scrollAbove'

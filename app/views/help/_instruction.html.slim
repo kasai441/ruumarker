@@ -4,7 +4,7 @@ h2#instruction.anchor.font-help-h2
 div.w-full.flex.flex-col.bg-white
   = link_to '１．間取り画像のアップロード', help_index_path + '#upload', class: 'font-help-link'
   = link_to '２．間取り図の編集', help_index_path + '#map', class: 'font-help-link'
-  = link_to '３．キズ情報の追加', help_index_path + '#mark', class: 'font-help-link'
+  = link_to '３．キズ情報の登録', help_index_path + '#mark', class: 'font-help-link'
   = link_to '４．PDFのダウンロード', help_index_path + '#report', class: 'font-help-link'
   = link_to '５．継続編集', help_index_path + '#url', class: 'font-help-link'
   = link_to '６．データを送る', help_index_path + '#send', class: 'font-help-link'
@@ -61,12 +61,12 @@ div.pt-6
     = image_tag 'help/map_rotation.png', width: '300', alt: 'help/map_rotation.png'
 
   h3#mark.font-help-h3.anchor
-    |３．キズ情報の追加
+    |３．キズ情報の登録
 
   div.help-image
     = video_tag '/videos/edit_mark.mp4', controls: :true, muted: :true, width: '300', alt: '/videos/edit_mark.mp4'
 
-  p 3-1. 「キズ追加」をタップすると、新たなキズ情報を追加できます。キズ情報は、概要・画像・位置について編集できます。
+  p 3-1. 「キズ登録」をタップすると、新たなキズ情報を登録できます。キズ情報は、概要・画像・位置について編集できます。
   div.help-image
     = image_tag 'help/new_mark.png', width: '300', alt: 'help/new_mark.png'
 

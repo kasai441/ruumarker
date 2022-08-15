@@ -14,7 +14,7 @@ describe 'キズ管理機能', type: :system do
       visit room_path(room1)
     end
 
-    context '「キズ追加ボタン」を押したとき' do
+    context '「キズ登録ボタン」を押したとき' do
       let!(:ex_marks_count) { Mark.all.count }
 
       before do
