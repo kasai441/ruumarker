@@ -123,7 +123,8 @@ describe 'ルーム管理機能', type: :system do
     context 'フッターにて' do
       it 'キズを登録するボタン、チェック表を印刷するボタンが表示される' do
         expect(page).to have_content 'キズを登録する'
-        expect(page).to have_content 'チェック表を印刷する'
+        expect(page).to have_content 'チェック表を'
+        expect(page).to have_content '印刷する'
       end
     end
 

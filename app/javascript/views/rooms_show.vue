@@ -20,7 +20,7 @@
         <a id="create-mark" class="btn btn-lime" @click='createMark'>キズを登録できます</a>
       </div>
     </div>
-    <div v-if="marksPresent" class="show-footer fixed z-10 p-4 flex justify-center">
+    <div v-if="marksPresent" class="show-footer fixed z-10 p-4 sm:pt-5 flex justify-center">
       <div class="main-screen flex justify-center">
         <div class="w-1/2">
           <div class="pr-1">
@@ -29,7 +29,14 @@
         </div>
         <div class="w-1/2">
           <div class="pl-1">
-            <a id="download" @click='download' class="w-full btn btn-lime">チェック表を印刷する</a>
+            <a id="download" @click='download' class="w-full btn btn-lime">
+              <div class="sm:hidden">
+                チェック表を<br>印刷する
+              </div>
+              <div class="hidden sm:block">
+                チェック表を印刷する
+              </div>
+            </a>
           </div>
         </div>
       </div>
