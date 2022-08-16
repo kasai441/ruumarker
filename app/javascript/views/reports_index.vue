@@ -21,7 +21,7 @@
       <a class="text-sm text-lime-600" @pointerdown="help">各ブラウザのPDF出力方法</a>
     </div>
     <div class="fixed relative h-32 sm:h-24 print:hidden"></div>
-    <div class="fixed z-10 px-4 print:hidden">
+    <div class="fixed z-10 px-4 ext-sm text-slate-500 print:hidden">
       <p>＜印刷プレビュー＞</p>
     </div>
     <div class="w-full pt-4 px-8">
@@ -43,6 +43,11 @@
         <p class="font-p pb-2">間取り図の各番号の詳細情報は以下の通りです。</p>
         <locators-index :room-id="roomId" :locators="marks" locators-model="mark"
                         :print-mode="true"></locators-index>
+      </div>
+    </div>
+    <div class="show-footer fixed z-10 p-4 sm:pt-5 flex justify-center">
+      <div @pointerdown="print" class="w-1/2 btn btn-lime">
+        print
       </div>
     </div>
   </section>
