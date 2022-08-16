@@ -43,6 +43,11 @@ const displayPrint = roomId => {
   })
 }
 
+const hidePrint = () => {
+  const download = document.getElementById('download')
+  download.classList.add('hidden')
+}
+
 const hideBars = () => {
   const titleBar = document.getElementById('title-bar')
   titleBar.classList.add('hidden')
@@ -90,6 +95,7 @@ export default {
   displayHome,
   displayHelp,
   displayPrint,
+  hidePrint,
   hideBars,
   preventSafariAddressBarPop,
   browserBack,
