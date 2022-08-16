@@ -20,14 +20,28 @@
         <a id="create-mark" class="btn btn-lime" @click='createMark'>キズを登録できます</a>
       </div>
     </div>
-    <a v-if="marksPresent" id="add-mark" @click='createMark'
-       class="new-mark fixed z-10 flex flex-col items-center">
-      <img src="/new_mark.png" width="50">
-      <svg viewBox="0 0 58 17" width="58" height="17">
-        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn font-bg">キズ登録</text>
-        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn fill-lime-600">キズ登録</text>
-      </svg>
-    </a>
+    <div v-if="marksPresent" class="show-footer fixed z-10 p-4 flex justify-center">
+      <div class="main-screen flex justify-center">
+        <div class="w-1/2">
+          <div class="pr-1">
+            <a id="add-mark" @click='createMark' class="w-full btn btn-lime">キズを登録する</a>
+          </div>
+        </div>
+        <div class="w-1/2">
+          <div class="pl-1">
+            <a id="add-mark" @click='createMark' class="w-full btn btn-lime">チェック表を印刷する</a>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--    <a v-if="marksPresent" id="add-mark" @click='createMark'-->
+<!--       class="new-mark fixed z-10 flex flex-col items-center">-->
+<!--      <img src="/new_mark.png" width="50">-->
+<!--      <svg viewBox="0 0 58 17" width="58" height="17">-->
+<!--        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn font-bg">キズ登録</text>-->
+<!--        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn fill-lime-600">キズ登録</text>-->
+<!--      </svg>-->
+<!--    </a>-->
     <a id="scroll-above" @click='scrollAbove'
        class="scroll-above hidden fixed z-10 flex flex-col items-center mt-3">
       <a class="btn btn-sm text-2xl pt-1 opacity-60">^</a>

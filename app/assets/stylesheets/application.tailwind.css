@@ -76,6 +76,9 @@
     .new-mark {
         @apply top-76vh left-80vw lg:left-max;
     }
+    .show-footer {
+        @apply w-full h-48 top-86vh bg-white border-t border-slate-900/10
+    }
     .scroll-above {
         @apply top-76vh left-mid;
     }

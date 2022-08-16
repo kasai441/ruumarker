@@ -39,6 +39,7 @@ module.exports = {
       },
       inset: {
         '76vh': 'calc(76vh)',
+        '86vh': 'calc(86vh)',
         '80vw': 'calc(80vw)',
         'max': 'calc(50vw + 21rem)',
         'mid': 'calc(50vw - 1rem)',
