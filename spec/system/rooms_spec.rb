@@ -111,17 +111,40 @@ describe 'ルーム管理機能', type: :system do
 
     context 'タイトルバーにて' do
       let(:title_bar) { find_by_id('title-bar') }
+
       it 'チェック表作成ボタンが表示されずにHELPボタンが表示される' do
         within(title_bar) do
           expect(page).not_to have_content 'チェック表作成'
           expect(page).to have_content 'HELP'
         end
       end
+    end
 
-      it 'PRINTボタンが表示される' do
-        within(title_bar) do
-          expect(page).to have_content 'PRINT'
+    context 'フッターにて' do
+      it 'キズを登録するボタン、チェック表を印刷するボタンが表示される' do
+        expect(page).to have_content 'キズを登録する'
+        expect(page).to have_content 'チェック表を印刷する'
+      end
+    end
+
+    context 'キズ削除してキズ登録ない状態にしたとき' do
+      before do
+        within(find_by_id("mark-#{mark1.id}")) do
+          page.accept_confirm do
+            find('.delete-locators').click
+          end
         end
+
+        within(find_by_id("mark-#{mark2.id}")) do
+          page.accept_confirm do
+            find('.delete-locators').click
+          end
+        end
+      end
+
+      it 'キズを登録するボタン、チェック表を印刷するボタンが表示されない' do
+        expect(page).not_to have_content 'キズを登録する'
+        expect(page).not_to have_content 'チェック表を印刷する'
       end
     end
   end

@@ -17,12 +17,6 @@ if (!homeIndex && !helpIndex) {
   visuals.displayHelp()
 }
 
-const roomsShow = document.getElementById('rooms-show')
-if (roomsShow) {
-  const roomId = roomsShow.getAttribute('room_id')
-  visuals.displayPrint(roomId)
-}
-
 const mapsEdit = document.getElementById('maps-edit')
 const marksEdit = document.getElementById('marks-edit')
 if (mapsEdit || marksEdit) {

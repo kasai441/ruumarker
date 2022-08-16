@@ -358,8 +358,8 @@ describe 'キズ管理機能', type: :system do
     context 'キズ一覧の中からあるキズを削除する' do
       before do
         visit room_path(room1)
-        page.accept_confirm do
-          within("#mark-#{mark1.id}") do
+        within("#mark-#{mark1.id}") do
+          page.accept_confirm do
             find('.delete-locators').click
           end
         end
