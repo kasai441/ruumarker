@@ -1,13 +1,15 @@
 <template>
   <section>
     <div class="flex flex-col items-center">
-      <div class="w-field flex justify-between items-center">
+      <div class="main-screen flex justify-between items-center">
         <h2 id="room-title" class="font-h2 pb-2">入居時チェック表</h2>
         <p class="pt-3 text-xs sm:text-sm text-zinc-700 text-right">{{ createdAt }} 作成</p>
       </div>
-      <p class="w-field text-xs sm:text-sm text-zinc-500">※ URLにアクセスすれば編集閲覧が可能です</p>
-      <p class="w-field text-xs sm:text-sm text-zinc-500">※ URLは秘密情報として保管してください</p>
-      <p class="w-field text-xs sm:text-sm text-zinc-500 pb-2">※ 作成から約10日で全データが自動削除されます</p>
+      <div class="main-screen">
+        <p class="text-xs sm:text-sm text-zinc-500">※ URLにアクセスすれば編集閲覧が可能です</p>
+        <p class="text-xs sm:text-sm text-zinc-500">※ URLは秘密情報として保管してください</p>
+        <p class="text-xs sm:text-sm text-zinc-500 pb-2">※ 作成から約10日で全データが自動削除されます</p>
+      </div>
       <image-show :room-id="roomId" :form-data="formData"
                   locators-model="mark" :locators-json="marks"
                   @emit-form-data="getFormData"></image-show>

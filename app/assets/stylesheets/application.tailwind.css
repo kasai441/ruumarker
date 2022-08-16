@@ -15,6 +15,12 @@
     .h-field {
         @apply h-78vw2/3 md:h-96;
     }
+    .w-field-show {
+        @apply w-91vw md:w-168;
+    }
+    .h-field-show {
+        @apply h-91vw2/3 md:h-112;
+    }
     .w-thumbnail {
         @apply w-30vw md:w-48;
     }

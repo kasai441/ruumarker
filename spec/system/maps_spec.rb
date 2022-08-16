@@ -109,8 +109,8 @@ describe 'マップ管理機能', type: :system do
 
       it 'トリミングが保存され、詳細画面で反映されている' do
         left, top = pixel(find_by_id('show-image'), 'left', 'top')
-        expect(left).to be_within(1).of(42)
-        expect(top).to be_within(1).of(-25)
+        expect(left).to be_within(1).of(to_show_size(42))
+        expect(top).to be_within(1).of(to_show_size(-25))
       end
     end
 
@@ -160,8 +160,8 @@ describe 'マップ管理機能', type: :system do
 
       it '更新内容が反映される' do
         left, top = pixel(find_by_id('show-image'), 'left', 'top')
-        expect(left).to be_within(1).of(-27)
-        expect(top).to be_within(1).of(37)
+        expect(left).to be_within(1).of(to_show_size(-27))
+        expect(top).to be_within(1).of(to_show_size(37))
       end
     end
 
@@ -178,8 +178,8 @@ describe 'マップ管理機能', type: :system do
 
       it '上限のトリミング幅となる' do
         left, top = pixel(find_by_id('show-image'), 'left', 'top')
-        expect(left).to be_within(1).of(limitX)
-        expect(top).to be_within(1).of(limitY)
+        expect(left).to be_within(1).of(to_show_size(limitX))
+        expect(top).to be_within(1).of(to_show_size(limitY))
       end
     end
 
@@ -193,8 +193,8 @@ describe 'マップ管理機能', type: :system do
 
       it '下限のトリミング幅となる' do
         left, top = pixel(find_by_id('show-image'), 'left', 'top')
-        expect(left).to be_within(1).of(-limitX)
-        expect(top).to be_within(1).of(-limitY)
+        expect(left).to be_within(1).of(to_show_size(-limitX))
+        expect(top).to be_within(1).of(to_show_size(-limitY))
       end
     end
 

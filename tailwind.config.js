@@ -13,6 +13,7 @@ module.exports = {
     extend: {
       spacing: {
         '88': '22rem',
+        '112': '28rem',
         '132': '33rem',
         '144': '36rem',
         '168': '42rem'
@@ -21,7 +22,7 @@ module.exports = {
         '30vw': '30vw',
         '78vw': '78vw',
         '84vw': '84vw',
-        '90vw': '90vw'
+        '91vw': '91vw'
       },
       minWidth: {
         '68': '17rem'
@@ -32,7 +33,8 @@ module.exports = {
       },
       height: {
         '30vw2/3': 'calc(30vw * 2/3)',
-        '78vw2/3': 'calc(78vw * 2/3)'
+        '78vw2/3': 'calc(78vw * 2/3)',
+        '91vw2/3': 'calc(91vw * 2/3)'
       },
       inset: {
         '76vh': 'calc(76vh)',
