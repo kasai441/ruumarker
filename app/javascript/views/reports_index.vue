@@ -1,7 +1,6 @@
 <template>
   <section>
-    <div class="fixed w-full z-10
-    p-4 bg-black print:hidden">
+    <div class="fixed w-full z-10 py-4 bg-black print:hidden">
       <div class="w-show-field flex items-center">
         <a @pointerdown="room" class="w-1/6 text-xl text-slate-400 btn btn btn-ghost">＜</a>
         <h2 class="w-2/3 text-xl text-white text-center">PDF用レイアウト</h2>
@@ -12,17 +11,20 @@
     </div>
     <div class="fixed relative h-20 print:hidden"></div>
     <div class="fixed w-full z-10
-    p-2 px-8 bg-white border-b border-slate-900/20 print:hidden">
+    py-2 px-4 bg-white border-b border-slate-900/20 print:hidden">
       <p class="text-slate-700">
         「PRINT」から印刷ダイアログを表示してPDF出力を選択できます
       </p>
-      <p class="text-sm text-slate-500 pl-4">
+      <p class="text-sm text-slate-500">
         ※ ダイアログが出ない場合、手動でブラウザの印刷画面を開いてください
       </p>
-      <a class="text-sm text-lime-600 pl-6" @pointerdown="help">各ブラウザのPDF出力方法</a>
+      <a class="text-sm text-lime-600" @pointerdown="help">各ブラウザのPDF出力方法</a>
     </div>
-    <div class="fixed relative h-28 sm:h-20 print:hidden"></div>
-    <div class="w-full px-8">
+    <div class="fixed relative h-32 sm:h-24 print:hidden"></div>
+    <div class="fixed z-10 px-4 print:hidden">
+      <p>＜印刷プレビュー＞</p>
+    </div>
+    <div class="w-full pt-4 px-8">
       <div class="w-print-field py-6 pb-2 flex justify-between">
         <div class="flex flex-col">
           <h1 class="font-bold text-xl">入居時チェック表</h1>
