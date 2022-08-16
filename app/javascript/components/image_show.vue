@@ -1,9 +1,9 @@
 <template>
   <section id="image-show">
     <div id="show-field" @click="scrollTable($event)"
-         class="mb-4 w-field-show h-field-show rounded-lg relative border border-1 border-slate-300 overflow-hidden">
+         class="mb-4 w-show-field h-show-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
       <img :src="imageUrl" id="show-image"
-           class="rounded-lg absolute w-field-show h-field-show max-w-none
+           class="rounded-lg absolute w-show-field h-show-field max-w-none
            object-contain">
       <a v-if="!printMode" id="image-edit" @click='imageEdit'
            class="absolute z-10 flex flex-col items-center">
@@ -82,9 +82,9 @@ export default {
   },
   mounted() {
     if (this.printMode) {
-      const tags = document.getElementsByClassName('h-field')
+      const tags = document.getElementsByClassName('h-show-field')
       Array.prototype.forEach.call(tags, tag => {
-        tag.classList.remove('w-field', 'h-field')
+        tag.classList.remove('w-show-field', 'h-show-field')
         tag.classList.add('w-print-field', 'h-print-field')
       })
     }

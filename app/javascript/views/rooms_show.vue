@@ -16,7 +16,7 @@
       <div v-if="marksPresent">
         <locators-index :room-id="roomId" :locators="marks" locators-model="mark"></locators-index>
       </div>
-      <div v-else class="w-field h-28 rounded-lg bg-slate-100 flex justify-center items-center">
+      <div v-else class="w-show-field h-28 rounded-lg bg-slate-100 flex justify-center items-center">
         <a id="create-mark" class="btn btn-lime" @click='createMark'>キズを登録できます</a>
       </div>
     </div>

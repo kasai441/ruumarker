@@ -1,8 +1,8 @@
 <template>
   <section>
     <div class="fixed w-full z-10
-    p-4 px-8 bg-black print:hidden">
-      <div class="w-field flex items-center">
+    p-4 bg-black print:hidden">
+      <div class="w-show-field flex items-center">
         <a @pointerdown="room" class="w-1/6 text-xl text-slate-400 btn btn btn-ghost">＜</a>
         <h2 class="w-2/3 text-xl text-white text-center">PDF用レイアウト</h2>
         <div @pointerdown="print" class="w-1/6 btn btn-lime flex flex-auto py-0">

@@ -1,6 +1,6 @@
 <template>
   <section id="locators-index">
-    <div id="locators-rows" class="w-field"></div>
+    <div id="locators-rows" class="w-show-field"></div>
   </section>
 </template>
 
