@@ -136,7 +136,6 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.scroll)
     if (!this.marksPresent) visuals.hidePrint()
-    visuals.preventSafariAddressBarPop()
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.scroll)
