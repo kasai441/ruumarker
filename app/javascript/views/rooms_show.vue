@@ -97,7 +97,8 @@ export default {
       location.href = `/rooms/${this.roomId}/reports`
     },
     scrollAbove() {
-      window.scrollTo({
+      const screenScroll = document.getElementById('screen-scroll')
+      screenScroll.scrollTo({
         behavior: 'smooth',
         left: 0,
         top: 0
@@ -134,10 +135,14 @@ export default {
     this.createdAt = params.formatDate(JSON.parse(this.roomCreatedAt))
   },
   mounted() {
+    const screenScroll = document.getElementById('screen-scroll')
+    screenScroll.addEventListener('scroll', this.scroll)
     window.addEventListener('scroll', this.scroll)
     if (!this.marksPresent) visuals.hidePrint()
   },
   beforeDestroy() {
+    const screenScroll = document.getElementById('screen-scroll')
+    screenScroll.removeEventListener('scroll', this.scroll)
     window.removeEventListener('scroll', this.scroll)
   }
 }
