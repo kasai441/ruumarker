@@ -35,7 +35,8 @@ module.exports = {
       height: {
         '30vw2/3': 'calc(30vw * 2/3)',
         '78vw2/3': 'calc(78vw * 2/3)',
-        '91vw2/3': 'calc(91vw * 2/3)'
+        '91vw2/3': 'calc(91vw * 2/3)',
+        '24vh': 'calc(24vh)'
       },
       inset: {
         '76vh': 'calc(76vh)',
@@ -76,10 +77,6 @@ module.exports = {
         slideout: {
           '0%': { 'top': 'calc(76vh)' },
           '100%': { 'top': 'calc(100vh + 10rem)', }
-        },
-        slidedown: {
-          '0%': { 'top': 'calc(76vh)' },
-          '100%': { 'top': 'calc(86vh)', }
         }
       },
       screens: {

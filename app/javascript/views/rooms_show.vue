@@ -20,7 +20,7 @@
         <a id="create-mark" class="btn btn-lime" @click='createMark'>キズを登録できます</a>
       </div>
     </div>
-    <div v-if="marksPresent" id="show-footer" class="show-footer fixed z-10 p-4 sm:pt-5 flex justify-center">
+    <div v-if="marksPresent" id="show-footer" class="show-footer fixed z-10 p-4 sm:pt-5 flex justify-center border-t border-slate-900/10">
       <div class="main-screen flex justify-center">
         <div class="w-1/2">
           <div class="pr-1">
@@ -113,16 +113,6 @@ export default {
       } else {
         this.slideout()
       }
-
-      this.slideFooter()
-    },
-    slideFooter() {
-      const footer = document.getElementById('show-footer')
-      footer.classList.add('animate-slidedown')
-      setTimeout(() => {
-        footer.classList.remove('show-footer')
-        footer.classList.add('show-footer-low')
-      }, 500)
     },
     slidein() {
       const scrollAbove = document.getElementById('scroll-above')
@@ -146,6 +136,7 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.scroll)
     if (!this.marksPresent) visuals.hidePrint()
+    visuals.preventSafariAddressBarPop()
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.scroll)

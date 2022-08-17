@@ -26,7 +26,7 @@ export default {
         const number = document.createElement('div')
         const wNumber = this.printMode ? 'w-full' : 'w-1/12'
         const hNumber = this.printMode ? 'h-7' : 'h-auto'
-        number.classList.add(wNumber, hNumber, 'flex', 'justify-start', 'items-center', 'py-2')
+        number.classList.add(wNumber, hNumber, 'flex', 'justify-start', 'items-center', 'py-2', 'relative')
         number.append(elements[index])
 
         const thumbnail = document.createElement('div')

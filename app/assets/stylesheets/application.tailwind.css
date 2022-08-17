@@ -74,10 +74,7 @@
         @apply py-3 px-5 bg-lime-600 text-white font-semibold rounded-lg shadow-md hover:bg-lime-500 border-none shadow-none;
     }
     .show-footer {
-        @apply w-full h-36 top-76vh bg-white
-    }
-    .show-footer-low {
-        @apply w-full h-36 top-86vh bg-white
+        @apply w-full h-24vh top-76vh bg-white
     }
     .scroll-above {
         @apply top-76vh left-mid;
