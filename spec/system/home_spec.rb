@@ -24,7 +24,7 @@ describe 'ホーム機能', type: :system do
         visit root_path
       end
 
-      it '1度目につくったルームにリダイレクトされる' do
+      it '1度目に作ったルームにリダイレクトされる' do
         expect(page).to have_selector 'h2', text: '入居時チェック表'
         expect(show_image[:src]).to include 'test_image.jpg'
       end
@@ -33,9 +33,9 @@ describe 'ホーム機能', type: :system do
     context 'タイトルバーにて' do
       let(:title_bar) { find_by_id('title-bar') }
 
-      it 'HOMEボタンが表示されてHELPボタンが表示されない' do
+      it 'チェック表作成ボタンとHELPボタンが表示されない' do
         within(title_bar) do
-          expect(page).to have_content 'HOME'
+          expect(page).not_to have_content 'チェック表作成'
           expect(page).not_to have_content 'HELP'
         end
       end

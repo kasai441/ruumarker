@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="flex justify-center">
-      <div class="main-screen flex flex-col items-center">
+      <div class="edit-screen flex flex-col items-center">
         <div class="w-full mt-6 flex flex-col items-center overflow-hidden">
           <image-edit :form-data="formData" :locators-json="marks"
                       :is-loading="isLoading" @emit-form-data="getFormData"></image-edit>

@@ -77,12 +77,12 @@ describe 'ルーム管理機能', type: :system do
         w, h = pixel(find_by_id('show-image'), 'width', 'height')
 
         left, top = pixel(find_by_id("locator-#{mark1.id}"), 'left', 'top')
-        expect(left).to be_within(1).of(w / 2 - locator_radius - 11)
-        expect(top).to be_within(1).of(h / 2 - locator_radius + 21)
+        expect(left).to be_within(1).of(w / 2 - locator_radius - to_show_size(11))
+        expect(top).to be_within(1).of(h / 2 - locator_radius + to_show_size(21))
 
         left, top = pixel(find_by_id("locator-#{mark2.id}"), 'left', 'top')
-        expect(left).to be_within(1).of(w / 2 - locator_radius + 31)
-        expect(top).to be_within(1).of(h / 2 - locator_radius - 41)
+        expect(left).to be_within(1).of(w / 2 - locator_radius + to_show_size(31))
+        expect(top).to be_within(1).of(h / 2 - locator_radius - to_show_size(41))
       end
     end
 
@@ -104,24 +104,48 @@ describe 'ルーム管理機能', type: :system do
       it '画像の中でのキズの位置がキープされている（移動分＋トリミング分、動いている）' do
         w, h = pixel(find_by_id('show-image'), 'width', 'height')
         left, top = pixel(find_by_id("locator-#{mark1.id}"), 'left', 'top')
-        expect(left).to be_within(1).of(w / 2 - locator_radius + 52 - 32)
-        expect(top).to be_within(1).of(h / 2 - locator_radius - 42 - 22)
+        expect(left).to be_within(1).of(w / 2 - locator_radius + to_show_size(52 - 32))
+        expect(top).to be_within(1).of(h / 2 - locator_radius - to_show_size(42 + 22))
       end
     end
 
     context 'タイトルバーにて' do
       let(:title_bar) { find_by_id('title-bar') }
-      it 'HOMEボタンが表示されずにHELPボタンが表示される' do
+
+      it 'チェック表作成ボタンが表示されずにHELPボタンが表示される' do
         within(title_bar) do
-          expect(page).not_to have_content 'HOME'
+          expect(page).not_to have_content 'チェック表作成'
           expect(page).to have_content 'HELP'
         end
       end
+    end
 
-      it 'PRINTボタンが表示される' do
-        within(title_bar) do
-          expect(page).to have_content 'PRINT'
+    context 'フッターにて' do
+      it 'キズを登録するボタン、チェック表を印刷するボタンが表示される' do
+        expect(page).to have_content 'キズを登録する'
+        expect(page).to have_content 'チェック表を'
+        expect(page).to have_content '印刷する'
+      end
+    end
+
+    context 'キズ削除してキズ登録ない状態にしたとき' do
+      before do
+        within(find_by_id("mark-#{mark1.id}")) do
+          page.accept_confirm do
+            find('.delete-locators').click
+          end
         end
+
+        within(find_by_id("mark-#{mark2.id}")) do
+          page.accept_confirm do
+            find('.delete-locators').click
+          end
+        end
+      end
+
+      it 'キズを登録するボタン、チェック表を印刷するボタンが表示されない' do
+        expect(page).not_to have_content 'キズを登録する'
+        expect(page).not_to have_content 'チェック表を印刷する'
       end
     end
   end

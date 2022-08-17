@@ -34,15 +34,6 @@ const displayHelp = () => {
   })
 }
 
-const displayPrint = roomId => {
-  const download = document.getElementById('download')
-  download.classList.remove('hidden')
-  download.addEventListener('click', () => {
-    download.classList.add('animate-fadeout')
-    location.href = `/rooms/${roomId}/reports`
-  })
-}
-
 const hideBars = () => {
   const titleBar = document.getElementById('title-bar')
   titleBar.classList.add('hidden')
@@ -54,7 +45,7 @@ const hideBars = () => {
 
 const preventSafariAddressBarPop = () => {
   const div = document.getElementById('screen-scroll')
-  div.classList.add('overflow-scroll', 'h-screen')
+  div.classList.add('overflow-scroll', 'h-screen', 'print:h-auto')
 }
 
 const browserBack = () => {
@@ -72,7 +63,7 @@ const browserBack = () => {
 const alertError = message => {
   const alert = document.getElementById('alert')
   alert.innerText = message
-  alert.classList.add('alert', 'alert-error', 'mt-2')
+  alert.classList.remove('hidden')
 
   alert.addEventListener('click', fadeAlert)
 }
@@ -80,7 +71,7 @@ const alertError = message => {
 const fadeAlert = () => {
   const alert = document.getElementById('alert')
   alert.innerText = ''
-  alert.classList.remove('alert', 'alert-error', 'mt-2')
+  alert.classList.add('hidden')
 }
 
 export default {
@@ -89,7 +80,6 @@ export default {
   homeTop,
   displayHome,
   displayHelp,
-  displayPrint,
   hideBars,
   preventSafariAddressBarPop,
   browserBack,

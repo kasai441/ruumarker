@@ -5,22 +5,22 @@ window.addEventListener('popstate', () => {
 })
 
 const homeIndex = document.getElementById('home-index')
-const helpIndex = document.getElementById('help-index')
-if (homeIndex || helpIndex) {
+if (homeIndex) {
   visuals.homeTop()
+}
+const helpIndex = document.getElementById('help-index')
+if (helpIndex) {
   visuals.displayHome()
-} else {
-  visuals.displayHelp()
 }
 
-const roomsShow = document.getElementById('rooms-show')
-if (roomsShow) {
-  const roomId = roomsShow.getAttribute('room_id')
-  visuals.displayPrint(roomId)
+if (!homeIndex && !helpIndex) {
+  visuals.displayHelp()
 }
 
 const mapsEdit = document.getElementById('maps-edit')
 const marksEdit = document.getElementById('marks-edit')
-if (mapsEdit || marksEdit) {
+const roomsShow = document.getElementById('rooms-show')
+const reportsIndex = document.getElementById('reports-index')
+if (mapsEdit || marksEdit || roomsShow || reportsIndex) {
   visuals.preventSafariAddressBarPop()
 }

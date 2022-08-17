@@ -4,7 +4,7 @@ module ApplicationHelper
   def default_meta_tags # rubocop:disable Metrics/MethodLength
     {
       site: 'Ruumarkar',
-      title: '入居時チェック表',
+      title: '引っ越し時のキズ・汚れのチェック表作成サービス',
       reverse: true,
       charset: 'utf-8',
       description: '引っ越しをしたらすぐに、壁や床のキズや汚れを入居時チェック表にまとめて、大家さんに提出しましょう。',

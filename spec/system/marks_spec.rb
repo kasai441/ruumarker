@@ -14,7 +14,7 @@ describe 'キズ管理機能', type: :system do
       visit room_path(room1)
     end
 
-    context '「キズ追加ボタン」を押したとき' do
+    context '「キズ登録ボタン」を押したとき' do
       let!(:ex_marks_count) { Mark.all.count }
 
       before do
@@ -42,9 +42,9 @@ describe 'キズ管理機能', type: :system do
     context 'タイトルバーにて' do
       let(:title_bar) { find_by_id('title-bar') }
 
-      it 'HOMEボタンが表示されずにHELPボタンが表示される' do
+      it 'チェック表作成ボタンが表示されずにHELPボタンが表示される' do
         within(title_bar) do
-          expect(page).not_to have_content 'HOME'
+          expect(page).not_to have_content 'チェック表作成'
           expect(page).to have_content 'HELP'
         end
       end
@@ -358,8 +358,8 @@ describe 'キズ管理機能', type: :system do
     context 'キズ一覧の中からあるキズを削除する' do
       before do
         visit room_path(room1)
-        page.accept_confirm do
-          within("#mark-#{mark1.id}") do
+        within("#mark-#{mark1.id}") do
+          page.accept_confirm do
             find('.delete-locators').click
           end
         end

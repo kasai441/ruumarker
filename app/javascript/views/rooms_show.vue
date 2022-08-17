@@ -1,31 +1,46 @@
 <template>
   <section>
     <div class="flex flex-col items-center">
-      <div class="w-field flex justify-between items-center">
+      <div class="main-screen flex justify-between items-center">
         <h2 id="room-title" class="font-h2 pb-2">入居時チェック表</h2>
         <p class="pt-3 text-xs sm:text-sm text-zinc-700 text-right">{{ createdAt }} 作成</p>
       </div>
-      <p class="w-field text-xs sm:text-sm text-zinc-500">※ URLにアクセスすれば編集閲覧が可能です</p>
-      <p class="w-field text-xs sm:text-sm text-zinc-500">※ URLは秘密情報として保管してください</p>
-      <p class="w-field text-xs sm:text-sm text-zinc-500 pb-2">※ 作成から約10日で全データが自動削除されます</p>
+      <div class="main-screen">
+        <p class="text-xs sm:text-sm text-zinc-500">※ URLにアクセスすれば編集閲覧が可能です</p>
+        <p class="text-xs sm:text-sm text-zinc-500">※ URLは秘密情報として保管してください</p>
+        <p class="text-xs sm:text-sm text-zinc-500 pb-2">※ 作成から約10日で全データが自動削除されます</p>
+      </div>
       <image-show :room-id="roomId" :form-data="formData"
                   locators-model="mark" :locators-json="marks"
                   @emit-form-data="getFormData"></image-show>
       <div v-if="marksPresent">
         <locators-index :room-id="roomId" :locators="marks" locators-model="mark"></locators-index>
       </div>
-      <div v-else class="w-field h-28 rounded-lg bg-slate-100 flex justify-center items-center">
-        キズを追加できます
+      <div v-else class="w-show-field h-28 rounded-lg bg-slate-100 flex justify-center items-center">
+        <a id="create-mark" class="w-2/3 btn btn-lime" @click='createMark'>キズを登録できます</a>
       </div>
     </div>
-    <a id="create-mark" @click='createMark'
-       class="new-mark fixed z-10 flex flex-col items-center">
-      <img src="/new_mark.png" width="50">
-      <svg viewBox="0 0 58 17" width="58" height="17">
-        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn font-bg">キズ追加</text>
-        <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn fill-lime-600">キズ追加</text>
-      </svg>
-    </a>
+    <div v-if="marksPresent" id="show-footer" class="show-footer fixed z-10 p-4 sm:pt-5 flex justify-center border-t border-slate-900/10">
+      <div class="main-screen flex justify-center">
+        <div class="w-1/2">
+          <div class="pr-1">
+            <a id="add-mark" @click='createMark' class="w-full btn btn-lime">キズを登録する</a>
+          </div>
+        </div>
+        <div class="w-1/2">
+          <div class="pl-1">
+            <a id="download" @click='download' class="w-full btn btn-lime">
+              <div class="sm:hidden">
+                チェック表を<br>印刷する
+              </div>
+              <div class="hidden sm:block">
+                チェック表を印刷する
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
     <a id="scroll-above" @click='scrollAbove'
        class="scroll-above hidden fixed z-10 flex flex-col items-center mt-3">
       <a class="btn btn-sm text-2xl pt-1 opacity-60">^</a>
@@ -34,7 +49,7 @@
         <text x="3" y="0" dominant-baseline="text-before-edge" class="font-btn fill-slate-600">TOP</text>
       </svg>
     </a>
-    <div class="h-20"></div>
+    <div class="h-24"></div>
   </section>
 </template>
 
@@ -76,8 +91,13 @@ export default {
       const response = await api.actions.create(`/api/rooms/${this.roomId}/marks`)
       if (response !== 'error') location.href = `/rooms/${this.roomId}/marks/${response.data['id']}/edit`
     },
+    download(e) {
+      tags.parent('A', e.target).classList.add('animate-fadeout')
+      location.href = `/rooms/${this.roomId}/reports`
+    },
     scrollAbove() {
-      window.scrollTo({
+      const screenScroll = document.getElementById('screen-scroll')
+      screenScroll.scrollTo({
         behavior: 'smooth',
         left: 0,
         top: 0
@@ -114,10 +134,12 @@ export default {
     this.createdAt = params.formatDate(JSON.parse(this.roomCreatedAt))
   },
   mounted() {
-    window.addEventListener('scroll', this.scroll)
+    const screenScroll = document.getElementById('screen-scroll')
+    screenScroll.addEventListener('scroll', this.scroll)
   },
   beforeDestroy() {
-    window.removeEventListener('scroll', this.scroll)
+    const screenScroll = document.getElementById('screen-scroll')
+    screenScroll.removeEventListener('scroll', this.scroll)
   }
 }
 </script>

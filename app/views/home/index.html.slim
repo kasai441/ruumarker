@@ -1,20 +1,20 @@
 = render partial: 'help/contents'
 div#home-index.flex.justify-center
   div.main-screen
-    div.pt-12.sm:pt-14.lg:pt-16.flex.flex-col.items-center.text-center
-      div.text-3xl.sm:text-4xl.lg:text-5xl.font-extrabold
+    div.pt-12.sm:pt-14.lg:pt-16.flex.flex-col.items-center
+      h1.font-h1.leading-snug.text-center
         |引っ越したらすぐ
-        p チェック表を作ろう
-      div.py-1.px-4.sm:px-6.md:px-8.mt-6
-        code
+        br チェック表を作ろう
+      div.py-1.px-1.sm:px-0.mt-6
+        p.sm:hidden.text-start
+          |新居の壁紙にキズがあったらすぐに大家さんに報告しましょう。Ruumarkerはキズの報告のための入居時チェック表を作ることができます。
+        p.hidden.sm:block.sm:text-center
           |新居の壁紙にキズがあったらすぐに大家さんに報告しましょう。
-        code.text-lime-600.text-bold
-          |ruumarker
-        code
-          |はキズの報告のための入居時チェック表をつくることができます。
+          br Ruumarkerはキズの報告のための入居時チェック表を作ることができます。
       div.p-6
-        div.flex.flex-auto
-          = link_to '入居時チェック表を作る', new_room_path, id: "create-room", class: "btn btn-lime", data: { turbo: false }
+        div.flex.flex-col.items-center
+          p.font-help-sm.pb-1 手元に間取り図を用意して
+          = link_to '入居時チェック表を作る', new_room_path, id: "create-room", class: "btn btn-lime w-72", data: { turbo: false }
 
     = render partial: 'help/introduction'
 

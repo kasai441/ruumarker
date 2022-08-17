@@ -13,14 +13,17 @@ module.exports = {
     extend: {
       spacing: {
         '88': '22rem',
+        '112': '28rem',
         '132': '33rem',
         '144': '36rem',
+        '156': '39rem',
         '168': '42rem'
       },
       width: {
         '30vw': '30vw',
         '78vw': '78vw',
         '84vw': '84vw',
+        '91vw': '91vw'
       },
       minWidth: {
         '68': '17rem'
@@ -31,13 +34,15 @@ module.exports = {
       },
       height: {
         '30vw2/3': 'calc(30vw * 2/3)',
-        '78vw2/3': 'calc(78vw * 2/3)'
+        '78vw2/3': 'calc(78vw * 2/3)',
+        '91vw2/3': 'calc(91vw * 2/3)',
+        '24vh': 'calc(24vh)'
       },
       inset: {
         '76vh': 'calc(76vh)',
-        '80vw': 'calc(80vw)',
+        '86vh': 'calc(86vh)',
         'max': 'calc(50vw + 21rem)',
-        'mid': 'calc(50vw - 1rem)',
+        'mid': 'calc(50vw - 1.25rem)',
         'kana': '17px'
       },
       outlineWidth: {
@@ -52,7 +57,8 @@ module.exports = {
         select: 'select 2.5s ease 1',
         fadeout: 'fadeout 0.5s ease 1',
         slidein: 'slidein 0.5s ease 1',
-        slideout: 'slideout 0.5s ease 1'
+        slideout: 'slideout 0.5s ease 1',
+        slidedown: 'slidedown 0.5s ease 1'
       },
       keyframes: {
         select: {

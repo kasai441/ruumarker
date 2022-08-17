@@ -1,9 +1,9 @@
 <template>
   <section id="image-show">
     <div id="show-field" @click="scrollTable($event)"
-         class="mb-4 w-field h-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
+         class="mb-4 w-show-field h-show-field rounded-lg relative border border-1 border-slate-300 overflow-hidden">
       <img :src="imageUrl" id="show-image"
-           class="rounded-lg absolute w-field h-field max-w-none
+           class="rounded-lg absolute w-show-field h-show-field max-w-none
            object-contain">
       <a v-if="!printMode" id="image-edit" @click='imageEdit'
            class="absolute z-10 flex flex-col items-center">
@@ -69,7 +69,8 @@ export default {
         const row = document.getElementById(a.id.replace(regex, this.locatorsModel))
         row.classList.add('animate-select')
 
-        window.scrollTo({
+        const screenScroll = document.getElementById('screen-scroll')
+        screenScroll.scrollTo({
           behavior: 'smooth',
           left: 0,
           top: row.offsetTop - 100
@@ -82,9 +83,9 @@ export default {
   },
   mounted() {
     if (this.printMode) {
-      const tags = document.getElementsByClassName('h-field')
+      const tags = document.getElementsByClassName('h-show-field')
       Array.prototype.forEach.call(tags, tag => {
-        tag.classList.remove('w-field', 'h-field')
+        tag.classList.remove('w-show-field', 'h-show-field')
         tag.classList.add('w-print-field', 'h-print-field')
       })
     }
