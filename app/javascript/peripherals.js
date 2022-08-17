@@ -1,7 +1,5 @@
 import visuals from './modules/visuals'
 
-visuals.preventSafariAddressBarPop()
-
 window.addEventListener('popstate', () => {
   visuals.browserBack()
 })
@@ -17,4 +15,12 @@ if (helpIndex) {
 
 if (!homeIndex && !helpIndex) {
   visuals.displayHelp()
+}
+
+const mapsEdit = document.getElementById('maps-edit')
+const marksEdit = document.getElementById('marks-edit')
+const roomsShow = document.getElementById('rooms-show')
+const reportsIndex = document.getElementById('reports-index')
+if (mapsEdit || marksEdit || roomsShow || reportsIndex) {
+  visuals.preventSafariAddressBarPop()
 }
