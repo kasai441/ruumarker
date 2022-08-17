@@ -1,13 +1,13 @@
 <template>
   <section>
-    <div class="fixed w-full z-10 py-4 bg-black flex justify-center print:hidden">
+    <div class="fixed w-full z-10 py-1 bg-black flex justify-center print:hidden">
       <div class="w-show-field flex items-center">
         <a @pointerdown="room" class="w-1/6 text-xl text-slate-400 btn btn btn-ghost">＜</a>
         <h2 class="w-2/3 text-xl text-white text-center">PDF用レイアウト</h2>
         <div class="w-1/6"></div>
       </div>
     </div>
-    <div class="fixed relative h-20 print:hidden"></div>
+    <div class="fixed relative h-14 print:hidden"></div>
     <div class="fixed w-full z-10
     py-2 px-4 bg-white border-b border-slate-900/20 print:hidden">
       <p class="text-slate-700">
