@@ -1,9 +1,9 @@
 <template>
   <section>
     <div class="bg-slate-200 print:bg-white">
-      <div class="fixed w-full z-10 py-1 bg-black flex justify-center print:hidden">
+      <div class="fixed w-full z-10 py-1 bg-slate-800 flex justify-center print:hidden">
         <div class="w-show-field flex items-center">
-          <a @pointerdown="room" class="w-1/6 text-xl text-slate-400 btn btn btn-ghost">＜</a>
+          <a @pointerdown="room" class="w-1/6 text-xl text-slate-200 btn btn btn-ghost">＜</a>
           <h2 class="w-2/3 text-xl text-white text-center">PDF用レイアウト</h2>
           <div class="w-1/6"></div>
         </div>
@@ -51,9 +51,11 @@
       </div>
       <div class="relative z-10 h-24vh print:hidden"></div>
       <div class="relative z-10 h-8 print:hidden"></div>
-      <div class="show-footer fixed z-10 p-4 sm:pt-5 flex justify-center print:hidden">
-        <div @pointerdown="print" class="w-1/2 btn btn-lime">
-          print
+      <div class="show-footer fixed z-10 p-4 sm:pt-5 flex justify-center border-t border-slate-900/10  print:hidden">
+        <div class="main-screen flex justify-center">
+          <div @pointerdown="print" class="w-2/3 btn btn-lime">
+            print
+          </div>
         </div>
       </div>
 
