@@ -59,7 +59,6 @@ import LocatorsIndex from '../components/locators_index.vue'
 import api from '../modules/api'
 import params from '../modules/params'
 import tags from '../modules/tags'
-import visuals from '../modules/visuals'
 
 export default {
   name: 'RoomsShow',
