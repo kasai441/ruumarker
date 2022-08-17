@@ -45,7 +45,7 @@ const hideBars = () => {
 
 const preventSafariAddressBarPop = () => {
   const div = document.getElementById('screen-scroll')
-  div.classList.add('overflow-scroll', 'h-screen')
+  div.classList.add('overflow-scroll', 'h-screen', 'print:h-auto')
 }
 
 const browserBack = () => {
