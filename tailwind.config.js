@@ -56,7 +56,8 @@ module.exports = {
         select: 'select 2.5s ease 1',
         fadeout: 'fadeout 0.5s ease 1',
         slidein: 'slidein 0.5s ease 1',
-        slideout: 'slideout 0.5s ease 1'
+        slideout: 'slideout 0.5s ease 1',
+        slidedown: 'slidedown 0.5s ease 1'
       },
       keyframes: {
         select: {
@@ -75,6 +76,10 @@ module.exports = {
         slideout: {
           '0%': { 'top': 'calc(76vh)' },
           '100%': { 'top': 'calc(100vh + 10rem)', }
+        },
+        slidedown: {
+          '0%': { 'top': 'calc(76vh)' },
+          '100%': { 'top': 'calc(86vh)', }
         }
       },
       screens: {
