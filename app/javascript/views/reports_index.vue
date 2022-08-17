@@ -18,7 +18,7 @@
       <p class="text-sm text-slate-500">
         ※ ダイアログが出ない場合、手動でブラウザの印刷画面を開いてください
       </p>
-      <a class="text-sm text-lime-600" @pointerdown="help">各ブラウザのPDF出力方法</a>
+      <a class="text-sm text-lime-600 underline" @pointerdown="help">各ブラウザのPDF出力方法</a>
     </div>
     <div class="fixed relative h-32 sm:h-24 print:hidden"></div>
     <div class="fixed z-10 px-4 ext-sm text-slate-500 print:hidden">
