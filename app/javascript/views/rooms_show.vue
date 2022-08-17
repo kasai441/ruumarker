@@ -137,12 +137,10 @@ export default {
   mounted() {
     const screenScroll = document.getElementById('screen-scroll')
     screenScroll.addEventListener('scroll', this.scroll)
-    window.addEventListener('scroll', this.scroll)
   },
   beforeDestroy() {
     const screenScroll = document.getElementById('screen-scroll')
     screenScroll.removeEventListener('scroll', this.scroll)
-    window.removeEventListener('scroll', this.scroll)
   }
 }
 </script>
