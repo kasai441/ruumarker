@@ -58,7 +58,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </section>
 </template>
@@ -108,7 +107,9 @@ export default {
         top: 0
       })
 
-      window.print()
+      setTimeout(() => {
+        window.print()
+      }, 300)
     },
     help() {
       location.href = '/help#pdf'
