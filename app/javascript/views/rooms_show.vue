@@ -17,7 +17,7 @@
         <locators-index :room-id="roomId" :locators="marks" locators-model="mark"></locators-index>
       </div>
       <div v-else class="w-show-field h-28 rounded-lg bg-slate-100 flex justify-center items-center">
-        <a id="create-mark" class="btn btn-lime" @click='createMark'>キズを登録できます</a>
+        <a id="create-mark" class="w-2/3 btn btn-lime" @click='createMark'>キズを登録できます</a>
       </div>
     </div>
     <div v-if="marksPresent" id="show-footer" class="show-footer fixed z-10 p-4 sm:pt-5 flex justify-center border-t border-slate-900/10">
@@ -138,7 +138,6 @@ export default {
     const screenScroll = document.getElementById('screen-scroll')
     screenScroll.addEventListener('scroll', this.scroll)
     window.addEventListener('scroll', this.scroll)
-    if (!this.marksPresent) visuals.hidePrint()
   },
   beforeDestroy() {
     const screenScroll = document.getElementById('screen-scroll')

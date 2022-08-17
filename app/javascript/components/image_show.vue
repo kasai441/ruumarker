@@ -69,7 +69,8 @@ export default {
         const row = document.getElementById(a.id.replace(regex, this.locatorsModel))
         row.classList.add('animate-select')
 
-        window.scrollTo({
+        const screenScroll = document.getElementById('screen-scroll')
+        screenScroll.scrollTo({
           behavior: 'smooth',
           left: 0,
           top: row.offsetTop - 100
