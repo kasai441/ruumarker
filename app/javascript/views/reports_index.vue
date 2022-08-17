@@ -99,6 +99,13 @@ export default {
       location.href = `/rooms/${this.roomId}`
     },
     print() {
+      const screenScroll = document.getElementById('screen-scroll')
+      screenScroll.addEventListener('scroll', this.scroll)
+      screenScroll.scrollTo({
+        left: 0,
+        top: 0
+      })
+
       window.print()
     },
     help() {
