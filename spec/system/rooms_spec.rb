@@ -122,9 +122,12 @@ describe 'ルーム管理機能', type: :system do
 
     context 'フッターにて' do
       it 'キズを登録するボタン、チェック表を印刷するボタンが表示される' do
-        expect(page).to have_content 'キズを登録する'
-        expect(page).to have_content 'チェック表を'
-        expect(page).to have_content '印刷する'
+        expect(page).to have_selector '#show-footer'
+        within(find_by_id('show-footer')) do
+          expect(page).to have_content 'キズを登録する'
+          expect(page).to have_content 'チェック表を'
+          expect(page).to have_content '印刷する'
+        end
       end
     end
 
@@ -144,8 +147,7 @@ describe 'ルーム管理機能', type: :system do
       end
 
       it 'キズを登録するボタン、チェック表を印刷するボタンが表示されない' do
-        expect(page).not_to have_content 'キズを登録する'
-        expect(page).not_to have_content 'チェック表を印刷する'
+        expect(page).not_to have_selector '#show-footer'
       end
     end
   end
