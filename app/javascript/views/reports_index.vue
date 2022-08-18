@@ -109,7 +109,7 @@ export default {
 
       setTimeout(() => {
         window.print()
-      }, 300)
+      }, 2000)
     },
     help() {
       location.href = '/help#pdf'
