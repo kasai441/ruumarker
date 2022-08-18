@@ -36,9 +36,11 @@ module.exports = {
         '30vw2/3': 'calc(30vw * 2/3)',
         '78vw2/3': 'calc(78vw * 2/3)',
         '91vw2/3': 'calc(91vw * 2/3)',
-        '24vh': 'calc(24vh)'
+        '24vh': 'calc(24vh)',
+        '32vh': 'calc(32vh)'
       },
       inset: {
+        '68vh': 'calc(68vh)',
         '76vh': 'calc(76vh)',
         '86vh': 'calc(86vh)',
         'max': 'calc(50vw + 21rem)',
@@ -80,7 +82,8 @@ module.exports = {
         }
       },
       screens: {
-        'print': {'raw': 'print'}
+        'print': {'raw': 'print'},
+        'xs' : '340px'
       }
     }
   }
