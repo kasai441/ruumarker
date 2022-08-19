@@ -18,7 +18,7 @@
       </div>
     </label>
     <input type="file" id="file" name="upload-image"
-           accept="image/png,image/jpeg" @change="upload"
+           accept="image/png,image/jpeg,image/gif" @change="upload"
            class="hidden"
     />
   </section>
