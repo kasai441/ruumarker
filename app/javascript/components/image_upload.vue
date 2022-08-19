@@ -2,11 +2,7 @@
   <section id="image-upload">
     <label for="file"
            @pointerdown="loadable" @pointerup="loading">
-      <div v-if="formData" class="w-full flex flex-col items-center">
-        <p class="font-btn">アップロード</p>
-        <img src="/upload.png" width="40">
-      </div>
-      <div v-else>
+      <div v-if="isFirstUpload">
         <a class="btn btn-lime py-0 h-16">
           <div class="flex flex-col items-center">
             <p class="font-btn text-white">
@@ -15,6 +11,10 @@
             <img src="/upload_trans.png" width="40" height="40">
           </div>
         </a>
+      </div>
+      <div v-else class="w-full flex flex-col items-center">
+        <p class="font-btn">アップロード</p>
+        <img src="/upload.png" width="40">
       </div>
     </label>
     <input type="file" id="file" name="upload-image"
@@ -38,6 +38,7 @@ export default {
     return {
       isLoadable: false,
       isLoading: false,
+      isFirstUpload: true
     }
   },
   methods: {
@@ -85,6 +86,9 @@ export default {
       this.$emit('emitIsLoading', false)
       this.isLoading = false
     }
+  },
+  mounted() {
+    this.isFirstUpload = !this.formData
   }
 }
 </script>
